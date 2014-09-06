@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project default="build-exploded-ear" name="betteru">
+<project default="deploy-exploded-ear" name="betteru">
 	<property file="build-user.properties" />
 	<property file="build.properties" />
 
@@ -23,11 +23,11 @@
 	<target name="build-exploded-ejb-jar" depends="build">
 		<copy todir="${exploded.dir}/${ejb.name}.jar">
 			<fileset dir="${src.dir}">
-				<include name="META-INF/*"/>
-				<exclude name="**/application.xml"/>
+				<include name="META-INF/*" />
+				<exclude name="**/application.xml" />
 			</fileset>
 			<fileset dir="${classes.dir}">
-				<include name="**/*.class"/>
+				<include name="**/*.class" />
 			</fileset>
 		</copy>
 	</target>
@@ -36,7 +36,7 @@
           target: build-exploded-war              
          ================================= -->
 	<target name="build-exploded-war" depends="build">
-		<property name="war.loc" value="${exploded.dir}/${war.name}.war"/>
+		<property name="war.loc" value="${exploded.dir}/${war.name}.war" />
 
 		<copy todir="${war.loc}">
 			<fileset dir="${web.dir}">
@@ -45,10 +45,10 @@
 		</copy>
 		<copy todir="${war.loc}/WEB-INF/classes">
 			<fileset dir="${classes.dir}">
-				<include name="${beans.dir}/**/*.class"/>
+				<include name="${beans.dir}/**/*.class" />
 			</fileset>
 			<fileset dir="${resources.dir}">
-				<include name="**/*.properties"/>
+				<include name="**/*.properties" />
 			</fileset>
 
 		</copy>
@@ -68,9 +68,23 @@
 
 		<copy todir="${dist.dir}/${ear.name}.ear/lib">
 			<fileset dir="${lib.dir}">
-				<include name="**/*.jar"/>
+				<include name="**/*.jar" />
 			</fileset>
 		</copy>
+	</target>
+
+	<!-- ================================= 
+          target: deploy-exploded-ear              
+         ================================= -->
+	<target name="deploy-exploded-ear" depends="build-exploded-ear">
+		<copy todir="${wildfly.deployments.dir}">
+			<fileset dir="${dist.dir}">
+				<include name="${ear.name}.ear" />
+			</fileset>
+		</copy>
+
+		<touch file="${ear.name}.ear.dodeploy" />
+		<move file="${ear.name}.ear.dodeploy" todir="${wildfly.deployments.dir}" />
 	</target>
 
 </project>
