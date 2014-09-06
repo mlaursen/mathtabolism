@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project default="build" name="betteru">
-	<property file="build.properties" />
+<project default="build-exploded-ear" name="betteru">
 	<property file="build-user.properties" />
-
+	<property file="build.properties" />
+	
 	<path id="classpath">
 		<fileset dir="${lib.dir}" includes="**/*.jar" />
 		<fileset dir="${wildfly.modules.dir}" includes="**/*.jar" />
@@ -13,43 +13,32 @@
 	</target>
 
 	<target name="build">
-		<mkdir dir="${build.classes.dir}" />
-		<javac srcdir="${src.java.dir}" destdir="${build.classes.dir}" classpathref="classpath" includeantruntime="false" />
+		<mkdir dir="${classes.dir}" />
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath" includeantruntime="false" />
+	</target>
+
+	<!-- ================================= 
+          target: build-exploded-ejb-jar              
+         ================================= -->
+	<target name="build-exploded-ejb-jar" depends="build">
+		<copy todir="${exploded.dir}/${ejb.name}.jar">
+			<fileset dir="${src.dir}/META-INF">
+				<include name="**/*"/>
+				<exclude name="application.xml"/>
+			</fileset>
+			<fileset dir="${classes.dir}">
+				<include name="**/*.class"/>
+			</fileset>
+		</copy>
 	</target>
 	
-	<!-- ===================== -->
-	<!-- Creating EJB Jar      -->
-	<!-- ===================== -->
-	<target name="build-ejb-jar" depends="build">
-		<jar destfile="${build.dist.dir}/${ejb.jar}">
-			<manifest file="${source.java.dir}/META-INF/MANIFEST.MF" />
-			<fileset dir="${build.classes.dir}">
-				<filename name="**/*.class" />
-			</fileset>
-		</jar>
-	</target>
-	
+	<!-- ================================= 
+          target: build-exploded-ear              
+         ================================= -->
+    <target name="build-exploded-ear" depends="build-exploded-ejb-jar" description="description">
+        <copy todir="${dist.dir}/${ear.name}.ear">
+    		<fileset dir="${exploded.dir}" />
+        </copy>
+    </target>
 
-	<target name="create_jar" depends="build">
-		<jar destfile="${jar.name}" filesetmanifest="mergewithoutmain">
-			<manifest>
-				<attribute name="Main-Class" value="${main-class}" />
-				<attribute name="Class-Path" value="." />
-			</manifest>
-			<fileset dir="${build.dir}">
-				<filename name="**/*.class" />
-			</fileset>
-		</jar>
-	</target>
-
-	<target name="clean_build" depends="clean,build" />
-
-	<target name="run" depends="create_jar">
-		<java jar="${jar.name}" fork="true">
-			<classpath>
-				<path refid="classpath" />
-				<path location="${jar.name}" />
-			</classpath>
-		</java>
-	</target>
 </project>
