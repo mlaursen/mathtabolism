@@ -5,8 +5,8 @@
     <authentication>
         <login-module code="Database" flag="required">
             <module-option name="dsJndiName" value="java:jboss/datasources/BetteruDS"/>
-            <module-option name="principalsQuery" value="select password from account where email=?"/>
-            <module-option name="rolesQuery" value="select role, 'Roles' from account where email=?"/>
+            <module-option name="principalsQuery" value="select password from account where username=?"/>
+            <module-option name="rolesQuery" value="select role, 'Roles' from account where username=?"/>
         </login-module>
     </authentication>
 </security-domain>

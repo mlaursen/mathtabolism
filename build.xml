@@ -28,6 +28,7 @@
 			</fileset>
 			<fileset dir="${classes.dir}">
 				<include name="**/*.class" />
+				<exclude name="${beans.dir}/**/*" />
 			</fileset>
 		</copy>
 	</target>
@@ -50,7 +51,6 @@
 			<fileset dir="${resources.dir}">
 				<include name="**/*.properties" />
 			</fileset>
-
 		</copy>
 	</target>
 
@@ -79,7 +79,7 @@
 	<target name="deploy-exploded-ear" depends="build-exploded-ear">
 		<copy todir="${wildfly.deployments.dir}">
 			<fileset dir="${dist.dir}">
-				<include name="${ear.name}.ear" />
+				<include name="${ear.name}.ear/**/*" />
 			</fileset>
 		</copy>
 
