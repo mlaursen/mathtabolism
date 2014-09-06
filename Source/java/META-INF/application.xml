@@ -2,7 +2,7 @@
 <application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/application_7.xsd" id="Application_ID" version="7">
   <display-name>betteru</display-name>
   <module>
-    <ejb>ejb.jar</ejb>
+    <ejb>betteru-ejb.jar</ejb>
   </module>
   <module>
     <web>
