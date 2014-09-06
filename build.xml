@@ -38,13 +38,26 @@
 	<target name="build-exploded-war" depends="build">
 		<property name="war.loc" value="${exploded.dir}/${war.name}.war"/>
 
-		<copy todir="${war.loc}"></copy>
+		<copy todir="${war.loc}">
+			<fileset dir="${web.dir}">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+		<copy todir="${war.loc}/WEB-INF/classes">
+			<fileset dir="${classes.dir}">
+				<include name="${beans.dir}/**/*.class"/>
+			</fileset>
+			<fileset dir="${resources.dir}">
+				<include name="**/*.properties"/>
+			</fileset>
+
+		</copy>
 	</target>
 
 	<!-- ================================= 
           target: build-exploded-ear              
          ================================= -->
-	<target name="build-exploded-ear" depends="build-exploded-ejb-jar" description="description">
+	<target name="build-exploded-ear" depends="build-exploded-ejb-jar,build-exploded-war" description="description">
 
 		<copy todir="${dist.dir}/${ear.name}.ear">
 			<fileset dir="${exploded.dir}" />
@@ -52,7 +65,7 @@
 				<include name="META-INF/application.xml" />
 			</fileset>
 		</copy>
-		
+
 		<copy todir="${dist.dir}/${ear.name}.ear/lib">
 			<fileset dir="${lib.dir}">
 				<include name="**/*.jar"/>
