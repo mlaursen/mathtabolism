@@ -2,7 +2,7 @@
 <project default="build-exploded-ear" name="betteru">
 	<property file="build-user.properties" />
 	<property file="build.properties" />
-	
+
 	<path id="classpath">
 		<fileset dir="${lib.dir}" includes="**/*.jar" />
 		<fileset dir="${wildfly.modules.dir}" includes="**/*.jar" />
@@ -22,23 +22,42 @@
          ================================= -->
 	<target name="build-exploded-ejb-jar" depends="build">
 		<copy todir="${exploded.dir}/${ejb.name}.jar">
-			<fileset dir="${src.dir}/META-INF">
-				<include name="**/*"/>
-				<exclude name="application.xml"/>
+			<fileset dir="${src.dir}">
+				<include name="META-INF/*"/>
+				<exclude name="**/application.xml"/>
 			</fileset>
 			<fileset dir="${classes.dir}">
 				<include name="**/*.class"/>
 			</fileset>
 		</copy>
 	</target>
-	
+
+	<!-- ================================= 
+          target: build-exploded-war              
+         ================================= -->
+	<target name="build-exploded-war" depends="build">
+		<property name="war.loc" value="${exploded.dir}/${war.name}.war"/>
+
+		<copy todir="${war.loc}"></copy>
+	</target>
+
 	<!-- ================================= 
           target: build-exploded-ear              
          ================================= -->
-    <target name="build-exploded-ear" depends="build-exploded-ejb-jar" description="description">
-        <copy todir="${dist.dir}/${ear.name}.ear">
-    		<fileset dir="${exploded.dir}" />
-        </copy>
-    </target>
+	<target name="build-exploded-ear" depends="build-exploded-ejb-jar" description="description">
+
+		<copy todir="${dist.dir}/${ear.name}.ear">
+			<fileset dir="${exploded.dir}" />
+			<fileset dir="${src.dir}">
+				<include name="META-INF/application.xml" />
+			</fileset>
+		</copy>
+		
+		<copy todir="${dist.dir}/${ear.name}.ear/lib">
+			<fileset dir="${lib.dir}">
+				<include name="**/*.jar"/>
+			</fileset>
+		</copy>
+	</target>
 
 </project>
