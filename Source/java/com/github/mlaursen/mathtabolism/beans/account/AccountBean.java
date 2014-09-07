@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.mlaursen.betteru.beans.account;
+package com.github.mlaursen.mathtabolism.beans.account;
 
 import java.io.Serializable;
 
@@ -12,8 +12,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
-import com.github.mlaursen.betteru.bo.account.AccountBO;
-import com.github.mlaursen.betteru.entity.account.Account;
+import com.github.mlaursen.mathtabolism.bo.account.AccountBO;
+import com.github.mlaursen.mathtabolism.entity.account.Account;
 
 /**
  * 

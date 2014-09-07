@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.mlaursen.betteru.entity;
+package com.github.mlaursen.mathtabolism.entity;
 
 /**
  * @author Mikkel Laursen

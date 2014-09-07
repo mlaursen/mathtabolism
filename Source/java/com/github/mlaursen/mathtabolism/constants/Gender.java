@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.mlaursen.betteru.constants;
+package com.github.mlaursen.mathtabolism.constants;
 
 /**
  * 

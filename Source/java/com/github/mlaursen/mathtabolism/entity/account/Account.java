@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.mlaursen.betteru.entity.account;
+package com.github.mlaursen.mathtabolism.entity.account;
 
 import java.util.Date;
 
@@ -18,8 +18,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.github.mlaursen.betteru.constants.AccountRole;
-import com.github.mlaursen.betteru.entity.BaseEntity;
+import com.github.mlaursen.mathtabolism.constants.AccountRole;
+import com.github.mlaursen.mathtabolism.entity.BaseEntity;
 
 /**
  * @author Mikkel Laursen

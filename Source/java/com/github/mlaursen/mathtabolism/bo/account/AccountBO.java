@@ -1,13 +1,13 @@
 /**
  * 
  */
-package com.github.mlaursen.betteru.bo.account;
+package com.github.mlaursen.mathtabolism.bo.account;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import com.github.mlaursen.betteru.eao.account.AccountEAO;
-import com.github.mlaursen.betteru.entity.account.Account;
+import com.github.mlaursen.mathtabolism.eao.account.AccountEAO;
+import com.github.mlaursen.mathtabolism.entity.account.Account;
 
 /**
  * 

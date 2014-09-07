@@ -1,15 +1,15 @@
 /**
  * 
  */
-package com.github.mlaursen.betteru.eao.account;
+package com.github.mlaursen.mathtabolism.eao.account;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.ejb.Stateless;
 
-import com.github.mlaursen.betteru.eao.BaseEAO;
-import com.github.mlaursen.betteru.entity.account.Account;
+import com.github.mlaursen.mathtabolism.eao.BaseEAO;
+import com.github.mlaursen.mathtabolism.entity.account.Account;
 
 /**
  * @author mlaursen

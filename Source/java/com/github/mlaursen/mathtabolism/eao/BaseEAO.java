@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.mlaursen.betteru.eao;
+package com.github.mlaursen.mathtabolism.eao;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -17,7 +17,7 @@ import javax.persistence.Query;
 public abstract class BaseEAO<T> {
 	
 	/* Ha ha ha ha ha ha */
-	private final static String UNIT_NAME = "BetteruPU";
+	private final static String UNIT_NAME = "MathtabolismPU";
 	
 	@PersistenceContext(unitName = UNIT_NAME)
 	protected EntityManager em;
