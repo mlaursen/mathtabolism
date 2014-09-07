@@ -17,6 +17,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import com.github.mlaursen.mathtabolism.constants.AccountRole;
 import com.github.mlaursen.mathtabolism.entity.BaseEntity;
@@ -25,8 +26,8 @@ import com.github.mlaursen.mathtabolism.entity.BaseEntity;
  * @author Mikkel Laursen
  *
  */
-@NamedQueries(@NamedQuery(name = Account.Q_findByUsername, query = "SELECT a from Account a where a.username=:username"))
 @Entity
+@NamedQueries(@NamedQuery(name = Account.Q_findByUsername, query = "SELECT a FROM Account a WHERE a.username = :username"))
 public class Account extends BaseEntity {
 	
 	public static final String Q_findByUsername = "Account.findByUsername";
@@ -51,6 +52,9 @@ public class Account extends BaseEntity {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "active_since")
 	private Date activeSince;
+	
+	@Transient
+	private String unhashedPassword;
 	
 	public Account() {
 	}
@@ -159,10 +163,36 @@ public class Account extends BaseEntity {
 	
 	/**
 	 * 
+	 * @param activeSince 
+	 */
+	public void setActiveSince(Date activeSince) {
+		this.activeSince = activeSince;
+	}
+	
+	/**
+	 * 
 	 * @return the date the account was created
 	 */
 	public Date getActiveSince() {
 		return activeSince;
 	}
+
+	/**
+	 * 
+	 * @return 
+	 */
+	public String getUnhashedPassword() {
+		return unhashedPassword;
+	}
+
+	/**
+	 * 
+	 * @param unhashedPassword 
+	 */
+	public void setUnhashedPassword(String unhashedPassword) {
+		this.unhashedPassword = unhashedPassword;
+	}
+	
+	
 	
 }

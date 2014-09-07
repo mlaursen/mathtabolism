@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  * @author mlaursen
@@ -34,7 +35,7 @@ public abstract class BaseEAO<T> {
 	 * @param entity
 	 *          the entity to save
 	 */
-	public void add(T entity) {
+	public void create(T entity) {
 		em.persist(entity);
 	}
 	
@@ -80,15 +81,14 @@ public abstract class BaseEAO<T> {
 	 *          the parameters to bind
 	 * @return a Single entity or null
 	 */
-	@SuppressWarnings("unchecked")
 	public T findOneResult(String namedQuery, Map<String, Object> parameters) {
 		T result = null;
 		try {
-			Query q = em.createQuery(namedQuery);
+			TypedQuery<T> q = em.createNamedQuery(namedQuery, this.entityClass);
 			if(parameters != null && !parameters.isEmpty()) {
 				bindParameters(q, parameters);
 			}
-			result = (T) q.getSingleResult();
+			result = q.getSingleResult();
 		}
 		catch (Exception e) {
 			System.out.println("Error while running query: " + e.getMessage());

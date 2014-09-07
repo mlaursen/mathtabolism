@@ -1,7 +1,7 @@
 CREATE TABLE Account
 ( id NUMBER
 , username VARCHAR2(60)
-, password CHAR(128)
+, password CHAR(44)
 , role VARCHAR2(5)
 , birthday DATE
 , last_login DATE
