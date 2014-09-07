@@ -20,6 +20,8 @@
     <web-resource-collection>
       <web-resource-name>Restricted Area - ADMIN Only</web-resource-name>
       <url-pattern>/pages/protected/admin/*</url-pattern>
+      <http-method>POST</http-method>
+      <http-method>GET</http-method>
     </web-resource-collection>
     <auth-constraint>
       <role-name>ADMIN</role-name>
@@ -29,6 +31,8 @@
     <web-resource-collection>
       <web-resource-name>Restricted Area - USER and ADMIN</web-resource-name>
       <url-pattern>/pages/protected/user/*</url-pattern>
+      <http-method>POST</http-method>
+      <http-method>GET</http-method>
     </web-resource-collection>
     <auth-constraint>
       <role-name>USER</role-name>

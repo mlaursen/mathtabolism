@@ -2,8 +2,9 @@
 <PROCESS model-entity="JSFProcess">
  <PROCESS-ITEM NAME="rules:" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules::0" NAME="item" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="logout::#login.xhtml" NAME="output"
-    PATH="/login.xhtml" TARGET="rules:#login.xhtml" TITLE="logout" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="logout::#pages#protected#user#index.xhtml"
+    NAME="output" PATH="/pages/protected/user/index.xhtml"
+    TARGET="rules:#pages#protected#user#index.xhtml" TITLE="logout" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#login.xhtml" PATH="/login.xhtml"

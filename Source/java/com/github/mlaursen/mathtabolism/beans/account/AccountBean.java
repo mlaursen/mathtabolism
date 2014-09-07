@@ -3,8 +3,6 @@
  */
 package com.github.mlaursen.mathtabolism.beans.account;
 
-import java.io.Serializable;
-
 import javax.ejb.EJBException;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
@@ -13,6 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
+import com.github.mlaursen.mathtabolism.beans.BaseBean;
 import com.github.mlaursen.mathtabolism.bo.account.AccountBO;
 import com.github.mlaursen.mathtabolism.entity.account.Account;
 
@@ -22,7 +21,7 @@ import com.github.mlaursen.mathtabolism.entity.account.Account;
  */
 @Named
 @SessionScoped
-public class AccountBean implements Serializable {
+public class AccountBean extends BaseBean {
 	@Inject
 	private AccountBO accountBO;
 	private Account account;

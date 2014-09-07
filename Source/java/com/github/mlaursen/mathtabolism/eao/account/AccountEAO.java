@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.ejb.Stateless;
-import javax.persistence.TypedQuery;
 
 import com.github.mlaursen.mathtabolism.eao.BaseEAO;
 import com.github.mlaursen.mathtabolism.entity.account.Account;
