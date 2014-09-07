@@ -1,44 +1,38 @@
-.table {
-  border-collapse: collapse;
+body {
+  background-color: #F0F0F0;
+  margin: 0;
 }
 
-.tableColumnsHeader {
+
+.navbar {
+  background-color: #E0E0E0;
+}
+
+.navbar nav {
   text-align: center;
-  background: none repeat scroll 0 0 #E5E5E5;
-  border-bottom: 1px solid #BBBBBB;
-  padding: 16px;
+  vertical-align: middle;
 }
 
-.tableFirstLine {
-  text-align: center;
-  background: none repeat scroll 0 0 #F9F9F9;
-  border-top: 1px solid #BBBBBB;
+.navbar .logo {
+  min-width: 120px;
 }
 
-.tableNextLine {
-  text-align: center;
-  background: none repeat scroll 0 0 #FFFFFFF;
-  border-top: 1px solid #BBBBBB;
+.navbar nav ul {
+  position: relative;
+  margin: 0 auto;
+  padding: 0;
+  list-style-type: none;
 }
 
-.panelGrid {
-  border: 1px solid;
+.navbar nav ul li {
+  position: relative;
+  margin: 0;
+  display: inline;
+  line-height: 2.6em;
 }
 
-.panelFirstLine {
-  text-align: center;
-  border-top: 1px solid #BBBBBB;
-}
-
-.panelNextLine {
-  text-align: center;
-  border-top: 1px solid #BBBBBB;
-}
-
-.formError {
-  background: #AFEEEE;
-}
-
-.formInfo {
-  background: #AFEEEE;
+.content {
+  margin: 8px;
+  height: 100%;
+  padding-bottom: 30px;
 }
