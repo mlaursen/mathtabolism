@@ -3,6 +3,8 @@
  */
 package com.github.mlaursen.mathtabolism.bo.account;
 
+import java.util.Calendar;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -29,10 +31,16 @@ public class AccountBO {
 		return accountEAO.findAccountByUsername(username);
 	}
 	
-	public Account create(Account a) {
-		a.setPassword(PasswordEncryption.encrypt(a.getUnhashedPassword()));
-		a.setRole(AccountRole.USER);
-		accountEAO.create(a);
-		return a;
+	public Account updateLastLogin(Account account) {
+		return accountEAO.updateLastLogin(account);
+	}
+	
+	public Account create(Account account) {
+		account.setPassword(PasswordEncryption.encrypt(account.getUnhashedPassword()));
+		account.setUnhashedPassword("");
+		account.setRole(AccountRole.USER);
+		account.setActiveSince(Calendar.getInstance().getTime());
+		accountEAO.create(account);
+		return account;
 	}
 }

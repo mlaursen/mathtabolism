@@ -36,6 +36,9 @@ public class AccountBean extends BaseBean {
 			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
       String username = context.getUserPrincipal().getName();
       account = accountBO.findAccountByUsername(username);
+      if(account != null) {
+      	account = accountBO.updateLastLogin(account);
+      }
 		}
 		return account;
 	}

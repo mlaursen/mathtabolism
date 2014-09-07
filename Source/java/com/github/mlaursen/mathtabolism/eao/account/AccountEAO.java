@@ -3,6 +3,7 @@
  */
 package com.github.mlaursen.mathtabolism.eao.account;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,5 +33,11 @@ public class AccountEAO extends BaseEAO<Account> {
 		parameters.put("username", username);
 		
 		return findOneResult(Account.Q_findByUsername, parameters);
+	}
+	
+	public Account updateLastLogin(Account a) {
+		a.setLastLogin(Calendar.getInstance().getTime());
+		update(a);
+		return a;
 	}
 }
