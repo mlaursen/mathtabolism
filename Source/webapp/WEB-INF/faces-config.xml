@@ -16,18 +16,18 @@
     <from-view-id>/login.xhtml</from-view-id>
     <navigation-case>
       <from-outcome>create</from-outcome>
-      <to-view-id>/pages/protected/user/index.xhtml</to-view-id>
+      <to-view-id>/login.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>login</from-outcome>
-      <to-view-id>/pages/protected/user/index.xhtml</to-view-id>
+      <to-view-id>/pages/account/index.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
   <navigation-rule>
   	<from-view-id></from-view-id>
     <navigation-case>
       <from-outcome>logout</from-outcome>
-      <to-view-id>/pages/protected/user/index.xhtml</to-view-id>
+      <to-view-id>/pages/account/index.xhtml</to-view-id>
       <redirect />
     </navigation-case>
   </navigation-rule>

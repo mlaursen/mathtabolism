@@ -3,7 +3,6 @@
  */
 package com.github.mlaursen.mathtabolism.beans.account;
 
-import javax.ejb.EJBException;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -49,17 +48,6 @@ public class AccountBean extends BaseBean {
 	 */
 	public void setAccount(Account account) {
 		this.account = account;
-	}
-	
-	public String createAccount() {
-		try {
-			account = accountBO.create(account);
-		}
-		catch(EJBException e) {
-			
-			return null;
-		}
-		return "create";
 	}
 	
 	public boolean isAccountAdmin() {

@@ -15,10 +15,24 @@
         <h:outputLabel for="j_password" value="Password: " />
         <h:inputSecret id="j_password" required="true" name="j_password" />
 
-        <h:panelGrid columns="1">
+        <h:panelGrid columns="2">
           <h:commandButton value="Login" type="submit" />
         </h:panelGrid>
       </h:panelGrid>
     </form>
+    
+    <div id="loginModal" class="modal">
+      <h:form>
+        <h:messages />
+        <h:panelGrid columns="2">
+          <h:outputLabel value="#{msgs.username}" />
+          <h:inputText value="#{createAccountBean.account.username}" />
+          
+          <h:outputLabel value="#{msgs.password}" />
+          <h:inputSecret value="#{createAccountBean.account.unhashedPassword}" />
+        </h:panelGrid>
+        <h:commandButton action="#{createAccountBean.createAccount()}" value="Create" />
+      </h:form>
+    </div>
   </ui:define>
 </ui:composition>

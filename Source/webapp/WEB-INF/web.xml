@@ -4,7 +4,7 @@
   version="3.1">
   <display-name>mathtabolism</display-name>
   <welcome-file-list>
-    <welcome-file>/pages/protected/user/index.xhtml</welcome-file>
+    <welcome-file>/pages/account/index.xhtml</welcome-file>
   </welcome-file-list>
   <servlet>
     <servlet-name>Faces Servlet</servlet-name>
@@ -19,7 +19,7 @@
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>Restricted Area - ADMIN Only</web-resource-name>
-      <url-pattern>/pages/protected/admin/*</url-pattern>
+      <url-pattern>/pages/account/*</url-pattern>
       <http-method>POST</http-method>
       <http-method>GET</http-method>
     </web-resource-collection>
@@ -30,7 +30,7 @@
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>Restricted Area - USER and ADMIN</web-resource-name>
-      <url-pattern>/pages/protected/user/*</url-pattern>
+      <url-pattern>/pages/account/*</url-pattern>
       <http-method>POST</http-method>
       <http-method>GET</http-method>
     </web-resource-collection>
