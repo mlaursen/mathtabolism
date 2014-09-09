@@ -22,3 +22,18 @@
         <password>abcd1234</password>
     </security>
 </datasource>
+
+
+
+<!-- Generate keystore https://docs.jboss.org/jbossweb/3.0.x/ssl-howto.html -->
+<!-- add security realm for ssl -->
+<security-realm name="SSLRealm">
+  <server-identities>
+	<ssl protocol="TLS">
+	  <keystore path="keystore-name" relative-to="jboss.server.config.dir" keystore-password="password" alias="alias"/>
+	</ssl>
+  </server-identities>
+  <authentication>
+	<truststore path="truststorename" relative-to="jboss.server.config.dir" keystore-password="password"/>
+  </authentication>
+</security-realm>
