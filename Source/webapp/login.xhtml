@@ -20,18 +20,17 @@
         </h:panelGrid>
       </h:panelGrid>
     </form>
+    <button data-toggle="modal" data-target="#accountModal">Sign Up</button>
     
-    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#accountModal">Sign Up</button>
-    
-    <div id="accountModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="accountModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
+    <div id="accountModal" class="modal fade" tabindex="-1">
+      <div class="modal-dialog modal-small">
         <div class="modal-content">
+          <h:form>
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">X</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title" id="accountModalLabel">Modal Title</h4>
+            <button type="button" class="close" data-dismiss="modal">&#215;</button>
+            <h4 class="modal-title">Modal Title</h4>
           </div>
           <div class="modal-body">
-            <h:form>
               <h:messages />
               <h:panelGrid columns="2">
                 <h:outputLabel value="#{msgs.username}" />
@@ -40,13 +39,12 @@
                 <h:outputLabel value="#{msgs.password}" />
                 <h:inputSecret value="#{createAccountBean.account.unhashedPassword}" />
               </h:panelGrid>
-              <h:commandButton action="#{createAccountBean.createAccount()}" value="Create" />
-            </h:form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">#{msgs.modalCloseFooter}</button>
+            <h:commandButton action="#{createAccountBean.createAccount()}" value="#{msgs.createAccount}" />
           </div>
+          </h:form>
         </div>
       </div>
       

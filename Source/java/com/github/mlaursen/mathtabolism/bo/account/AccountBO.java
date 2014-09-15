@@ -9,8 +9,13 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import com.github.mlaursen.mathtabolism.constants.AccountRole;
+import com.github.mlaursen.mathtabolism.constants.ActivityMultiplier;
+import com.github.mlaursen.mathtabolism.constants.TDEEFormula;
+import com.github.mlaursen.mathtabolism.constants.Weekday;
 import com.github.mlaursen.mathtabolism.eao.account.AccountEAO;
+import com.github.mlaursen.mathtabolism.eao.account.AccountSettingEAO;
 import com.github.mlaursen.mathtabolism.entity.account.Account;
+import com.github.mlaursen.mathtabolism.entity.account.AccountSetting;
 import com.github.mlaursen.mathtabolism.util.PasswordEncryption;
 
 /**
@@ -21,6 +26,8 @@ import com.github.mlaursen.mathtabolism.util.PasswordEncryption;
 public class AccountBO {
 	@Inject
 	private AccountEAO accountEAO;
+	@Inject
+	private AccountSettingEAO accountSettingEAO;
 	
 	/**
 	 * 
@@ -28,19 +35,54 @@ public class AccountBO {
 	 * @return
 	 */
 	public Account findAccountByUsername(String username) {
-		return accountEAO.findAccountByUsername(username);
+		Account account = accountEAO.findAccountByUsername(username);
+		if(account.getAccountSettings().size() == 1) {
+			account.setCurrentSettings(account.getAccountSettings().get(0));
+		}
+		else {
+			account.setCurrentSettings(accountSettingEAO.findCurrentAccountSetting(account));
+		}
+		return account;
 	}
 	
+	/**
+	 * 
+	 * @param account
+	 * @return
+	 */
 	public Account updateLastLogin(Account account) {
 		return accountEAO.updateLastLogin(account);
 	}
 	
+	/**
+	 * 
+	 * @param account
+	 * @return
+	 */
 	public Account create(Account account) {
 		account.setPassword(PasswordEncryption.encrypt(account.getUnhashedPassword()));
 		account.setUnhashedPassword("");
 		account.setRole(AccountRole.USER);
 		account.setActiveSince(Calendar.getInstance().getTime());
 		accountEAO.create(account);
+		
+		AccountSetting accountSetting = new AccountSetting();
+		accountSetting.setAccount(account);
+		accountSetting.setRecalculationDay(Weekday.SUNDAY);
+		accountSetting.setActivityMultiplier(ActivityMultiplier.SEDENTARY);
+		accountSetting.setTdeeFormula(TDEEFormula.HARRIS_BENEDICT);
+		accountSetting.setDateChanged(Calendar.getInstance().getTime());
+		accountSettingEAO.create(accountSetting);
+		return account;
+	}
+	
+	/**
+	 * 
+	 * @param account
+	 * @return
+	 */
+	public Account updateAccount(Account account) {
+		accountEAO.update(account);
 		return account;
 	}
 }

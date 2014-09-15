@@ -9,6 +9,7 @@
     HELLOOOOOO
     <h:form>
       <h3>#{msgs.loginHello}: #{accountBean.account.username} || <h:commandLink action="#{accountBean.logOut()}" value="#{msgs.logout}" /></h3>
+      <pre>#{accountBean.account}</pre>
       <h:messages />
     </h:form>
   </ui:define>

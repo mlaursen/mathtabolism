@@ -29,6 +29,7 @@
 			<fileset dir="${classes.dir}">
 				<include name="**/*.class" />
 				<exclude name="${beans.dir}/**/*" />
+				<exclude name="**/test/**/*" />
 			</fileset>
 		</copy>
 	</target>

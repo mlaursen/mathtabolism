@@ -4,20 +4,25 @@
 package com.github.mlaursen.mathtabolism.entity.account;
 
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.github.mlaursen.mathtabolism.constants.AccountRole;
 import com.github.mlaursen.mathtabolism.entity.BaseEntity;
@@ -27,7 +32,9 @@ import com.github.mlaursen.mathtabolism.entity.BaseEntity;
  *
  */
 @Entity
-@NamedQueries(@NamedQuery(name = Account.Q_findByUsername, query = "SELECT a FROM Account a WHERE a.username = :username"))
+@NamedQueries(
+		@NamedQuery(name=Account.Q_findByUsername, query="SELECT a FROM Account a WHERE a.username = :username")
+)
 public class Account extends BaseEntity {
 	
 	public static final String Q_findByUsername = "Account.findByUsername";
@@ -46,15 +53,18 @@ public class Account extends BaseEntity {
 	private Date birthday;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "last_login")
 	private Date lastLogin;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "active_since")
 	private Date activeSince;
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="account")
+	private List<AccountSetting> accountSettings;
 	
 	@Transient
 	private String unhashedPassword;
+	@Transient
+	private AccountSetting currentSettings;
 	
 	public Account() {
 	}
@@ -193,6 +203,52 @@ public class Account extends BaseEntity {
 		this.unhashedPassword = unhashedPassword;
 	}
 	
+	/**
+	 * 
+	 * @param accountSettings 
+	 */
+	public void setAccountSettings(List<AccountSetting> accountSettings) {
+		this.accountSettings = accountSettings;
+	}
 	
+	/**
+	 * 
+	 * @return 
+	 */
+	public List<AccountSetting> getAccountSettings() {
+		return accountSettings;
+	}
+
+	/**
+	 * 
+	 * @return 
+	 */
+	public AccountSetting getCurrentSettings() {
+		return currentSettings;
+	}
+
+	/**
+	 * 
+	 * @param currentSettings 
+	 */
+	public void setCurrentSettings(AccountSetting currentSettings) {
+		this.currentSettings = currentSettings;
+	}
+
+	/**
+	 * @return
+	 */
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+			.append("id", id)
+			.append("username", username)
+			.append("role", role)
+			.append("birthday", birthday)
+			.append("lastLogin", lastLogin)
+			.append("activeSince", activeSince)
+			.append("currentSettings", currentSettings)
+			.toString();
+	}
 	
 }

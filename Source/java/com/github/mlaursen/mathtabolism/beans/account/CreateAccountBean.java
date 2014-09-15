@@ -19,10 +19,15 @@ import com.github.mlaursen.mathtabolism.entity.account.Account;
 @Named
 @RequestScoped
 public class CreateAccountBean extends BaseBean {
+	private static final long serialVersionUID = 1L;
 	@Inject
 	private AccountBO accountBO;
 	private Account account;
 	
+	/**
+	 * Lazy create of the account
+	 * @return the account or a new account if null
+	 */
 	public Account getAccount() {
 		if(account == null) {
 			account = new Account();

@@ -17,7 +17,6 @@ import javax.persistence.TypedQuery;
  */
 public abstract class BaseEAO<T> {
 	
-	/* Ha ha ha ha ha ha */
 	private final static String UNIT_NAME = "MathtabolismPU";
 	
 	@PersistenceContext(unitName = UNIT_NAME)
