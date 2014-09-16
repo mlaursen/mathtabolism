@@ -5,18 +5,15 @@ package com.github.mlaursen.mathtabolism.entity.account;
 
 import java.util.Date;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -27,6 +24,7 @@ import com.github.mlaursen.mathtabolism.constants.ActivityMultiplier;
 import com.github.mlaursen.mathtabolism.constants.TDEEFormula;
 import com.github.mlaursen.mathtabolism.constants.Weekday;
 import com.github.mlaursen.mathtabolism.entity.BaseEntity;
+import com.github.mlaursen.mathtabolism.entity.BasePK;
 
 /**
  * 
@@ -34,19 +32,14 @@ import com.github.mlaursen.mathtabolism.entity.BaseEntity;
  */
 @Entity
 @NamedQueries(
-		@NamedQuery(name=AccountSetting.Q_findCurrentAccountSetting, query="SELECT as1 FROM AccountSetting as1 WHERE as1.account.id = :account_id "
-				+ "AND as1.dateChanged = (SELECT max(as2.dateChanged) FROM AccountSetting as2 WHERE as2.account.id = :account_id)")
+		@NamedQuery(name=AccountSetting.Q_findCurrentAccountSetting, query="SELECT as1 FROM AccountSetting as1 WHERE as1.pk.account.id = :account_id "
+				+ "AND as1.pk.dateChanged = (SELECT max(as2.pk.dateChanged) FROM AccountSetting as2 WHERE as2.pk.account.id = :account_id)")
 )
 public class AccountSetting extends BaseEntity {
 	public static final String Q_findCurrentAccountSetting = "AccountSetting.findCurrentAccountSetting";
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_setting_id_gen")
-	@SequenceGenerator(name = "account_setting_id_gen", sequenceName = "ACCOUNT_SETTING_ID_SEQ", allocationSize = 1)
-	private Long id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="account_id")
-	private Account account;
+	@EmbeddedId
+	private PK pk;
 	
 	@Enumerated(EnumType.STRING)
 	private Weekday recalculationDay;
@@ -57,31 +50,12 @@ public class AccountSetting extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private TDEEFormula tdeeFormula;
 	
-	@Temporal(TemporalType.DATE)
-	private Date dateChanged;
-
-	/**
-	 * 
-	 * @return 
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	/**
-	 * 
-	 * @param id 
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
 	/**
 	 * 
 	 * @param account 
 	 */
 	public void setAccount(Account account) {
-		this.account = account;
+		this.pk.account = account;
 	}
 	
 	/**
@@ -89,7 +63,7 @@ public class AccountSetting extends BaseEntity {
 	 * @return 
 	 */
 	public Account getAccount() {
-		return account;
+		return pk.account;
 	}
 
 	/**
@@ -145,7 +119,7 @@ public class AccountSetting extends BaseEntity {
 	 * @return 
 	 */
 	public Date getDateChanged() {
-		return dateChanged;
+		return pk.dateChanged;
 	}
 
 	/**
@@ -153,7 +127,7 @@ public class AccountSetting extends BaseEntity {
 	 * @param dateChanged 
 	 */
 	public void setDateChanged(Date dateChanged) {
-		this.dateChanged = dateChanged;
+		this.pk.dateChanged = dateChanged;
 	}
 
 	/**
@@ -162,12 +136,77 @@ public class AccountSetting extends BaseEntity {
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+			.append("accountId", pk.account.getId())
 			.append("recalculationDay", recalculationDay)
 			.append("activityMultiplier", activityMultiplier)
 			.append("tdeeFormula", tdeeFormula)
-			.append("dateChanged", dateChanged)
+			.append("dateChanged", pk.dateChanged)
 			.toString();
 	}
 	
-	
+	public class PK extends BasePK {
+		private static final long serialVersionUID = 1L;
+
+		@ManyToOne(fetch = FetchType.LAZY)
+		@JoinColumn(name="account_id")
+		private Account account;
+		
+		@Temporal(TemporalType.DATE)
+		private Date dateChanged;
+		public PK(Account account, Date dateChanged) {
+			this.account = account;
+			this.dateChanged = dateChanged;
+		}
+		/**
+		 * 
+		 * @return 
+		 */
+		public Account getAccount() {
+			return account;
+		}
+		/**
+		 * 
+		 * @param account 
+		 */
+		public void setAccount(Account account) {
+			this.account = account;
+		}
+		/**
+		 * 
+		 * @return 
+		 */
+		public Date getDateChanged() {
+			return dateChanged;
+		}
+		/**
+		 * 
+		 * @param dateChanged 
+		 */
+		public void setDateChanged(Date dateChanged) {
+			this.dateChanged = dateChanged;
+		}
+		
+		/**
+		 * @param object
+		 * @return
+		 */
+		@Override
+		public boolean equals(Object object) {
+			if(object instanceof PK) {
+				PK pk = (PK) object;
+				return account.getId().equals(pk.account.getId())
+						&& dateChanged.equals(pk.dateChanged);
+			}
+			return false;
+		}
+		
+		/**
+		 * @return
+		 */
+		@Override
+		public int hashCode() {
+			return account.hashCode() + dateChanged.hashCode();
+		}
+		
+	}
 }

@@ -11,15 +11,21 @@ CREATE TABLE Account
 );
 
 CREATE TABLE Account_Setting
-( id NUMBER
-, account_id NUMBER
+( account_id NUMBER
+, date_changed DATE,
 , recalculation_day VARCHAR2(9) NOT NULL
 , activity_multiplier VARCHAR2(17) NOT NULL,
 , tdee_formula CHAR(15) NOT NULL,
-, date_changed DATE NOT NULL,
-, CONSTRAINT pk_Account_Setting_Id PRIMARY KEY(id)
-, CONSTRAINT fk_Account_Id FOREIGN KEY(account_id) REFERENCES Account(id)
+, CONSTRAINT pk_Account_Setting_Id PRIMARY KEY(account_id, date_changed)
+, CONSTRAINT fk_Account_Id_Setting FOREIGN KEY(account_id) REFERENCES Account(id)
+);
+
+CREATE TABLE Account_Weight
+( account_id NUMBER
+, weigh_in_date DATE
+, weight NUMBER(5,2)
+, CONSTRAINT pk_Account_Weight PRIMARY KEY(account_id, weigh_in_date)
+, CONSTRAINT fk_Account_Id_Weight FOREIGN KEY(account_id) REFERENCES Account(id)
 );
 
 CREATE SEQUENCE ACCOUNT_ID_SEQ;
-CREATE SEQUENCE ACCOUNT_SETTING_ID_SEQ;

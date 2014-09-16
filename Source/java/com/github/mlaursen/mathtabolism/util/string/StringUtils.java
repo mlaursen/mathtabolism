@@ -9,7 +9,9 @@ package com.github.mlaursen.mathtabolism.util.string;
  * @author laursenm
  */
 public class StringUtils {
+	private StringUtils() {}
 	
+	public static final int DEFAULT_REPEAT_AMOUNT = 2;
 	/**
 	 * Checks if a CharSequence is not empty (""), not null and not whitespace only.
 	 * <p>Convenience method for
@@ -73,5 +75,64 @@ public class StringUtils {
 			first = false;
 		}
 		return s;
+	}
+	
+	/**
+	 * Checks if a CharSequence contains a character more than {@value #DEFAULT_REPEAT_AMOUNT}.
+	 * This does not count spaces as a repeatable character
+	 * @param cs the CharSequence to check
+	 * @return true if a Character repeats at least once
+	 */
+	public static boolean repeatsACharacter(CharSequence cs) {
+		return repeatsACharacter(cs, DEFAULT_REPEAT_AMOUNT, false);
+	}
+	
+	/**
+	 * Checks if a CharSequence contains a character for a given number of times. This does not count spaces as a repeatable
+	 * character
+	 * @param cs the CharSequence to check
+	 * @param numberOfTimes the number of times a character must exist in the CharSequence
+	 * @return true if a non-space Character exists in the CharSequence for at least the given number of times
+	 */
+	public static boolean repeatsACharacter(CharSequence cs, int numberOfTimes) {
+		return repeatsACharacter(cs, numberOfTimes, false);
+	}
+	
+	/**
+	 * Checks if a CharSequence contains a character for a given number of times.
+	 * @param cs the CharSequence to check
+	 * @param allowSpace boolean if a space counts as a repeatable Character
+	 * @return true if a Character exists in the CharSequence for at least the given number of times
+	 */
+	public static boolean repeatsACharacter(CharSequence cs, boolean allowSpace) {
+		return repeatsACharacter(cs, DEFAULT_REPEAT_AMOUNT, allowSpace);
+	}
+	
+	/**
+	 * Checks if a CharSequence contains a character for a given number of times.
+	 * @param cs the CharSequence to check
+	 * @param numberOfTimes a number of times a character has to repeat to return true
+	 * @param allowSpace boolean if a space counts as a repeatable Character
+	 * @return true if a Character exists in the CharSequence for at least the given number of times
+	 */
+	public static boolean repeatsACharacter(CharSequence cs, int numberOfTimes, boolean allowSpace) {
+		if(!allowSpace && StringUtils.isBlank(cs)) {
+			return false;
+		}
+		
+		if(cs != null) {
+			for(int i = 0; i < cs.length(); i++) {
+				char c = cs.charAt(i);
+				if(!allowSpace && c == ' ') continue;
+				
+				int letterCount = 1;
+				for(int x = i + 1; x < cs.length(); x++) {
+					if(c == cs.charAt(x) && ++letterCount == numberOfTimes) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 }

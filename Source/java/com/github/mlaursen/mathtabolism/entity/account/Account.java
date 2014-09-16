@@ -40,8 +40,8 @@ public class Account extends BaseEntity {
 	public static final String Q_findByUsername = "Account.findByUsername";
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_id_gen")
-	@SequenceGenerator(name = "account_id_gen", sequenceName = "ACCOUNT_ID_SEQ", allocationSize = 1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="account_id_gen")
+	@SequenceGenerator(name="account_id_gen", sequenceName="ACCOUNT_ID_SEQ", allocationSize = 1)
 	private Long id;
 	private String username;
 	private String password;
@@ -58,13 +58,18 @@ public class Account extends BaseEntity {
 	@Temporal(TemporalType.DATE)
 	private Date activeSince;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="account")
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="pk.account")
 	private List<AccountSetting> accountSettings;
+	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="pk.account")
+	private List<AccountWeight> accountWeights;
 	
 	@Transient
 	private String unhashedPassword;
 	@Transient
 	private AccountSetting currentSettings;
+	@Transient
+	private AccountWeight currentWeight;
 	
 	public Account() {
 	}
