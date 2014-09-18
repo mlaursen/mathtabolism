@@ -16,7 +16,6 @@ import org.junit.Test;
  * @author laursenm
  */
 public class IsSameDateUTest {
-	
 	@Test
 	public void testSameDate() {
 		assertTrue(isSameDate(new Date(), new Date()));
@@ -29,11 +28,16 @@ public class IsSameDateUTest {
 		c.set(Calendar.MONTH, 1);
 		c.set(Calendar.YEAR, 2000);
 		c.set(Calendar.DAY_OF_MONTH, 15);
+		c.set(Calendar.SECOND, 30);
 		
 		c2.set(Calendar.MONTH, 1);
 		c2.set(Calendar.YEAR, 2000);
 		c2.set(Calendar.DAY_OF_MONTH, 15);
-		assertTrue(isSameDate(c.getTime(), c2.getTime()));
+		c2.set(Calendar.SECOND, 15);
+		Date d1 = c.getTime();
+		Date d2 = c2.getTime();
+		assertFalse(d1.equals(d2));
+		assertTrue(isSameDate(d1, d2));
 	}
 	
 	@Test

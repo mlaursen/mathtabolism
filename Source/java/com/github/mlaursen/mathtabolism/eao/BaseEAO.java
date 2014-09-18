@@ -24,7 +24,7 @@ public abstract class BaseEAO<T> {
 	
 	private Class<T> entityClass;
 	
-	public BaseEAO(Class<T> entityClass) {
+	protected BaseEAO(Class<T> entityClass) {
 		this.entityClass = entityClass;
 	}
 	
