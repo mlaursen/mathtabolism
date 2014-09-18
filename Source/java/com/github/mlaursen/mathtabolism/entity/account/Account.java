@@ -241,8 +241,37 @@ public class Account extends BaseEntity {
 	}
 
 	/**
-	 * @return
+	 * 
+	 * @return 
 	 */
+	public List<AccountWeight> getAccountWeights() {
+		return accountWeights;
+	}
+
+	/**
+	 * 
+	 * @param accountWeights 
+	 */
+	public void setAccountWeights(List<AccountWeight> accountWeights) {
+		this.accountWeights = accountWeights;
+	}
+
+	/**
+	 * 
+	 * @return 
+	 */
+	public AccountWeight getCurrentWeight() {
+		return currentWeight;
+	}
+
+	/**
+	 * 
+	 * @param currentWeight 
+	 */
+	public void setCurrentWeight(AccountWeight currentWeight) {
+		this.currentWeight = currentWeight;
+	}
+
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)

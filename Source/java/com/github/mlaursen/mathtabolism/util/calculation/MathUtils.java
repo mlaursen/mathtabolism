@@ -5,7 +5,7 @@ package com.github.mlaursen.mathtabolism.util.calculation;
 
 import java.math.BigInteger;
 
-import com.github.mlaursen.mathtabolism.util.Tuple;
+import com.github.mlaursen.mathtabolism.util.Pair;
 
 /**
  * 
@@ -14,28 +14,28 @@ import com.github.mlaursen.mathtabolism.util.Tuple;
 public class MathUtils {
 	private MathUtils() {}
 	
-	public static final Tuple<Integer> ONE_THIRD = new Tuple<Integer>(1, 3);
-	public static final Tuple<Integer> TWO_THIRDS = new Tuple<Integer>(2, 3);
+	public static final Pair<Integer> ONE_THIRD = new Pair<Integer>(1, 3);
+	public static final Pair<Integer> TWO_THIRDS = new Pair<Integer>(2, 3);
 	
 	/**
 	 * Reduces a numerator and a denominator to their lowest value.
 	 * 
 	 * @param numerator the numerator to reduce
 	 * @param denominator the denominator to reduce
-	 * @return a {@link Tuple} containing the reduced integers
+	 * @return a {@link Pair} containing the reduced integers
 	 */
-	public static Tuple<Integer> reduce(Integer numerator, Integer denominator) {
-		return reduce(new Tuple<Integer>(numerator, denominator));
+	public static Pair<Integer> reduce(Integer numerator, Integer denominator) {
+		return reduce(new Pair<Integer>(numerator, denominator));
 	}
 	
 	/**
-	 * Reduces a Fraction {@link Tuple} with the smalles whole numerator and denominator
+	 * Reduces a Fraction {@link Pair} with the smalles whole numerator and denominator
 	 * @param fraction the Tuple fraction to reduce
-	 * @return a {@link Tuple} containing the reduced integers
+	 * @return a {@link Pair} containing the reduced integers
 	 */
-	public static Tuple<Integer> reduce(Tuple<Integer> fraction) {
+	public static Pair<Integer> reduce(Pair<Integer> fraction) {
 		int gcd = gcd(fraction);
-		return new Tuple<Integer>(fraction.first / gcd, fraction.second / gcd);
+		return new Pair<Integer>(fraction.first / gcd, fraction.second / gcd);
 	}
 	
 	/**
@@ -43,7 +43,7 @@ public class MathUtils {
 	 * @param tuple the Tuple to find the greatest common denominator for
 	 * @return the greatest common denominator for the two Integers
 	 */
-	public static int gcd(Tuple<Integer> tuple) {
+	public static int gcd(Pair<Integer> tuple) {
 		return gcd(tuple.first, tuple.second);
 	}
 	
@@ -63,7 +63,7 @@ public class MathUtils {
 	 * @param fraction a fraction that can possibly be reduced to "1/3" or "2/3".
 	 * @return {@link #ONE_THIRD}, {@link #TWO_THIRDS}, or the original <tt>fraction</tt>
 	 */
-	public static Tuple<Integer> approximate(Tuple<Integer> fraction) {
+	public static Pair<Integer> approximate(Pair<Integer> fraction) {
 		if(fraction.first == 33 && fraction.second == 100) {
 			return ONE_THIRD;
 		}

@@ -7,25 +7,27 @@ package com.github.mlaursen.mathtabolism.util;
  * 
  * @author laursenm
  */
-public class Tuple<T> {
-	public final T first;
-	public final T second;
-	public Tuple(T first, T second) {
-		this.first = first;
-		this.second = second;
+public class Tuple<X, Y> {
+	
+	public final X x;
+	public final Y y;
+	public Tuple(X x, Y y) {
+		this.x = x;
+		this.y = y;
 	}
 	
 	@Override
 	public boolean equals(Object object) {
-		if(object != null && object instanceof Tuple) {
-			Tuple<?> t = (Tuple<?>) object;
-			return first.getClass() == t.first.getClass() && first.equals(t.first) && second.equals(t.second);
+		if(object instanceof Tuple) {
+			Tuple<?, ?> tuple = (Tuple<?, ?>) object;
+			return x.equals(tuple.x) && y.equals(tuple.y);
 		}
 		return false;
 	}
 	
 	@Override
 	public String toString() {
-		return String.format("Tuple<%s, %s>", first.toString(), second.toString());
+		return String.format("Tuple<%s, %s>", x, y);
 	}
+	
 }

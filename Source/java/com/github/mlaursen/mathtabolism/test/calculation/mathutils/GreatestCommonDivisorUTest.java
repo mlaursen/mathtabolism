@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.github.mlaursen.mathtabolism.util.Tuple;
+import com.github.mlaursen.mathtabolism.util.Pair;
 
 import static com.github.mlaursen.mathtabolism.util.calculation.MathUtils.gcd;
 
@@ -29,7 +29,7 @@ public class GreatestCommonDivisorUTest {
 	
 	@Test
 	public void testGCDTuple() {
-		assertEquals(1, gcd(new Tuple<Integer>(1, 3)));
+		assertEquals(1, gcd(new Pair<Integer>(1, 3)));
 	}
 	
 	@Test

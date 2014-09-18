@@ -5,7 +5,7 @@ package com.github.mlaursen.mathtabolism.util.string;
 
 import java.text.DecimalFormat;
 
-import com.github.mlaursen.mathtabolism.util.Tuple;
+import com.github.mlaursen.mathtabolism.util.Pair;
 import com.github.mlaursen.mathtabolism.util.calculation.MathUtils;
 
 
@@ -88,8 +88,8 @@ public class FractionUtils {
 			String sign = split[0].contains(MINUS) ? MINUS : "";
 			int wholeNumber = Integer.valueOf(split[0].replace(MINUS, ""));
 			String decimalStr = split[1];
-			Tuple<Integer> fraction = new Tuple<>(Integer.valueOf(decimalStr), (int) Math.pow(10, precision));
-			Tuple<Integer> reduced;
+			Pair<Integer> fraction = new Pair<>(Integer.valueOf(decimalStr), (int) Math.pow(10, precision));
+			Pair<Integer> reduced;
 			if(StringUtils.repeatsACharacter(decimalStr)) {
 				reduced = MathUtils.approximate(fraction);
 			}
