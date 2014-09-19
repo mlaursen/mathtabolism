@@ -41,6 +41,14 @@ public class Measurement implements Addable, Subtractable {
     return value;
   }
   
+  /**
+   *
+   * @param value the value to set
+   */
+  public void setValue(double value) {
+    this.value = value;
+  }
+  
   public UnitMeasurement getUnitMeasurement() {
     return unitMeasurement;
   }

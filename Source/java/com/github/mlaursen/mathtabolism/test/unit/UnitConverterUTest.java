@@ -89,7 +89,50 @@ public class UnitConverterUTest {
   
   @Test
   public void testConvertInch() {
-    //assertThat(convert(FOOT_1, UnitMeasurement.INCH), is(INCH_12));
-    //assertThat(convert(INCH_12, UnitMeasurement.FOOT), is(FOOT_1));
+    assertThat(convert(FOOT_1, UnitMeasurement.INCH), is(INCH_12));
+    assertThat(convert(INCH_12, UnitMeasurement.FOOT), is(FOOT_1));
+  }
+  
+  @Test
+  public void testConvertInchComplicated() {
+    Measurement inch3Point4 = new Measurement(UnitMeasurement.INCH, 3.4);
+    Measurement inch0 = new Measurement(UnitMeasurement.INCH, 0);
+    Measurement inchNegative1 = new Measurement(UnitMeasurement.INCH, -1);
+    Measurement expectedFoot = new Measurement(UnitMeasurement.FOOT, 3.4 / 12);
+    assertThat(convert(inch3Point4, UnitMeasurement.FOOT), is(expectedFoot));
+    assertThat(convert(expectedFoot, UnitMeasurement.INCH), is(inch3Point4));
+    expectedFoot.setValue(0);
+    assertThat(convert(inch0, UnitMeasurement.FOOT), is(expectedFoot));
+    assertThat(convert(expectedFoot, UnitMeasurement.INCH), is(inch0));
+    expectedFoot.setValue(-1/12.0);
+    assertThat(convert(inchNegative1, UnitMeasurement.FOOT), is(expectedFoot));
+    assertThat(convert(expectedFoot, UnitMeasurement.INCH), is(inchNegative1));
+  }
+  
+  @Test
+  public void testConvertImperialVolumes() {
+    Measurement flOz4 = new Measurement(UnitMeasurement.FLUID_OUNCE, 4);
+    Measurement flOz8Point2 = new Measurement(UnitMeasurement.FLUID_OUNCE, 8.2);
+    Measurement cup0Point5 = new Measurement(UnitMeasurement.CUP, 0.5);
+    Measurement cup1Point025 = new Measurement(UnitMeasurement.CUP, 1.025);
+    assertThat(convert(flOz4, UnitMeasurement.CUP), is(cup0Point5));
+    assertThat(convert(cup0Point5, UnitMeasurement.FLUID_OUNCE), is(flOz4));
+    
+    assertThat(convert(flOz8Point2, UnitMeasurement.CUP), is(cup1Point025));
+    assertThat(convert(cup1Point025, UnitMeasurement.FLUID_OUNCE), is(flOz8Point2));
+    
+    Measurement pint = new Measurement(UnitMeasurement.PINT, 4.0 / 8 / 2);
+    assertThat(convert(flOz4, UnitMeasurement.PINT), is(pint));
+    assertThat(convert(pint, UnitMeasurement.FLUID_OUNCE), is(flOz4));
+    
+    Measurement quart = new Measurement(UnitMeasurement.QUART, 4.0 / 8 / 4);
+    assertThat(convert(flOz4, UnitMeasurement.QUART), is(quart));
+    assertThat(convert(quart, UnitMeasurement.FLUID_OUNCE), is(flOz4));
+    
+    Measurement gallon = new Measurement(UnitMeasurement.GALLON, 4.0 / 8 / 4 / 4);
+    assertThat(convert(flOz4, UnitMeasurement.GALLON), is(gallon));
+    assertThat(convert(gallon, UnitMeasurement.FLUID_OUNCE), is(flOz4));
+    
+    //assertThat(convert(gallon, UnitMeasurement.QUART), is(quart));
   }
 }

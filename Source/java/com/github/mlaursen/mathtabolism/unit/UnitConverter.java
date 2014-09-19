@@ -91,6 +91,7 @@ public class UnitConverter {
 	private static Measurement convertImperial(double value, UnitMeasurement from, UnitMeasurement to) {
 	  UnitMeasurement nonBase = from.isBaseUnit() ? to : from;
 	  int conversion;
+	  int comparator = from.compareTo(to);
 	  if(from.getBaseUnit().equals(UnitMeasurement.TABLESPOON)) {
 	    conversion = SPOON_CONVERSION_TABLE.get(nonBase);
 	  } else {
@@ -99,17 +100,26 @@ public class UnitConverter {
   	      conversion = IMPERIAL_DISTANCE_CONVERSION_TABLE.get(nonBase);
   	      break;
   	    case VOLUME:
-          conversion = IMPERIAL_VOLUME_CONVERSION_TABLE.get(nonBase);
+  	      switch(Math.abs(comparator)) {
+  	        case 1:
+  	          conversion = 8;
+  	          break;
+  	        case 2:
+  	          conversion = 8 * 2;
+  	          break;
+  	        default:
+  	          conversion = 8 * (int) Math.pow(4, Math.abs(comparator) - 2);
+  	          break;
+  	      }
   	      break;
   	    case WEIGHT:
-  	      System.out.println(to.getBaseUnit());
           conversion = IMPERIAL_WEIGHT_CONVERSION_TABLE.get(nonBase);
   	      break;
         default:
           conversion = 0;
   	  }
 	  }
-	  double updated = from.compareTo(to) < 0 ? value / conversion : value * conversion;
+	  double updated = comparator < 0 ? value / conversion : value * conversion;
 	  return new Measurement(to, updated);
 	}
 	
