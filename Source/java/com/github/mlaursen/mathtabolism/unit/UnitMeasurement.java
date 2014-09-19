@@ -111,6 +111,9 @@ public enum UnitMeasurement {
    */
   public UnitMeasurement getBaseUnit() {
     switch(this) {
+      case OUNCE:
+      case POUND:
+        return POUND;
       case INCH:
       case FOOT:
         return FOOT;
@@ -127,15 +130,12 @@ public enum UnitMeasurement {
       case GRAM:
       case KILOGRAM:
         return GRAM;
-      case LITER:
-      case MILLILITER:
-        return LITER;
       case METER:
       case KILOMETER:
         return METER;
-      case OUNCE:
-      case POUND:
-        return OUNCE;
+      case LITER:
+      case MILLILITER:
+        return LITER;
       default:
         return this;
     }

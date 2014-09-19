@@ -1,13 +1,14 @@
 package com.github.mlaursen.mathtabolism.test.unit;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import static com.github.mlaursen.mathtabolism.unit.UnitConverter.convert;
 import static com.github.mlaursen.mathtabolism.unit.UnitConverter.convertToBase;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
 import com.github.mlaursen.mathtabolism.unit.Measurement;
+import com.github.mlaursen.mathtabolism.unit.UnitConverter;
 import com.github.mlaursen.mathtabolism.unit.UnitMeasurement;
 
 /**
@@ -67,5 +68,10 @@ public class UnitConverterUTest {
   @Test
   public void testConvertToBaseMilligram() {
     assertThat(convertToBase(MILLIGRAMS_1000), is(GRAMS_1));
+  }
+  
+  @Test
+  public void testConvertToBaseGram() {
+    assertThat(convertToBase(GRAMS_100), is(GRAMS_100));
   }
 }
