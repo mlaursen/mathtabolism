@@ -19,6 +19,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import com.github.mlaursen.mathtabolism.entity.BaseEntity;
 import com.github.mlaursen.mathtabolism.entity.BasePK;
+import com.github.mlaursen.mathtabolism.util.date.DateUtils;
 
 /**
  * 
@@ -33,8 +34,10 @@ public class AccountWeight extends BaseEntity {
 	@EmbeddedId
 	private PK pk;
 	
-	
 	private double weight;
+	
+	
+	
 
 	/**
 	 * 
@@ -140,15 +143,17 @@ public class AccountWeight extends BaseEntity {
 		}
 
 		/**
-		 * @param object
-		 * @return
+		 * Checks if the Primary Keys have the same account id and the same
+		 * weigh in date (ignoring anything less than days)
+		 * @param object the object to compare to
+		 * @return true if equals
 		 */
 		@Override
 		public boolean equals(Object object) {
 			if(object instanceof PK) {
 				PK pk = (PK) object;
 				return account.getId().equals(pk.account.getId())
-						&& weighInDate.equals(pk.weighInDate);
+						&& DateUtils.isSameDate(weighInDate, pk.weighInDate);
 			}
 			return false;
 		}

@@ -4,6 +4,7 @@
 package com.github.mlaursen.mathtabolism.test.nutrition;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 import org.junit.Test;
 
@@ -21,14 +22,14 @@ public class CalorieUTest {
 		Calorie zeroCalories = new Calorie(0);
 		Calorie oneCalorie   = new Calorie(1);
 		zeroCalories.add(oneCalorie);
-		assertEquals(oneCalorie, zeroCalories);
+		assertThat(zeroCalories, is(new Calorie(1)));
 	}
 	
 	@Test
 	public void testAddZeroToZero() {
 		Calorie zeroCalories = new Calorie(0);
 		zeroCalories.add(new Calorie(0));
-		assertEquals(new Calorie(0), zeroCalories);
+		assertThat(zeroCalories, is(new Calorie(0)));
 	}
 	
 	@Test
@@ -36,8 +37,8 @@ public class CalorieUTest {
 		Calorie c = new Calorie(20);
 		Fat f = new Fat(20);
 		c.add(f);
-		assertNotEquals(new Calorie(40), c);
-		assertEquals(new Calorie(20), c);
+		assertThat(c, not(new Calorie(40)));
+		assertThat(c, is(new Calorie(20)));
 	}
 	
 	@Test
@@ -45,7 +46,7 @@ public class CalorieUTest {
 		Calorie twoHundred = new Calorie(200);
 		Calorie oneThousand = new Calorie(1000);
 		twoHundred.add(oneThousand);
-		assertEquals(new Calorie(1200), twoHundred);
+		assertThat(twoHundred, is(new Calorie(1200)));
 	}
 	
 	@Test
@@ -53,7 +54,7 @@ public class CalorieUTest {
 		Calorie zero = new Calorie(0);
 		Calorie one  = new Calorie(1);
 		one.subtract(zero);
-		assertEquals(new Calorie(1), one);
+		assertThat(one, is(new Calorie(1)));
 	}
 	
 	@Test
@@ -61,7 +62,7 @@ public class CalorieUTest {
 		Calorie zero1 = new Calorie(0);
 		Calorie zero2 = new Calorie(0);
 		zero1.subtract(zero2);
-		assertEquals(new Calorie(0), zero1);
+		assertThat(zero1, is(new Calorie(0)));
 	}
 	
 	@Test
@@ -69,7 +70,7 @@ public class CalorieUTest {
 		Calorie c = new Calorie(150);
 		Fat f = new Fat(20);
 		c.subtract(f);
-		assertEquals(new Calorie(150), c);
+		assertThat(c, is(new Calorie(150)));
 	}
 	
 }

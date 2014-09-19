@@ -1,11 +1,8 @@
-/**
- * 
- */
 package com.github.mlaursen.mathtabolism.util;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 public class Tuple<X, Y> {
 	

@@ -12,6 +12,7 @@ import com.github.mlaursen.mathtabolism.test.date.dateutils.DateUtilsUSuite;
 import com.github.mlaursen.mathtabolism.test.nutrition.NutritionUSuite;
 import com.github.mlaursen.mathtabolism.test.string.fractionutils.FractionUtilsUSuite;
 import com.github.mlaursen.mathtabolism.test.string.stringutils.StringUtilsUSuite;
+import com.github.mlaursen.mathtabolism.test.unit.UnitPackageUSuite;
 
 /**
  * 
@@ -23,7 +24,8 @@ import com.github.mlaursen.mathtabolism.test.string.stringutils.StringUtilsUSuit
 	StringUtilsUSuite.class,
 	MathUtilsUSuite.class,
 	DateUtilsUSuite.class,
-	NutritionUSuite.class
+	NutritionUSuite.class,
+	UnitPackageUSuite.class
 	})
 public class AllTests {
 	

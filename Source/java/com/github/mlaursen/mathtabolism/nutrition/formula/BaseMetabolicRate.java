@@ -4,8 +4,8 @@
 package com.github.mlaursen.mathtabolism.nutrition.formula;
 
 import com.github.mlaursen.mathtabolism.constants.Gender;
-import com.github.mlaursen.mathtabolism.constants.MeasuringUnit;
 import com.github.mlaursen.mathtabolism.nutrition.Calorie;
+import com.github.mlaursen.mathtabolism.unit.UnitSystem;
 import com.github.mlaursen.mathtabolism.util.Pair;
 
 /**
@@ -36,10 +36,10 @@ public class BaseMetabolicRate {
 	 * @param height the person's height
 	 * @param age the person's age
 	 * @param gender the person's {@link Gender}
-	 * @param unit the person's {@link MeasuringUnit}
+	 * @param unitSystem the person's {@link UnitSystem}
 	 * @return the number of {@link Calorie} for a person's BMR
 	 */
-	public static Calorie calculateBMR(double weight, double height, int age, Gender gender, MeasuringUnit unit) {
+	public static Calorie calculateBMR(double weight, double height, int age, Gender gender, UnitSystem unitSystem) {
 		double ageMultiplier;
 		int padding;
 		Pair<Double> weightMultipliers, heightMultipliers;
@@ -56,7 +56,7 @@ public class BaseMetabolicRate {
 		}
 		
 		double weightMultiplier, heightMultiplier;
-		if(MeasuringUnit.isMetric(unit)) {
+		if(unitSystem.isMetric()) {
 			weightMultiplier = weightMultipliers.first;
 			heightMultiplier = heightMultipliers.first;
 		} else {

@@ -5,6 +5,7 @@ package com.github.mlaursen.mathtabolism.test.date.dateutils;
 
 import static com.github.mlaursen.mathtabolism.util.date.DateUtils.isSameDate;
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -36,7 +37,7 @@ public class IsSameDateUTest {
 		c2.set(Calendar.SECOND, 15);
 		Date d1 = c.getTime();
 		Date d2 = c2.getTime();
-		assertFalse(d1.equals(d2));
+		assertThat(d1, not(d2));
 		assertTrue(isSameDate(d1, d2));
 	}
 	
@@ -45,6 +46,7 @@ public class IsSameDateUTest {
 		Calendar c = Calendar.getInstance();
 		c.set(Calendar.MONTH, 1);
 		c.set(Calendar.YEAR, 1950);
+		assertThat(new Date(), not(c.getTime()));
 		assertFalse(isSameDate(new Date(), c.getTime()));
 	}
 	

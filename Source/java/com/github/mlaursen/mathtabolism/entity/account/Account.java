@@ -28,7 +28,7 @@ import com.github.mlaursen.mathtabolism.constants.AccountRole;
 import com.github.mlaursen.mathtabolism.entity.BaseEntity;
 
 /**
- * @author Mikkel Laursen
+ * @author mlaursen
  *
  */
 @Entity
@@ -282,6 +282,7 @@ public class Account extends BaseEntity {
 			.append("lastLogin", lastLogin)
 			.append("activeSince", activeSince)
 			.append("currentSettings", currentSettings)
+			.append("currentWeight", currentWeight)
 			.toString();
 	}
 	

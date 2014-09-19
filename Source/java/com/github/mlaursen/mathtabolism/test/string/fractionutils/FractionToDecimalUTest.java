@@ -4,6 +4,7 @@
 package com.github.mlaursen.mathtabolism.test.string.fractionutils;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 import org.junit.Test;
 
@@ -17,17 +18,17 @@ public class FractionToDecimalUTest {
 	
 	@Test
 	public void testSimpleFraction() {
-		assertEquals(0.25, FractionUtils.fractionToDecimal("1/4"), 2);
+	  assertThat(FractionUtils.fractionToDecimal("1/4"), is(0.25));
 	}
 	
 	@Test
 	public void testWholeNumber() {
-		assertEquals(1.0, FractionUtils.fractionToDecimal("1"), 1);
+	  assertThat(FractionUtils.fractionToDecimal("1"), is(1.0));
 	}
 	
 	@Test
 	public void testWholeNumberWithFraction() {
-		assertEquals(3.75, FractionUtils.fractionToDecimal("3 3/4"), 2);
+	  assertThat(FractionUtils.fractionToDecimal("3 3/4"), is(3.75));
 	}
 	
 	@Test
@@ -36,13 +37,13 @@ public class FractionToDecimalUTest {
 	}
 	
 	@Test
-	public void testBiggerNumerator() {
+	public void testBiggerRepeating() {
 		assertEquals(1.66, FractionUtils.fractionToDecimal("5/3"), 3);
 	}
 	
 	@Test
 	public void testBiggerNumeratorWithWhole() {
-		assertEquals(10.125, FractionUtils.fractionToDecimal("10 20/16"), 3);
+	  assertThat(FractionUtils.fractionToDecimal("10 20/16"), is(11.25));
 	}
 	
 	@Test(expected=NumberFormatException.class)
@@ -50,19 +51,19 @@ public class FractionToDecimalUTest {
 		FractionUtils.fractionToDecimal("bob");
 	}
 	
-	@Test
+	@Test(expected=NumberFormatException.class)
 	public void testNull() {
-		assertEquals(0, FractionUtils.fractionToDecimal(null), 0);
+		FractionUtils.fractionToDecimal(null);
 	}
 	
-	@Test
+	@Test(expected=NumberFormatException.class)
 	public void testEmpty() {
-		assertEquals(0, FractionUtils.fractionToDecimal(""), 0);
+		FractionUtils.fractionToDecimal("");;
 	}
 	
 	@Test
 	public void testZero() {
-		assertEquals(0, FractionUtils.fractionToDecimal("0"), 0);
+	  assertThat(FractionUtils.fractionToDecimal("0"), is(0.0));
 	}
 	
 	@Test(expected=NumberFormatException.class)
@@ -72,7 +73,7 @@ public class FractionToDecimalUTest {
 	
 	@Test
 	public void testDoubleOverDouble() {
-		assertEquals(0.222, FractionUtils.fractionToDecimal("3.33/15"), 3);
+	  assertThat(FractionUtils.fractionToDecimal("3.33/15"), is(0.222));
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
@@ -82,6 +83,6 @@ public class FractionToDecimalUTest {
 	
 	@Test
 	public void testZeroDivied() {
-		assertEquals(0, FractionUtils.fractionToDecimal("0/3"), 0);
+	  assertThat(FractionUtils.fractionToDecimal("0/3"), is(0.0));
 	}
 }

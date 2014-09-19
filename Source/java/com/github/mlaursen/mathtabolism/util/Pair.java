@@ -5,7 +5,7 @@ package com.github.mlaursen.mathtabolism.util;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 public class Pair<T> {
 	public final T first;

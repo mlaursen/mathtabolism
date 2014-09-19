@@ -4,6 +4,7 @@
 package com.github.mlaursen.mathtabolism.test.string.fractionutils;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 import org.junit.Test;
 
@@ -17,21 +18,21 @@ public class DecimalToFractionUTest {
 	
 	@Test
 	public void testSimpleDecimal() {
-		assertEquals("1/4", decimalToFraction(0.25));
+		assertThat(decimalToFraction(0.25), is("1/4"));
 	}
 	
 	@Test
 	public void testSimpleNegativeDecimal() {
-		assertEquals("-1/4", decimalToFraction(-0.25));
+		assertThat(decimalToFraction(-0.25), is("-1/4"));
 	}
 	
 	@Test
 	public void testMixedNegativeNumberFraction() {
-		assertEquals("-2 1/3", decimalToFraction(-2.33));
+	  assertThat(decimalToFraction(-2.33), is("-2 1/3"));
 	}
 	
 	@Test
 	public void testMixedNumberFraction() {
-		assertEquals("2 1/3", decimalToFraction(2.33));
+	  assertThat(decimalToFraction(2.33), is("2 1/3"));
 	}
 }

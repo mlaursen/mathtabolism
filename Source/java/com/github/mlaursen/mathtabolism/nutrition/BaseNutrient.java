@@ -24,7 +24,7 @@ public abstract class BaseNutrient {
 	 */
 	public void add(BaseNutrient nutrient) {
 		if(this.getClass().equals(nutrient.getClass())) {
-			this.amount += nutrient.amount;
+			this.amount += ((BaseNutrient) nutrient).amount;
 		}
 	}
 	
@@ -34,7 +34,7 @@ public abstract class BaseNutrient {
 	 */
 	public void subtract(BaseNutrient nutrient) {
 		if(this.getClass().equals(nutrient.getClass())) {
-			this.amount -= nutrient.amount;
+			this.amount -= ((BaseNutrient) nutrient).amount;
 		}
 	}
 	

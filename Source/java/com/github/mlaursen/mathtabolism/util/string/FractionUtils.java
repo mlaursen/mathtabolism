@@ -31,7 +31,7 @@ public class FractionUtils {
 	 */
 	public static double fractionToDecimal(String fraction) {
 		if(fraction == null || "".equals(fraction)) {
-			return 0;
+		  throw new NumberFormatException("A null or empty String can not be converted to a fraction.");
 		}
 		
 		String[] split = fraction.split("/");

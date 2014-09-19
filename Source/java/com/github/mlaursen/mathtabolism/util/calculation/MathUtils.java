@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.github.mlaursen.mathtabolism.util.calculation;
 
 import java.math.BigInteger;
@@ -9,7 +6,7 @@ import com.github.mlaursen.mathtabolism.util.Pair;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 public class MathUtils {
 	private MathUtils() {}

@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import static com.github.mlaursen.mathtabolism.util.calculation.UnitConverter.convert;
+import static com.github.mlaursen.mathtabolism.unit.UnitConverter.convert;
 /**
  * 
  * @author laursenm

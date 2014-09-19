@@ -4,6 +4,7 @@
 package com.github.mlaursen.mathtabolism.test.calculation.mathutils;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 import org.junit.Test;
 
@@ -19,36 +20,46 @@ public class ReduceUTest {
 	
 	@Test
 	public void testSimpleInts() {
-		assertEquals(new Pair<Integer>(1, 3), reduce(1, 3));
+	  assertThat(reduce(1, 3), is(new Pair<Integer>(1, 3)));
 	}
 	
 	@Test
 	public void testSimpleTuple() {
-		assertEquals(new Pair<Integer>(1, 3), reduce(new Pair<Integer>(1, 3)));
+	  assertThat(reduce(new Pair<Integer>(1, 3)), is(new Pair<Integer>(1, 3)));
 	}
 	
 	@Test
 	public void testOneForth() {
-		assertEquals(new Pair<Integer>(3, 4), reduce(75, 100));
+	  assertThat(reduce(75, 100), is(new Pair<Integer>(3, 4)));
 	}
 	
 	@Test
 	public void testBiggerDividend() {
-		assertEquals(new Pair<Integer>(4, 3), reduce(100, 75));
+	  assertThat(reduce(100, 75), is(new Pair<Integer>(4, 3)));
 	}
 	
 	@Test
-	public void testNegative() {
-		assertEquals(new Pair<Integer>(-4, 3), reduce(-100, 75));
+	public void testNegativeFirst() {
+	  assertThat(reduce(-100, 75), is(new Pair<Integer>(-4, 3)));
+	}
+	
+	@Test
+	public void testNegativeSecond() {
+	  assertThat(reduce(100, -75), is(new Pair<Integer>(-4, 3)));
+	}
+	
+	@Test
+	public void testNegativeBoth() {
+	  assertThat(reduce(-100, -75), is(new Pair<Integer>(4, 3)));
 	}
 	
 	@Test
 	public void testRepeatingBig() {
-		assertEquals(new Pair<Integer>(33, 100), reduce(33, 100));
+	  assertThat(reduce(33, 100), is(new Pair<Integer>(33, 100)));
 	}
 	
 	@Test
 	public void testRepeatingBigReducable() {
-		assertEquals(new Pair<Integer>(33, 50), reduce(66, 100));
+	  assertThat(reduce(66, 100), is(new Pair<Integer>(33, 50)));
 	}
 }

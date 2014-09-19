@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.github.mlaursen.mathtabolism.util;
 
 import java.io.IOException;
@@ -11,7 +8,7 @@ import org.jboss.security.Base64Encoder;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 public class PasswordEncryption {
 	
