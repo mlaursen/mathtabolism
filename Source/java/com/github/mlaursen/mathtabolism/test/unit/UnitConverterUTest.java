@@ -124,15 +124,16 @@ public class UnitConverterUTest {
     Measurement pint = new Measurement(UnitMeasurement.PINT, 4.0 / 8 / 2);
     assertThat(convert(flOz4, UnitMeasurement.PINT), is(pint));
     assertThat(convert(pint, UnitMeasurement.FLUID_OUNCE), is(flOz4));
+    assertThat(convert(pint, UnitMeasurement.CUP), is(cup0Point5));
     
     Measurement quart = new Measurement(UnitMeasurement.QUART, 4.0 / 8 / 4);
     assertThat(convert(flOz4, UnitMeasurement.QUART), is(quart));
     assertThat(convert(quart, UnitMeasurement.FLUID_OUNCE), is(flOz4));
+    assertThat(convert(quart, UnitMeasurement.PINT), is(pint));
     
     Measurement gallon = new Measurement(UnitMeasurement.GALLON, 4.0 / 8 / 4 / 4);
     assertThat(convert(flOz4, UnitMeasurement.GALLON), is(gallon));
     assertThat(convert(gallon, UnitMeasurement.FLUID_OUNCE), is(flOz4));
-    
-    //assertThat(convert(gallon, UnitMeasurement.QUART), is(quart));
+    assertThat(convert(gallon, UnitMeasurement.QUART), is(quart));
   }
 }

@@ -13,22 +13,6 @@ import java.util.Map;
  */
 public class UnitConverter {
   private static final int METRIC_CONVERSION = 10;
-  private static final Map<UnitMeasurement, Integer> IMPERIAL_DISTANCE_CONVERSION_TABLE = new HashMap<>();
-  private static final Map<UnitMeasurement, Integer> IMPERIAL_VOLUME_CONVERSION_TABLE = new HashMap<>();
-  private static final Map<UnitMeasurement, Integer> IMPERIAL_WEIGHT_CONVERSION_TABLE = new HashMap<>();
-  private static final Map<UnitMeasurement, Integer> SPOON_CONVERSION_TABLE = new HashMap<>();
-  static {
-    IMPERIAL_DISTANCE_CONVERSION_TABLE.put(UnitMeasurement.INCH, 12);
-    
-    IMPERIAL_VOLUME_CONVERSION_TABLE.put(UnitMeasurement.CUP, 8);
-    IMPERIAL_VOLUME_CONVERSION_TABLE.put(UnitMeasurement.PINT, 8 * 2);
-    IMPERIAL_VOLUME_CONVERSION_TABLE.put(UnitMeasurement.QUART, 8 * 4);
-    IMPERIAL_VOLUME_CONVERSION_TABLE.put(UnitMeasurement.GALLON, 8 * 4 * 4);
-    
-    SPOON_CONVERSION_TABLE.put(UnitMeasurement.TEASPOON, 3);
-    
-    IMPERIAL_WEIGHT_CONVERSION_TABLE.put(UnitMeasurement.OUNCE, 16);
-  }
 	
 	private UnitConverter() {}
 	
@@ -90,33 +74,35 @@ public class UnitConverter {
 	 */
 	private static Measurement convertImperial(double value, UnitMeasurement from, UnitMeasurement to) {
 	  UnitMeasurement nonBase = from.isBaseUnit() ? to : from;
-	  int conversion;
+	  int conversion = 0;
 	  int comparator = from.compareTo(to);
 	  if(from.getBaseUnit().equals(UnitMeasurement.TABLESPOON)) {
-	    conversion = SPOON_CONVERSION_TABLE.get(nonBase);
+	    conversion = 3;
 	  } else {
   	  switch(from.getUnitType()) {
   	    case DISTANCE:
-  	      conversion = IMPERIAL_DISTANCE_CONVERSION_TABLE.get(nonBase);
+  	      conversion = 12;
   	      break;
   	    case VOLUME:
-  	      switch(Math.abs(comparator)) {
-  	        case 1:
-  	          conversion = 8;
-  	          break;
-  	        case 2:
-  	          conversion = 8 * 2;
-  	          break;
-  	        default:
-  	          conversion = 8 * (int) Math.pow(4, Math.abs(comparator) - 2);
-  	          break;
+  	      if(from.isBaseUnit() || to.isBaseUnit()) {
+    	      switch(Math.abs(comparator)) {
+    	        case 1:
+    	          conversion = 8;
+    	          break;
+    	        case 2:
+    	          conversion = 8 * 2;
+    	          break;
+    	        default:
+    	          conversion = 8 * (int) Math.pow(4, Math.abs(comparator) - 2);
+    	          break;
+    	      }
+  	      } else {
+  	        
   	      }
   	      break;
   	    case WEIGHT:
-          conversion = IMPERIAL_WEIGHT_CONVERSION_TABLE.get(nonBase);
+          conversion = 16;
   	      break;
-        default:
-          conversion = 0;
   	  }
 	  }
 	  double updated = comparator < 0 ? value / conversion : value * conversion;
