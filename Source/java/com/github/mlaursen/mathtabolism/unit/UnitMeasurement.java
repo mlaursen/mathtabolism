@@ -1,8 +1,10 @@
 package com.github.mlaursen.mathtabolism.unit;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
+ * An enum of all the UnitSystem Measurement types.
+ * The order of the enums is used to calculate the conversions.
+ * 
  * @author mlaursen
  *
  */
@@ -13,8 +15,8 @@ public enum UnitMeasurement {
   POUND(UnitType.WEIGHT, UnitSystem.IMPERIAL),
   TEASPOON(UnitType.VOLUME, UnitSystem.IMPERIAL),
   TABLESPOON(UnitType.VOLUME, UnitSystem.IMPERIAL),
-  CUP(UnitType.VOLUME, UnitSystem.IMPERIAL),
   FLUID_OUNCE(UnitType.VOLUME, UnitSystem.IMPERIAL),
+  CUP(UnitType.VOLUME, UnitSystem.IMPERIAL),
   PINT(UnitType.VOLUME, UnitSystem.IMPERIAL),
   QUART(UnitType.VOLUME, UnitSystem.IMPERIAL),
   GALLON(UnitType.VOLUME, UnitSystem.IMPERIAL),
@@ -24,6 +26,7 @@ public enum UnitMeasurement {
   GRAM(UnitType.WEIGHT, UnitSystem.METRIC),
   KILOGRAM(UnitType.WEIGHT, UnitSystem.METRIC),
   MILLIMETER(UnitType.DISTANCE, UnitSystem.METRIC),
+  CENTIMETER(UnitType.DISTANCE, UnitSystem.METRIC),
   METER(UnitType.DISTANCE, UnitSystem.METRIC),
   KILOMETER(UnitType.DISTANCE, UnitSystem.METRIC);
   
@@ -106,6 +109,10 @@ public enum UnitMeasurement {
     return unitMeasurement1.unitSystem.equals(unitMeasurement2.unitSystem);
   }
   
+  public boolean isBaseUnit() {
+    return this.equals(getBaseUnit());
+  }
+  
   /**
    * 
    * @return the base unit for the current UnitMeasurement
@@ -132,6 +139,7 @@ public enum UnitMeasurement {
       case KILOGRAM:
         return GRAM;
       case MILLIMETER:
+      case CENTIMETER:
       case METER:
       case KILOMETER:
         return METER;
@@ -141,14 +149,5 @@ public enum UnitMeasurement {
       default:
         return this;
     }
-  }
-  
-  @Override
-  public String toString() {
-    return new ToStringBuilder(this)
-        .append("unitType", unitType)
-        .append("unitSystemType", unitSystem)
-        .append("isCookingType", isCookingType)
-        .toString();
   }
 }

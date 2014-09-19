@@ -1,7 +1,5 @@
 package com.github.mlaursen.mathtabolism.unit;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-
 import com.github.mlaursen.mathtabolism.util.calculation.Addable;
 import com.github.mlaursen.mathtabolism.util.calculation.Subtractable;
 
@@ -59,9 +57,6 @@ public class Measurement implements Addable, Subtractable {
   
   @Override
   public String toString() {
-    return new ToStringBuilder(this)
-        .append("unitMeasurement", unitMeasurement)
-        .append("value", value)
-        .build();
+    return "Measurement [unitMeasurement = " + unitMeasurement + ", value = " + value + "]";
   }
 }

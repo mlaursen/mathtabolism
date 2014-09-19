@@ -3,6 +3,9 @@
  */
 package com.github.mlaursen.mathtabolism.util.string;
 
+import java.util.Arrays;
+import java.util.List;
+
 
 /**
  * 
@@ -134,5 +137,32 @@ public class StringUtils {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * 
+	 * @param toMatch
+	 * @param matchesAny
+	 * @return
+	 */
+	public static boolean equalsAny(String toMatch, List<String> matchesAny) {
+	  return matchesAny != null && matchesAny.contains(toMatch);
+	}
+	
+	/**
+	 * 
+	 * @param toMatch
+	 * @param matchesAny
+	 * @return
+	 */
+	public static boolean equalsAny(String toMatch, String... matchesAny) {
+	  return equalsAny(toMatch, Arrays.asList(matchesAny));
+	}
+	
+	public static boolean startsWithAny(String toMatch, String... startsWithAny) {
+	  for(String s : startsWithAny) {
+	    return toMatch.startsWith(s);
+	  }
+	  return false;
 	}
 }
