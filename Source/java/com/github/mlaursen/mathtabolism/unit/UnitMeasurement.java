@@ -22,7 +22,9 @@ public enum UnitMeasurement {
   LITER(UnitType.VOLUME, UnitSystem.METRIC),
   MILLIGRAM(UnitType.WEIGHT, UnitSystem.METRIC),
   GRAM(UnitType.WEIGHT, UnitSystem.METRIC),
-  KILOGRAM(UnitType.WEIGHT, UnitSystem.METRIC);
+  KILOGRAM(UnitType.WEIGHT, UnitSystem.METRIC),
+  METER(UnitType.DISTANCE, UnitSystem.METRIC),
+  KILOMETER(UnitType.DISTANCE, UnitSystem.METRIC);
   
   private UnitType unitType;
   private UnitSystem unitSystem;
