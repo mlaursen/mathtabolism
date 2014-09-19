@@ -26,13 +26,14 @@ public class MathUtils {
 	}
 	
 	/**
-	 * Reduces a Fraction {@link Pair} with the smalles whole numerator and denominator
+	 * Reduces a Fraction {@link Pair} with the smallest whole numerator and denominator
 	 * @param fraction the Tuple fraction to reduce
 	 * @return a {@link Pair} containing the reduced integers
 	 */
 	public static Pair<Integer> reduce(Pair<Integer> fraction) {
 		int gcd = gcd(fraction);
-		return new Pair<Integer>(fraction.first / gcd, fraction.second / gcd);
+		int sign = fraction.second < 0 ? -1 : 1;
+		return new Pair<Integer>(sign * (fraction.first / gcd), Math.abs(fraction.second / gcd));
 	}
 	
 	/**
