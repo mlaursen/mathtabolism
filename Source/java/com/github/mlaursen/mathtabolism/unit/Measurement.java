@@ -48,6 +48,16 @@ public class Measurement implements Addable, Subtractable {
   }
   
   @Override
+  public boolean equals(Object object) {
+    if(object != null && object instanceof Measurement) {
+      Measurement m = (Measurement) object;
+      return value == m.value
+          && unitMeasurement == m.unitMeasurement;
+    }
+    return false;
+  }
+  
+  @Override
   public String toString() {
     return new ToStringBuilder(this)
         .append("unitMeasurement", unitMeasurement)

@@ -9,7 +9,10 @@ import org.junit.runners.Suite.SuiteClasses;
  *
  */
 @RunWith(Suite.class)
-@SuiteClasses({ UnitMeasurementUTest.class })
+@SuiteClasses({ 
+  UnitMeasurementUTest.class,
+  UnitConverterUTest.class
+  })
 public class UnitPackageUSuite {
 
 }

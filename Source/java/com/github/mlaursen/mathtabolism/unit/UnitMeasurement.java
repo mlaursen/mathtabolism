@@ -105,6 +105,42 @@ public enum UnitMeasurement {
     return unitMeasurement1.unitSystem.equals(unitMeasurement2.unitSystem);
   }
   
+  /**
+   * 
+   * @return the base unit for the current UnitMeasurement
+   */
+  public UnitMeasurement getBaseUnit() {
+    switch(this) {
+      case INCH:
+      case FOOT:
+        return FOOT;
+      case TEASPOON:
+      case TABLESPOON:
+        return TABLESPOON;
+      case CUP:
+      case FLUID_OUNCE:
+      case GALLON:
+      case PINT:
+      case QUART:
+        return FLUID_OUNCE;
+      case MILLIGRAM:
+      case GRAM:
+      case KILOGRAM:
+        return GRAM;
+      case LITER:
+      case MILLILITER:
+        return LITER;
+      case METER:
+      case KILOMETER:
+        return METER;
+      case OUNCE:
+      case POUND:
+        return OUNCE;
+      default:
+        return this;
+    }
+  }
+  
   @Override
   public String toString() {
     return new ToStringBuilder(this)
