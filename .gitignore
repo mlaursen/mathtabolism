@@ -3,4 +3,4 @@ build-user.properties
 build/
 *.classpath
 *.project
-
+bin/
