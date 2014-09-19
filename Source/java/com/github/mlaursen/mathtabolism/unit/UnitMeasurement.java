@@ -23,6 +23,7 @@ public enum UnitMeasurement {
   MILLIGRAM(UnitType.WEIGHT, UnitSystem.METRIC),
   GRAM(UnitType.WEIGHT, UnitSystem.METRIC),
   KILOGRAM(UnitType.WEIGHT, UnitSystem.METRIC),
+  MILLIMETER(UnitType.DISTANCE, UnitSystem.METRIC),
   METER(UnitType.DISTANCE, UnitSystem.METRIC),
   KILOMETER(UnitType.DISTANCE, UnitSystem.METRIC);
   
@@ -130,6 +131,7 @@ public enum UnitMeasurement {
       case GRAM:
       case KILOGRAM:
         return GRAM;
+      case MILLIMETER:
       case METER:
       case KILOMETER:
         return METER;
