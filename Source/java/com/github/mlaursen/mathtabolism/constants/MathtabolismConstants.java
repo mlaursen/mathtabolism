@@ -10,7 +10,7 @@ import java.text.DecimalFormat;
  * @author laursenm
  */
 public class MathtabolismConstants {
-	public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.######");
+	public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
 	private MathtabolismConstants() {
 	}
 	

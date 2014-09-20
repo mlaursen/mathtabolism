@@ -4,6 +4,7 @@
 package com.github.mlaursen.mathtabolism.constants;
 
 import com.github.mlaursen.mathtabolism.nutrition.Calorie;
+import com.github.mlaursen.mathtabolism.util.number.NumberUtils;
 
 /**
  * 
@@ -67,6 +68,6 @@ public enum TDEEFormula {
 			amount = (weightMultiplier * weightInKG) + (heightMultiplier * heightInCM) - (ageMultiplier * age) + padding;
 			break;
 		}
-		return new Calorie(amount);
+		return new Calorie(NumberUtils.format(amount));
 	}
 }

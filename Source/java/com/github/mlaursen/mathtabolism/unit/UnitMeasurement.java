@@ -116,7 +116,7 @@ public enum UnitMeasurement {
 			return POUND;
 		case INCH:
 		case FOOT:
-			return FOOT;
+			return INCH;
 		case TEASPOON:
 		case TABLESPOON:
 			return TABLESPOON;

@@ -50,8 +50,8 @@ public class UnitConverterUTest {
 	public void testConvertToBaseImperial() {
 		assertThat(convertToBase(OUNCE_16), is(POUND_1));
 		assertThat(convertToBase(POUND_1), is(POUND_1));
-		assertThat(convertToBase(FOOT_1), is(FOOT_1));
-		assertThat(convertToBase(INCH_12), is(FOOT_1));
+		assertThat(convertToBase(FOOT_1), is(INCH_12));
+		assertThat(convertToBase(INCH_12), is(INCH_12));
 		assertThat(convertToBase(FLUID_OUNCE_8), is(FLUID_OUNCE_8));
 		assertThat(convertToBase(CUP_1), is(FLUID_OUNCE_8));
 		assertThat(convertToBase(PINT_1), is(FLUID_OUNCE_16));
@@ -156,7 +156,7 @@ public class UnitConverterUTest {
 		df.setRoundingMode(RoundingMode.CEILING);
 		df.setMaximumFractionDigits(7);
 		Measurement gram = new Measurement(UnitMeasurement.GRAM, 127);
-		Measurement lbs  = new Measurement(UnitMeasurement.POUND, NumberUtils.formatDecimal(127 * 2.2046 / 1000));
+		Measurement lbs  = new Measurement(UnitMeasurement.POUND, NumberUtils.format(127 * 2.2046 / 1000, 7));
 		assertThat(convert(gram, UnitMeasurement.POUND), is(lbs));
 		assertEquals(convert(lbs, UnitMeasurement.GRAM).getValue(), gram.getValue(), 1);
 		
@@ -164,5 +164,13 @@ public class UnitConverterUTest {
 		Measurement kg = new Measurement(UnitMeasurement.KILOGRAM, 178.35 / 2.2046);
 		assertThat(convert(kg, UnitMeasurement.POUND), is(lbs2));
 		assertEquals(convert(lbs2, UnitMeasurement.KILOGRAM).getValue(), kg.getValue(), 2);
+	}
+	
+	@Test
+	public void testConvertDistanceSwitchingUnit() {
+		Measurement inch72 = new Measurement(UnitMeasurement.INCH, 72);
+		Measurement cm = new Measurement(UnitMeasurement.CENTIMETER, 182.88);
+		assertEquals(cm.getValue(), convert(inch72, UnitMeasurement.CENTIMETER).getValue(), 2);
+		assertEquals(inch72.getValue(), convert(cm, UnitMeasurement.INCH).getValue(), 2);
 	}
 }

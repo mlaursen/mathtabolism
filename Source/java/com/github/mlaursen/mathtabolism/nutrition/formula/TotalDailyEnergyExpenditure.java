@@ -24,10 +24,16 @@ public class TotalDailyEnergyExpenditure {
 		Measurement weightM = new Measurement(unitSystem.isMetric() ? UnitMeasurement.KILOGRAM : UnitMeasurement.POUND, weight);
 		Measurement heightM = new Measurement(unitSystem.isMetric() ? UnitMeasurement.CENTIMETER : UnitMeasurement.INCH, height);
 		
-		UnitConverter.convert(weightM, UnitMeasurement.KILOGRAM);
-		UnitConverter.convert(heightM, UnitMeasurement.CENTIMETER);
-		double weightInKG = 0; // UnitConverter.convert(weight, MeasuringUnit.METRIC)
-		double heightInCM = 0; // UnitConverter.convert(height, MeasuringUnit.METRIC)
+		double weightInKG = UnitConverter.convert(weightM, UnitMeasurement.KILOGRAM).getValue();
+		double heightInCM = UnitConverter.convert(heightM, UnitMeasurement.CENTIMETER).getValue();
 		this.tdee = formula.calculate(weightInKG, heightInCM, age, gender);
+	}
+	
+	/**
+	 * 
+	 * @return 
+	 */
+	public Calorie getTdee() {
+		return tdee;
 	}
 }

@@ -5,13 +5,15 @@ package com.github.mlaursen.mathtabolism.util.number;
 
 import java.text.DecimalFormat;
 
+import com.github.mlaursen.mathtabolism.util.string.StringUtils;
+
 /**
  * 
  * @author mlaursen
  */
 public class NumberUtils {
 	
-	public static final DecimalFormat DEFAULT_DECIMAL_FORMAT = new DecimalFormat("#.#######");
+	public static final DecimalFormat DEFAULT_DECIMAL_FORMAT = new DecimalFormat("#.##");
 	
 	private NumberUtils() {
 	}
@@ -28,7 +30,14 @@ public class NumberUtils {
 	}
 	
 	
-	public static double formatDecimal(double decimal) {
+	public static double format(double decimal) {
 		return Double.valueOf(DEFAULT_DECIMAL_FORMAT.format(decimal));
+	}
+	
+	public static double format(double decimal, int precision) {
+		DecimalFormat df = new DecimalFormat();
+		df.setMaximumFractionDigits(precision);
+		df.setMinimumFractionDigits(precision);
+		return Double.valueOf(df.format(decimal));
 	}
 }

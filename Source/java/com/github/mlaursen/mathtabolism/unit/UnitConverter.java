@@ -143,10 +143,10 @@ public class UnitConverter {
 		double value = baseMeasurement.getValue();
 		switch(baseMeasurement.getUnitMeasurement()) {
 		case METER:
-			multiplier = 3.28;
+			multiplier = 39.3701;
 			break;
-		case FOOT:
-			multiplier = 0.30;
+		case INCH:
+			multiplier = 2.54 / Math.pow(METRIC_CONVERSION, 3);
 			break;
 		case GRAM:
 			multiplier = 2.2046 / Math.pow(METRIC_CONVERSION, 3);
