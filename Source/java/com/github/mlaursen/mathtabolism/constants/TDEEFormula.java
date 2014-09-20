@@ -52,20 +52,20 @@ public enum TDEEFormula {
 		double padding, weightMultiplier, heightMultiplier, ageMultiplier;
 		double amount = 0;
 		switch(this) {
-			case HARRIS_BENEDICT:
-				padding = isMale ? 66.5 : 655.1;
-				weightMultiplier = isMale ? 13.75 : 9.563;
-				heightMultiplier = isMale ? 5.003 : 1.85;
-				ageMultiplier = isMale ? 6.775 : 4.676;
-				amount = padding + (weightMultiplier * weightInKG) + (heightMultiplier * heightInCM) - (ageMultiplier * age);
-				break;
-			case MIFFLIN_ST_JOER:
-				padding = isMale ? 5 : -161;
-				weightMultiplier = 10;
-				heightMultiplier = 6.25;
-				ageMultiplier = 5;
-				amount = (weightMultiplier * weightInKG) + (heightMultiplier * heightInCM) - (ageMultiplier * age) + padding;
-				break;
+		case HARRIS_BENEDICT:
+			padding = isMale ? 66.5 : 655.1;
+			weightMultiplier = isMale ? 13.75 : 9.563;
+			heightMultiplier = isMale ? 5.003 : 1.85;
+			ageMultiplier = isMale ? 6.775 : 4.676;
+			amount = padding + (weightMultiplier * weightInKG) + (heightMultiplier * heightInCM) - (ageMultiplier * age);
+			break;
+		case MIFFLIN_ST_JOER:
+			padding = isMale ? 5 : -161;
+			weightMultiplier = 10;
+			heightMultiplier = 6.25;
+			ageMultiplier = 5;
+			amount = (weightMultiplier * weightInKG) + (heightMultiplier * heightInCM) - (ageMultiplier * age) + padding;
+			break;
 		}
 		return new Calorie(amount);
 	}

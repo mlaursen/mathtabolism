@@ -8,30 +8,32 @@ import java.text.DecimalFormat;
 import com.github.mlaursen.mathtabolism.util.Pair;
 import com.github.mlaursen.mathtabolism.util.calculation.MathUtils;
 
-
 /**
  * 
  * @author laursenm
  */
 public class FractionUtils {
-	private FractionUtils() {}
+	private FractionUtils() {
+	}
 	
 	public static final int DEFAULT_PRECISION = 2;
 	public static final String DIVIDER = "/";
 	public static final String MINUS = "-";
 	
 	/**
-	 * Converts a String fraction into a double value. Nulls are allowed.
-	 * If the given String is null, 0 will be returned.
-	 * <p>An <tt>IllegalArgumentException</tt> will be thrown if the denominator is 0.
-	 * <p>A <tt>NumberFormatException</tt> will be thrown if any part of the String can not be formatted
-	 * as a number.
-	 * @param fraction the String to convert to a fraction
+	 * Converts a String fraction into a double value. Nulls are allowed. If the given String is null, 0 will be returned.
+	 * <p>
+	 * An <tt>IllegalArgumentException</tt> will be thrown if the denominator is 0.
+	 * <p>
+	 * A <tt>NumberFormatException</tt> will be thrown if any part of the String can not be formatted as a number.
+	 * 
+	 * @param fraction
+	 *          the String to convert to a fraction
 	 * @return the double value of the fraction, 0 if null, or an exception if not a number
 	 */
 	public static double fractionToDecimal(String fraction) {
 		if(fraction == null || "".equals(fraction)) {
-		  throw new NumberFormatException("A null or empty String can not be converted to a fraction.");
+			throw new NumberFormatException("A null or empty String can not be converted to a fraction.");
 		}
 		
 		String[] split = fraction.split("/");
@@ -61,7 +63,8 @@ public class FractionUtils {
 	/**
 	 * Converts a decimal into a fraction String.
 	 * 
-	 * @param decimal a decimal to convert to a fraction String
+	 * @param decimal
+	 *          a decimal to convert to a fraction String
 	 * @return a String Fraction representation of the decimal
 	 */
 	public static String decimalToFraction(Double decimal) {
@@ -71,8 +74,10 @@ public class FractionUtils {
 	/**
 	 * Converts a decimal into a fraction String.
 	 * 
-	 * @param decimal a decimal to convert to a fraction String
-	 * @param precision the number of decimal places allowed
+	 * @param decimal
+	 *          a decimal to convert to a fraction String
+	 * @param precision
+	 *          the number of decimal places allowed
 	 * @return a String Fraction representation of the decimal
 	 */
 	public static String decimalToFraction(Double decimal, int precision) {

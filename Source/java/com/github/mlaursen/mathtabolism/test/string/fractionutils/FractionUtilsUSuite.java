@@ -12,10 +12,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author laursenm
  */
 @RunWith(Suite.class)
-@SuiteClasses({
-	FractionToDecimalUTest.class,
-	DecimalToFractionUTest.class
-	})
+@SuiteClasses({ FractionToDecimalUTest.class, DecimalToFractionUTest.class })
 public class FractionUtilsUSuite {
 	
 }

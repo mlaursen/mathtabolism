@@ -15,7 +15,9 @@ import com.github.mlaursen.mathtabolism.unit.UnitSystem;
 public class TotalDailyEnergyExpenditure {
 	
 	private Calorie tdee;
-	public TotalDailyEnergyExpenditure(double weight, double height, int age, Gender gender, UnitSystem unitSystem, TDEEFormula formula) {
+	
+	public TotalDailyEnergyExpenditure(double weight, double height, int age, Gender gender, UnitSystem unitSystem,
+			TDEEFormula formula) {
 		double weightInKG = 0; // UnitConverter.convert(weight, MeasuringUnit.METRIC)
 		double heightInCM = 0; // UnitConverter.convert(height, MeasuringUnit.METRIC)
 		this.tdee = formula.calculate(weightInKG, heightInCM, age, gender);

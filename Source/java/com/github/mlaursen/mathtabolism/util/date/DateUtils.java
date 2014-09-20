@@ -13,11 +13,13 @@ import java.util.Date;
 public class DateUtils {
 	
 	/**
-	 * Checks if two dates are considered the same.
-	 * The dates are considered the same if the <tt>month</tt>,
-	 * the <tt>day</tt>, and the <tt>year</tt> are equal.
-	 * @param d1 the first date
-	 * @param d2 the second date
+	 * Checks if two dates are considered the same. The dates are considered the same if the <tt>month</tt>, the
+	 * <tt>day</tt>, and the <tt>year</tt> are equal.
+	 * 
+	 * @param d1
+	 *          the first date
+	 * @param d2
+	 *          the second date
 	 * @return true if the same date
 	 */
 	public static boolean isSameDate(Date d1, Date d2) {

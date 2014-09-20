@@ -28,11 +28,11 @@ public class DecimalToFractionUTest {
 	
 	@Test
 	public void testMixedNegativeNumberFraction() {
-	  assertThat(decimalToFraction(-2.33), is("-2 1/3"));
+		assertThat(decimalToFraction(-2.33), is("-2 1/3"));
 	}
 	
 	@Test
 	public void testMixedNumberFraction() {
-	  assertThat(decimalToFraction(2.33), is("2 1/3"));
+		assertThat(decimalToFraction(2.33), is("2 1/3"));
 	}
 }

@@ -31,10 +31,8 @@ import com.github.mlaursen.mathtabolism.entity.BasePK;
  * @author laursenm
  */
 @Entity
-@NamedQueries(
-		@NamedQuery(name=AccountSetting.Q_findCurrentAccountSetting, query="SELECT as1 FROM AccountSetting as1 WHERE as1.pk.account.id = :account_id "
-				+ "AND as1.pk.dateChanged = (SELECT max(as2.pk.dateChanged) FROM AccountSetting as2 WHERE as2.pk.account.id = :account_id)")
-)
+@NamedQueries(@NamedQuery(name = AccountSetting.Q_findCurrentAccountSetting, query = "SELECT as1 FROM AccountSetting as1 WHERE as1.pk.account.id = :account_id "
+		+ "AND as1.pk.dateChanged = (SELECT max(as2.pk.dateChanged) FROM AccountSetting as2 WHERE as2.pk.account.id = :account_id)"))
 public class AccountSetting extends BaseEntity {
 	public static final String Q_findCurrentAccountSetting = "AccountSetting.findCurrentAccountSetting";
 	
@@ -52,7 +50,7 @@ public class AccountSetting extends BaseEntity {
 	
 	/**
 	 * 
-	 * @param account 
+	 * @param account
 	 */
 	public void setAccount(Account account) {
 		this.pk.account = account;
@@ -60,127 +58,128 @@ public class AccountSetting extends BaseEntity {
 	
 	/**
 	 * 
-	 * @return 
+	 * @return
 	 */
 	public Account getAccount() {
 		return pk.account;
 	}
-
+	
 	/**
 	 * 
-	 * @return 
+	 * @return
 	 */
 	public Weekday getRecalculationDay() {
 		return recalculationDay;
 	}
-
+	
 	/**
 	 * 
-	 * @param recalculationDay 
+	 * @param recalculationDay
 	 */
 	public void setRecalculationDay(Weekday recalculationDay) {
 		this.recalculationDay = recalculationDay;
 	}
-
+	
 	/**
 	 * 
-	 * @return 
+	 * @return
 	 */
 	public ActivityMultiplier getActivityMultiplier() {
 		return activityMultiplier;
 	}
-
+	
 	/**
 	 * 
-	 * @param activityMultiplier 
+	 * @param activityMultiplier
 	 */
 	public void setActivityMultiplier(ActivityMultiplier activityMultiplier) {
 		this.activityMultiplier = activityMultiplier;
 	}
-
+	
 	/**
 	 * 
-	 * @return 
+	 * @return
 	 */
 	public TDEEFormula getTdeeFormula() {
 		return tdeeFormula;
 	}
-
+	
 	/**
 	 * 
-	 * @param tdeeFormula 
+	 * @param tdeeFormula
 	 */
 	public void setTdeeFormula(TDEEFormula tdeeFormula) {
 		this.tdeeFormula = tdeeFormula;
 	}
-
+	
 	/**
 	 * 
-	 * @return 
+	 * @return
 	 */
 	public Date getDateChanged() {
 		return pk.dateChanged;
 	}
-
+	
 	/**
 	 * 
-	 * @param dateChanged 
+	 * @param dateChanged
 	 */
 	public void setDateChanged(Date dateChanged) {
 		this.pk.dateChanged = dateChanged;
 	}
-
+	
 	/**
 	 * @return
 	 */
 	@Override
 	public String toString() {
-		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-			.append("accountId", pk.account.getId())
-			.append("recalculationDay", recalculationDay)
-			.append("activityMultiplier", activityMultiplier)
-			.append("tdeeFormula", tdeeFormula)
-			.append("dateChanged", pk.dateChanged)
-			.toString();
+		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("accountId", pk.account.getId())
+				.append("recalculationDay", recalculationDay).append("activityMultiplier", activityMultiplier)
+				.append("tdeeFormula", tdeeFormula).append("dateChanged", pk.dateChanged).toString();
 	}
 	
 	public class PK extends BasePK {
 		private static final long serialVersionUID = 1L;
-
+		
 		@ManyToOne(fetch = FetchType.LAZY)
-		@JoinColumn(name="account_id")
+		@JoinColumn(name = "account_id")
 		private Account account;
 		
 		@Temporal(TemporalType.DATE)
 		private Date dateChanged;
+		
 		public PK(Account account, Date dateChanged) {
 			this.account = account;
 			this.dateChanged = dateChanged;
 		}
+		
 		/**
 		 * 
-		 * @return 
+		 * @return
 		 */
 		public Account getAccount() {
 			return account;
 		}
+		
 		/**
 		 * 
-		 * @param account 
+		 * @param account
 		 */
 		public void setAccount(Account account) {
 			this.account = account;
 		}
+		
 		/**
 		 * 
-		 * @return 
+		 * @return
 		 */
 		public Date getDateChanged() {
 			return dateChanged;
 		}
+		
 		/**
 		 * 
-		 * @param dateChanged 
+		 * @param dateChanged
 		 */
 		public void setDateChanged(Date dateChanged) {
 			this.dateChanged = dateChanged;
@@ -194,8 +193,7 @@ public class AccountSetting extends BaseEntity {
 		public boolean equals(Object object) {
 			if(object instanceof PK) {
 				PK pk = (PK) object;
-				return account.getId().equals(pk.account.getId())
-						&& dateChanged.equals(pk.dateChanged);
+				return account.getId().equals(pk.account.getId()) && dateChanged.equals(pk.dateChanged);
 			}
 			return false;
 		}

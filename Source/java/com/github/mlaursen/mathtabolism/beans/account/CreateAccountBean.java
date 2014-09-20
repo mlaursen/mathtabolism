@@ -26,6 +26,7 @@ public class CreateAccountBean extends BaseBean {
 	
 	/**
 	 * Lazy create of the account
+	 * 
 	 * @return the account or a new account if null
 	 */
 	public Account getAccount() {
@@ -39,7 +40,8 @@ public class CreateAccountBean extends BaseBean {
 		try {
 			account = accountBO.create(account);
 		}
-		catch(EJBException e) {;
+		catch (EJBException e) {
+			;
 			sendErrorMessageToUser("The username already exists.");
 			return null;
 		}

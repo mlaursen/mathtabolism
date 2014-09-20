@@ -19,14 +19,8 @@ import com.github.mlaursen.mathtabolism.test.unit.UnitPackageUSuite;
  * @author laursenm
  */
 @RunWith(Suite.class)
-@SuiteClasses({
-	FractionUtilsUSuite.class,
-	StringUtilsUSuite.class,
-	MathUtilsUSuite.class,
-	DateUtilsUSuite.class,
-	NutritionUSuite.class,
-	UnitPackageUSuite.class
-	})
+@SuiteClasses({ FractionUtilsUSuite.class, StringUtilsUSuite.class, MathUtilsUSuite.class, DateUtilsUSuite.class,
+		NutritionUSuite.class, UnitPackageUSuite.class })
 public class AllTests {
 	
 }

@@ -33,18 +33,18 @@ public class AccountBean extends BaseBean {
 	public Account getAccount() {
 		if(account == null) {
 			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-      String username = context.getUserPrincipal().getName();
-      account = accountBO.findAccountByUsername(username);
-      if(account != null) {
-      	account = accountBO.updateLastLogin(account);
-      }
+			String username = context.getUserPrincipal().getName();
+			account = accountBO.findAccountByUsername(username);
+			if(account != null) {
+				account = accountBO.updateLastLogin(account);
+			}
 		}
 		return account;
 	}
 	
 	/**
 	 * 
-	 * @param account 
+	 * @param account
 	 */
 	public void setAccount(Account account) {
 		this.account = account;

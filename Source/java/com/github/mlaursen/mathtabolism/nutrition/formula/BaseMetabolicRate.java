@@ -9,10 +9,9 @@ import com.github.mlaursen.mathtabolism.unit.UnitSystem;
 import com.github.mlaursen.mathtabolism.util.Pair;
 
 /**
- * This is a class for generating the Base Metabolic Rate (BMR) for a Person.
- * The BMR is a formula that uses the variables <tt>height</tt>, <tt>weight</tt>,
- * <tt>age</tt>, and <tt>gender</tt> to calculate the daily calorie needs. This formula
- * will be accurate in all but the very muscular and the very fat.
+ * This is a class for generating the Base Metabolic Rate (BMR) for a Person. The BMR is a formula that uses the
+ * variables <tt>height</tt>, <tt>weight</tt>, <tt>age</tt>, and <tt>gender</tt> to calculate the daily calorie needs.
+ * This formula will be accurate in all but the very muscular and the very fat.
  * 
  * @author laursenm
  * @see TotalDailyEnergyExpenditure
@@ -32,11 +31,16 @@ public class BaseMetabolicRate {
 	/**
 	 * Calculates the BRM
 	 * 
-	 * @param weight the person's weight
-	 * @param height the person's height
-	 * @param age the person's age
-	 * @param gender the person's {@link Gender}
-	 * @param unitSystem the person's {@link UnitSystem}
+	 * @param weight
+	 *          the person's weight
+	 * @param height
+	 *          the person's height
+	 * @param age
+	 *          the person's age
+	 * @param gender
+	 *          the person's {@link Gender}
+	 * @param unitSystem
+	 *          the person's {@link UnitSystem}
 	 * @return the number of {@link Calorie} for a person's BMR
 	 */
 	public static Calorie calculateBMR(double weight, double height, int age, Gender gender, UnitSystem unitSystem) {
@@ -48,7 +52,8 @@ public class BaseMetabolicRate {
 			ageMultiplier = MALE_AGE_MULTIPLIER;
 			weightMultipliers = MALE_WEIGHT_MULTIPLIERS;
 			heightMultipliers = MALE_HEIGHT_MULTIPLIERS;
-		} else {
+		}
+		else {
 			padding = FEMALE_PADDING;
 			ageMultiplier = FEMALE_AGE_MULTIPLIER;
 			weightMultipliers = FEMALE_WEIGHT_MULTIPLIERS;
@@ -59,7 +64,8 @@ public class BaseMetabolicRate {
 		if(unitSystem.isMetric()) {
 			weightMultiplier = weightMultipliers.first;
 			heightMultiplier = heightMultipliers.first;
-		} else {
+		}
+		else {
 			weightMultiplier = weightMultipliers.second;
 			heightMultiplier = heightMultipliers.second;
 		}

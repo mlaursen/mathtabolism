@@ -20,7 +20,7 @@ public class CalorieUTest {
 	@Test
 	public void testAddOneToZero() {
 		Calorie zeroCalories = new Calorie(0);
-		Calorie oneCalorie   = new Calorie(1);
+		Calorie oneCalorie = new Calorie(1);
 		zeroCalories.add(oneCalorie);
 		assertThat(zeroCalories, is(new Calorie(1)));
 	}
@@ -52,7 +52,7 @@ public class CalorieUTest {
 	@Test
 	public void testSubtractOneAndZero() {
 		Calorie zero = new Calorie(0);
-		Calorie one  = new Calorie(1);
+		Calorie one = new Calorie(1);
 		one.subtract(zero);
 		assertThat(one, is(new Calorie(1)));
 	}

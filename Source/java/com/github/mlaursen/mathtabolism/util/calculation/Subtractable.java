@@ -5,6 +5,6 @@ package com.github.mlaursen.mathtabolism.util.calculation;
  *
  */
 public interface Subtractable {
-
-  void subtract(Subtractable subtractable);
+	
+	void subtract(Subtractable subtractable);
 }

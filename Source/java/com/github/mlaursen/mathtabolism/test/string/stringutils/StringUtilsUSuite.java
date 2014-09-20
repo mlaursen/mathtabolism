@@ -12,10 +12,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author laursenm
  */
 @RunWith(Suite.class)
-@SuiteClasses({
-	ToDatabaseFormat.class,
-	RepeatsACharacterUTest.class
-	})
+@SuiteClasses({ ToDatabaseFormat.class, RepeatsACharacterUTest.class })
 public class StringUtilsUSuite {
 	
 }

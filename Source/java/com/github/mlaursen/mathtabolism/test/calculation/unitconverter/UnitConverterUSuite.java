@@ -12,7 +12,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author laursenm
  */
 @RunWith(Suite.class)
-@SuiteClasses({CalculateUTest.class})
+@SuiteClasses({ CalculateUTest.class })
 public class UnitConverterUSuite {
 	
 }

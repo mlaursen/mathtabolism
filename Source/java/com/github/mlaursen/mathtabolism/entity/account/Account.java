@@ -32,16 +32,14 @@ import com.github.mlaursen.mathtabolism.entity.BaseEntity;
  *
  */
 @Entity
-@NamedQueries(
-		@NamedQuery(name=Account.Q_findByUsername, query="SELECT a FROM Account a WHERE a.username = :username")
-)
+@NamedQueries(@NamedQuery(name = Account.Q_findByUsername, query = "SELECT a FROM Account a WHERE a.username = :username"))
 public class Account extends BaseEntity {
 	
 	public static final String Q_findByUsername = "Account.findByUsername";
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="account_id_gen")
-	@SequenceGenerator(name="account_id_gen", sequenceName="ACCOUNT_ID_SEQ", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_id_gen")
+	@SequenceGenerator(name = "account_id_gen", sequenceName = "ACCOUNT_ID_SEQ", allocationSize = 1)
 	private Long id;
 	private String username;
 	private String password;
@@ -58,10 +56,10 @@ public class Account extends BaseEntity {
 	@Temporal(TemporalType.DATE)
 	private Date activeSince;
 	
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="pk.account")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.account")
 	private List<AccountSetting> accountSettings;
 	
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="pk.account")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.account")
 	private List<AccountWeight> accountWeights;
 	
 	@Transient
@@ -178,7 +176,7 @@ public class Account extends BaseEntity {
 	
 	/**
 	 * 
-	 * @param activeSince 
+	 * @param activeSince
 	 */
 	public void setActiveSince(Date activeSince) {
 		this.activeSince = activeSince;
@@ -191,18 +189,18 @@ public class Account extends BaseEntity {
 	public Date getActiveSince() {
 		return activeSince;
 	}
-
+	
 	/**
 	 * 
-	 * @return 
+	 * @return
 	 */
 	public String getUnhashedPassword() {
 		return unhashedPassword;
 	}
-
+	
 	/**
 	 * 
-	 * @param unhashedPassword 
+	 * @param unhashedPassword
 	 */
 	public void setUnhashedPassword(String unhashedPassword) {
 		this.unhashedPassword = unhashedPassword;
@@ -210,7 +208,7 @@ public class Account extends BaseEntity {
 	
 	/**
 	 * 
-	 * @param accountSettings 
+	 * @param accountSettings
 	 */
 	public void setAccountSettings(List<AccountSetting> accountSettings) {
 		this.accountSettings = accountSettings;
@@ -218,72 +216,66 @@ public class Account extends BaseEntity {
 	
 	/**
 	 * 
-	 * @return 
+	 * @return
 	 */
 	public List<AccountSetting> getAccountSettings() {
 		return accountSettings;
 	}
-
+	
 	/**
 	 * 
-	 * @return 
+	 * @return
 	 */
 	public AccountSetting getCurrentSettings() {
 		return currentSettings;
 	}
-
+	
 	/**
 	 * 
-	 * @param currentSettings 
+	 * @param currentSettings
 	 */
 	public void setCurrentSettings(AccountSetting currentSettings) {
 		this.currentSettings = currentSettings;
 	}
-
+	
 	/**
 	 * 
-	 * @return 
+	 * @return
 	 */
 	public List<AccountWeight> getAccountWeights() {
 		return accountWeights;
 	}
-
+	
 	/**
 	 * 
-	 * @param accountWeights 
+	 * @param accountWeights
 	 */
 	public void setAccountWeights(List<AccountWeight> accountWeights) {
 		this.accountWeights = accountWeights;
 	}
-
+	
 	/**
 	 * 
-	 * @return 
+	 * @return
 	 */
 	public AccountWeight getCurrentWeight() {
 		return currentWeight;
 	}
-
+	
 	/**
 	 * 
-	 * @param currentWeight 
+	 * @param currentWeight
 	 */
 	public void setCurrentWeight(AccountWeight currentWeight) {
 		this.currentWeight = currentWeight;
 	}
-
+	
 	@Override
 	public String toString() {
-		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-			.append("id", id)
-			.append("username", username)
-			.append("role", role)
-			.append("birthday", birthday)
-			.append("lastLogin", lastLogin)
-			.append("activeSince", activeSince)
-			.append("currentSettings", currentSettings)
-			.append("currentWeight", currentWeight)
-			.toString();
+		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", id).append("username", username)
+				.append("role", role).append("birthday", birthday).append("lastLogin", lastLogin)
+				.append("activeSince", activeSince).append("currentSettings", currentSettings)
+				.append("currentWeight", currentWeight).toString();
 	}
 	
 }

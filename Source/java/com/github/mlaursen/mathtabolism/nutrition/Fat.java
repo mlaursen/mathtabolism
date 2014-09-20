@@ -8,7 +8,7 @@ package com.github.mlaursen.mathtabolism.nutrition;
  * @author laursenm
  */
 public class Fat extends MacroNutrient {
-
+	
 	/**
 	 * @param amount
 	 * @param toCalorieMultiplier
