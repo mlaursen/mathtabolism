@@ -3,13 +3,17 @@ package com.github.mlaursen.mathtabolism.test.unit;
 import static com.github.mlaursen.mathtabolism.unit.UnitConverter.convert;
 import static com.github.mlaursen.mathtabolism.unit.UnitConverter.convertToBase;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
+
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 import org.junit.Test;
 
 import com.github.mlaursen.mathtabolism.unit.Measurement;
 import com.github.mlaursen.mathtabolism.unit.UnitConverter;
 import com.github.mlaursen.mathtabolism.unit.UnitMeasurement;
+import com.github.mlaursen.mathtabolism.util.number.NumberUtils;
 
 /**
  * @author mlaursen
@@ -67,33 +71,32 @@ public class UnitConverterUTest {
 		assertThat(convertToBase(KILOMETERS_1), is(METERS_1000));
 	}
 	
+	@Test
+	public void testConvertSame() {
+		assertThat(convert(MILLIGRAMS_1000, UnitMeasurement.MILLIGRAM), is(MILLIGRAMS_1000));
+		assertThat(convert(GRAMS_1, UnitMeasurement.GRAM), is(GRAMS_1));
+		assertThat(convert(KILOGRAMS_1, UnitMeasurement.KILOGRAM), is(KILOGRAMS_1));
+	}
+	
 	/**
 	 * Test method for {@link UnitConverter#convert(Measurement, UnitMeasurement)}.
 	 */
 	@Test
-	public void testConvertSame() {
-		assertThat(convert(GRAMS_100, UnitMeasurement.GRAM), is(GRAMS_100));
-		assertThat(convert(KILOGRAMS_1, UnitMeasurement.KILOGRAM), is(KILOGRAMS_1));
-	}
-	
-	@Test
-	public void testConvertGramKilogram() {
+	public void testConvertMetricMassAndWeight() {
 		assertThat(convert(GRAMS_100, UnitMeasurement.KILOGRAM), is(new Measurement(UnitMeasurement.KILOGRAM, 0.1)));
-	}
-	
-	@Test
-	public void testConvertKilogramGram() {
 		assertThat(convert(KILOGRAMS_1, UnitMeasurement.GRAM), is(GRAMS_1000));
+		
+		Measurement gram = new Measurement(UnitMeasurement.GRAM, 127);
+		Measurement kilogram = new Measurement(UnitMeasurement.KILOGRAM, 127 / 1000.0);
+		assertThat(convert(gram, UnitMeasurement.KILOGRAM), is(kilogram));
 	}
 	
+	
 	@Test
-	public void testConvertInch() {
+	public void testConvertImperialDistance() {
 		assertThat(convert(FOOT_1, UnitMeasurement.INCH), is(INCH_12));
 		assertThat(convert(INCH_12, UnitMeasurement.FOOT), is(FOOT_1));
-	}
-	
-	@Test
-	public void testConvertInchComplicated() {
+		
 		Measurement inch3Point4 = new Measurement(UnitMeasurement.INCH, 3.4);
 		Measurement inch0 = new Measurement(UnitMeasurement.INCH, 0);
 		Measurement inchNegative1 = new Measurement(UnitMeasurement.INCH, -1);
@@ -134,5 +137,32 @@ public class UnitConverterUTest {
 		assertThat(convert(flOz4, UnitMeasurement.GALLON), is(gallon));
 		assertThat(convert(gallon, UnitMeasurement.FLUID_OUNCE), is(flOz4));
 		assertThat(convert(gallon, UnitMeasurement.QUART), is(quart));
+	}
+	
+	@Test
+	public void testConvertImperialMassAndWeight() {
+		assertThat(convert(POUND_1, UnitMeasurement.OUNCE), is(OUNCE_16));
+		assertThat(convert(OUNCE_16, UnitMeasurement.POUND), is(POUND_1));
+		
+		Measurement pound = new Measurement(UnitMeasurement.POUND, 178.37);
+		Measurement ounce = new Measurement(UnitMeasurement.OUNCE, 178.37 * 16);
+		assertThat(convert(pound, UnitMeasurement.OUNCE), is(ounce));
+		assertThat(convert(ounce, UnitMeasurement.POUND), is(pound));
+	}
+	
+	@Test
+	public void testConvertMassAndWeightSwitchingUnit() {
+		DecimalFormat df = new DecimalFormat();
+		df.setRoundingMode(RoundingMode.CEILING);
+		df.setMaximumFractionDigits(7);
+		Measurement gram = new Measurement(UnitMeasurement.GRAM, 127);
+		Measurement lbs  = new Measurement(UnitMeasurement.POUND, NumberUtils.formatDecimal(127 * 2.2046 / 1000));
+		assertThat(convert(gram, UnitMeasurement.POUND), is(lbs));
+		assertEquals(convert(lbs, UnitMeasurement.GRAM).getValue(), gram.getValue(), 1);
+		
+		Measurement lbs2 = new Measurement(UnitMeasurement.POUND, 178.35);
+		Measurement kg = new Measurement(UnitMeasurement.KILOGRAM, 178.35 / 2.2046);
+		assertThat(convert(kg, UnitMeasurement.POUND), is(lbs2));
+		assertEquals(convert(lbs2, UnitMeasurement.KILOGRAM).getValue(), kg.getValue(), 2);
 	}
 }

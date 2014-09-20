@@ -152,7 +152,7 @@ public class UnitConverter {
 			multiplier = 2.2046 / Math.pow(METRIC_CONVERSION, 3);
 			break;
 		case POUND:
-			return new Measurement(UnitMeasurement.KILOGRAM, value * 0.454);
+			return new Measurement(UnitMeasurement.KILOGRAM, value * 0.453592);
 		case LITER:
 			return new Measurement(UnitMeasurement.QUART, value * 1.057);
 		case FLUID_OUNCE:

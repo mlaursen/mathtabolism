@@ -2,6 +2,7 @@ package com.github.mlaursen.mathtabolism.unit;
 
 import com.github.mlaursen.mathtabolism.util.calculation.Addable;
 import com.github.mlaursen.mathtabolism.util.calculation.Subtractable;
+import com.github.mlaursen.mathtabolism.util.number.NumberUtils;
 
 /**
  * @author mlaursen
