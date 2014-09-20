@@ -138,7 +138,7 @@ public class AccountSetting extends BaseEntity {
 				.append("tdeeFormula", tdeeFormula).append("dateChanged", pk.dateChanged).toString();
 	}
 	
-	public class PK extends BasePK {
+	public static class PK extends BasePK {
 		private static final long serialVersionUID = 1L;
 		
 		@ManyToOne(fetch = FetchType.LAZY)
