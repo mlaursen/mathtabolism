@@ -3,9 +3,8 @@
  */
 package com.github.mlaursen.mathtabolism.util.number;
 
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
-
-import com.github.mlaursen.mathtabolism.util.string.StringUtils;
 
 /**
  * 
@@ -14,6 +13,9 @@ import com.github.mlaursen.mathtabolism.util.string.StringUtils;
 public class NumberUtils {
 	
 	public static final DecimalFormat DEFAULT_DECIMAL_FORMAT = new DecimalFormat("#.##");
+	static {
+		DEFAULT_DECIMAL_FORMAT.setRoundingMode(RoundingMode.FLOOR);
+	}
 	
 	private NumberUtils() {
 	}
