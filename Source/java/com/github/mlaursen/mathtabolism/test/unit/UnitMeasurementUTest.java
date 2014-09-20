@@ -108,4 +108,5 @@ public class UnitMeasurementUTest {
 	public void testCanConvertToInchMeter() {
 		assertTrue(UnitMeasurement.INCH.canConvertTo(UnitMeasurement.METER));
 	}
+	
 }

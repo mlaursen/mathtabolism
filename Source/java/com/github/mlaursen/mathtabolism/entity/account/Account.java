@@ -26,6 +26,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.github.mlaursen.mathtabolism.constants.AccountRole;
 import com.github.mlaursen.mathtabolism.entity.BaseEntity;
+import com.github.mlaursen.mathtabolism.unit.Measurement;
 
 /**
  * @author mlaursen
@@ -66,8 +67,6 @@ public class Account extends BaseEntity {
 	private String unhashedPassword;
 	@Transient
 	private AccountSetting currentSettings;
-	@Transient
-	private AccountWeight currentWeight;
 	
 	public Account() {
 	}
@@ -254,28 +253,11 @@ public class Account extends BaseEntity {
 		this.accountWeights = accountWeights;
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
-	public AccountWeight getCurrentWeight() {
-		return currentWeight;
-	}
-	
-	/**
-	 * 
-	 * @param currentWeight
-	 */
-	public void setCurrentWeight(AccountWeight currentWeight) {
-		this.currentWeight = currentWeight;
-	}
-	
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", id).append("username", username)
 				.append("role", role).append("birthday", birthday).append("lastLogin", lastLogin)
-				.append("activeSince", activeSince).append("currentSettings", currentSettings)
-				.append("currentWeight", currentWeight).toString();
+				.append("activeSince", activeSince).append("currentSettings", currentSettings).toString();
 	}
 	
 }

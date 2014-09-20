@@ -2,9 +2,10 @@ package com.github.mlaursen.mathtabolism.unit;
 
 import com.github.mlaursen.mathtabolism.util.calculation.Addable;
 import com.github.mlaursen.mathtabolism.util.calculation.Subtractable;
-import com.github.mlaursen.mathtabolism.util.number.NumberUtils;
 
 /**
+ * A Measurement is a class that has a {@link UnitMeasurement} and a value.
+ * 
  * @author mlaursen
  *
  */
@@ -37,7 +38,7 @@ public class Measurement implements Addable, Subtractable {
 	public void add(Addable addable) {
 		if(addable != null && addable instanceof Measurement) {
 			Measurement m = (Measurement) addable;
-			this.value += m.value;
+			this.value += UnitConverter.convert(m, unitMeasurement).value;
 		}
 	}
 	
