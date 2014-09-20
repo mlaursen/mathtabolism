@@ -148,6 +148,7 @@ public class AccountSetting extends BaseEntity {
 		@Temporal(TemporalType.DATE)
 		private Date dateChanged;
 		
+		public PK() {}
 		public PK(Account account, Date dateChanged) {
 			this.account = account;
 			this.dateChanged = dateChanged;
