@@ -30,17 +30,17 @@ public class UnitConverter {
 	 * @param toUnitMeasurement
 	 *          a {@link UnitMeasurement} to convert to
 	 * @return a new Measurement with an updated value and UnitMeasurement.
-	 * @throws InvalidMeasurementConvertException
+	 * @throws MeasurementConversionException
 	 *           when the Measurement can not be converted to the given <tt>toUnitMeasurement</tt>
 	 */
 	public static Measurement convert(Measurement fromMeasurement, UnitMeasurement toUnitMeasurement)
-			throws InvalidMeasurementConvertException {
+			throws MeasurementConversionException {
 		UnitMeasurement from = fromMeasurement.getUnitMeasurement();
 		if(from == toUnitMeasurement) {
 			return fromMeasurement;
 		}
 		else if(!from.canConvertTo(toUnitMeasurement)) {
-			throw new InvalidMeasurementConvertException(fromMeasurement, toUnitMeasurement);
+			throw new MeasurementConversionException(fromMeasurement, toUnitMeasurement);
 		}
 		double value = fromMeasurement.getValue();
 		if(UnitMeasurement.isSameUnitSystem(from, toUnitMeasurement)) {
@@ -158,7 +158,7 @@ public class UnitConverter {
 		case FLUID_OUNCE:
 			return new Measurement(UnitMeasurement.LITER, value * 29.57);
 		default:
-			throw new InvalidMeasurementConvertException(baseMeasurement, baseOtherUnit);
+			throw new MeasurementConversionException(baseMeasurement, baseOtherUnit);
 		}
 		return new Measurement(baseOtherUnit, value * multiplier);
 	}

@@ -1,6 +1,6 @@
 package com.github.mlaursen.mathtabolism.test;
 
-import com.github.mlaursen.mathtabolism.unit.InvalidMeasurementConvertException;
+import com.github.mlaursen.mathtabolism.unit.MeasurementConversionException;
 import com.github.mlaursen.mathtabolism.unit.Measurement;
 import com.github.mlaursen.mathtabolism.unit.UnitConverter;
 import com.github.mlaursen.mathtabolism.unit.UnitMeasurement;
