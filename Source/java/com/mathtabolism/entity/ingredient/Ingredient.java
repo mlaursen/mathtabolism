@@ -45,13 +45,13 @@ public class Ingredient extends BaseEntity {
 	})
 	private Measurement alternateServing;
 	
-	@AttributeOverride(name="value", column = @Column(name="calories"))
+	@AttributeOverride(name="value", column = @Column)
 	private Calorie calories;
-	@AttributeOverride(name="value", column = @Column(name="fat"))
+	@AttributeOverride(name="value", column = @Column)
 	private Fat fat;
-	@AttributeOverride(name="value", column = @Column(name="carbohydrates"))
+	@AttributeOverride(name="value", column = @Column)
 	private Carbohydrate carbohydrates;
-	@AttributeOverride(name="value", column = @Column(name="protein"))
+	@AttributeOverride(name="value", column = @Column)
 	private Protein protein;
 	
 	public Ingredient() {
