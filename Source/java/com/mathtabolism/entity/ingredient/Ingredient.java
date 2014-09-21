@@ -235,4 +235,20 @@ public class Ingredient extends BaseEntity {
 	public void setProtein(double protein) {
 		this.protein = new Protein(protein);
 	}
+	
+	@Override
+	public boolean equals(Object object) {
+		if(object instanceof Ingredient) {
+			Ingredient i = (Ingredient) object;
+			return pk.equals(i.pk)
+					&& category.equals(i.category)
+					&& serving.equals(i.serving)
+					&& alternateServing.equals(i.alternateServing)
+					&& calories.equals(i.calories)
+					&& fat.equals(i.fat)
+					&& carbohydrates.equals(i.carbohydrates)
+					&& protein.equals(i.protein);
+		}
+		return false;
+	}
 }

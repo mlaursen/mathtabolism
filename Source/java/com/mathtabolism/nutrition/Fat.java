@@ -12,7 +12,6 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Fat extends MacroNutrient {
 	
-	public Fat() {}
 	/**
 	 * @param amount
 	 * @param toCalorieMultiplier

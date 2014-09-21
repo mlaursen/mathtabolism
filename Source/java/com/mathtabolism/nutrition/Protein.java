@@ -12,7 +12,6 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Protein extends MacroNutrient {
 	
-	public Protein() {}
 	/**
 	 * @param amount
 	 * @param toCalorieMultiplier
