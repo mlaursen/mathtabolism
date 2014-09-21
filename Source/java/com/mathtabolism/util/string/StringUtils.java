@@ -15,6 +15,7 @@ public class StringUtils {
 	}
 	
 	public static final int DEFAULT_REPEAT_AMOUNT = 2;
+	public static final String DEFAULT_CAMEL_CASE_SPLIT = "_";
 	
 	/**
 	 * Checks if a CharSequence is not empty (""), not null and not whitespace only.
@@ -181,10 +182,65 @@ public class StringUtils {
 		return equalsAny(toMatch, Arrays.asList(matchesAny));
 	}
 	
+	/**
+	 * Checks if a given String starts with any of the given Strings
+	 * @param toMatch a String to check for matches
+	 * @param startsWithAny
+	 * @return true if the String starts with any of the given Strings
+	 */
 	public static boolean startsWithAny(String toMatch, String... startsWithAny) {
 		for(String s : startsWithAny) {
 			return toMatch.startsWith(s);
 		}
 		return false;
+	}
+	
+	/**
+	 * 
+	 * @param s
+	 * @return
+	 */
+	public static String toCamelCase(String s) {
+		return toCamelCase(s, DEFAULT_CAMEL_CASE_SPLIT, false);
+	}
+	
+	/**
+	 * 
+	 * @param s
+	 * @param capitalizeFirst
+	 * @return
+	 */
+	public static String toCamelCase(String s, boolean capitalizeFirst) {
+		return toCamelCase(s, DEFAULT_CAMEL_CASE_SPLIT, capitalizeFirst);
+	}
+	
+	/**
+	 * 
+	 * @param s
+	 * @param regex
+	 * @return
+	 */
+	public static String toCamelCase(String s, String regex) {
+		return toCamelCase(s, regex, false);
+	}
+	
+	/**
+	 * 
+	 * @param s the String to format
+	 * @param regex the regex to split the String on for camel case
+	 * @param capitalizeFirst boolean if the first letter should be capitalized
+	 * @return a String in camel case
+	 */
+	public static String toCamelCase(String s, String regex, boolean capitalizeFirst) {
+		String[] split = s.split(regex);
+		StringBuilder sb = new StringBuilder();
+		for(String current : split) {
+			String first = current.substring(0, 1);
+			String last  = current.substring(1).toLowerCase();
+			sb.append(capitalizeFirst ? first.toUpperCase() : first.toLowerCase());
+			sb.append(last);
+			capitalizeFirst = true;
+		}
+		return sb.toString();
 	}
 }
