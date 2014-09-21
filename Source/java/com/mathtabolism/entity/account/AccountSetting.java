@@ -28,7 +28,7 @@ import com.mathtabolism.entity.BasePK;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 @Entity
 @NamedQueries(@NamedQuery(name = AccountSetting.Q_findCurrentAccountSetting, query = "SELECT as1 FROM AccountSetting as1 WHERE as1.pk.account.id = :account_id "

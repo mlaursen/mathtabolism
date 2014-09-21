@@ -10,7 +10,7 @@ import com.mathtabolism.util.calculation.MathUtils;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 public class FractionUtils {
 	private FractionUtils() {

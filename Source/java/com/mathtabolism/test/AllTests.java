@@ -16,7 +16,7 @@ import com.mathtabolism.test.unit.UnitPackageUSuite;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 @RunWith(Suite.class)
 @SuiteClasses({ FractionUtilsUSuite.class, StringUtilsUSuite.class, MathUtilsUSuite.class, DateUtilsUSuite.class,

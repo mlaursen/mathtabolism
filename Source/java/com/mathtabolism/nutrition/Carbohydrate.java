@@ -3,12 +3,16 @@
  */
 package com.mathtabolism.nutrition;
 
+import javax.persistence.Embeddable;
+
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
+@Embeddable
 public class Carbohydrate extends MacroNutrient {
 	
+	public Carbohydrate() {}
 	/**
 	 * @param amount
 	 * @param toCalorieMultiplier

@@ -26,7 +26,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.mathtabolism.constants.AccountRole;
 import com.mathtabolism.entity.BaseEntity;
-import com.mathtabolism.unit.Measurement;
 
 /**
  * @author mlaursen

@@ -13,7 +13,7 @@ import static com.mathtabolism.util.calculation.MathUtils.gcd;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 public class GreatestCommonDivisorUTest {
 	

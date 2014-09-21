@@ -11,7 +11,7 @@ import javax.persistence.Embeddable;
  * All Primary Keys must have an overridden {@link #equals(Object)} and {@link #hashCode()}. To enforce this, abstract
  * equals and hashCode are added here.
  * 
- * @author laursenm
+ * @author mlaursen
  */
 @Embeddable
 public abstract class BasePK implements Serializable {

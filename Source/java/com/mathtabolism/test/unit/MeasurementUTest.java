@@ -13,7 +13,7 @@ import com.mathtabolism.unit.UnitMeasurement;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 public class MeasurementUTest {
 	

@@ -8,12 +8,13 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 public abstract class BaseNutrient {
 	
 	protected double amount;
 	
+	public BaseNutrient() {}
 	public BaseNutrient(double amount) {
 		this.amount = amount;
 	}

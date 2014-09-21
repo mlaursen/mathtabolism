@@ -1,5 +1,9 @@
 package com.mathtabolism.unit;
 
+import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
 import com.mathtabolism.util.calculation.Addable;
 import com.mathtabolism.util.calculation.Subtractable;
 
@@ -9,7 +13,9 @@ import com.mathtabolism.util.calculation.Subtractable;
  * @author mlaursen
  *
  */
+@Embeddable
 public class Measurement implements Addable, Subtractable {
+	@Enumerated(EnumType.STRING)
 	private UnitMeasurement unitMeasurement;
 	private double value;
 	

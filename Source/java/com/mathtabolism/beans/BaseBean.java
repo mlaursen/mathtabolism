@@ -10,7 +10,7 @@ import javax.faces.context.FacesContext;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 public abstract class BaseBean implements Serializable {
 	protected void sendInfoMessageToUser(String message) {

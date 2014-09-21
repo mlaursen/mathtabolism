@@ -16,7 +16,7 @@ import com.mathtabolism.entity.account.Account;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 @Named
 @SessionScoped

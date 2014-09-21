@@ -11,7 +11,7 @@ import static com.mathtabolism.unit.UnitConverter.convert;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 public class CalculateUTest {
 	

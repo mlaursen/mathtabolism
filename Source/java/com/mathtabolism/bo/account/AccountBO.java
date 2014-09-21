@@ -20,7 +20,7 @@ import com.mathtabolism.util.PasswordEncryption;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 @Stateless
 public class AccountBO {

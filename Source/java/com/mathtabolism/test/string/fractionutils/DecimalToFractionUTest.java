@@ -12,7 +12,7 @@ import static com.mathtabolism.util.string.FractionUtils.decimalToFraction;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 public class DecimalToFractionUTest {
 	

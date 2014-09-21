@@ -14,7 +14,7 @@ import static com.mathtabolism.util.calculation.MathUtils.reduce;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 public class ReduceUTest {
 	

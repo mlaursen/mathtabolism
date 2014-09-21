@@ -15,7 +15,7 @@ import com.mathtabolism.util.number.NumberUtils;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 public class FormulaCalculation {
 	private FormulaCalculation() {}

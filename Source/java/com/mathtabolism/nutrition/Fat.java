@@ -3,12 +3,16 @@
  */
 package com.mathtabolism.nutrition;
 
+import javax.persistence.Embeddable;
+
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
+@Embeddable
 public class Fat extends MacroNutrient {
 	
+	public Fat() {}
 	/**
 	 * @param amount
 	 * @param toCalorieMultiplier

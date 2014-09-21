@@ -11,7 +11,7 @@ import com.mathtabolism.util.string.StringUtils;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 public class ToDatabaseFormat {
 	

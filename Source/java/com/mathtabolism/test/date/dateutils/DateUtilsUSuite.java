@@ -9,7 +9,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 @RunWith(Suite.class)
 @SuiteClasses({ IsSameDateUTest.class })

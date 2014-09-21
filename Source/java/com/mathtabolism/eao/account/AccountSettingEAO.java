@@ -14,7 +14,7 @@ import com.mathtabolism.entity.account.AccountSetting;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 @Stateless
 public class AccountSettingEAO extends BaseEAO<AccountSetting> {

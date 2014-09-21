@@ -7,15 +7,26 @@ package com.mathtabolism.unit;
  *
  */
 public enum UnitMeasurement {
-	INCH(UnitType.DISTANCE, UnitSystem.IMPERIAL, false), FOOT(UnitType.DISTANCE, UnitSystem.IMPERIAL, false), OUNCE(
-			UnitType.WEIGHT, UnitSystem.IMPERIAL), POUND(UnitType.WEIGHT, UnitSystem.IMPERIAL), TEASPOON(UnitType.VOLUME,
-			UnitSystem.IMPERIAL), TABLESPOON(UnitType.VOLUME, UnitSystem.IMPERIAL), FLUID_OUNCE(UnitType.VOLUME,
-			UnitSystem.IMPERIAL), CUP(UnitType.VOLUME, UnitSystem.IMPERIAL), PINT(UnitType.VOLUME, UnitSystem.IMPERIAL), QUART(
-			UnitType.VOLUME, UnitSystem.IMPERIAL), GALLON(UnitType.VOLUME, UnitSystem.IMPERIAL), MILLILITER(UnitType.VOLUME,
-			UnitSystem.METRIC), LITER(UnitType.VOLUME, UnitSystem.METRIC), MILLIGRAM(UnitType.WEIGHT, UnitSystem.METRIC), GRAM(
-			UnitType.WEIGHT, UnitSystem.METRIC), KILOGRAM(UnitType.WEIGHT, UnitSystem.METRIC), MILLIMETER(UnitType.DISTANCE,
-			UnitSystem.METRIC), CENTIMETER(UnitType.DISTANCE, UnitSystem.METRIC), METER(UnitType.DISTANCE, UnitSystem.METRIC), KILOMETER(
-			UnitType.DISTANCE, UnitSystem.METRIC);
+	INCH(UnitType.DISTANCE, UnitSystem.IMPERIAL, false),
+	FOOT(UnitType.DISTANCE, UnitSystem.IMPERIAL, false),
+	OUNCE(UnitType.WEIGHT, UnitSystem.IMPERIAL),
+	POUND(UnitType.WEIGHT, UnitSystem.IMPERIAL),
+	TEASPOON(UnitType.VOLUME, UnitSystem.IMPERIAL),
+	TABLESPOON(UnitType.VOLUME, UnitSystem.IMPERIAL),
+	FLUID_OUNCE(UnitType.VOLUME, UnitSystem.IMPERIAL),
+	CUP(UnitType.VOLUME, UnitSystem.IMPERIAL),
+	PINT(UnitType.VOLUME, UnitSystem.IMPERIAL),
+	QUART(UnitType.VOLUME, UnitSystem.IMPERIAL),
+	GALLON(UnitType.VOLUME, UnitSystem.IMPERIAL),
+	MILLILITER(UnitType.VOLUME, UnitSystem.METRIC),
+	LITER(UnitType.VOLUME, UnitSystem.METRIC),
+	MILLIGRAM(UnitType.WEIGHT, UnitSystem.METRIC),
+	GRAM(UnitType.WEIGHT, UnitSystem.METRIC),
+	KILOGRAM(UnitType.WEIGHT, UnitSystem.METRIC),
+	MILLIMETER(UnitType.DISTANCE, UnitSystem.METRIC),
+	CENTIMETER(UnitType.DISTANCE, UnitSystem.METRIC),
+	METER(UnitType.DISTANCE, UnitSystem.METRIC),
+	KILOMETER(UnitType.DISTANCE, UnitSystem.METRIC);
 	
 	private UnitType unitType;
 	private UnitSystem unitSystem;

@@ -23,7 +23,7 @@ import com.mathtabolism.util.date.DateUtils;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 @Entity
 @NamedQueries(@NamedQuery(name = AccountWeight.Q_findCurrentAccountWeight, query = "SELECT aw from AccountWeight aw WHERE"

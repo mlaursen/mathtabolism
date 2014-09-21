@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 public class DateUtils {
 	

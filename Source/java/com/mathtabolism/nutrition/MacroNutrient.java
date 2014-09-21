@@ -5,12 +5,13 @@ package com.mathtabolism.nutrition;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 public abstract class MacroNutrient extends BaseNutrient {
 	
 	private int toCalorieMultiplier;
 	
+	public MacroNutrient() {}
 	protected MacroNutrient(double amount, int toCalorieMultiplier) {
 		super(amount);
 		this.toCalorieMultiplier = toCalorieMultiplier;

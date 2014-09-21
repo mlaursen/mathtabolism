@@ -10,7 +10,7 @@ import com.mathtabolism.util.string.StringUtils;
 /**
  * Converts
  * 
- * @author laursenm
+ * @author mlaursen
  */
 public class CustomNamingStrategy extends ImprovedNamingStrategy {
 	private static final long serialVersionUID = 1L;

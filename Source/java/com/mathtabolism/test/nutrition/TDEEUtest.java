@@ -16,7 +16,7 @@ import com.mathtabolism.unit.UnitSystem;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 public class TDEEUtest {
 	

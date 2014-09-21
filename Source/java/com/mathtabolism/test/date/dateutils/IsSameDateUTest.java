@@ -14,7 +14,7 @@ import org.junit.Test;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 public class IsSameDateUTest {
 	@Test

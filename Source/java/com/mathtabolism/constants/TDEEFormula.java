@@ -8,7 +8,7 @@ import com.mathtabolism.util.number.NumberUtils;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 public enum TDEEFormula {
 	/**

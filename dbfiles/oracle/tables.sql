@@ -28,4 +28,22 @@ CREATE TABLE Account_Weight
 , CONSTRAINT fk_Account_Id_Weight FOREIGN KEY(account_id) REFERENCES Account(id)
 );
 
+CREATE TABLE Ingredient
+( name VARCHAR2(40)
+, brand VARCHAR2(40)
+, category VARCHAR2(12)
+, default_serving VARCHAR2(11)
+, default_size NUMBER(7,2)
+, alternate_serving VARCHAR2(11)
+, alternate_size NUMBER(7,2)
+, calories NUMBER(10,2)
+, fat NUMBER(5,2)
+, carbohydrates NUMBER(5,2)
+, protein NUMBER(5,2)
+, CONSTRAINT pk_Ingredient PRIMARY KEY(name, brand)
+);
+
 CREATE SEQUENCE ACCOUNT_ID_SEQ;
+
+SELECT *
+FROM Account;

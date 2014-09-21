@@ -11,7 +11,7 @@ import static com.mathtabolism.util.string.StringUtils.repeatsACharacter;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 public class RepeatsACharacterUTest {
 	

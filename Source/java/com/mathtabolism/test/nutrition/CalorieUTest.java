@@ -13,7 +13,7 @@ import com.mathtabolism.nutrition.Fat;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
 public class CalorieUTest {
 	

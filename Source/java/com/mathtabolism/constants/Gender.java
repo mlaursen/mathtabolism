@@ -6,7 +6,7 @@ package com.mathtabolism.constants;
 /**
  * 
  * 
- * @author laursenm
+ * @author mlaursen
  */
 public enum Gender {
 	MALE, FEMALE;
