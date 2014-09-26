@@ -36,7 +36,7 @@ Add the following as the last item in the security-domains section
 In your datasources section, modify the datasource to be:
 <datasource jndi-name="java:jboss/datasources/MathtabolismDS" pool-name="MathtabolismDS" enabled="true" use-java-context="true">
     <connection-url>jdbc:oracle:thin:@localhost:1521:orcl</connection-url>
-    <connection-url>jdbc:mysql@localhost:3306/wildfly</connection-url>
+    <connection-url>jdbc:mysql://localhost:3306/wildfly</connection-url>
     <driver>ojdbc6</driver>
     <driver>mysql5</driver>
     <security>
