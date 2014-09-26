@@ -133,6 +133,12 @@ public class AccountSetting extends BaseEntity {
 		this.pk.dateChanged = dateChanged;
 	}
 	
+	public void setDefaults() {
+		setActivityMultiplier(ActivityMultiplier.SEDENTARY);
+		setRecalculationDay(Weekday.MONDAY);
+		setTdeeFormula(TDEEFormula.HARRIS_BENEDICT);
+	}
+	
 	/**
 	 * @return
 	 */
