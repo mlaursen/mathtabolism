@@ -11,18 +11,17 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.annotations.GenericGenerator;
 
 import com.mathtabolism.constants.AccountRole;
 import com.mathtabolism.entity.BaseEntity;
@@ -38,9 +37,9 @@ public class Account extends BaseEntity {
 	public static final String Q_findByUsername = "Account.findByUsername";
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_id_gen")
-	@SequenceGenerator(name = "account_id_gen", sequenceName = "ACCOUNT_ID_SEQ", allocationSize = 1)
-	private Long id;
+	@GeneratedValue(generator = "account_id_gen")
+	@GenericGenerator(name="account_id_gen", strategy="com.mathtabolism.util.hibernate.PrimaryKeyGenerator")
+	private String id;
 	private String username;
 	private String password;
 	
@@ -74,7 +73,7 @@ public class Account extends BaseEntity {
 	 * 
 	 * @return
 	 */
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 	
@@ -83,7 +82,7 @@ public class Account extends BaseEntity {
 	 * @param id
 	 *          the Account id
 	 */
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	

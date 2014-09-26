@@ -36,6 +36,11 @@ import com.mathtabolism.entity.BasePK;
 public class AccountSetting extends BaseEntity {
 	public static final String Q_findCurrentAccountSetting = "AccountSetting.findCurrentAccountSetting";
 	
+	public AccountSetting() {}
+	public AccountSetting(Account account, Date dateChanged) {
+		this.pk = new PK(account, dateChanged);
+	}
+	
 	@EmbeddedId
 	private PK pk;
 	

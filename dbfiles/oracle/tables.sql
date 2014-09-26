@@ -14,8 +14,8 @@ CREATE TABLE Account_Setting
 ( account_id NUMBER
 , date_changed DATE,
 , recalculation_day VARCHAR2(9) NOT NULL
-, activity_multiplier VARCHAR2(17) NOT NULL,
-, tdee_formula CHAR(15) NOT NULL,
+, activity_multiplier VARCHAR2(17) NOT NULL
+, tdee_formula CHAR(15) NOT NULL
 , CONSTRAINT pk_Account_Setting_Id PRIMARY KEY(account_id, date_changed)
 , CONSTRAINT fk_Account_Id_Setting FOREIGN KEY(account_id) REFERENCES Account(id)
 );
@@ -44,6 +44,3 @@ CREATE TABLE Ingredient
 );
 
 CREATE SEQUENCE ACCOUNT_ID_SEQ;
-
-SELECT *
-FROM Account;

@@ -8,6 +8,8 @@ import java.util.Calendar;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import org.jboss.logging.Logger;
+
 import com.mathtabolism.constants.AccountRole;
 import com.mathtabolism.constants.ActivityMultiplier;
 import com.mathtabolism.constants.TDEEFormula;
@@ -24,6 +26,8 @@ import com.mathtabolism.util.PasswordEncryption;
  */
 @Stateless
 public class AccountBO {
+	private static Logger logger = Logger.getLogger(AccountBO.class);
+	
 	@Inject
 	private AccountEAO accountEAO;
 	@Inject
@@ -65,13 +69,12 @@ public class AccountBO {
 		account.setRole(AccountRole.USER);
 		account.setActiveSince(Calendar.getInstance().getTime());
 		accountEAO.create(account);
+		logger.debug("Account created: " + account);
 		
-		AccountSetting accountSetting = new AccountSetting();
-		accountSetting.setAccount(account);
+		AccountSetting accountSetting = new AccountSetting(account, Calendar.getInstance().getTime());
 		accountSetting.setRecalculationDay(Weekday.SUNDAY);
 		accountSetting.setActivityMultiplier(ActivityMultiplier.SEDENTARY);
 		accountSetting.setTdeeFormula(TDEEFormula.HARRIS_BENEDICT);
-		accountSetting.setDateChanged(Calendar.getInstance().getTime());
 		accountSettingEAO.create(accountSetting);
 		return account;
 	}
