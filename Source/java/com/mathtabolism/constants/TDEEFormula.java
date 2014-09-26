@@ -15,11 +15,11 @@ public enum TDEEFormula {
 	 * <p>
 	 * An antiquated method which tends to overstate TDEE by 5%. The results tend to be more effective for obese.<br />
 	 * Men<br />
-	 * 66.5 + (13.75 X weight in kg) + (5.003 X height in cm) – (6.775 X age in years)
+	 * 66.5 + (13.75 X weight in kg) + (5.003 X height in cm) - (6.775 X age in years)
 	 * </p>
 	 * <p>
 	 * Women<br />
-	 * 655.1 + (9.563 X weight in kg) + (1.85 X height in cm) – (4.676 X age in years)
+	 * 655.1 + (9.563 X weight in kg) + (1.85 X height in cm) - (4.676 X age in years)
 	 * </p>
 	 */
 	HARRIS_BENEDICT,
@@ -33,10 +33,10 @@ public enum TDEEFormula {
 	 * carbohydrates in the final calcualtions.
 	 * <p>
 	 * <strong>How to calculate for Men</strong><br />
-	 * 10 x weight (kg) + 6.25 x height (cm) – 5 x age (y) + 5<br />
+	 * 10 x weight (kg) + 6.25 x height (cm) - 5 x age (y) + 5<br />
 	 * <p>
 	 * <strong>How to calculate for Women</strong><br />
-	 * 10 x weight (kg) + 6.25 x height (cm) – 5 x age (y) – 161
+	 * 10 x weight (kg) + 6.25 x height (cm) - 5 x age (y) - 161
 	 */
 	MIFFLIN_ST_JOER;
 	
