@@ -29,6 +29,9 @@ Add the following as the last item in the security-domains section
             <module-option name="dsJndiName" value="java:jboss/datasources/MathtabolismDS"/>
             <module-option name="principalsQuery" value="select password from account where username=?"/>
             <module-option name="rolesQuery" value="select role, 'Roles' from account where username=?"/>
+            <module-option name="hashAlgorithm" value="SHA256"/>
+	        <module-option name="hashEncoding" value="base64"/>
+	        <module-option name="hashCharset" value="UTF-8"/>
         </login-module>
     </authentication>
 </security-domain>
@@ -49,7 +52,7 @@ In your datasources section, modify the datasource to be:
 	  <xa-datasource-class>com.jdbc.driver.OracleDriver</xa-datasource-class>
 	</driver>
 	<driver name="mysql5" module="com.mysql">
-	  <xa-datasource-class>com.mysql.jdbc.Driver</xa-datasource-class>
+	  <driver-class>com.mysql.jdbc.Driver</driver-class>
 	</driver>
 </drives>
 
