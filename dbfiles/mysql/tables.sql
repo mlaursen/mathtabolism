@@ -16,6 +16,7 @@ CREATE TABLE account_setting
 , recalculation_day VARCHAR(9) NOT NULL
 , activity_multiplier VARCHAR(17) NOT NULL
 , tdee_formula CHAR(15) NOT NULL
+, age INTEGER
 , CONSTRAINT pk_Account_Setting_Id PRIMARY KEY(account_id, date_changed)
 , CONSTRAINT fk_Account_Id_Setting FOREIGN KEY(account_id) REFERENCES account(id)
 );
@@ -51,25 +52,24 @@ CREATE TABLE sequence_table
 
 
 delimiter //
-create function nextVal(f_sequenceName varchar(30)) returns int unsigned
+
+create procedure sp_generate_key(in pSeqName varchar(30), out pNextVal int unsigned)
 begin
-	declare f_prevVal int;
-    declare f_nextVal int;
-    
-    set f_prevVal = (SELECT sequence_value FROM sequence_table WHERE sequence_name=f_sequenceName);
-    if f_prevVal is NULL then
-		set f_nextVal = 0;
-        INSERT INTO sequence_table
-        VALUES(f_sequenceName, f_nextVal);
+	SELECT sequence_value
+	INTO pNextVal
+	FROM sequence_table
+	WHERE sequence_name=pSeqName;
+
+	if pNextVal is null then
+		set pNextVal = 0;
+		INSERT INTO sequence_table(sequence_name, sequence_value)
+		VALUES(pSeqName, pNextVal);
 	else
-		set f_nextVal = f_prev_val + 1;
-        UPDATE sequence_table
-        SET sequence_value=f_nextVal
-        WHERE sequence_name=f_sequenceName;
-	end if;
-    
-    return f_nextVal;
+		set pNextVal = pNextVal + 1;
+		UPDATE sequence_table
+		SET sequence_value=pNextVal
+		WHERE sequence_name=pSeqName;
+	end if;	
 end//
 delimiter ;
-
 
