@@ -7,10 +7,18 @@
   <application>
     <resource-bundle>
       <base-name>messages</base-name>
-      <var>msgs</var>
+      <var>msg</var>
     </resource-bundle>
   </application>
-  
+  <!-- 
+  <render-kit>
+    <renderer>
+      <component-family>javax.faces.SelectOne</component-family>
+      <renderer-type>javax.faces.Menu</renderer-type>
+      <renderer-class>com.mathtabolism.jsf.renderer.SelectOneMenuRenderer</renderer-class>
+    </renderer>
+  </render-kit>
+   -->
   <!-- Navigation Rules -->
   <navigation-rule>
     <from-view-id>/login.xhtml</from-view-id>
@@ -29,6 +37,13 @@
       <from-outcome>logout</from-outcome>
       <to-view-id>/pages/account/index.xhtml</to-view-id>
       <redirect />
+    </navigation-case>
+  </navigation-rule>
+  <navigation-rule>
+    <from-view-id>/pages/account/index.xhtml</from-view-id>
+    <navigation-case>
+      <from-outcome>update</from-outcome>
+      <to-view-id>/pages/account/index.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
 </faces-config>

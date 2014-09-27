@@ -11,6 +11,15 @@
 	<target name="clean">
 		<delete dir="${build.dir}" />
 	</target>
+	
+	<!-- ================================= 
+          target: clean-wildfly              
+         ================================= -->
+    <target name="clean-wildfly" description="Deletes the deployments folder and recreates it in the wildfly directory">
+      <delete dir="${wildfly.deployments.dir}"/>
+      <mkdir dir="${wildfly.deployments.dir}"/>
+    </target>
+
 
 	<target name="build">
 		<mkdir dir="${classes.dir}" />
@@ -28,7 +37,8 @@
 			</fileset>
 			<fileset dir="${classes.dir}">
 				<include name="**/*.class" />
-				<exclude name="${beans.dir}/**/*" />
+				<exclude name="**/beans/**/*"/>
+				<exclude name="**/jsf/**/*"/>
 				<exclude name="**/test/**/*" />
 			</fileset>
 		</copy>
@@ -47,7 +57,10 @@
 		</copy>
 		<copy todir="${war.loc}/WEB-INF/classes">
 			<fileset dir="${classes.dir}">
-				<include name="${beans.dir}/**/*.class" />
+				<include name="**/beans/**/*.class" />
+				<include name="**/jsf/**/*.class" />
+				<include name="**/util/**/*.class"/>
+				<include name="**/constants/**/*.class"/>
 			</fileset>
 			<fileset dir="${resources.dir}">
 				<include name="**/*.properties" />
@@ -77,7 +90,7 @@
 	<!-- ================================= 
           target: deploy-exploded-ear              
          ================================= -->
-	<target name="deploy-exploded-ear" depends="build-exploded-ear">
+	<target name="deploy-exploded-ear" depends="clean-wildfly,build-exploded-ear">
 		<copy todir="${wildfly.deployments.dir}">
 			<fileset dir="${dist.dir}">
 				<include name="${ear.name}.ear/**/*" />

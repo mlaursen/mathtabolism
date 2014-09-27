@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.mathtabolism.beans.BaseBean;
 import com.mathtabolism.bo.account.AccountBO;
+import com.mathtabolism.constants.ActivityMultiplier;
+import com.mathtabolism.constants.Weekday;
 import com.mathtabolism.entity.account.Account;
 
 /**
@@ -21,6 +23,7 @@ import com.mathtabolism.entity.account.Account;
 @Named
 @SessionScoped
 public class AccountBean extends BaseBean {
+	private static final long serialVersionUID = 1L;
 	@Inject
 	private AccountBO accountBO;
 	private Account account;
@@ -54,9 +57,31 @@ public class AccountBean extends BaseBean {
 		return getRequest().isUserInRole("ADMIN");
 	}
 	
+	public String updateSettings() {
+		accountBO.update(account);
+		displayInfoMessage("account_UpdatedSettings");
+		return "update";
+	}
+	
 	public String logOut() {
 		getRequest().getSession().invalidate();
 		return "logout";
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public Weekday[] getWeekdays() {
+		return Weekday.values();
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public ActivityMultiplier[] getActivityMultipliers() {
+		return ActivityMultiplier.values();
 	}
 	
 	private HttpServletRequest getRequest() {

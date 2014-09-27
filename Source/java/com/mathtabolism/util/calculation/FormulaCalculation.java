@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.nutrition.formula;
+package com.mathtabolism.util.calculation;
 
 import com.mathtabolism.constants.Gender;
 import com.mathtabolism.constants.TDEEFormula;
@@ -10,7 +10,6 @@ import com.mathtabolism.unit.Measurement;
 import com.mathtabolism.unit.UnitConverter;
 import com.mathtabolism.unit.UnitMeasurement;
 import com.mathtabolism.unit.UnitSystem;
-import com.mathtabolism.util.Pair;
 import com.mathtabolism.util.number.NumberUtils;
 
 /**

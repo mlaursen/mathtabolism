@@ -19,5 +19,12 @@
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#pages#account#index.xhtml"
-  PATH="/pages/account/index.xhtml" SHAPE="256,177,0,0" model-entity="JSFProcessGroup"/>
+  PATH="/pages/account/index.xhtml" SHAPE="256,177,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#account#index.xhtml:0" NAME="item"
+   PATH="/pages/account/index.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="update::#pages#account#index.xhtml"
+    NAME="output" PATH="/pages/account/index.xhtml"
+    TARGET="rules:#pages#account#index.xhtml" TITLE="update" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
 </PROCESS>

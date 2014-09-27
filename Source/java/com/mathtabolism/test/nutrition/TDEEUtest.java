@@ -11,8 +11,8 @@ import org.junit.Test;
 import com.mathtabolism.constants.Gender;
 import com.mathtabolism.constants.TDEEFormula;
 import com.mathtabolism.nutrition.Calorie;
-import com.mathtabolism.nutrition.formula.FormulaCalculation;
 import com.mathtabolism.unit.UnitSystem;
+import com.mathtabolism.util.calculation.FormulaCalculation;
 
 /**
  * 

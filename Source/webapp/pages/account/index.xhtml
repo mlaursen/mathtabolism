@@ -4,13 +4,41 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
-  <ui:define name="title"><h:outputText value="#{msgs.loginHello}" /></ui:define>
+  <ui:define name="title"><h:outputText value="#{msg.loginHello}" /></ui:define>
   <ui:define name="content">
-    HELLOOOOOO
     <h:form>
-      <h3>#{msgs.loginHello}: #{accountBean.account.username} || <h:commandLink action="#{accountBean.logOut()}" value="#{msgs.logout}" /></h3>
-      <pre>#{accountBean.account}</pre>
       <h:messages />
+      <h3>#{msg.loginHello}: #{accountBean.account.username} || <h:commandLink action="#{accountBean.logOut()}" value="#{msg.logout}" /></h3>
+      <pre>#{accountBean.account}</pre>
+      <h:panelGrid columns="2">
+        <h:column>
+          <h:outputLabel value="#{msg.account_Birthday}" />
+          <h:inputText value="#{accountBean.account.birthday}" size="10">
+            <f:convertDateTime pattern="MM/dd/yyyy" type="date" />
+          </h:inputText>
+        </h:column>
+        <h:column>
+          <h:outputLabel value="#{msg.account_Age}" />
+          <h:inputText value="#{accountBean.account.currentSettings.age}" size="3" />
+        </h:column>
+        
+        <h:column>
+          <h:outputLabel value="#{msg.account_RecalcDay}" />
+          <h:selectOneMenu value="#{accountBean.account.currentSettings.recalculationDay}">
+            <f:selectItems value="#{accountBean.weekdays}" var="weekday" 
+                           itemValue="#{weekday}" itemLabel="#{msg[weekday]}" />
+          </h:selectOneMenu>
+        </h:column>
+        <h:column>
+          <h:outputLabel value="#{msg.account_ActivityMultiplier}" />
+          <h:selectOneMenu value="#{accountBean.account.currentSettings.activityMultiplier}">
+            <f:selectItems value="#{accountBean.activityMultipliers}" var="multiplier" 
+                           itemValue="#{multiplier}" itemLabel="#{msg[multiplier]}" />
+          </h:selectOneMenu>
+        </h:column>
+        
+        <h:commandButton action="#{accountBean.updateSettings()}" value="#{msg.account_Update}" />
+      </h:panelGrid>
     </h:form>
   </ui:define>
 </ui:composition>

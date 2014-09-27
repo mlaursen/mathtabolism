@@ -17,6 +17,7 @@ import com.mathtabolism.eao.account.AccountSettingEAO;
 import com.mathtabolism.entity.account.Account;
 import com.mathtabolism.entity.account.AccountSetting;
 import com.mathtabolism.util.PasswordEncryption;
+import com.mathtabolism.util.date.DateUtils;
 
 /**
  * 
@@ -83,6 +84,13 @@ public class AccountBO {
 	 */
 	public Account update(Account account) {
 		accountEAO.update(account);
+		AccountSetting currentSettings = account.getCurrentSettings();
+		AccountSetting currentSettingsDB = accountSettingEAO.findCurrentAccountSetting(account);
+		if(DateUtils.isSameDate(currentSettings.getDateChanged(), currentSettingsDB.getDateChanged())) {
+			accountSettingEAO.update(currentSettings);
+		} else {
+			accountSettingEAO.create(currentSettings);
+		}
 		return account;
 	}
 }

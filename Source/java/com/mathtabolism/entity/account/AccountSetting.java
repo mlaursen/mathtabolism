@@ -53,6 +53,8 @@ public class AccountSetting extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private TDEEFormula tdeeFormula;
 	
+	private Integer age;
+	
 	/**
 	 * 
 	 * @param account
@@ -133,6 +135,26 @@ public class AccountSetting extends BaseEntity {
 		this.pk.dateChanged = dateChanged;
 	}
 	
+	
+	
+	/**
+	 * 
+	 * @return 
+	 */
+	public Integer getAge() {
+		return age;
+	}
+	/**
+	 * 
+	 * @param age 
+	 */
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+	
+	/**
+	 * 
+	 */
 	public void setDefaults() {
 		setActivityMultiplier(ActivityMultiplier.SEDENTARY);
 		setRecalculationDay(Weekday.MONDAY);
@@ -146,7 +168,7 @@ public class AccountSetting extends BaseEntity {
 	public String toString() {
 		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("accountId", pk.account.getId())
 				.append("recalculationDay", recalculationDay).append("activityMultiplier", activityMultiplier)
-				.append("tdeeFormula", tdeeFormula).append("dateChanged", pk.dateChanged).toString();
+				.append("tdeeFormula", tdeeFormula).append("dateChanged", pk.dateChanged).append("age", age).toString();
 	}
 	
 	public static class PK extends BasePK {
