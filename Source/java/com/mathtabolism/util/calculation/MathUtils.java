@@ -2,7 +2,7 @@ package com.mathtabolism.util.calculation;
 
 import java.math.BigInteger;
 
-import com.mathtabolism.util.Pair;
+import com.mathtabolism.util.container.Pair;
 
 /**
  * 

@@ -5,8 +5,8 @@ package com.mathtabolism.util.string;
 
 import java.text.DecimalFormat;
 
-import com.mathtabolism.util.Pair;
 import com.mathtabolism.util.calculation.MathUtils;
+import com.mathtabolism.util.container.Pair;
 
 /**
  * 

@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.mathtabolism.util.Pair;
+import com.mathtabolism.util.container.Pair;
 
 import static com.mathtabolism.util.calculation.MathUtils.gcd;
 
