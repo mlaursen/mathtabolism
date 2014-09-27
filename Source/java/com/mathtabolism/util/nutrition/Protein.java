@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.nutrition;
+package com.mathtabolism.util.nutrition;
 
 import javax.persistence.Embeddable;
 

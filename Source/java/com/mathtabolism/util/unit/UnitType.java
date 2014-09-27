@@ -1,4 +1,4 @@
-package com.mathtabolism.unit;
+package com.mathtabolism.util.unit;
 
 /**
  * An enum representing the types of Units available in a Unit System.

@@ -1,9 +1,9 @@
 package com.mathtabolism.test;
 
-import com.mathtabolism.unit.Measurement;
-import com.mathtabolism.unit.MeasurementConversionException;
-import com.mathtabolism.unit.UnitConverter;
-import com.mathtabolism.unit.UnitMeasurement;
+import com.mathtabolism.util.unit.Measurement;
+import com.mathtabolism.util.unit.MeasurementConversionException;
+import com.mathtabolism.util.unit.UnitConverter;
+import com.mathtabolism.util.unit.UnitMeasurement;
 
 /**
  * @author mlaursen

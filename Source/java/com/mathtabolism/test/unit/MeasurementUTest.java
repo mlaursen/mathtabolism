@@ -8,8 +8,8 @@ import static org.hamcrest.CoreMatchers.*;
 
 import org.junit.Test;
 
-import com.mathtabolism.unit.Measurement;
-import com.mathtabolism.unit.UnitMeasurement;
+import com.mathtabolism.util.unit.Measurement;
+import com.mathtabolism.util.unit.UnitMeasurement;
 
 /**
  * 
@@ -18,7 +18,7 @@ import com.mathtabolism.unit.UnitMeasurement;
 public class MeasurementUTest {
 	
 	/**
-	 * Test method for {@link com.mathtabolism.unit.Measurement#subtract(com.github.mlaursen.mathtabolism.util.calculation.Subtractable)}.
+	 * Test method for {@link com.mathtabolism.util.unit.Measurement#subtract(com.github.mlaursen.mathtabolism.util.calculation.Subtractable)}.
 	 */
 	@Test
 	public void testSubtract() {
@@ -33,7 +33,7 @@ public class MeasurementUTest {
 	}
 	
 	/**
-	 * Test method for {@link com.mathtabolism.unit.Measurement#add(com.github.mlaursen.mathtabolism.util.calculation.Addable)}.
+	 * Test method for {@link com.mathtabolism.util.unit.Measurement#add(com.github.mlaursen.mathtabolism.util.calculation.Addable)}.
 	 */
 	@Test
 	public void testAdd() {

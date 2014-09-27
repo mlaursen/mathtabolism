@@ -14,11 +14,11 @@ import javax.persistence.Enumerated;
 import com.mathtabolism.constants.IngredientCategory;
 import com.mathtabolism.entity.BaseEntity;
 import com.mathtabolism.entity.BasePK;
-import com.mathtabolism.nutrition.Calorie;
-import com.mathtabolism.nutrition.Carbohydrate;
-import com.mathtabolism.nutrition.Fat;
-import com.mathtabolism.nutrition.Protein;
-import com.mathtabolism.unit.Measurement;
+import com.mathtabolism.util.nutrition.Calorie;
+import com.mathtabolism.util.nutrition.Carbohydrate;
+import com.mathtabolism.util.nutrition.Fat;
+import com.mathtabolism.util.nutrition.Protein;
+import com.mathtabolism.util.unit.Measurement;
 
 /**
  * 

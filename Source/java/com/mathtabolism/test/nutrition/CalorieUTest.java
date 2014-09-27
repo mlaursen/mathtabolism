@@ -8,8 +8,8 @@ import static org.hamcrest.CoreMatchers.*;
 
 import org.junit.Test;
 
-import com.mathtabolism.nutrition.Calorie;
-import com.mathtabolism.nutrition.Fat;
+import com.mathtabolism.util.nutrition.Calorie;
+import com.mathtabolism.util.nutrition.Fat;
 
 /**
  * 

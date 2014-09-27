@@ -11,6 +11,6 @@ public enum IngredientCategory {
 	MEAT,
 	DAIRY,
 	ALCOHOL,
-	CARBOHYDRAGE,
+	CARBOHYDRATE,
 	OTHER;
 }

@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.mathtabolism.unit.UnitMeasurement;
+import com.mathtabolism.util.unit.UnitMeasurement;
 
-import static com.mathtabolism.unit.UnitMeasurement.isSameUnitSystem;
+import static com.mathtabolism.util.unit.UnitMeasurement.isSameUnitSystem;
 
 /**
  * @author mlaursen

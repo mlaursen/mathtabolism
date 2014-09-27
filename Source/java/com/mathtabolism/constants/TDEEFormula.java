@@ -3,8 +3,8 @@
  */
 package com.mathtabolism.constants;
 
-import com.mathtabolism.nutrition.Calorie;
 import com.mathtabolism.util.number.NumberUtils;
+import com.mathtabolism.util.nutrition.Calorie;
 
 /**
  * 
@@ -30,7 +30,7 @@ public enum TDEEFormula {
 	 * <p>
 	 * This formula bases protein needs off of total mass and is best suited for athletes or those with lower body fat
 	 * levels. Overweight individuals should not use this formula as it will give them too much protein and strip them of
-	 * carbohydrates in the final calcualtions.
+	 * carbohydrates in the final calculations.
 	 * <p>
 	 * <strong>How to calculate for Men</strong><br />
 	 * 10 x weight (kg) + 6.25 x height (cm) - 5 x age (y) + 5<br />
@@ -38,15 +38,16 @@ public enum TDEEFormula {
 	 * <strong>How to calculate for Women</strong><br />
 	 * 10 x weight (kg) + 6.25 x height (cm) - 5 x age (y) - 161
 	 */
-	MIFFLIN_ST_JOER;
+	MIFFLIN_ST_JEOR;
 	
 	/**
 	 * 
-	 * @param weightInKG
-	 * @param heightInCM
-	 * @param age
-	 * @param gender
-	 * @return
+	 * @param weightInKG double of a Person's weight in Kilograms
+	 * @param heightInCM double of a Person's height in Centimeters
+	 * @param age the Person's age in ears
+	 * @param gender the {@link Gender} of the Person
+	 * @return a {@link Calorie} with the amount of calories required for a person that has been
+	 * 		calculated for a TDEEFormula
 	 */
 	public Calorie calculate(double weightInKG, double heightInCM, int age, Gender gender) {
 		boolean isMale = Gender.isMale(gender);
@@ -60,7 +61,7 @@ public enum TDEEFormula {
 			ageMultiplier = isMale ? 6.775 : 4.676;
 			amount = padding + (weightMultiplier * weightInKG) + (heightMultiplier * heightInCM) - (ageMultiplier * age);
 			break;
-		case MIFFLIN_ST_JOER:
+		case MIFFLIN_ST_JEOR:
 			padding = isMale ? 5 : -161;
 			weightMultiplier = 10;
 			heightMultiplier = 6.25;

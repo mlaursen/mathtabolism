@@ -37,6 +37,14 @@
           </h:selectOneMenu>
         </h:column>
         
+        <h:column>
+          <h:outputLabel value="#{msg.account_Formula}" />
+          <h:selectOneMenu value="#{accountBean.account.currentSettings.tdeeFormula}">
+            <f:selectItems value="#{accountBean.formulas}" var="formula" 
+                           itemValue="#{formula}" itemLabel="#{msg[formula]}" />
+          </h:selectOneMenu>
+        </h:column>
+        
         <h:commandButton action="#{accountBean.updateSettings()}" value="#{msg.account_Update}" />
       </h:panelGrid>
     </h:form>

@@ -10,9 +10,9 @@ import org.junit.Test;
 
 import com.mathtabolism.constants.Gender;
 import com.mathtabolism.constants.TDEEFormula;
-import com.mathtabolism.nutrition.Calorie;
-import com.mathtabolism.unit.UnitSystem;
 import com.mathtabolism.util.calculation.FormulaCalculation;
+import com.mathtabolism.util.nutrition.Calorie;
+import com.mathtabolism.util.unit.UnitSystem;
 
 /**
  * 
@@ -27,9 +27,9 @@ public class TDEEUtest {
 		tdee = FormulaCalculation.calculateTDEE(83.0074, 182.88, 23, Gender.MALE, UnitSystem.METRIC, TDEEFormula.HARRIS_BENEDICT);
 		assertThat(tdee, is(new Calorie(1966.97)));
 		
-		tdee = FormulaCalculation.calculateTDEE(183, 72, 23, Gender.MALE, UnitSystem.IMPERIAL, TDEEFormula.MIFFLIN_ST_JOER);
+		tdee = FormulaCalculation.calculateTDEE(183, 72, 23, Gender.MALE, UnitSystem.IMPERIAL, TDEEFormula.MIFFLIN_ST_JEOR);
 		assertThat(tdee, is(new Calorie(1863.07)));
-		tdee = FormulaCalculation.calculateTDEE(83.0074, 182.88, 23, Gender.MALE, UnitSystem.METRIC, TDEEFormula.MIFFLIN_ST_JOER);
+		tdee = FormulaCalculation.calculateTDEE(83.0074, 182.88, 23, Gender.MALE, UnitSystem.METRIC, TDEEFormula.MIFFLIN_ST_JEOR);
 		assertThat(tdee, is(new Calorie(1863.07)));
 	}
 	

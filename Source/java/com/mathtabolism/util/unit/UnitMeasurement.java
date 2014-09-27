@@ -1,4 +1,4 @@
-package com.mathtabolism.unit;
+package com.mathtabolism.util.unit;
 
 /**
  * An enum of all the UnitSystem Measurement types. The order of the enums is used to calculate the conversions.

@@ -24,7 +24,7 @@ public class AccountSettingEAO extends BaseEAO<AccountSetting> {
 	
 	/**
 	 * 
-	 * @param account
+	 * @param account the account to get the current AccountSetting for
 	 * @return
 	 */
 	public AccountSetting findCurrentAccountSetting(Account account) {

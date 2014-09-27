@@ -1,7 +1,7 @@
 package com.mathtabolism.test.unit;
 
-import static com.mathtabolism.unit.UnitConverter.convert;
-import static com.mathtabolism.unit.UnitConverter.convertToBase;
+import static com.mathtabolism.util.unit.UnitConverter.convert;
+import static com.mathtabolism.util.unit.UnitConverter.convertToBase;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
@@ -10,10 +10,10 @@ import java.text.DecimalFormat;
 
 import org.junit.Test;
 
-import com.mathtabolism.unit.Measurement;
-import com.mathtabolism.unit.UnitConverter;
-import com.mathtabolism.unit.UnitMeasurement;
 import com.mathtabolism.util.number.NumberUtils;
+import com.mathtabolism.util.unit.Measurement;
+import com.mathtabolism.util.unit.UnitConverter;
+import com.mathtabolism.util.unit.UnitMeasurement;
 
 /**
  * @author mlaursen

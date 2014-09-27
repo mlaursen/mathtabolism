@@ -5,12 +5,12 @@ package com.mathtabolism.util.calculation;
 
 import com.mathtabolism.constants.Gender;
 import com.mathtabolism.constants.TDEEFormula;
-import com.mathtabolism.nutrition.Calorie;
-import com.mathtabolism.unit.Measurement;
-import com.mathtabolism.unit.UnitConverter;
-import com.mathtabolism.unit.UnitMeasurement;
-import com.mathtabolism.unit.UnitSystem;
 import com.mathtabolism.util.number.NumberUtils;
+import com.mathtabolism.util.nutrition.Calorie;
+import com.mathtabolism.util.unit.Measurement;
+import com.mathtabolism.util.unit.UnitConverter;
+import com.mathtabolism.util.unit.UnitMeasurement;
+import com.mathtabolism.util.unit.UnitSystem;
 
 /**
  * 

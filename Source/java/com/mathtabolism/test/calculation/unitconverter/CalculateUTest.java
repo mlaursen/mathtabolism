@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import static com.mathtabolism.unit.UnitConverter.convert;
+import static com.mathtabolism.util.unit.UnitConverter.convert;
 
 /**
  * 

@@ -1,4 +1,4 @@
-package com.mathtabolism.unit;
+package com.mathtabolism.util.unit;
 
 /**
  * @author mlaursen

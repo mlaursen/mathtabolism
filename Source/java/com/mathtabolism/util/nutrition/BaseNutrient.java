@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.nutrition;
+package com.mathtabolism.util.nutrition;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;

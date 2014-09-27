@@ -72,7 +72,7 @@ public abstract class BaseEAO<T> {
 	}
 	
 	/**
-	 * Attempts to create a named query
+	 * Attempts to create a named query and gets a single result
 	 * 
 	 * @param namedQuery
 	 *          a named query to create
