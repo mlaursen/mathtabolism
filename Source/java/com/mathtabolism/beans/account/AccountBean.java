@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.mathtabolism.beans.BaseBean;
 import com.mathtabolism.bo.account.AccountBO;
-import com.mathtabolism.constants.ActivityMultiplier;
-import com.mathtabolism.constants.TDEEFormula;
-import com.mathtabolism.constants.Weekday;
 import com.mathtabolism.entity.account.Account;
 
 /**
@@ -24,16 +21,10 @@ import com.mathtabolism.entity.account.Account;
 @Named
 @SessionScoped
 public class AccountBean extends BaseBean {
-	private static final long serialVersionUID = 1L;
 	@Inject
 	private AccountBO accountBO;
 	private Account account;
 	
-
-	
-	private HttpServletRequest getRequest() {
-		return (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-	}
 	/**
 	 * Gets the current account. If the account is null, it attempts to get it from the FacesContext
 	 * 
@@ -59,18 +50,8 @@ public class AccountBean extends BaseBean {
 		this.account = account;
 	}
 	
-	/**
-	 * 
-	 * @return true if the account is an Admin User
-	 */
 	public boolean isAccountAdmin() {
 		return getRequest().isUserInRole("ADMIN");
-	}
-	
-	public String updateSettings() {
-		accountBO.update(account);
-		displayInfoMessage("account_UpdatedSettings");
-		return "update";
 	}
 	
 	public String logOut() {
@@ -78,27 +59,7 @@ public class AccountBean extends BaseBean {
 		return "logout";
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
-	public Weekday[] getWeekdays() {
-		return Weekday.values();
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public ActivityMultiplier[] getActivityMultipliers() {
-		return ActivityMultiplier.values();
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public TDEEFormula[] getFormulas() {
-		return TDEEFormula.values();
+	private HttpServletRequest getRequest() {
+		return (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 	}
 }

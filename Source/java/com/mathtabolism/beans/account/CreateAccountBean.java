@@ -41,10 +41,10 @@ public class CreateAccountBean extends BaseBean {
 			account = accountBO.create(account);
 		}
 		catch (EJBException e) {
-			displayErrorMessage("account_AccountExists");
+			sendErrorMessageToUser("The username already exists.");
 			return null;
 		}
-		displayInfoMessage("account_AccountCreated");
+		sendInfoMessageToUser("Your account has been created! Please log in");
 		return "create";
 	}
 }
