@@ -59,8 +59,6 @@
 			<fileset dir="${classes.dir}">
 				<include name="**/beans/**/*.class" />
 				<include name="**/jsf/**/*.class" />
-				<include name="**/util/**/*.class"/>
-				<include name="**/constants/**/*.class"/>
 			</fileset>
 			<fileset dir="${resources.dir}">
 				<include name="**/*.properties" />

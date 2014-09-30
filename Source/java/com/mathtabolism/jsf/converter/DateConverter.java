@@ -3,25 +3,26 @@
  */
 package com.mathtabolism.jsf.converter;
 
+import java.util.Date;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import com.mathtabolism.constants.Weekday;
-import com.mathtabolism.util.string.StringUtils;
+import com.mathtabolism.util.date.DateUtils;
 
 /**
  * 
- * @author laursenm
+ * @author mlaursen
  */
-@FacesConverter(value="weekdayConverter")
-public class WeekdayConverter implements Converter {
+@FacesConverter("dateConverter")
+public class DateConverter implements Converter {
 	
 	/**
 	 * 
 	 */
-	public WeekdayConverter() {
+	public DateConverter() {
 	}
 	
 	/**
@@ -32,14 +33,7 @@ public class WeekdayConverter implements Converter {
 	 */
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		if(StringUtils.isNotBlank(value)) {
-			for(Weekday multiplier : Weekday.values()) {
-				if(multiplier.toString().equalsIgnoreCase(value)) {
-					return multiplier;
-				}
-			}
-		}
-		return null;
+		return DateUtils.formatStringAsDate(value);
 	}
 	
 	/**
@@ -50,13 +44,7 @@ public class WeekdayConverter implements Converter {
 	 */
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object object) {
-		if(context == null || component == null) {
-			
-		}
-		if(object instanceof Weekday) {
-			return ((Weekday) object).toString();
-		}
-		return null;
+		return DateUtils.formatDateAsString((Date) object);
 	}
 	
 }

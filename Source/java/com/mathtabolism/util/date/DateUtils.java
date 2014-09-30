@@ -3,6 +3,8 @@
  */
 package com.mathtabolism.util.date;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -11,6 +13,8 @@ import java.util.Date;
  * @author mlaursen
  */
 public class DateUtils {
+	
+	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 	
 	/**
 	 * Checks if two dates are considered the same. The dates are considered the same if the <tt>month</tt>, the
@@ -38,5 +42,18 @@ public class DateUtils {
 		c.set(Calendar.DAY_OF_MONTH, day);
 		c.set(Calendar.YEAR, year);
 		return c.getTime();
+	}
+	
+	public static String formatDateAsString(Date date) {
+		return DATE_FORMAT.format(date);
+	}
+	
+	public static Date formatStringAsDate(String date) {
+		try {
+			return DATE_FORMAT.parse(date);
+		}
+		catch (ParseException e) {
+			return null;
+		}
 	}
 }

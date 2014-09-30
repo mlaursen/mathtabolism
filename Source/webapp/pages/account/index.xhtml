@@ -14,7 +14,7 @@
         <h:column>
           <h:outputLabel value="#{msg.account_Birthday}" />
           <h:inputText value="#{accountBean.account.birthday}" size="10">
-            <f:convertDateTime pattern="MM/dd/yyyy" type="date" />
+            <f:converter converterId="dateConverter" />
           </h:inputText>
         </h:column>
         <h:column>
@@ -24,24 +24,23 @@
         
         <h:column>
           <h:outputLabel value="#{msg.account_RecalcDay}" />
-          <h:selectOneMenu value="#{accountBean.account.currentSettings.recalculationDay}">
-            <f:selectItems value="#{accountBean.weekdays}" var="weekday" 
-                           itemValue="#{weekday}" itemLabel="#{msg[weekday]}" />
+          <h:selectOneMenu id="recalcDay" value="#{accountBean.account.currentSettings.recalculationDay}">
+            <ui:remove><f:converter converterId="weekdayConverter"/></ui:remove>
+            <f:selectItems value="#{accountBean.weekdays}" />
           </h:selectOneMenu>
         </h:column>
+        
         <h:column>
           <h:outputLabel value="#{msg.account_ActivityMultiplier}" />
-          <h:selectOneMenu value="#{accountBean.account.currentSettings.activityMultiplier}">
-            <f:selectItems value="#{accountBean.activityMultipliers}" var="multiplier" 
-                           itemValue="#{multiplier}" itemLabel="#{msg[multiplier]}" />
+          <h:selectOneMenu value="#{accountBean.account.currentSettings.activityMultiplier}" >
+            <f:selectItems value="#{accountBean.activityMultipliers}" />
           </h:selectOneMenu>
         </h:column>
         
         <h:column>
           <h:outputLabel value="#{msg.account_Formula}" />
           <h:selectOneMenu value="#{accountBean.account.currentSettings.tdeeFormula}">
-            <f:selectItems value="#{accountBean.formulas}" var="formula" 
-                           itemValue="#{formula}" itemLabel="#{msg[formula]}" />
+            <f:selectItems value="#{accountBean.formulas}" />
           </h:selectOneMenu>
         </h:column>
         
