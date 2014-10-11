@@ -15,7 +15,10 @@
 <h:body>
   <div class="navbar">
     <h:form>
-      <h:commandButton action="#{accountBean.logOut()}" value="#{msg.logout}" styleClass="logout" />
+      <h:commandButton action="#{accountBean.logOut()}" value="#{msg.logout}" styleClass="logout" 
+            rendered="#{not empty request.remoteUser}"/>
+      <h:commandButton action="#{accountBean.login()}" value="#{msg.login}" styleClass="logout" 
+            rendered="#{empty request.remoteUser}"/>
     </h:form>
   </div>
   <h:messages />
