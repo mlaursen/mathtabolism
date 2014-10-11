@@ -1,53 +1,49 @@
-<ui:composition template="/WEB-INF/templates/base.xhtml" 
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:c="http://java.sun.com/jsp/jstl/core">
-  <ui:define name="title"><h:outputText value="#{msg.loginHello}" /></ui:define>
+<ui:composition template="/WEB-INF/templates/base.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:c="http://java.sun.com/jsp/jstl/core">
+  <ui:define name="title">
+    <h:outputText value="#{msg.loginHello}" />
+  </ui:define>
   <ui:define name="content">
-    <p>Login to access secure pages:</p>
-    <form method="post" action="j_security_check" name="loginForm">
-      <h:messages layout="table" errorClass="formError" infoClass="formInfo" globalOnly="true" />
-      <h:panelGrid columns="2">
-        <h:outputLabel for="j_username" value="Username: " />
-        <h:inputText id="j_username" required="true" name="j_username" />
-        <h:outputLabel for="j_password" value="Password: " />
-        <h:inputSecret id="j_password" required="true" name="j_password" />
-
-        <h:panelGrid columns="2">
-          <h:commandButton value="Login" type="submit" />
-        </h:panelGrid>
-      </h:panelGrid>
-    </form>
-    <button data-toggle="modal" data-target="#accountModal">Sign Up</button>
-    
-    <div id="accountModal" class="modal fade" tabindex="-1">
-      <div class="modal-dialog modal-small">
-        <div class="modal-content">
-          <h:form>
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&#215;</button>
-            <h4 class="modal-title">Modal Title</h4>
-          </div>
-          <div class="modal-body">
-              <h:messages />
-              <h:panelGrid columns="2">
+    <div class="container">
+      <div class="flip-container">
+        <div class="flipper">
+          <div id="login" class="account-form flipper-front">
+            <h2>#{msg.login}</h2>
+            <form action="j_security_check" name="loginForm">
+              <p>
                 <h:outputLabel value="#{msg.username}" />
-                <h:inputText value="#{createAccountBean.account.username}" />
-                
+                <h:inputText id="j_username" required="true" name="j_username" />
+              </p>
+              <p>
+                <h:outputLabel value="#{msg.password}" />
+                <h:inputSecret id="j_password" required="true" name="j_password" />
+              </p>
+              <button>#{msg.login}</button>
+              <button type="button" class="alt" onclick="flip()">#{msg.signup}</button>
+            </form>
+          </div>
+          <div id="signup" class="account-form flipper-back">
+            <h2>#{msg.signup}</h2>
+            <form>
+              <p>
+                <h:outputLabel value="#{msg.username}" />
+                <input type="text" />
+              </p>
+              <p>
                 <h:outputLabel value="#{msg.password}" />
                 <h:inputSecret value="#{createAccountBean.account.unhashedPassword}" />
-              </h:panelGrid>
+              </p>
+              <p>
+                <h:outputLabel value="#{msg.passwordConfirm}" />
+                <h:inputSecret value="#{createAccountBean.account.unhashedPassword}" />
+              </p>
+              <button>#{msg.createAccount}</button>
+              <button type="button" class="alt" onclick="flip()">#{msg.cancelSignup}</button>
+            </form>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">#{msg.modalCloseFooter}</button>
-            <h:commandButton action="#{createAccountBean.createAccount()}" value="#{msg.createAccount}" />
-          </div>
-          </h:form>
         </div>
       </div>
-      
     </div>
   </ui:define>
 </ui:composition>

@@ -25,6 +25,20 @@
 		<mkdir dir="${classes.dir}" />
 		<javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath" includeantruntime="false" />
 	</target>
+	
+	<!-- ================================= 
+          target: update-frontend              
+         ================================= -->
+  <target name="update-frontend" description="Copies the xhtml, css, and js files to the deployment">
+    <copy todir="${wildfly.deployments.dir}/${ear.name}.ear/${war.name}.war">
+    	<fileset dir="${web.dir}">
+        <include name="**/*.css"/>
+    		<include name="**/*.js"/>
+    		<include name="**/*.xhtml"/>
+      </fileset>
+    </copy>
+  </target>
+
 
 	<!-- ================================= 
           target: build-exploded-ejb-jar              
