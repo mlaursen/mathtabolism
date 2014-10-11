@@ -17,7 +17,8 @@ import javax.faces.model.SelectItem;
  */
 public abstract class BaseBean implements Serializable {
 	private static final long serialVersionUID = -6686889317225940807L;
-
+	
+	
 	/**
 	 * 
 	 * @param lookupString

@@ -75,7 +75,6 @@ public class AccountBean extends BaseBean {
 		return (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 	}
 	
-
 	
 	public String logOut() {
 		getRequest().getSession().invalidate();

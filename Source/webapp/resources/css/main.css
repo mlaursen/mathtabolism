@@ -114,6 +114,7 @@ body {
   display: none;
 }
 
+.account-form input[type="submit"],
 .account-form button {
   display: block;
   margin-top: 2.5em;

@@ -1,46 +1,54 @@
 <ui:composition template="/WEB-INF/templates/base.xhtml" xmlns="http://www.w3.org/1999/xhtml"
   xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
   xmlns:h="http://java.sun.com/jsf/html" xmlns:c="http://java.sun.com/jsp/jstl/core">
+  <ui:define name="additionalHeader">
+    <h:outputScript library="js/account" name="account.js" />
+  </ui:define>
   <ui:define name="title">
     <h:outputText value="#{msg.loginHello}" />
   </ui:define>
+  
   <ui:define name="content">
     <div class="container">
+      <h:panelGroup rendered="#{requestScope['javax.servlet.forward.servlet_path'] == '/j_security_check'}">
+        <h:outputText value="#{msg.account_LoginError}" />
+      </h:panelGroup>
+      <h:messages errorClass="formError" infoClass="formInfo" globalOnly="true" />
       <div class="flip-container">
         <div class="flipper">
-          <div id="login" class="account-form flipper-front">
+          <div id="login" class="account-form #{createAccountBean.loginCss}">
             <h2>#{msg.login}</h2>
-            <form action="j_security_check" name="loginForm">
+            <form method="post" action="j_security_check" name="loginForm">
               <p>
                 <h:outputLabel value="#{msg.username}" />
-                <h:inputText id="j_username" required="true" name="j_username" />
+                <h:inputText id="j_username" name="j_username" />
               </p>
               <p>
                 <h:outputLabel value="#{msg.password}" />
-                <h:inputSecret id="j_password" required="true" name="j_password" />
+                <h:inputSecret id="j_password" name="j_password" />
               </p>
               <button>#{msg.login}</button>
               <button type="button" class="alt" onclick="flip()">#{msg.signup}</button>
             </form>
           </div>
-          <div id="signup" class="account-form flipper-back">
+          <div id="signup" class="account-form #{createAccountBean.signupCss}">
             <h2>#{msg.signup}</h2>
-            <form>
+            <h:form>
               <p>
                 <h:outputLabel value="#{msg.username}" />
-                <input type="text" />
+                <h:inputText id="username" value="#{createAccountBean.account.username}" />
               </p>
               <p>
                 <h:outputLabel value="#{msg.password}" />
-                <h:inputSecret value="#{createAccountBean.account.unhashedPassword}" />
+                <h:inputSecret id="password" value="#{createAccountBean.account.unhashedPassword}" />
               </p>
               <p>
                 <h:outputLabel value="#{msg.passwordConfirm}" />
-                <h:inputSecret value="#{createAccountBean.account.unhashedPassword}" />
+                <h:inputSecret id="passwordConfirm" value="#{createAccountBean.account.unhashedPassword}" />
               </p>
-              <button>#{msg.createAccount}</button>
+              <h:commandButton action="#{createAccountBean.createAccount()}" value="#{msg.createAccount}" />
               <button type="button" class="alt" onclick="flip()">#{msg.cancelSignup}</button>
-            </form>
+            </h:form>
           </div>
         </div>
       </div>

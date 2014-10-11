@@ -6,6 +6,7 @@ package com.mathtabolism.entity.account;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -18,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -40,6 +42,8 @@ public class Account extends BaseEntity {
 	@GeneratedValue(generator = "account_id_gen")
 	@GenericGenerator(name="account_id_gen", strategy="com.mathtabolism.util.hibernate.PrimaryKeyGenerator")
 	private String id;
+	
+	@Column(unique=true)
 	private String username;
 	private String password;
 	
@@ -254,6 +258,7 @@ public class Account extends BaseEntity {
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", id).append("username", username)
+				.append("password", password).append("unhashedPassword", unhashedPassword)
 				.append("role", role).append("birthday", birthday).append("lastLogin", lastLogin)
 				.append("activeSince", activeSince).append("currentSettings", currentSettings).toString();
 	}

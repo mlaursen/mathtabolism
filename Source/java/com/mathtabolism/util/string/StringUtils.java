@@ -6,8 +6,6 @@ package com.mathtabolism.util.string;
 import java.util.Arrays;
 import java.util.List;
 
-import com.mathtabolism.jsf.renderer.Attribute;
-
 /**
  * 
  * @author mlaursen
@@ -246,12 +244,4 @@ public class StringUtils {
 		return sb.toString();
 	}
 	
-	/**
-	 * 
-	 * @param attribute
-	 * @return
-	 */
-	public static String toDataAttribute(Attribute attribute) {
-		return attribute.toString().toLowerCase().replace("_", "-");
-	}
 }
