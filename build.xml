@@ -95,6 +95,7 @@
 		<copy todir="${dist.dir}/${ear.name}.ear/lib">
 			<fileset dir="${lib.dir}">
 				<include name="**/*.jar" />
+				<exclude name="primefaces-5.0.jar"/>
 			</fileset>
 		</copy>
 	</target>

@@ -1,6 +1,3 @@
-function flip() {
-  $(".flip-container").toggleClass("flip");
-}
 
 function isBetween(value, min) {
   isBetween(value, min, null);

@@ -11,15 +11,6 @@
     </resource-bundle>
   </application>
   
-  <!-- 
-  <render-kit>
-    <renderer>
-      <component-family>javax.faces.SelectOne</component-family>
-      <renderer-type>javax.faces.Menu</renderer-type>
-      <renderer-class>com.mathtabolism.jsf.renderer.SelectOneMenuRenderer</renderer-class>
-    </renderer>
-  </render-kit>
-   -->
   <!-- Navigation Rules -->
   <navigation-rule>
     <from-view-id>/login.xhtml</from-view-id>
