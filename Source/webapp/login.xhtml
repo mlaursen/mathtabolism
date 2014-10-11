@@ -44,7 +44,7 @@
               </p>
               <p>
                 <h:outputLabel value="#{msg.passwordConfirm}" />
-                <h:inputSecret id="passwordConfirm" value="#{createAccountBean.account.unhashedPassword}" />
+                <h:inputSecret id="passwordConfirm" value="#{createAccountBean.confirmPassword}" />
               </p>
               <h:commandButton action="#{createAccountBean.createAccount()}" value="#{msg.createAccount}" />
               <button type="button" class="alt" onclick="flip()">#{msg.cancelSignup}</button>

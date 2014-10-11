@@ -25,6 +25,8 @@ public class CreateAccountBean extends BaseBean {
 	@Inject
 	private AccountBO accountBO;
 	private Account account;
+	
+	private String confirmPassword;
 
 	private static final String FRONT_CSS = "flipper-front";
 	private static final String BACK_CSS  = "flipper-back";
@@ -56,6 +58,11 @@ public class CreateAccountBean extends BaseBean {
 			
 			if(StringUtils.isEmpty(password) || password.length() < 6) {
 				displayErrorMessage("account_PasswordError");
+				isValid = false;
+			}
+			
+			if(StringUtils.isEmpty(confirmPassword) || !confirmPassword.equals(password)) {
+				displayErrorMessage("account_PasswordMatchError");
 				isValid = false;
 			}
 			
@@ -105,4 +112,23 @@ public class CreateAccountBean extends BaseBean {
 	public void setSignupCss(String signupCss) {
 		this.signupCss = signupCss;
 	}
+
+
+	/**
+	 * 
+	 * @return 
+	 */
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	/**
+	 * 
+	 * @param confirmPassword 
+	 */
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+	
+	
 }
