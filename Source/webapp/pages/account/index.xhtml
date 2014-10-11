@@ -4,9 +4,14 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
-  <ui:define name="title"><h:outputText value="#{msg.loginHello}" /></ui:define>
+  <ui:define name="title"><h:outputText value="#{msg.updateSettings}" /></ui:define>
   <ui:define name="content">
   <div class="span4 offset3">
+    <h2>
+      <h:outputFormat value="#{msg.welcomeUser}">
+        <f:param value="#{accountBean.account.username}"/>
+      </h:outputFormat>
+    </h2>
     <h:form styleClass="one-line">
       <h:panelGrid columns="2">
         <h:column>
