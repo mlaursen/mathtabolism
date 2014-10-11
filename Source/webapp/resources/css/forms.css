@@ -27,7 +27,8 @@ label {
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+select {
   padding: 10px;
   border: 2px solid #f012be;
   background: transparent;
@@ -83,11 +84,15 @@ input[type="button"]:hover {
 }
 
 select {
-  background: transparent;
-  padding: 1em;
-  
+  padding: 0.6em;
+  background-color: #7fdbff;
+  outline: none;
 }
 
+select:hover,
+select:focus {
+  border-color: #85144B;
+}
 
 /* login form stuff */
 .container {

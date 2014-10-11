@@ -58,7 +58,7 @@
   
   <mime-mapping>
     <extension>ttf</extension>
-    <mime-type>application/-x-font-ttf</mime-type>
+    <mime-type>application/x-font-ttf</mime-type>
   </mime-mapping>
   <mime-mapping>
     <extension>otf</extension>
