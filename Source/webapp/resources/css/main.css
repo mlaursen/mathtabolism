@@ -26,18 +26,12 @@ body {
 
 .navbar {
   font-family: acknowledgement;
+  font-size: 2em;
   background-color: #001F3F;
+  color: #f9f6e5;
 }
-
-.logout {
-  margin: 0 !important;
-  font-size: 0.8em;
-  padding: 0.5em !important;
-}
-
 
 .navbar nav {
-  text-align: center;
   vertical-align: middle;
 }
 
@@ -46,17 +40,40 @@ body {
 }
 
 .navbar nav ul {
+  display: inline-block;
   position: relative;
   margin: 0 auto;
-  padding: 0;
+  padding: 0.6em;
   list-style-type: none;
+  width: 100%;
+}
+
+.navbar nav ul li:last-child,
+.navbar nav ul li:first-child {
+  padding-left: 0;
+  padding-right: 1.2em;
 }
 
 .navbar nav ul li {
   position: relative;
   margin: 0;
   display: inline;
-  line-height: 2.6em;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.navbar nav ul li:last-child {
+  float: right;
+}
+
+.navbar a {
+  color: #f9f6e5;
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
 }
 
 .content {

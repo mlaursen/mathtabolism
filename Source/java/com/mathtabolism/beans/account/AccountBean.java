@@ -80,12 +80,15 @@ public class AccountBean extends BaseBean {
 		return "logout";
 	}
 	
-	public String updateSettings() {
+	public String saveUpdatedSettings() {
 		accountBO.update(account);
 		displayInfoMessage("account_UpdatedSettings");
 		return "update";
 	}
 	
+	public String updateSettings() {
+		return "update-settings";
+	}
 	
 	public String login() {
 		return "login-page";
