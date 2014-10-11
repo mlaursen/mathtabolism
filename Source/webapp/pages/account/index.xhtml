@@ -8,12 +8,18 @@
   <ui:define name="content">
   <div class="span4 offset3">
     <h:form styleClass="one-line">
-      <h:outputLabel value="#{msg.account_Birthday}" />
-      <h:inputText value="#{accountBean.account.birthday}" size="10">
-        <f:converter converterId="dateConverter" />
-      </h:inputText>
-      <h:outputLabel value="#{msg.account_Age}" />
-      <h:inputText value="#{accountBean.account.currentSettings.age}" size="3" />
+      <h:panelGrid columns="2">
+        <h:column>
+          <h:outputLabel value="#{msg.account_Birthday}" />
+          <h:inputText value="#{accountBean.account.birthday}" size="10">
+            <f:converter converterId="dateConverter" />
+          </h:inputText>
+        </h:column>
+        <h:column>
+          <h:outputLabel value="#{msg.account_Age}" />
+          <h:inputText value="#{accountBean.account.currentSettings.age}" size="3" />
+        </h:column>
+      </h:panelGrid>
     
       <h:outputLabel value="#{msg.account_RecalcDay}" />
       <h:selectOneMenu id="recalcDay" value="#{accountBean.account.currentSettings.recalculationDay}">

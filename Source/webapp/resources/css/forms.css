@@ -11,6 +11,11 @@ form .one-line {
   width: 100%;
 }
 
+form table {
+  width: 100%;
+  border-spacing: 0;
+}
+
 form.one-line input,
 form.one-line select,
 form.one-line button {
