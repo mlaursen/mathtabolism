@@ -9,6 +9,19 @@
  * fuchsia: #f012be
  * purple: #b10dc9
  */
+@font-face {
+  font-family: acknowledgement;
+  src: url("#{resource['fonts/acknowledgement/Acknowledgement.otf']}");
+}
+
+@font-face {
+  font-family: sansation;
+  src: url("#{resource['fonts/sansation/Sansation-Bold.ttf']}");
+}
+
+* {
+  font-family: sansation;
+}
 
 body {
   background: #7fdbff;
@@ -149,21 +162,18 @@ body {
 }
 
 .flipper {
-  -webkit-transition: 0.6s;
-  -webkit-transform-style: preserve-3d;
-
-  -moz-transition: 0.6s;
-  -moz-transform-style: preserve-3d;
-  
-  -o-transition: 0.6s;
-  -o-transform-style: preserve-3d;
-
   transition: 0.6s;
   transform-style: preserve-3d;
+  -o-transition: 0.6s;
+  -o-transform-style: preserve-3d;
+  -moz-transition: 0.6s;
+  -moz-transform-style: preserve-3d;
+  -webkit-transition: 0.6s;
+  -webkit-transform-style: preserve-3d;
 }
 
 .flipper-front, .flipper-back {
-  backface-visiblity: hidden;
+  backface-visibility: hidden;
   -o-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
