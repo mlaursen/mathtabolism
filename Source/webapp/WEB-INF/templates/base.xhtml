@@ -14,17 +14,12 @@
 </h:head>
 <h:body>
   <div class="navbar">
-    <nav>
-      <ul>
-        <li class="logo"><h:outputText value="#{msg.appTitle}" /></li>
-        <li>fds</li>
-        <li>fdsa</li>
-        <li>fdsf</li>
-      </ul>
-    </nav>
+    <h:form>
+      <h:commandButton action="#{accountBean.logOut()}" value="#{msg.logout}" styleClass="logout" />
+    </h:form>
   </div>
-
-  <div class="content">
+  <h:messages />
+  <div class="content fluid">
     <ui:insert name="content" />
   </div>
 </h:body>

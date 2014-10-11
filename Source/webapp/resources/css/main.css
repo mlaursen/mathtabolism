@@ -26,8 +26,15 @@ body {
 
 .navbar {
   font-family: acknowledgement;
-  background-color: #ff4136;
+  background-color: #001F3F;
 }
+
+.logout {
+  margin: 0 !important;
+  font-size: 0.8em;
+  padding: 0.5em !important;
+}
+
 
 .navbar nav {
   text-align: center;

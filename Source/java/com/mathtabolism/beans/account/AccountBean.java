@@ -86,4 +86,5 @@ public class AccountBean extends BaseBean {
 		displayInfoMessage("account_UpdatedSettings");
 		return "update";
 	}
+	
 }
