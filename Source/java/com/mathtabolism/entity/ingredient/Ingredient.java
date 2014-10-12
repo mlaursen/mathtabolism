@@ -9,7 +9,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import com.mathtabolism.constants.IngredientCategory;
 import com.mathtabolism.entity.BaseEntity;
@@ -28,6 +31,8 @@ import com.mathtabolism.util.unit.Measurement;
 public class Ingredient extends BaseEntity {
 	
 	@Id
+	@GeneratedValue(generator = "ingredient_id_gen")
+	@GenericGenerator(name="ingredient_id_gen", strategy="com.mathtabolism.util.hibernate.PrimaryKeyGenerator")
 	private String id;
 	private String name;
 	private String brand;
