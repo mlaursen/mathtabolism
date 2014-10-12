@@ -19,6 +19,9 @@ public class Measurement implements Addable, Subtractable {
 	private UnitMeasurement unitMeasurement;
 	private double value;
 	
+	public Measurement(){
+	}
+
 	public Measurement(UnitMeasurement unitMeasurement, double value) {
 		this.unitMeasurement = unitMeasurement;
 		this.value = value;

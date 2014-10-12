@@ -100,6 +100,8 @@ public class AccountWeight extends BaseEntity {
 		@Temporal(TemporalType.DATE)
 		private Date weighInDate;
 		
+		public PK() {
+		}
 		public PK(Account account, Date weightInDate) {
 			this.account = account;
 			this.weighInDate = weightInDate;

@@ -12,6 +12,9 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Calorie extends BaseNutrient {
 	
+	public Calorie() {
+	}
+	
 	/**
 	 * @param amount
 	 */

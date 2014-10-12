@@ -6,10 +6,10 @@ package com.mathtabolism.entity.ingredient;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Id;
 
 import com.mathtabolism.constants.IngredientCategory;
 import com.mathtabolism.entity.BaseEntity;
@@ -27,9 +27,10 @@ import com.mathtabolism.util.unit.Measurement;
 @Entity
 public class Ingredient extends BaseEntity {
 	
-	@EmbeddedId
-	private PK pk;
-	
+	@Id
+	private String id;
+	private String name;
+	private String brand;
 	@Enumerated(EnumType.STRING)
 	private IngredientCategory category;
 	
@@ -93,19 +94,19 @@ public class Ingredient extends BaseEntity {
 	}
 	
 	public String getName() {
-		return pk.name;
+		return name;
 	}
 	
 	public void setName(String name) {
-		pk.name = name;
+		this.name = name;
 	}
 	
 	public String getBrand() {
-		return pk.brand;
+		return brand;
 	}
 	
 	public void setBrand(String brand) {
-		pk.brand = brand;
+		this.brand = brand;
 	}
 
 	/**
@@ -240,7 +241,8 @@ public class Ingredient extends BaseEntity {
 	public boolean equals(Object object) {
 		if(object instanceof Ingredient) {
 			Ingredient i = (Ingredient) object;
-			return pk.equals(i.pk)
+			return name.equals(i.name)
+					&& brand.equals(i.brand)
 					&& category.equals(i.category)
 					&& serving.equals(i.serving)
 					&& alternateServing.equals(i.alternateServing)

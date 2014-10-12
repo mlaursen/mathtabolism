@@ -30,7 +30,8 @@ CREATE TABLE account_weight
 );
 
 CREATE TABLE ingredient
-( name VARCHAR(40)
+( id CHAR(10)
+, name VARCHAR(40)
 , brand VARCHAR(40)
 , category VARCHAR(12)
 , default_serving VARCHAR(11)
@@ -41,7 +42,8 @@ CREATE TABLE ingredient
 , fat NUMERIC(5,2)
 , carbohydrates NUMERIC(5,2)
 , protein NUMERIC(5,2)
-, CONSTRAINT pk_Ingredient PRIMARY KEY(name, brand)
+, CONSTRAINT pk_Ingredient PRIMARY KEY(id)
+, CONSTRAINT uq_Ingredient UNIQUE(name, brand)
 );
 
 
