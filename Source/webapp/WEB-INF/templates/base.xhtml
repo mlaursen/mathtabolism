@@ -32,7 +32,7 @@
           <c:choose>
             <c:when test="#{not empty request.remoteUser}">
               <li>
-                <h:commandLink action="#{accountBean.updateSettings()}" value="#{msg.updateSettings}"/>
+                <h:commandLink action="updateSettings" value="#{msg.updateSettings}"/>
               </li>
               <li>
                 <h:commandLink action="#{accountBean.logOut()}" value="#{msg.logout}"/>
@@ -40,7 +40,7 @@
             </c:when>
             <c:otherwise>
               <li>
-                <h:commandLink action="#{accountBean.login()}" value="#{msg.login}" rendered="#{empty request.remoteUser}"/>
+                <h:commandLink action="toLogin" value="#{msg.login}" rendered="#{empty request.remoteUser}"/>
               </li>
             </c:otherwise>
           </c:choose>

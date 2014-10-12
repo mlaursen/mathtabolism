@@ -16,16 +16,19 @@
   <navigation-rule>
     <from-view-id></from-view-id>
     <navigation-case>
-      <from-outcome>login-page</from-outcome>
+      <from-outcome>toLogin</from-outcome>
       <to-view-id>/login.xhtml</to-view-id>
+      <redirect />
     </navigation-case>
     <navigation-case>
       <from-outcome>updateSettings</from-outcome>
       <to-view-id>/pages/protected/accountSettings.xhtml</to-view-id>
+      <redirect />
     </navigation-case>
     <navigation-case>
       <from-outcome>viewIngredients</from-outcome>
       <to-view-id>/pages/ingredients/viewIngredients.xhtml</to-view-id>
+      <redirect />
     </navigation-case>
     <navigation-case>
       <from-outcome>logout</from-outcome>
