@@ -4,6 +4,20 @@
   <PROCESS-ITEM ID="rules::0" NAME="item" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT ID="login-page::#login.xhtml" NAME="output"
     PATH="/login.xhtml" TARGET="rules:#login.xhtml" TITLE="login-page" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="updateSettings::#pages#protected#accountSettings.xhtml"
+    NAME="output1" PATH="/pages/protected/accountSettings.xhtml"
+    TARGET="rules:#pages#protected#accountSettings.xhtml"
+    TITLE="updateSettings" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="viewIngredients::#pages#ingredients#viewIngredients.xhtml"
+    NAME="output2" PATH="/pages/ingredients/viewIngredients.xhtml"
+    TARGET="rules:#pages#ingredients#viewIngredients.xhtml"
+    TITLE="viewIngredients" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="logout::#pages#protected#accountSettings.xhtml" NAME="output3"
+    PATH="/pages/protected/accountSettings.xhtml"
+    TARGET="rules:#pages#protected#accountSettings.xhtml" TITLE="logout" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#login.xhtml" PATH="/login.xhtml"
@@ -12,25 +26,22 @@
    PATH="/login.xhtml" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT ID="create::#login.xhtml" NAME="output"
     PATH="/login.xhtml" TARGET="rules:#login.xhtml" TITLE="create" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="login::#pages#account#index.xhtml"
-    NAME="output1" PATH="/pages/account/index.xhtml"
-    TARGET="rules:#pages#account#index.xhtml" TITLE="login" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="login::#pages#protected#accountSettings.xhtml" NAME="output1"
+    PATH="/pages/protected/accountSettings.xhtml"
+    TARGET="rules:#pages#protected#accountSettings.xhtml" TITLE="login" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#pages#account#index.xhtml"
-  PATH="/pages/account/index.xhtml" SHAPE="256,177,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#pages#account#index.xhtml:0" NAME="item"
-   PATH="/pages/account/index.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="update::#pages#account#index.xhtml"
-    NAME="output" PATH="/pages/account/index.xhtml"
-    TARGET="rules:#pages#account#index.xhtml" TITLE="update" model-entity="JSFProcessItemOutput"/>
+ <PROCESS-ITEM NAME="rules:#pages#protected#accountSettings.xhtml"
+  PATH="/pages/protected/accountSettings.xhtml" SHAPE="480,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pages#protected#accountSettings.xhtml:0"
+   NAME="item" PATH="/pages/protected/accountSettings.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="update::#pages#protected#accountSettings.xhtml" NAME="output"
+    PATH="/pages/protected/accountSettings.xhtml"
+    TARGET="rules:#pages#protected#accountSettings.xhtml" TITLE="update" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules::1" SHAPE="32,161,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules::1" NAME="item" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="logout::#pages#account#index.xhtml"
-    NAME="output" PATH="/pages/account/index.xhtml"
-    TARGET="rules:#pages#account#index.xhtml" TITLE="logout" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
- </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#ingredients#viewIngredients.xhtml"
+  PATH="/pages/ingredients/viewIngredients.xhtml" SHAPE="288,241,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

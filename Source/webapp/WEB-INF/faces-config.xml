@@ -12,11 +12,25 @@
   </application>
   
   <!-- Navigation Rules -->
+  <!-- Navigation bar cases -->
   <navigation-rule>
     <from-view-id></from-view-id>
     <navigation-case>
       <from-outcome>login-page</from-outcome>
       <to-view-id>/login.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>updateSettings</from-outcome>
+      <to-view-id>/pages/protected/accountSettings.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>viewIngredients</from-outcome>
+      <to-view-id>/pages/ingredients/viewIngredients.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>logout</from-outcome>
+      <to-view-id>/pages/protected/accountSettings.xhtml</to-view-id>
+      <redirect />
     </navigation-case>
   </navigation-rule>
   <navigation-rule>
@@ -27,22 +41,14 @@
     </navigation-case>
     <navigation-case>
       <from-outcome>login</from-outcome>
-      <to-view-id>/pages/account/index.xhtml</to-view-id>
+      <to-view-id>/pages/protected/accountSettings.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
   <navigation-rule>
-  	<from-view-id></from-view-id>
-    <navigation-case>
-      <from-outcome>logout</from-outcome>
-      <to-view-id>/pages/account/index.xhtml</to-view-id>
-      <redirect />
-    </navigation-case>
-  </navigation-rule>
-  <navigation-rule>
-    <from-view-id>/pages/account/index.xhtml</from-view-id>
+    <from-view-id>/pages/protected/accountSettings.xhtml</from-view-id>
     <navigation-case>
       <from-outcome>update</from-outcome>
-      <to-view-id>/pages/account/index.xhtml</to-view-id>
+      <to-view-id>/pages/protected/accountSettings.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
 </faces-config>
