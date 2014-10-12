@@ -177,3 +177,27 @@ h2 {
   font-size: 3.5em;
   text-align: center;
 }
+
+table.data-table,
+table.data-table td,
+table.data-table th {
+  border: 1px solid #000000;
+  border-spacing: 0.5%;
+}
+
+table.data-table {
+  border-collapse: collapse;
+  background-color: #ffffff;
+}
+
+table.data-table tr:hover {
+  background-color: #7fdbff;
+}
+
+table.data-table .striped tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+table.data-table .striped tr:nth-child(odd) {
+  background: #f0f0f0;
+}

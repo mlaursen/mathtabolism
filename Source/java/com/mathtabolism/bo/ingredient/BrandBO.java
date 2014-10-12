@@ -24,7 +24,21 @@ public class BrandBO {
 	public BrandBO() {
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public List<Brand> findAllBrands() {
 		return brandEAO.findAllBrands();
+	}
+	
+	/**
+	 * 
+	 * @param brand
+	 * @return
+	 */
+	public Brand create(Brand brand) {
+		brandEAO.create(brand);
+		return brand;
 	}
 }
