@@ -112,6 +112,20 @@ body {
   margin-left: 80%;
 }
 
+.span1,
+.span2,
+.span3,
+.span4,
+.span5,
+.span6,
+.span7,
+.span8,
+.span9 {
+  display: inline-block;
+  float: left;
+}
+
+
 .content .span1 {
   width: 10%;
 }

@@ -29,10 +29,17 @@ CREATE TABLE account_weight
 , CONSTRAINT fk_Account_Id_Weight FOREIGN KEY(account_id) REFERENCES account(id)
 );
 
+CREATE TABLE brand
+( id CHAR(10)
+, name VARCHAR(40)
+, CONSTRAINT pk_Brand PRIMARY KEY(id)
+, CONSTRAINT uq_Brand_Name UNIQUE(name)
+);
+
 CREATE TABLE ingredient
 ( id CHAR(10)
 , name VARCHAR(40)
-, brand VARCHAR(40)
+, brand_id CHAR(10)
 , category VARCHAR(12)
 , default_serving VARCHAR(11)
 , default_size NUMERIC(7,2)
@@ -43,7 +50,8 @@ CREATE TABLE ingredient
 , carbohydrates NUMERIC(5,2)
 , protein NUMERIC(5,2)
 , CONSTRAINT pk_Ingredient PRIMARY KEY(id)
-, CONSTRAINT uq_Ingredient UNIQUE(name, brand)
+, CONSTRAINT fk_Ingredient_Brand FOREIGN KEY(brand_id) REFERENCES Brand(id)
+, CONSTRAINT uq_Ingredient UNIQUE(name, brand_id)
 );
 
 

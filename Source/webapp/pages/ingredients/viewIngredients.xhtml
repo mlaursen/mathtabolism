@@ -6,9 +6,60 @@
     xmlns:c="http://java.sun.com/jsp/jstl/core">
   <ui:define name="title"><h:outputText value="#{msg.viewIngredients}" /></ui:define>
   <ui:define name="content">
-  <div class="span4 offset3">
+  <div class="span2">
+    <h:dataTable value="#{ingredientBean.filteredBrands}" var="b">
+      <h:column>
+        <f:facet name="header">#{msg.ingredient_Brand}</f:facet>
+        <h:outputFormat value="#{b.name}"/>
+      </h:column>
+    </h:dataTable>
+    <h:dataTable value="#{ingredientBean.categories}" var="c">
+      <h:column>
+        <f:facet name="header">#{msg.ingredient_Category}</f:facet>
+        <h:outputFormat value="#{c}" />
+      </h:column>
+    </h:dataTable>
+  </div>
+  <div class="span8">
     <h:form>
-      
+      <h:dataTable value="#{ingredientBean.filteredIngredients}" var="i">
+        <h:column>
+          <f:facet name="header">#{msg.ingredient_Brand}</f:facet>
+          <h:outputFormat value="i.brand" />
+        </h:column>
+        <h:column>
+          <f:facet name="header">#{msg.ingredient_Category}</f:facet>
+          <h:outputFormat value="i.category" />
+        </h:column>
+        <h:column>
+          <f:facet name="header">#{msg.ingredient_Name}</f:facet>
+          <h:outputFormat value="i.name" />
+        </h:column>
+        <h:column>
+          <f:facet name="header">#{msg.ingredient_DefaultServing}</f:facet>
+          <h:outputFormat value="i.defaultServing" />
+        </h:column>
+        <h:column>
+          <f:facet name="header">#{msg.ingredient_AlternateServing}</f:facet>
+          <h:outputFormat value="i.alternateServing" />
+        </h:column>
+        <h:column>
+          <f:facet name="header">#{msg.ingredient_Calories}</f:facet>
+          <h:outputFormat value="i.calories" />
+        </h:column>
+        <h:column>
+          <f:facet name="header">#{msg.ingredient_Fat}</f:facet>
+          <h:outputFormat value="i.fat" />
+        </h:column>
+        <h:column>
+          <f:facet name="header">#{msg.ingredient_Carbohydrates}</f:facet>
+          <h:outputFormat value="i.carbohydrates" />
+        </h:column>
+        <h:column>
+          <f:facet name="header">#{msg.ingredient_Protein}</f:facet>
+          <h:outputFormat value="i.protein" />
+        </h:column>
+      </h:dataTable>
     </h:form>
   </div>
   </ui:define>

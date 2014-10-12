@@ -11,8 +11,10 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -47,7 +49,10 @@ public class Ingredient extends BaseEntity {
 	@GenericGenerator(name="ingredient_id_gen", strategy="com.mathtabolism.util.hibernate.PrimaryKeyGenerator")
 	private String id;
 	private String name;
-	private String brand;
+	
+	@OneToOne
+	@JoinColumn(name="brand_id", referencedColumnName="id")
+	private Brand brand;
 	@Enumerated(EnumType.STRING)
 	private IngredientCategory category;
 	
@@ -118,11 +123,11 @@ public class Ingredient extends BaseEntity {
 		this.name = name;
 	}
 	
-	public String getBrand() {
+	public Brand getBrand() {
 		return brand;
 	}
 	
-	public void setBrand(String brand) {
+	public void setBrand(Brand brand) {
 		this.brand = brand;
 	}
 
