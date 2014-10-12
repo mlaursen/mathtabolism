@@ -40,12 +40,10 @@ body {
 }
 
 .navbar nav ul {
-  display: inline-block;
   position: relative;
   margin: 0 auto;
   padding: 0.6em;
   list-style-type: none;
-  width: 100%;
 }
 
 .navbar nav ul li:last-child,
