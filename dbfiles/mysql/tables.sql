@@ -50,7 +50,7 @@ CREATE TABLE ingredient
 , carbohydrates NUMERIC(5,2)
 , protein NUMERIC(5,2)
 , CONSTRAINT pk_Ingredient PRIMARY KEY(id)
-, CONSTRAINT fk_Ingredient_Brand FOREIGN KEY(brand_id) REFERENCES Brand(id)
+, CONSTRAINT fk_Ingredient_Brand FOREIGN KEY(brand_id) REFERENCES brand(id)
 , CONSTRAINT uq_Ingredient UNIQUE(name, brand_id)
 );
 
