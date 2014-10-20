@@ -59,3 +59,7 @@ In your datasources section, modify the datasource to be:
 Where you choose the connection url and driver that you need.
 
 Finally, copy the build-user.properties.sample to build-user.properties and update the wildfly.dir to your location.
+
+http://tympanus.net/codrops/2011/12/08/25-examples-of-perfect-color-combinations-in-web-design/
+
+Example navbar I like

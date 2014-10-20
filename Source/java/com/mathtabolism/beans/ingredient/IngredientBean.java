@@ -38,6 +38,7 @@ public class IngredientBean extends BaseBean {
 	private List<Ingredient> filteredIngredients = new ArrayList<>();
 	private List<Brand> unfilteredBrands;
 	private List<Brand> filteredBrands = new ArrayList<>();
+	private List<IngredientCategory> selectedCategories = new ArrayList<>();
 
 	public IngredientBean() {
 	}
@@ -79,6 +80,10 @@ public class IngredientBean extends BaseBean {
 	 */
 	public IngredientCategory[] getCategories() {
 		return IngredientCategory.values();
+	}
+	
+	public List<IngredientCategory> getSelectedCategories() {
+	  return selectedCategories;
 	}
 	
 }

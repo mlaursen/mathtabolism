@@ -17,7 +17,7 @@
       <h:dataTable value="#{ingredientBean.categories}" var="c">
         <h:column>
           <f:facet name="header">#{msg.ingredient_Category}</f:facet>
-          <h:outputText value="#{c}" />
+          <h:outputText value="#{c}" styleClass="#{ingredientBean.selectedCategories.contains(c) ? 'selected' : ''}"/>
         </h:column>
       </h:dataTable>
     </div>
