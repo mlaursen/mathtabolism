@@ -20,7 +20,6 @@
 }
 
 body {
-  background: #7fdbff;
   margin: 0;
 }
 
@@ -28,7 +27,7 @@ body {
   font-family: acknowledgement;
   padding: 1.5em;
   font-size: 0.8em;
-  background-color: #001F3F;
+  background-color: #0074d9;
   color: #f9f6e5;
 }
 
