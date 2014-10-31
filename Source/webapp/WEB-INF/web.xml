@@ -64,4 +64,5 @@
     <extension>otf</extension>
     <mime-type>font/opentype</mime-type>
   </mime-mapping>
+  
 </web-app>

@@ -142,3 +142,9 @@ select:focus {
   font-size: 1.25em;
 }
 
+/*
+ * Override annoying primefaces shit
+ */
+form .ui-widget {
+  font-size: inherit;
+}
