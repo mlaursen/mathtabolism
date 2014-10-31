@@ -1,7 +1,6 @@
 package com.mathtabolism.test;
 
 import com.mathtabolism.util.unit.Measurement;
-import com.mathtabolism.util.unit.MeasurementConversionException;
 import com.mathtabolism.util.unit.UnitConverter;
 import com.mathtabolism.util.unit.UnitMeasurement;
 

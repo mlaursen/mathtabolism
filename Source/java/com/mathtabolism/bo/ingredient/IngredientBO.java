@@ -7,8 +7,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.jboss.logging.Logger;
-
 import com.mathtabolism.constants.IngredientCategory;
 import com.mathtabolism.eao.ingredient.IngredientEAO;
 import com.mathtabolism.entity.ingredient.Ingredient;
@@ -18,7 +16,6 @@ import com.mathtabolism.entity.ingredient.Ingredient;
  * @author mlaursen
  */
 public class IngredientBO {
-	private static Logger logger = Logger.getLogger(IngredientBO.class);
 	private static final int POPULAR_LIMIT = 100;
 	
 	@Inject
