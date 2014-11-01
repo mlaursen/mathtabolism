@@ -5,6 +5,7 @@ package com.mathtabolism.bo.ingredient;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import com.mathtabolism.eao.ingredient.BrandEAO;
@@ -14,6 +15,7 @@ import com.mathtabolism.entity.ingredient.Brand;
  * 
  * @author mlaursen
  */
+@Stateless
 public class BrandBO {
 	
 	@Inject

@@ -3,18 +3,19 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:c="http://java.sun.com/jsp/jstl/core">
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:p="http://primefaces.org/ui">
   <ui:define name="title"><h:outputText value="#{msg.viewIngredients}" /></ui:define>
   <ui:define name="content">
   <h:form>
     <div class="span1">
-      <h:dataTable value="#{ingredientBean.filteredBrands}" var="b">
+      <h:dataTable value="#{ingredientBean.filteredBrands}" var="b" styleClass="data-table">
         <h:column>
           <f:facet name="header">#{msg.ingredient_Brand}</f:facet>
           <h:outputText value="#{b.name}"/>
         </h:column>
       </h:dataTable>
-      <h:dataTable value="#{ingredientBean.categories}" var="c">
+      <h:dataTable value="#{ingredientBean.categories}" var="c" styleClass="data-table">
         <h:column>
           <f:facet name="header">#{msg.ingredient_Category}</f:facet>
           <h:outputText value="#{c}" styleClass="#{ingredientBean.selectedCategories.contains(c) ? 'selected' : ''}"/>
