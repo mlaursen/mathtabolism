@@ -3,6 +3,8 @@
  */
 package com.mathtabolism.beans.account;
 
+import java.util.Calendar;
+
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -29,6 +31,10 @@ public class AccountBean extends BaseBean {
 	@Inject
 	private AccountBO accountBO;
 	private Account account;
+	
+	private static final int CURRENT_YEAR = Calendar.getInstance().get(Calendar.YEAR);
+	public static final int MIN_BIRTHDAY_OFFSET = 80;
+	public static final int MAX_BIRTHDAY_OFFSET = 5;
 	
 	/**
 	 * Gets the current account. If the account is null, it attempts to get it from the FacesContext
@@ -84,5 +90,21 @@ public class AccountBean extends BaseBean {
 		accountBO.update(account);
 		displayInfoMessage("account_UpdatedSettings");
 		return "update";
+	}
+	
+	/**
+	 * 
+	 * @return the minimum year for a person's birthday
+	 */
+	public int getMinBirthdayYear() {
+		return CURRENT_YEAR - MIN_BIRTHDAY_OFFSET;
+	}
+	
+	/**
+	 * 
+	 * @return the maximum year for a person's birthday
+	 */
+	public int getMaxBirthdayYear() {
+		return CURRENT_YEAR + MAX_BIRTHDAY_OFFSET;
 	}
 }

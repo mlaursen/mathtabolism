@@ -2,8 +2,7 @@
   padding: 10px 30px;
 }
 
-form input,
-form select {
+form input {
   font-size: 1em;
 }
 
@@ -17,7 +16,6 @@ form table {
 }
 
 form.one-line input,
-form.one-line select,
 form.one-line button {
   width: 100%;
 }
@@ -32,8 +30,7 @@ label {
 }
 
 input[type="text"],
-input[type="password"],
-select {
+input[type="password"] {
   padding: 10px;
   border: 2px solid #f012be;
   background: transparent;
@@ -88,16 +85,6 @@ input[type="button"]:hover {
   background: #3390E1;
 }
 
-select {
-  padding: 0.6em;
-  background-color: #7fdbff;
-  outline: none;
-}
-
-select:hover,
-select:focus {
-  border-color: #85144B;
-}
 
 /* login form stuff */
 .container {

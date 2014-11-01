@@ -17,7 +17,8 @@
       <h:panelGrid columns="2">
         <h:column>
           <h:outputLabel value="#{msg.account_Birthday}" />
-          <p:calendar value="#{accountBean.account.birthday}" pattern="MM/dd/yyyy" />
+          <p:calendar value="#{accountBean.account.birthday}" navigator="true" mask="true"
+                      pattern="MM/dd/yyyy" yearRange="#{accountBean.minBirthdayYear}:#{accountBean.maxBirthdayYear}"/>
         </h:column>
         <h:column>
           <h:outputLabel value="#{msg.account_Age}" />
