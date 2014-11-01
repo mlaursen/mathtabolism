@@ -214,3 +214,15 @@ table.data-table td {
   color: #669;
   padding: 0.3em;
 }
+
+.upper-first {
+  text-transform: capitalize;
+}
+
+.caret {
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 7px solid #000000;
+}

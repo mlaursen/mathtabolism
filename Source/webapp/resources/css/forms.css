@@ -29,6 +29,8 @@ label {
   font-weight: bold;
 }
 
+.dropdown-container .displayed,
+.dropdown-container ul,
 input[type="text"],
 input[type="password"] {
   padding: 10px;
@@ -40,6 +42,10 @@ input[type="password"] {
   -webkit-box-sizing: border-box;
 }
 
+.dropdown-container .displayed:hover,
+.dropdown-container .displayed:focus,
+.dropdown-container li:hover,
+.dropdown-container li:focus,
 input[type="text"]:focus,
 input[type="text"]:hover,
 input[type="password"]:focus,
@@ -83,6 +89,46 @@ input[type="button"] {
 button:hover,
 input[type="button"]:hover {
   background: #3390E1;
+}
+
+.dropdown-container input[type="text"] {
+  border: 0;
+  padding: 0;
+}
+
+.dropdown-container .displayed {
+  width: 100%;
+}
+
+.dropdown-container .caret {
+  float: right;
+  margin-top: 0.3em;
+}
+
+.dropdown-container .displayed div {
+  display: inline-block;
+}
+
+.dropdown-container li:hover {
+  color: #ffffff;
+  background: #0081c2;
+}
+
+.dropdown-container ul {
+  position: absolute;
+  margin: 0.2em auto;
+  padding: 0;
+  list-style-type: none;
+  background-color: #ffffff;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  background-clip: padding-box;
+}
+
+.dropdown-container li {
+  padding: 0 0.5em 0 0.5em;
+  margin: 0;
+  line-height: 1.5em;
+  font-size: 1.1em;
 }
 
 
@@ -135,3 +181,4 @@ input[type="button"]:hover {
 form .ui-widget {
   font-size: inherit;
 }
+

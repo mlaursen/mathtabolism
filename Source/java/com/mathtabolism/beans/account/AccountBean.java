@@ -53,6 +53,18 @@ public class AccountBean extends BaseBean {
 		return account;
 	}
 	
+	public String getSelectedWeekday() {
+		return getString(getAccount().getCurrentSettings().getRecalculationDay());
+	}
+	
+	public String getSelectedActivityMultiplier() {
+		return getString(getAccount().getCurrentSettings().getActivityMultiplier());
+	}
+	
+	public String getSelectedFormula() {
+		return getString(getAccount().getCurrentSettings().getTdeeFormula());
+	}
+	
 	/**
 	 * 
 	 * @param account

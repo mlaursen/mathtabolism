@@ -54,6 +54,10 @@ public abstract class BaseBean implements Serializable {
 		context.addMessage(null, new FacesMessage(severity, message, message));
 	}
 	
+	protected String getString(Enum<?> lookupEnum) {
+		return getString(lookupEnum.name());
+	}
+	
 	protected String getString(String lookupString) {
 		return ResourceBundle.getBundle("messages", getContext().getViewRoot().getLocale()).getString(lookupString);
 	}
@@ -79,7 +83,7 @@ public abstract class BaseBean implements Serializable {
 	protected SelectItem[] convertEnumToSelectItems(Enum<?>[] values) {
 		SelectItem[] items = new SelectItem[values.length];
 		for(Enum<?> value : values) {
-			items[value.ordinal()] = new SelectItem(value, getString(value.name()));
+			items[value.ordinal()] = new SelectItem(value, getString(value));
 		}
 		return items;
 	}

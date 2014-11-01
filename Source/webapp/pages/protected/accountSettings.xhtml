@@ -7,7 +7,7 @@
     xmlns:p="http://primefaces.org/ui">
   <ui:define name="title"><h:outputText value="#{msg.updateSettings}" /></ui:define>
   <ui:define name="content">
-  <div class="span4 offset3">
+  <div class="span2 offset4">
     <h2>
       <h:outputFormat value="#{msg.welcomeUser}">
         <f:param value="#{accountBean.account.username}"/>
@@ -25,21 +25,27 @@
           <h:inputText value="#{accountBean.account.currentSettings.age}" size="3" />
         </h:column>
       </h:panelGrid>
-    
-      <h:outputLabel value="#{msg.account_RecalcDay}" />
-      <h:selectOneMenu id="recalcDay" value="#{accountBean.account.currentSettings.recalculationDay}">
-        <f:selectItems value="#{accountBean.weekdays}" />
-      </h:selectOneMenu>
-    
-      <h:outputLabel value="#{msg.account_ActivityMultiplier}" />
-      <h:selectOneMenu value="#{accountBean.account.currentSettings.activityMultiplier}" >
-        <f:selectItems value="#{accountBean.activityMultipliers}" />
-      </h:selectOneMenu>
-    
-      <h:outputLabel value="#{msg.account_Formula}" />
-      <h:selectOneMenu value="#{accountBean.account.currentSettings.tdeeFormula}">
-        <f:selectItems value="#{accountBean.formulas}" />
-      </h:selectOneMenu>
+      
+      <ui:include src="/WEB-INF/tags/dropdown.xhtml">
+        <ui:param name="label" value="#{msg.account_RecalcDay}" />
+        <ui:param name="items" value="#{accountBean.weekdays}" />
+        <ui:param name="selected" value="#{accountBean.selectedWeekday}" />
+        <ui:param name="binding" value="#{accountBean.account.currentSettings.recalculationDay}" />
+      </ui:include>
+      
+      <ui:include src="/WEB-INF/tags/dropdown.xhtml">
+        <ui:param name="label" value="#{msg.account_ActivityMultiplier}" />
+        <ui:param name="items" value="#{accountBean.activityMultipliers}" />
+        <ui:param name="selected" value="#{accountBean.selectedActivityMultiplier}" />
+        <ui:param name="binding" value="#{accountBean.account.currentSettings.activityMultiplier}" />
+      </ui:include>
+      
+      <ui:include src="/WEB-INF/tags/dropdown.xhtml">
+        <ui:param name="label" value="#{msg.account_Formula}" />
+        <ui:param name="items" value="#{accountBean.formulas}" />
+        <ui:param name="selected" value="#{accountBean.selectedFormula}" />
+        <ui:param name="binding" value="#{accountBean.account.currentSettings.tdeeFormula}" />
+      </ui:include>
       
       <h:commandButton action="#{accountBean.saveUpdatedSettings()}" value="#{msg.updateSettings}" />
     </h:form>
