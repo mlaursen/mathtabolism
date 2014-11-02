@@ -4,7 +4,7 @@
 package com.mathtabolism.entity;
 
 /**
- * @author Mikkel Laursen
+ * @author mlaursen
  *
  */
 public abstract class BaseEntity {

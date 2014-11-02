@@ -26,6 +26,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import com.mathtabolism.constants.AccountRole;
 import com.mathtabolism.entity.BaseEntity;
+import com.mathtabolism.entity.BaseGeneratedEntity;
 
 /**
  * @author mlaursen
@@ -33,14 +34,9 @@ import com.mathtabolism.entity.BaseEntity;
  */
 @Entity
 @NamedQueries(@NamedQuery(name = Account.Q_findByUsername, query = "SELECT a FROM Account a WHERE a.username = :username"))
-public class Account extends BaseEntity {
+public class Account extends BaseGeneratedEntity {
 	
 	public static final String Q_findByUsername = "Account.findByUsername";
-	
-	@Id
-	@GeneratedValue(generator = "account_id_gen")
-	@GenericGenerator(name="account_id_gen", strategy="com.mathtabolism.util.hibernate.PrimaryKeyGenerator")
-	private String id;
 	
 	@Column(unique=true)
 	private String username;
@@ -70,23 +66,6 @@ public class Account extends BaseEntity {
 	private AccountSetting currentSettings;
 	
 	public Account() {
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public String getId() {
-		return id;
-	}
-	
-	/**
-	 * 
-	 * @param id
-	 *          the Account id
-	 */
-	public void setId(String id) {
-		this.id = id;
 	}
 	
 	/**

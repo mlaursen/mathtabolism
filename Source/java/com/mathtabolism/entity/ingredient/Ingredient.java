@@ -9,17 +9,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import com.mathtabolism.constants.IngredientCategory;
-import com.mathtabolism.entity.BaseEntity;
+import com.mathtabolism.entity.BaseGeneratedEntity;
 import com.mathtabolism.entity.BasePK;
 import com.mathtabolism.util.nutrition.Calorie;
 import com.mathtabolism.util.nutrition.Carbohydrate;
@@ -38,16 +34,11 @@ import com.mathtabolism.util.unit.Measurement;
 	,	@NamedQuery(name=Ingredient.Q_findIngredientsByCategory, query="SELECT i FROM Ingredient i WHERE i.category = :category ORDER BY i.name, i.brand, i.category DESC")
 	, @NamedQuery(name=Ingredient.Q_findIngredientsByName, query="SELECT i FROM Ingredient i WHERE UPPER(i.name) LIKE :name ORDER BY i.name, i.brand, i.category DESC")
 })
-public class Ingredient extends BaseEntity {
+public class Ingredient extends BaseGeneratedEntity {
 	public static final String Q_findAllIngredients = "Ingredient.findAllIngredients";
 	public static final String Q_findIngredientsByBrand = "Ingredient.findIngredientsByBrand";
 	public static final String Q_findIngredientsByCategory = "Ingredient.findIngredientsByCategory";
 	public static final String Q_findIngredientsByName = "Ingredient.findIngredientsByName";
-	
-	@Id
-	@GeneratedValue(generator = "ingredient_id_gen")
-	@GenericGenerator(name="ingredient_id_gen", strategy="com.mathtabolism.util.hibernate.PrimaryKeyGenerator")
-	private String id;
 	private String name;
 	
 	@OneToOne
