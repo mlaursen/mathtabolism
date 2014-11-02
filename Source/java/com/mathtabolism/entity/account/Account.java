@@ -60,6 +60,8 @@ public class Account extends BaseGeneratedEntity {
 	private String unhashedPassword;
 	@Transient
 	private AccountSetting currentSettings;
+	@Transient
+	private List<DailyIntake> currentDailyIntakeWeek;
 	
 	public Account() {
 	}
@@ -227,6 +229,14 @@ public class Account extends BaseGeneratedEntity {
 	 */
 	public void setAccountWeights(List<AccountWeight> accountWeights) {
 		this.accountWeights = accountWeights;
+	}
+	
+	public List<DailyIntake> getCurrentDailyIntakeWeek() {
+		return currentDailyIntakeWeek;
+	}
+	
+	public void setCurrentDailyIntakeWeek(List<DailyIntake> currentDailyIntakeWeek) {
+		this.currentDailyIntakeWeek = currentDailyIntakeWeek;
 	}
 	
 	@Override

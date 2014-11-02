@@ -4,17 +4,18 @@
 package com.mathtabolism.bo.statistics;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import com.mathtabolism.constants.Weekday;
+import org.joda.time.DateTime;
+
 import com.mathtabolism.eao.account.DailyIntakeEAO;
 import com.mathtabolism.entity.account.Account;
 import com.mathtabolism.entity.account.DailyIntake;
+import com.mathtabolism.util.date.DateUtils;
 
 /**
  * 
@@ -30,19 +31,6 @@ public class DailyIntakeBO {
 	}
 	
 	/**
-	 * Gets the calendar for the start of an account's recalculation day
-	 * @param account the {@link Account} to find a calendar for
-	 * @return a calendar
-	 */
-	private Calendar findStartCalendarForWeek(Account account) {
-		Calendar c = Calendar.getInstance();
-		Weekday recalcDay = account.getCurrentSettings().getRecalculationDay();
-		Weekday currentDay = Weekday.values()[c.get(Calendar.DAY_OF_WEEK)];
-		c.add(Calendar.DATE, recalcDay.compareTo(currentDay));
-		return c;
-	}
-	
-	/**
 	 * Finds the current week of {@link DailyIntake} for a given {@link Account}.
 	 * <p>If the week does not exist, a new week is generated for the account.
 	 * I guess this could technically run into a problem that a new week is generated for an account
@@ -53,7 +41,8 @@ public class DailyIntakeBO {
 	 * @return a list of the DailyIntake for the current account's week
 	 */
 	public List<DailyIntake> findCurrentWeek(Account account) {
-		List<DailyIntake> currentWeek = dailyIntakeEAO.findCurrentWeek(account, findStartCalendarForWeek(account));
+		int recalcDOW = account.getCurrentSettings().getRecalculationDay().toInt();
+		List<DailyIntake> currentWeek = dailyIntakeEAO.findCurrentWeek(account, DateUtils.findStartDate(recalcDOW));
 		if(currentWeek == null || currentWeek.isEmpty() || currentWeek.size() < 7) {
 			currentWeek = generateNewWeek(account);
 		}
@@ -67,11 +56,12 @@ public class DailyIntakeBO {
 	 */
 	private List<DailyIntake> generateNewWeek(Account account) {
 		List<DailyIntake> weekOfIntakes = new ArrayList<>();
-		Calendar c = findStartCalendarForWeek(account);
+		int recalcDOW = account.getCurrentSettings().getRecalculationDay().toInt();
+		DateTime dt = DateUtils.findStartDate(recalcDOW);
 		for(int i = 0; i < 7; i++) {
-			c.add(Calendar.DATE, i);
-			Date intakeDate = c.getTime();
+			Date intakeDate = dt.toDate();
 			weekOfIntakes.add(generateNewDailyIntake(account, intakeDate));
+			dt = dt.plusDays(1);
 		}
 		return weekOfIntakes;
 	}

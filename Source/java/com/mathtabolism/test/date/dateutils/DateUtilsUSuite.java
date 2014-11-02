@@ -12,7 +12,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author mlaursen
  */
 @RunWith(Suite.class)
-@SuiteClasses({ IsSameDateUTest.class })
+@SuiteClasses({ IsSameDateUTest.class, FindStartDateUTest.class })
 public class DateUtilsUSuite {
 	
 }

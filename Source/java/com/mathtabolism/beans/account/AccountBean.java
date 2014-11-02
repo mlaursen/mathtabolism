@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.mathtabolism.beans.BaseBean;
 import com.mathtabolism.bo.account.AccountBO;
+import com.mathtabolism.bo.statistics.DailyIntakeBO;
 import com.mathtabolism.constants.ActivityMultiplier;
 import com.mathtabolism.constants.TDEEFormula;
 import com.mathtabolism.constants.Weekday;
@@ -30,6 +31,7 @@ public class AccountBean extends BaseBean {
 	private static final long serialVersionUID = 5069047046599920651L;
 	@Inject
 	private AccountBO accountBO;
+	@Inject DailyIntakeBO dailyIntakeBO;
 	private Account account;
 	
 	private static final int CURRENT_YEAR = Calendar.getInstance().get(Calendar.YEAR);

@@ -15,4 +15,8 @@ public enum Weekday {
 	public String formatted() {
 		return StringUtils.toCamelCase(name(), true);
 	}
+	
+	public int toInt() {
+		return this.equals(SUNDAY) ? 7 : this.ordinal();
+	}
 }

@@ -11,6 +11,7 @@ import javax.inject.Inject;
 
 import org.jboss.logging.Logger;
 
+import com.mathtabolism.bo.statistics.DailyIntakeBO;
 import com.mathtabolism.constants.AccountRole;
 import com.mathtabolism.eao.account.AccountEAO;
 import com.mathtabolism.eao.account.AccountSettingEAO;
@@ -31,6 +32,8 @@ public class AccountBO {
 	private AccountEAO accountEAO;
 	@Inject
 	private AccountSettingEAO accountSettingEAO;
+	@Inject
+	private DailyIntakeBO dailyIntakeBO;
 	
 	/**
 	 * 
@@ -45,6 +48,7 @@ public class AccountBO {
 		else {
 			account.setCurrentSettings(accountSettingEAO.findCurrentAccountSetting(account));
 		}
+		account.setCurrentDailyIntakeWeek(dailyIntakeBO.findCurrentWeek(account));
 		return account;
 	}
 	

@@ -31,6 +31,11 @@
       <redirect />
     </navigation-case>
     <navigation-case>
+      <from-outcome>dailyIntake</from-outcome>
+      <to-view-id>/pages/protected/dailyIntake.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    <navigation-case>
       <from-outcome>logout</from-outcome>
       <to-view-id>/pages/protected/accountSettings.xhtml</to-view-id>
       <redirect />

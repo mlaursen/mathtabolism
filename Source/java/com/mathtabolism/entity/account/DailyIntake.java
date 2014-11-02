@@ -25,7 +25,8 @@ import com.mathtabolism.entity.BasePK;
 @Entity
 @NamedQueries({
 	@NamedQuery(name=DailyIntake.Q_findCurrentWeek, query="SELECT di FROM DailyIntake di "
-			+ "WHERE di.pk.account.id=:account_id AND di.pk.intakeDate BETWEEN :start_date AND :end_date")
+			+ "WHERE di.pk.account.id=:account_id AND di.pk.intakeDate BETWEEN :start_date AND :end_date "
+			+ "ORDER BY di.pk.intakeDate ASC")
 })
 public class DailyIntake extends BaseEntity {
 	public static final String Q_findCurrentWeek = "DailyIntake.getCurrentWeek";

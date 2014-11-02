@@ -6,4 +6,5 @@ build/
 *.project
 bin/
 .tern-project
+*.faces-config.xml.jsfdia
 
