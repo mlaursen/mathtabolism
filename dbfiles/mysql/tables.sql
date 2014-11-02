@@ -67,6 +67,31 @@ CREATE TABLE daily_intake
 , CONSTRAINT fk_Daily_Intake_Account FOREIGN KEY(account_id) REFERENCES account(id)
 );
 
+CREATE TABLE meal
+( id CHAR(10)
+, name VARCHAR(40)
+, CONSTRAINT pk_Meal PRIMARY KEY(id)
+);
+
+CREATE TABLE meal_part
+( id CHAR(10)
+, meal_id CHAR(10)
+, ingredient_id CHAR(10)
+, ingredient_serving VARCHAR(11)
+, ingredient_size NUMERIC(7, 2)
+, CONSTRAINT pk_Meal_Part PRIMARY KEY(id)
+, CONSTRAINT fk_Meal_Part_Meal FOREIGN KEY(meal_id) REFERENCES meal(id)
+, CONSTRAINT fk_Meal_part_Ingredient FOREIGN KEY(ingredient_id) REFERENCES ingredient(id)
+);
+
+CREATE TABLE daily_intake_meal
+( id CHAR(10)
+, meal_id CHAR(10)
+, daily_intake_id CHAR(10)
+, CONSTRAINT pk_Daily_Intake_Meal PRIMARY KEY(id)
+, CONSTRAINT fk_Daily_Intake_Meal_Meal FOREIGN KEY(meal_id) REFERENCES meal(id)
+, CONSTRAINT fk_Daily_Intake_meal_Daily_Intake FOREIGN KEY(daily_intake_id) REFERENCES daily_intake(id)
+);
 
 CREATE TABLE sequence_table
 ( sequence_name VARCHAR(30) NOT NULL PRIMARY KEY

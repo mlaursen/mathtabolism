@@ -4,6 +4,7 @@
 package com.mathtabolism.entity.account;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,12 +12,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import com.mathtabolism.entity.BaseGeneratedEntity;
+import com.mathtabolism.entity.food.DailyIntakeMeal;
 
 /**
  * 
@@ -46,6 +49,9 @@ public class DailyIntake extends BaseGeneratedEntity {
 	private Double fatMultiplier;
 	private Double carbMultiplier;
 	private Double proteinMultiplier;
+	
+	@OneToMany(mappedBy="dailyIntake")
+	private List<DailyIntakeMeal> meals;
 	
 	public Account getAccount() {
 		return account;
