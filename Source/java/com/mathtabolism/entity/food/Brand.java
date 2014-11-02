@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.entity.ingredient;
+package com.mathtabolism.entity.food;
 
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;

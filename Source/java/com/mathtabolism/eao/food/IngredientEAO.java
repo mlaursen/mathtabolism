@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.eao.ingredient;
+package com.mathtabolism.eao.food;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +11,7 @@ import javax.persistence.TypedQuery;
 
 import com.mathtabolism.constants.IngredientCategory;
 import com.mathtabolism.eao.BaseEAO;
-import com.mathtabolism.entity.ingredient.Ingredient;
+import com.mathtabolism.entity.food.Ingredient;
 
 /**
  * 

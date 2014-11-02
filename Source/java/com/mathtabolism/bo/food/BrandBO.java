@@ -1,15 +1,15 @@
 /**
  * 
  */
-package com.mathtabolism.bo.ingredient;
+package com.mathtabolism.bo.food;
 
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import com.mathtabolism.eao.ingredient.BrandEAO;
-import com.mathtabolism.entity.ingredient.Brand;
+import com.mathtabolism.eao.food.BrandEAO;
+import com.mathtabolism.entity.food.Brand;
 
 /**
  * 

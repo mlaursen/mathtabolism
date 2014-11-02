@@ -1,14 +1,14 @@
 /**
  * 
  */
-package com.mathtabolism.eao.ingredient;
+package com.mathtabolism.eao.food;
 
 import java.util.List;
 
 import javax.persistence.TypedQuery;
 
 import com.mathtabolism.eao.BaseEAO;
-import com.mathtabolism.entity.ingredient.Brand;
+import com.mathtabolism.entity.food.Brand;
 
 /**
  * 

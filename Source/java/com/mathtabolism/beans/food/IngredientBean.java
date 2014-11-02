@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.beans.ingredient;
+package com.mathtabolism.beans.food;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,11 +12,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.mathtabolism.beans.BaseBean;
-import com.mathtabolism.bo.ingredient.BrandBO;
-import com.mathtabolism.bo.ingredient.IngredientBO;
+import com.mathtabolism.bo.food.BrandBO;
+import com.mathtabolism.bo.food.IngredientBO;
 import com.mathtabolism.constants.IngredientCategory;
-import com.mathtabolism.entity.ingredient.Brand;
-import com.mathtabolism.entity.ingredient.Ingredient;
+import com.mathtabolism.entity.food.Brand;
+import com.mathtabolism.entity.food.Ingredient;
 
 /**
  * 
