@@ -219,10 +219,6 @@ public class AccountSetting extends BaseEntity {
 			this.dateChanged = dateChanged;
 		}
 		
-		/**
-		 * @param object
-		 * @return
-		 */
 		@Override
 		public boolean equals(Object object) {
 			if(object instanceof PK) {
@@ -232,9 +228,6 @@ public class AccountSetting extends BaseEntity {
 			return false;
 		}
 		
-		/**
-		 * @return
-		 */
 		@Override
 		public int hashCode() {
 			return account.hashCode() + dateChanged.hashCode();

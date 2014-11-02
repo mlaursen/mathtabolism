@@ -28,7 +28,7 @@ public class AccountSettingEAO extends BaseEAO<AccountSetting> {
 	 * @return
 	 */
 	public AccountSetting findCurrentAccountSetting(Account account) {
-		Map<String, Object> parameters = new HashMap<String, Object>();
+		Map<String, Object> parameters = new HashMap<>();
 		parameters.put("account_id", account.getId());
 		return findOneResult(AccountSetting.Q_findCurrentAccountSetting, parameters);
 	}

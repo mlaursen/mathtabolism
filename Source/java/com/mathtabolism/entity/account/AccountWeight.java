@@ -139,13 +139,6 @@ public class AccountWeight extends BaseEntity {
 			this.weighInDate = weighInDate;
 		}
 		
-		/**
-		 * Checks if the Primary Keys have the same account id and the same weigh in date (ignoring anything less than days)
-		 * 
-		 * @param object
-		 *          the object to compare to
-		 * @return true if equals
-		 */
 		@Override
 		public boolean equals(Object object) {
 			if(object instanceof PK) {
@@ -155,9 +148,6 @@ public class AccountWeight extends BaseEntity {
 			return false;
 		}
 		
-		/**
-		 * @return
-		 */
 		@Override
 		public int hashCode() {
 			return account.hashCode() + weighInDate.hashCode();
