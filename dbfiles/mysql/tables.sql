@@ -55,13 +55,15 @@ CREATE TABLE ingredient
 );
 
 CREATE TABLE daily_intake
-( account_id CHAR(10)
+( id CHAR(10)
+, account_id CHAR(10)
 , intake_date DATE
 , calorie_change INT
 , fat_multiplier NUMERIC(3, 2)
 , carb_multiplier NUMERIC(3, 2)
 , protein_multiplier NUMERIC(3, 2)
-, CONSTRAINT pk_Daily_Intake PRIMARY KEY(account_id, intake_date)
+, CONSTRAINT pk_Daily_Intake PRIMARY KEY(id)
+, CONSTRAINT uq_Daily_Intake UNIQUE(account_id, intake_date)
 , CONSTRAINT fk_Daily_Intake_Account FOREIGN KEY(account_id) REFERENCES account(id)
 );
 
