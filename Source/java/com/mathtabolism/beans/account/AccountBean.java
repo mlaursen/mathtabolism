@@ -20,6 +20,8 @@ import com.mathtabolism.constants.ActivityMultiplier;
 import com.mathtabolism.constants.TDEEFormula;
 import com.mathtabolism.constants.Weekday;
 import com.mathtabolism.entity.account.Account;
+import com.mathtabolism.entity.account.AccountSetting;
+import com.mathtabolism.entity.account.AccountWeight;
 
 /**
  * 
@@ -31,8 +33,12 @@ public class AccountBean extends BaseBean {
 	private static final long serialVersionUID = 5069047046599920651L;
 	@Inject
 	private AccountBO accountBO;
-	@Inject DailyIntakeBO dailyIntakeBO;
+	@Inject
+	DailyIntakeBO dailyIntakeBO;
+	
 	private Account account;
+	private AccountSetting currentSettings;
+	private AccountWeight currentWeight;
 	
 	private static final int CURRENT_YEAR = Calendar.getInstance().get(Calendar.YEAR);
 	public static final int MIN_BIRTHDAY_OFFSET = 80;
@@ -48,6 +54,8 @@ public class AccountBean extends BaseBean {
 			ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
 			String username = context.getUserPrincipal().getName();
 			account = accountBO.findAccountByUsername(username);
+			currentSettings = accountBO.findAccountSettingsForAccount(account);
+			currentWeight = accountBO.findTodaysWeight(account);
 			if(account != null) {
 				account = accountBO.updateLastLogin(account);
 			}
@@ -55,16 +63,48 @@ public class AccountBean extends BaseBean {
 		return account;
 	}
 	
+	/**
+	 * 
+	 * @return 
+	 */
+	public AccountSetting getCurrentSettings() {
+		return currentSettings;
+	}
+	
+	/**
+	 * 
+	 * @param currentSettings 
+	 */
+	public void setCurrentSettings(AccountSetting currentSettings) {
+		this.currentSettings = currentSettings;
+	}
+	
+	/**
+	 * 
+	 * @return 
+	 */
+	public AccountWeight getCurrentWeight() {
+		return currentWeight;
+	}
+	
+	/**
+	 * 
+	 * @param currentWeight 
+	 */
+	public void setCurrentWeight(AccountWeight currentWeight) {
+		this.currentWeight = currentWeight;
+	}
+	
 	public String getSelectedWeekday() {
-		return getString(getAccount().getCurrentSettings().getRecalculationDay());
+		return getString(currentSettings.getRecalculationDay());
 	}
 	
 	public String getSelectedActivityMultiplier() {
-		return getString(getAccount().getCurrentSettings().getActivityMultiplier());
+		return getString(currentSettings.getActivityMultiplier());
 	}
 	
 	public String getSelectedFormula() {
-		return getString(getAccount().getCurrentSettings().getTdeeFormula());
+		return getString(currentSettings.getTdeeFormula());
 	}
 	
 	/**
@@ -101,7 +141,7 @@ public class AccountBean extends BaseBean {
 	}
 	
 	public String saveUpdatedSettings() {
-		accountBO.update(account);
+		accountBO.update(account, currentSettings);
 		displayInfoMessage("account_UpdatedSettings");
 		return "update";
 	}

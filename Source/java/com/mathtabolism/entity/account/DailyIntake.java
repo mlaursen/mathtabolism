@@ -50,7 +50,7 @@ public class DailyIntake extends BaseGeneratedEntity {
 	private Double carbMultiplier;
 	private Double proteinMultiplier;
 	
-	@OneToMany(mappedBy="dailyIntake")
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="dailyIntake")
 	private List<DailyIntakeMeal> meals;
 	
 	public Account getAccount() {
@@ -133,4 +133,21 @@ public class DailyIntake extends BaseGeneratedEntity {
 		this.proteinMultiplier = proteinMultiplier;
 	}
 
+	/**
+	 * 
+	 * @return 
+	 */
+	public List<DailyIntakeMeal> getMeals() {
+		return meals;
+	}
+
+	/**
+	 * 
+	 * @param meals 
+	 */
+	public void setMeals(List<DailyIntakeMeal> meals) {
+		this.meals = meals;
+	}
+
+	
 }

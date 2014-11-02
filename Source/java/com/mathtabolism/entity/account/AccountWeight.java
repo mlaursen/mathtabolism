@@ -26,15 +26,31 @@ import com.mathtabolism.util.date.DateUtils;
  * @author mlaursen
  */
 @Entity
-@NamedQueries(@NamedQuery(name = AccountWeight.Q_findCurrentAccountWeight, query = "SELECT aw from AccountWeight aw WHERE"
-		+ " aw.pk.account.id = :account_id AND aw.pk.weighInDate = (SELECT max(aw2.pk.weighInDate) FROM AccountWeight aw2 WHERE aw2.pk.account.id = :account_id)"))
+@NamedQueries({
+		@NamedQuery(
+				name = AccountWeight.Q_findLatestWeight, 
+				query = "SELECT aw from AccountWeight aw WHERE aw.pk.account.id = :account_id "
+						  + "AND aw.pk.weighInDate = (SELECT max(aw2.pk.weighInDate) FROM AccountWeight aw2 WHERE aw2.pk.account.id = :account_id)"),
+		@NamedQuery(
+				name = AccountWeight.Q_findTodaysWeight,
+				query = "SELECT aw FROM AccountWeight aw WHERE aw.pk.account.id = :account_id "
+				      + "AND aw.pk.weighInDate = :today")
+})
 public class AccountWeight extends BaseEntity {
-	public static final String Q_findCurrentAccountWeight = "AccountWeight.findCurrentAccountWeight";
+	public static final String Q_findLatestWeight = "AccountWeight.findLatestWeight";
+	public static final String Q_findTodaysWeight = "AccountWeight.findTodaysWeight";
 	
 	@EmbeddedId
 	private PK pk;
 	
 	private double weight;
+	
+	public AccountWeight() {
+	}
+	
+	public AccountWeight(Account account, Date weighInDate) {
+		pk = new PK(account, weighInDate);
+	}
 	
 	/**
 	 * 

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 
 import com.mathtabolism.constants.IngredientCategory;
@@ -17,6 +18,7 @@ import com.mathtabolism.entity.food.Ingredient;
  * 
  * @author mlaursen
  */
+@Stateless
 public class IngredientEAO extends BaseEAO<Ingredient> {
 	
 	public IngredientEAO() {

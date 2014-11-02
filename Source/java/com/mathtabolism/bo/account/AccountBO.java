@@ -5,7 +5,9 @@ package com.mathtabolism.bo.account;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
+import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -15,8 +17,11 @@ import com.mathtabolism.bo.statistics.DailyIntakeBO;
 import com.mathtabolism.constants.AccountRole;
 import com.mathtabolism.eao.account.AccountEAO;
 import com.mathtabolism.eao.account.AccountSettingEAO;
+import com.mathtabolism.eao.account.AccountWeightEAO;
 import com.mathtabolism.entity.account.Account;
 import com.mathtabolism.entity.account.AccountSetting;
+import com.mathtabolism.entity.account.AccountWeight;
+import com.mathtabolism.entity.account.DailyIntake;
 import com.mathtabolism.util.PasswordEncryption;
 import com.mathtabolism.util.date.DateUtils;
 
@@ -33,23 +38,29 @@ public class AccountBO {
 	@Inject
 	private AccountSettingEAO accountSettingEAO;
 	@Inject
+	private AccountWeightEAO accountWeightEAO;
+	@Inject
 	private DailyIntakeBO dailyIntakeBO;
 	
 	/**
 	 * 
 	 * @param username the username to search for
-	 * @return an {@link Account} with a current {@link AccountSetting} or null
+	 * @return an {@link Account}
 	 */
 	public Account findAccountByUsername(String username) {
-		Account account = accountEAO.findAccountByUsername(username);
-		if(account.getAccountSettings().size() == 1) {
-			account.setCurrentSettings(account.getAccountSettings().get(0));
-		}
-		else {
-			account.setCurrentSettings(accountSettingEAO.findCurrentAccountSetting(account));
-		}
-		account.setCurrentDailyIntakeWeek(dailyIntakeBO.findCurrentWeek(account));
-		return account;
+		return accountEAO.findAccountByUsername(username);
+	}
+	
+	public AccountSetting findAccountSettingsForAccount(Account account) {
+		return accountSettingEAO.findCurrentAccountSetting(account);
+	}
+	
+	public List<DailyIntake> findCurrentDailyIntakeWeekForAccount(Account account) {
+		return dailyIntakeBO.findCurrentWeek(account);
+	}
+	
+	public AccountWeight findTodaysWeight(Account account) {
+		return accountWeightEAO.findTodaysWeight(account);
 	}
 	
 	/**
@@ -86,9 +97,8 @@ public class AccountBO {
 	 * @param account
 	 * @return
 	 */
-	public Account update(Account account) {
+	public Account update(Account account, AccountSetting currentSettings) {
 		accountEAO.update(account);
-		AccountSetting currentSettings = account.getCurrentSettings();
 		AccountSetting currentSettingsDB = accountSettingEAO.findCurrentAccountSetting(account);
 		if(DateUtils.isSameDate(currentSettings.getDateChanged(), currentSettingsDB.getDateChanged())) {
 			accountSettingEAO.update(currentSettings);

@@ -23,36 +23,36 @@
         </tr>
         <tr>
           <th><h:outputText value="#{msg.intake_Calories}" /></th>
-          <c:forEach items="#{intake.meals}" var="meal">
+          <ui:remove><c:forEach items="#{intake.meals}" var="meal">
           <td><h:outputText value="meal.calories" /></td>
-          </c:forEach>
+          </c:forEach></ui:remove>
           <td><h:outputText value="#{intake.expectedCalories}" /></td>
           <td><h:outputText value="#{intake.currentCalories}" /></td>
           <td><h:outputText value="#{intake.remainingCalories}" /></td>
         </tr>
         <tr>
           <th><h:outputText value="#{msg.intake_Fat}" /></th>
-          <c:forEach items="#{intake.meals}" var="meal">
+          <ui:remove><c:forEach items="#{intake.meals}" var="meal">
           <td><h:outputText value="meal.fat" /></td>
-          </c:forEach>
+          </c:forEach></ui:remove>
           <td><h:outputText value="#{intake.expectedFat}" /></td>
           <td><h:outputText value="#{intake.currentFat}" /></td>
           <td><h:outputText value="#{intake.remainingFat}" /></td>
         </tr>
         <tr>
           <th><h:outputText value="#{msg.intake_Carbs}" /></th>
-          <c:forEach items="#{intake.meals}" var="meal">
+          <ui:remove><c:forEach items="#{intake.meals}" var="meal">
           <td><h:outputText value="meal.carbohydrates" /></td>
-          </c:forEach>
+          </c:forEach></ui:remove>
           <td><h:outputText value="#{intake.expectedCarbohydrates}" /></td>
           <td><h:outputText value="#{intake.currentCarbohydrates}" /></td>
           <td><h:outputText value="#{intake.remainingCarbohydrates}" /></td>
         </tr>
         <tr>
           <th><h:outputText value="#{msg.intake_Protein}" /></th>
-          <c:forEach items="#{intake.meals}" var="meal">
+          <ui:remove><c:forEach items="#{intake.meals}" var="meal">
           <td><h:outputText value="meal.protein" /></td>
-          </c:forEach>
+          </c:forEach></ui:remove>
           <td><h:outputText value="#{intake.expectedProtein}" /></td>
           <td><h:outputText value="#{intake.currentProtein}" /></td>
           <td><h:outputText value="#{intake.remainingProtein}" /></td>

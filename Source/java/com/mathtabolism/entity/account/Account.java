@@ -51,17 +51,10 @@ public class Account extends BaseGeneratedEntity {
 	private Date activeSince;
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.account")
-	private List<AccountSetting> accountSettings;
-	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.account")
 	private List<AccountWeight> accountWeights;
 	
 	@Transient
 	private String unhashedPassword;
-	@Transient
-	private AccountSetting currentSettings;
-	@Transient
-	private List<DailyIntake> currentDailyIntakeWeek;
 	
 	public Account() {
 	}
@@ -185,38 +178,6 @@ public class Account extends BaseGeneratedEntity {
 	
 	/**
 	 * 
-	 * @param accountSettings
-	 */
-	public void setAccountSettings(List<AccountSetting> accountSettings) {
-		this.accountSettings = accountSettings;
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public List<AccountSetting> getAccountSettings() {
-		return accountSettings;
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public AccountSetting getCurrentSettings() {
-		return currentSettings;
-	}
-	
-	/**
-	 * 
-	 * @param currentSettings
-	 */
-	public void setCurrentSettings(AccountSetting currentSettings) {
-		this.currentSettings = currentSettings;
-	}
-	
-	/**
-	 * 
 	 * @return
 	 */
 	public List<AccountWeight> getAccountWeights() {
@@ -231,20 +192,12 @@ public class Account extends BaseGeneratedEntity {
 		this.accountWeights = accountWeights;
 	}
 	
-	public List<DailyIntake> getCurrentDailyIntakeWeek() {
-		return currentDailyIntakeWeek;
-	}
-	
-	public void setCurrentDailyIntakeWeek(List<DailyIntake> currentDailyIntakeWeek) {
-		this.currentDailyIntakeWeek = currentDailyIntakeWeek;
-	}
-	
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", id).append("username", username)
 				.append("password", password).append("unhashedPassword", unhashedPassword)
 				.append("role", role).append("birthday", birthday).append("lastLogin", lastLogin)
-				.append("activeSince", activeSince).append("currentSettings", currentSettings).toString();
+				.append("activeSince", activeSince).toString();
 	}
 	
 }

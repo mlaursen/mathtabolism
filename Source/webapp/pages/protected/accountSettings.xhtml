@@ -22,7 +22,7 @@
         </h:column>
         <h:column>
           <h:outputLabel value="#{msg.account_Age}" />
-          <h:inputText value="#{accountBean.account.currentSettings.age}" size="3" />
+          <h:inputText value="#{accountBean.currentSettings.age}" size="3" />
         </h:column>
       </h:panelGrid>
       
@@ -30,21 +30,21 @@
         <ui:param name="label" value="#{msg.account_RecalcDay}" />
         <ui:param name="items" value="#{accountBean.weekdays}" />
         <ui:param name="selected" value="#{accountBean.selectedWeekday}" />
-        <ui:param name="binding" value="#{accountBean.account.currentSettings.recalculationDay}" />
+        <ui:param name="binding" value="#{accountBean.currentSettings.recalculationDay}" />
       </ui:include>
       
       <ui:include src="/WEB-INF/tags/dropdown.xhtml">
         <ui:param name="label" value="#{msg.account_ActivityMultiplier}" />
         <ui:param name="items" value="#{accountBean.activityMultipliers}" />
         <ui:param name="selected" value="#{accountBean.selectedActivityMultiplier}" />
-        <ui:param name="binding" value="#{accountBean.account.currentSettings.activityMultiplier}" />
+        <ui:param name="binding" value="#{accountBean.currentSettings.activityMultiplier}" />
       </ui:include>
       
       <ui:include src="/WEB-INF/tags/dropdown.xhtml">
         <ui:param name="label" value="#{msg.account_Formula}" />
         <ui:param name="items" value="#{accountBean.formulas}" />
         <ui:param name="selected" value="#{accountBean.selectedFormula}" />
-        <ui:param name="binding" value="#{accountBean.account.currentSettings.tdeeFormula}" />
+        <ui:param name="binding" value="#{accountBean.currentSettings.tdeeFormula}" />
       </ui:include>
       
       <h:commandButton action="#{accountBean.saveUpdatedSettings()}" value="#{msg.updateSettings}" />
