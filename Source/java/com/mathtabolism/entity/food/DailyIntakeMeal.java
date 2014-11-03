@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.mathtabolism.entity.BaseGeneratedEntity;
 import com.mathtabolism.entity.account.DailyIntake;
@@ -20,6 +21,7 @@ import com.mathtabolism.entity.account.DailyIntake;
 @Entity
 public class DailyIntakeMeal extends BaseGeneratedEntity {
 	
+	@OneToOne
 	@JoinColumn(name="meal_id")
 	private Meal meal;
 	

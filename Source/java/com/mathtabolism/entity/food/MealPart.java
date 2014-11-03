@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import com.mathtabolism.entity.BaseGeneratedEntity;
 import com.mathtabolism.util.unit.Measurement;
@@ -24,6 +25,7 @@ public class MealPart extends BaseGeneratedEntity {
 	@JoinColumn(name="meal_id")
 	private Meal meal;
 	
+	@OneToOne
 	@JoinColumn(name="ingredient_id")
 	private Ingredient ingredient;
 	
