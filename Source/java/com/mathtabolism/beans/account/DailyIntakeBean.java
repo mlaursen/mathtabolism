@@ -11,8 +11,13 @@ import javax.inject.Named;
 
 import com.mathtabolism.beans.BaseBean;
 import com.mathtabolism.bo.account.DailyIntakeBO;
+import com.mathtabolism.constants.NutrientType;
+import com.mathtabolism.constants.TotalType;
 import com.mathtabolism.entity.account.DailyIntake;
 import com.mathtabolism.entity.food.DailyIntakeMeal;
+import com.mathtabolism.util.calculation.IntakeCalculator;
+import com.mathtabolism.util.nutrition.BaseNutrient;
+import com.mathtabolism.util.nutrition.Calorie;
 
 /**
  * 
@@ -42,16 +47,23 @@ public class DailyIntakeBean extends BaseBean {
 		this.currentDailyIntakeWeek = currentDailyIntakeWeek;
 	}
 	
-	
-	private double calculate(DailyIntake dailyIntake) {
-		List<DailyIntakeMeal> meals = dailyIntake.getMeals();
-		for(DailyIntakeMeal meal : meals) {
-			meal.getMeal().getMealParts();
-		}
-		return 0;
+	public BaseNutrient calculate(DailyIntake dailyIntake, NutrientType nutrientType, TotalType totalType) {
+		return new Calorie(100);
 	}
 	
-	public double calculateTotalCalories(DailyIntake intake) {
-		return 0;
+	public BaseNutrient calculateCurrentCalories(DailyIntake dailyIntake) {
+		return IntakeCalculator.calculateTotalDailyIntake(dailyIntake, NutrientType.CALORIE);
+	}
+	
+	public BaseNutrient calculateCurrentFat(DailyIntake dailyIntake) {
+		return IntakeCalculator.calculateTotalDailyIntake(dailyIntake, NutrientType.FAT);
+	}
+	
+	public BaseNutrient calculateCurrentCarbohydrates(DailyIntake dailyIntake) {
+		return IntakeCalculator.calculateTotalDailyIntake(dailyIntake, NutrientType.CARBOHYDRATE);
+	}
+	
+	public BaseNutrient calculateCurrentProtein(DailyIntake dailyIntake) {
+		return IntakeCalculator.calculateTotalDailyIntake(dailyIntake, NutrientType.PROTEIN);
 	}
 }

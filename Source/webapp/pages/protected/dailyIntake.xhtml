@@ -26,36 +26,36 @@
           <ui:remove><c:forEach items="#{intake.meals}" var="meal">
           <td><h:outputText value="meal.calories" /></td>
           </c:forEach></ui:remove>
-          <td><h:outputText value="#{dailyIntakeBean.calculateExpectedCalories(intake)}" /></td>
-          <td><h:outputText value="#{dailyIntakeBean.calculateCurrentCalories(intake)}" /></td>
-          <td><h:outputText value="#{dailyIntakeBean.calculateRemainingCalories(intake)}" /></td>
+          <td><h:outputText value="#{dailyIntakeBean.calculate(intake, 'CALORIE', 'EXPECTED')}" /></td>
+          <td><h:outputText value="#{dailyIntakeBean.calculate(intake, 'CALORIE', 'CURRENT')}" /></td>
+          <td><h:outputText value="#{dailyIntakeBean.calculate(intake, 'CALORIE', 'REMAINING')}" /></td>
         </tr>
         <tr>
           <th><h:outputText value="#{msg.intake_Fat}" /></th>
           <ui:remove><c:forEach items="#{intake.meals}" var="meal">
           <td><h:outputText value="meal.fat" /></td>
           </c:forEach></ui:remove>
-          <td><h:outputText value="#{intake.expectedFat}" /></td>
-          <td><h:outputText value="#{intake.currentFat}" /></td>
-          <td><h:outputText value="#{intake.remainingFat}" /></td>
+          <td><h:outputText value="#{intake.calculate(intake, 'FAT', 'EXPECTED')}" /></td>
+          <td><h:outputText value="#{intake.calculate(intake, 'FAT', 'CURRENT')}" /></td>
+          <td><h:outputText value="#{intake.calculate(intake, 'FAT', 'REMAINING')}" /></td>
         </tr>
         <tr>
           <th><h:outputText value="#{msg.intake_Carbs}" /></th>
           <ui:remove><c:forEach items="#{intake.meals}" var="meal">
           <td><h:outputText value="meal.carbohydrates" /></td>
           </c:forEach></ui:remove>
-          <td><h:outputText value="#{intake.expectedCarbohydrates}" /></td>
-          <td><h:outputText value="#{intake.currentCarbohydrates}" /></td>
-          <td><h:outputText value="#{intake.remainingCarbohydrates}" /></td>
+          <td><h:outputText value="#{intake.calculate(intake, 'CARBOHYDRATE', 'EXPECTED')}" /></td>
+          <td><h:outputText value="#{intake.calculate(intake, 'CARBOHYDRATE', 'CURRENT')}" /></td>
+          <td><h:outputText value="#{intake.calculate(intake, 'CARBOHYDRATE', 'REMAINING')}" /></td>
         </tr>
         <tr>
           <th><h:outputText value="#{msg.intake_Protein}" /></th>
           <ui:remove><c:forEach items="#{intake.meals}" var="meal">
           <td><h:outputText value="meal.protein" /></td>
           </c:forEach></ui:remove>
-          <td><h:outputText value="#{intake.expectedProtein}" /></td>
-          <td><h:outputText value="#{intake.currentProtein}" /></td>
-          <td><h:outputText value="#{intake.remainingProtein}" /></td>
+          <td><h:outputText value="#{intake.calculate(intake, 'PROTEIN', 'EXPECTED')}" /></td>
+          <td><h:outputText value="#{intake.calculate(intake, 'PROTEIN', 'CURRENT')}" /></td>
+          <td><h:outputText value="#{intake.calculate(intake, 'PROTEIN', 'REMAINING')}" /></td>
         </tr>
       </table>
       </c:forEach>

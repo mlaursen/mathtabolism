@@ -59,11 +59,6 @@ public abstract class BaseNutrient {
 		return amount;
 	}
 	
-	/**
-	 * Nutrients are considered equal if they match to at least 3 decimal points
-	 * @param object the object to check if equal to
-	 * @return
-	 */
 	@Override
 	public boolean equals(Object object) {
 		if(object != null && object.getClass().equals(getClass())) {
