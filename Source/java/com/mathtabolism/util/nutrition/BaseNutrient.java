@@ -8,6 +8,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.mathtabolism.constants.NutrientType;
 import com.mathtabolism.entity.food.Ingredient;
+import com.mathtabolism.util.number.NumberUtils;
 
 /**
  * 
@@ -66,7 +67,7 @@ public abstract class BaseNutrient {
 	@Override
 	public boolean equals(Object object) {
 		if(object != null && object.getClass().equals(getClass())) {
-			return Math.abs(amount - ((BaseNutrient) object).amount) < 1e-3;
+			return NumberUtils.aboutEqual(amount, ((BaseNutrient) object).amount);
 		}
 		return false;
 	}

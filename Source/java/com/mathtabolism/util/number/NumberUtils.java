@@ -3,6 +3,7 @@
  */
 package com.mathtabolism.util.number;
 
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
@@ -13,6 +14,7 @@ import java.text.DecimalFormat;
 public class NumberUtils {
 	
 	public static final DecimalFormat DEFAULT_DECIMAL_FORMAT = new DecimalFormat("#.##");
+	public static final int EQUALS_PRECISION = 3;
 	static {
 		DEFAULT_DECIMAL_FORMAT.setRoundingMode(RoundingMode.FLOOR);
 	}
@@ -21,14 +23,12 @@ public class NumberUtils {
 	}
 	
 	public static boolean aboutEqual(double d1, double d2) {
-		return DEFAULT_DECIMAL_FORMAT.format(d1).equals(DEFAULT_DECIMAL_FORMAT.format(d2));
+		return aboutEqual(d1, d2, EQUALS_PRECISION);
 	}
 	
 	public static boolean aboutEqual(double d1, double d2, int precision) {
-		DecimalFormat df = new DecimalFormat();
-		df.setMaximumFractionDigits(precision);
-		df.setMinimumFractionDigits(precision);
-		return df.format(d1).equals(df.format(d2));
+		int scale = (int) Math.pow(10, precision);
+		return Math.floor(d1 * scale) == Math.floor(d2 * scale);
 	}
 	
 	
