@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import com.mathtabolism.test.calculation.intakecalculator.IntakeCalculatorUSuite;
 import com.mathtabolism.test.calculation.mathutils.MathUtilsUSuite;
 import com.mathtabolism.test.date.dateutils.DateUtilsUSuite;
 import com.mathtabolism.test.nutrition.NutritionUSuite;
@@ -20,7 +21,7 @@ import com.mathtabolism.test.unit.UnitPackageUSuite;
  */
 @RunWith(Suite.class)
 @SuiteClasses({ FractionUtilsUSuite.class, StringUtilsUSuite.class, MathUtilsUSuite.class, DateUtilsUSuite.class,
-		NutritionUSuite.class, UnitPackageUSuite.class })
+		NutritionUSuite.class, UnitPackageUSuite.class, IntakeCalculatorUSuite.class })
 public class AllTests {
 	
 }

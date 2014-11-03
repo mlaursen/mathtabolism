@@ -9,7 +9,7 @@
   <ui:define name="content">
   <div class="span">
     <h:form>
-      <c:forEach items="#{accountBean.account.currentDailyIntakeWeek}" var="intake">
+      <c:forEach items="#{dailyIntakeBean.currentDailyIntakeWeek}" var="intake">
       <table class="data-table">
         <tr>
           <td></td>
@@ -26,9 +26,9 @@
           <ui:remove><c:forEach items="#{intake.meals}" var="meal">
           <td><h:outputText value="meal.calories" /></td>
           </c:forEach></ui:remove>
-          <td><h:outputText value="#{intake.expectedCalories}" /></td>
-          <td><h:outputText value="#{intake.currentCalories}" /></td>
-          <td><h:outputText value="#{intake.remainingCalories}" /></td>
+          <td><h:outputText value="#{dailyIntakeBean.calculateExpectedCalories(intake)}" /></td>
+          <td><h:outputText value="#{dailyIntakeBean.calculateCurrentCalories(intake)}" /></td>
+          <td><h:outputText value="#{dailyIntakeBean.calculateRemainingCalories(intake)}" /></td>
         </tr>
         <tr>
           <th><h:outputText value="#{msg.intake_Fat}" /></th>

@@ -20,9 +20,8 @@ import com.mathtabolism.entity.account.DailyIntake;
 @Entity
 public class DailyIntakeMeal extends BaseGeneratedEntity {
 	
-	@OneToMany
 	@JoinColumn(name="meal_id")
-	private List<Meal> meal;
+	private Meal meal;
 	
 	@ManyToOne
 	@JoinColumn(name="daily_intake_id")
@@ -33,14 +32,14 @@ public class DailyIntakeMeal extends BaseGeneratedEntity {
 	 * 
 	 * @return 
 	 */
-	public List<Meal> getMeal() {
+	public Meal getMeal() {
 		return meal;
 	}
 	/**
 	 * 
 	 * @param meal 
 	 */
-	public void setMeal(List<Meal> meal) {
+	public void setMeal(Meal meal) {
 		this.meal = meal;
 	}
 	/**

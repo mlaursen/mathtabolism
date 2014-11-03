@@ -3,15 +3,12 @@
  */
 package com.mathtabolism.entity.food;
 
-import java.util.List;
-
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import com.mathtabolism.entity.BaseGeneratedEntity;
 import com.mathtabolism.util.unit.Measurement;
@@ -27,9 +24,8 @@ public class MealPart extends BaseGeneratedEntity {
 	@JoinColumn(name="meal_id")
 	private Meal meal;
 	
-	@OneToMany
 	@JoinColumn(name="ingredient_id")
-	private List<Ingredient> ingredient;
+	private Ingredient ingredient;
 	
 	@AttributeOverrides({
 		@AttributeOverride(name="unitMeasurement", column=@Column(name="ingredient_serving")),
@@ -60,7 +56,7 @@ public class MealPart extends BaseGeneratedEntity {
 	 * 
 	 * @return 
 	 */
-	public List<Ingredient> getIngredient() {
+	public Ingredient getIngredient() {
 		return ingredient;
 	}
 
@@ -68,7 +64,7 @@ public class MealPart extends BaseGeneratedEntity {
 	 * 
 	 * @param ingredient 
 	 */
-	public void setIngredient(List<Ingredient> ingredient) {
+	public void setIngredient(Ingredient ingredient) {
 		this.ingredient = ingredient;
 	}
 

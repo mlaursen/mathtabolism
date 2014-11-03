@@ -4,6 +4,7 @@
 package com.mathtabolism.beans.account;
 
 import java.util.Calendar;
+import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
@@ -22,6 +23,7 @@ import com.mathtabolism.constants.Weekday;
 import com.mathtabolism.entity.account.Account;
 import com.mathtabolism.entity.account.AccountSetting;
 import com.mathtabolism.entity.account.AccountWeight;
+import com.mathtabolism.entity.account.DailyIntake;
 
 /**
  * 

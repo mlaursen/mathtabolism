@@ -23,6 +23,10 @@ public class Brand extends BaseGeneratedEntity {
 	public Brand() {
 	}
 	
+	public Brand(String name) {
+		this.name = name;
+	}
+	
 	private String name;
 
 	/**

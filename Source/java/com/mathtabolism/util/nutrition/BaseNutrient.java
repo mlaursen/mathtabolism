@@ -6,6 +6,9 @@ package com.mathtabolism.util.nutrition;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.mathtabolism.constants.NutrientType;
+import com.mathtabolism.entity.food.Ingredient;
+
 /**
  * 
  * @author mlaursen
@@ -55,10 +58,15 @@ public abstract class BaseNutrient {
 		return amount;
 	}
 	
+	/**
+	 * Nutrients are considered equal if they match to at least 3 decimal points
+	 * @param object the object to check if equal to
+	 * @return
+	 */
 	@Override
 	public boolean equals(Object object) {
-		if(object.getClass().equals(getClass())) {
-			return amount == ((BaseNutrient) object).amount;
+		if(object != null && object.getClass().equals(getClass())) {
+			return Math.abs(amount - ((BaseNutrient) object).amount) < 1e-3;
 		}
 		return false;
 	}
@@ -71,4 +79,36 @@ public abstract class BaseNutrient {
 		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("amount", amount).toString();
 	}
 	
+	/**
+	 * Creates a BaseNutrient based on the NutrientType
+	 * @param whichNutrient
+	 * @return a subclass of BaseNutrient
+	 */
+	public static BaseNutrient create(NutrientType whichNutrient) {
+		switch (whichNutrient) {
+			case CALORIE:
+				return new Calorie();
+			case FAT:
+				return new Fat();
+			case CARBOHYDRATE:
+				return new Carbohydrate();
+			case PROTEIN:
+				return new Protein();
+		}
+		return null;
+	}
+	
+	public static BaseNutrient getFromIngredient(Ingredient ingredient, NutrientType whichNutrient) {
+		switch (whichNutrient) {
+			case CALORIE:
+				return ingredient.getCalories();
+			case FAT:
+				return ingredient.getFat();
+			case CARBOHYDRATE:
+				return ingredient.getCarbohydrates();
+			case PROTEIN:
+				return ingredient.getProtein();
+		}
+		return null;
+	}
 }
