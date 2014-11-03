@@ -13,7 +13,6 @@ import javax.inject.Inject;
 
 import org.jboss.logging.Logger;
 
-import com.mathtabolism.bo.statistics.DailyIntakeBO;
 import com.mathtabolism.constants.AccountRole;
 import com.mathtabolism.eao.account.AccountEAO;
 import com.mathtabolism.eao.account.AccountSettingEAO;
@@ -55,8 +54,8 @@ public class AccountBO {
 		return accountSettingEAO.findCurrentAccountSetting(account);
 	}
 	
-	public List<DailyIntake> findCurrentDailyIntakeWeekForAccount(Account account) {
-		return dailyIntakeBO.findCurrentWeek(account);
+	public List<DailyIntake> findCurrentDailyIntakeWeekForAccount(Account account, AccountSetting currentSettings) {
+		return dailyIntakeBO.findCurrentWeek(account, currentSettings);
 	}
 	
 	public AccountWeight findTodaysWeight(Account account) {

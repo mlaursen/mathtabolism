@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.mathtabolism.beans.BaseBean;
 import com.mathtabolism.bo.account.AccountBO;
-import com.mathtabolism.bo.statistics.DailyIntakeBO;
+import com.mathtabolism.bo.account.DailyIntakeBO;
 import com.mathtabolism.constants.ActivityMultiplier;
 import com.mathtabolism.constants.TDEEFormula;
 import com.mathtabolism.constants.Weekday;

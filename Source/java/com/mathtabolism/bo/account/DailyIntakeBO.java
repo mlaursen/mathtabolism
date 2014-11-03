@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.bo.statistics;
+package com.mathtabolism.bo.account;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,6 +14,7 @@ import org.joda.time.DateTime;
 
 import com.mathtabolism.eao.account.DailyIntakeEAO;
 import com.mathtabolism.entity.account.Account;
+import com.mathtabolism.entity.account.AccountSetting;
 import com.mathtabolism.entity.account.DailyIntake;
 import com.mathtabolism.util.date.DateUtils;
 
@@ -40,11 +41,11 @@ public class DailyIntakeBO {
 	 * @param account the Account to find a DailyIntake week for
 	 * @return a list of the DailyIntake for the current account's week
 	 */
-	public List<DailyIntake> findCurrentWeek(Account account) {
-		int recalcDOW = account.getCurrentSettings().getRecalculationDay().toInt();
+	public List<DailyIntake> findCurrentWeek(Account account, AccountSetting currentSettings) {
+		int recalcDOW = currentSettings.getRecalculationDay().toInt();
 		List<DailyIntake> currentWeek = dailyIntakeEAO.findCurrentWeek(account, DateUtils.findStartDate(recalcDOW));
 		if(currentWeek == null || currentWeek.isEmpty() || currentWeek.size() < 7) {
-			currentWeek = generateNewWeek(account);
+			currentWeek = generateNewWeek(account, currentSettings);
 		}
 		return currentWeek;
 	}
@@ -54,9 +55,9 @@ public class DailyIntakeBO {
 	 * @param account the Account to generate a week for
 	 * @return a List of {@link DailyIntake}
 	 */
-	private List<DailyIntake> generateNewWeek(Account account) {
+	private List<DailyIntake> generateNewWeek(Account account, AccountSetting currentSettings) {
 		List<DailyIntake> weekOfIntakes = new ArrayList<>();
-		int recalcDOW = account.getCurrentSettings().getRecalculationDay().toInt();
+		int recalcDOW = currentSettings.getRecalculationDay().toInt();
 		DateTime dt = DateUtils.findStartDate(recalcDOW);
 		for(int i = 0; i < 7; i++) {
 			Date intakeDate = dt.toDate();
