@@ -14,7 +14,7 @@ import java.text.DecimalFormat;
 public class NumberUtils {
 	
 	public static final DecimalFormat DEFAULT_DECIMAL_FORMAT = new DecimalFormat("#.##");
-	public static final int EQUALS_PRECISION = 3;
+	public static final int DEFAULT_PRECISION = 3;
 	static {
 		DEFAULT_DECIMAL_FORMAT.setRoundingMode(RoundingMode.FLOOR);
 	}
@@ -23,7 +23,7 @@ public class NumberUtils {
 	}
 	
 	public static boolean aboutEqual(double d1, double d2) {
-		return aboutEqual(d1, d2, EQUALS_PRECISION);
+		return aboutEqual(d1, d2, DEFAULT_PRECISION);
 	}
 	
 	public static boolean aboutEqual(double d1, double d2, int precision) {
@@ -41,5 +41,16 @@ public class NumberUtils {
 		df.setMaximumFractionDigits(precision);
 		df.setMinimumFractionDigits(precision);
 		return Double.valueOf(df.format(decimal));
+	}
+	
+	public static String formatAsString(double decimal) {
+		return formatAsString(decimal, DEFAULT_PRECISION);
+	}
+	
+	public static String formatAsString(double decimal, int precision) {
+		DecimalFormat df = new DecimalFormat();
+		df.setMaximumFractionDigits(precision);
+		df.setMinimumFractionDigits(precision);
+		return df.format(decimal);
 	}
 }

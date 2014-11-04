@@ -16,6 +16,9 @@ import com.mathtabolism.eao.account.DailyIntakeEAO;
 import com.mathtabolism.entity.account.Account;
 import com.mathtabolism.entity.account.AccountSetting;
 import com.mathtabolism.entity.account.DailyIntake;
+import com.mathtabolism.entity.food.DailyIntakeMeal;
+import com.mathtabolism.entity.food.Meal;
+import com.mathtabolism.entity.food.MealPart;
 import com.mathtabolism.util.date.DateUtils;
 
 /**
@@ -86,5 +89,15 @@ public class DailyIntakeBO {
 		di.setProteinMultiplier(1.0);
 		dailyIntakeEAO.create(di);
 		return di;
+	}
+	
+	public DailyIntakeMeal getDefaultDailyIntakeMeal(DailyIntake dailyIntake, int index) {
+		DailyIntakeMeal dailyIntakeMeal = new DailyIntakeMeal();
+		Meal meal = new Meal();
+		meal.setName(String.format("Meal %02d", index + 1));
+		meal.setMealParts(new ArrayList<MealPart>());
+		dailyIntakeMeal.setMeal(meal);
+		dailyIntakeMeal.setDailyIntake(dailyIntake);
+		return dailyIntakeMeal;
 	}
 }

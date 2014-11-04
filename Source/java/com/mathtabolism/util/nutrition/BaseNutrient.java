@@ -67,6 +67,10 @@ public abstract class BaseNutrient {
 		return false;
 	}
 	
+	public String getDisplayValue() {
+		return NumberUtils.formatAsString(amount);
+	}
+	
 	/**
 	 * @return
 	 */

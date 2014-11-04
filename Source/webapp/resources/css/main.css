@@ -177,6 +177,10 @@ h2 {
   text-align: center;
 }
 
+.data-table-container {
+  padding: 1em 0;
+}
+
 table.data-table {
   border-collapse: collapse;
   margin: 0.22em;

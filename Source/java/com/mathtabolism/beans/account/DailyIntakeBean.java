@@ -11,13 +11,14 @@ import javax.inject.Named;
 
 import com.mathtabolism.beans.BaseBean;
 import com.mathtabolism.bo.account.DailyIntakeBO;
+import com.mathtabolism.constants.MealFactType;
 import com.mathtabolism.constants.NutrientType;
 import com.mathtabolism.constants.TotalType;
 import com.mathtabolism.entity.account.DailyIntake;
 import com.mathtabolism.entity.food.DailyIntakeMeal;
+import com.mathtabolism.entity.food.Meal;
 import com.mathtabolism.util.calculation.IntakeCalculator;
 import com.mathtabolism.util.nutrition.BaseNutrient;
-import com.mathtabolism.util.nutrition.Calorie;
 
 /**
  * 
@@ -43,27 +44,46 @@ public class DailyIntakeBean extends BaseBean {
 		return currentDailyIntakeWeek;
 	}
 	
+	public List<DailyIntakeMeal> getDailyIntakeMeals(DailyIntake dailyIntake) {
+		List<DailyIntakeMeal> meals = dailyIntake.getMeals();
+		for(int i = meals.size(); i < 5; i++) {
+			meals.add(dailyIntakeBO.getDefaultDailyIntakeMeal(dailyIntake, i));
+		}
+		return meals;
+	}
+	
+	public String getMealFact(DailyIntakeMeal dailyIntakeMeal, MealFactType mealFactType) {
+		Meal meal = dailyIntakeMeal.getMeal();
+		switch(mealFactType) {
+			case NAME:
+				return meal.getName();
+			case CALORIE:
+				return IntakeCalculator.calculateMealNutrients(meal.getMealParts(), NutrientType.CALORIE).getDisplayValue();
+			case FAT:
+				return IntakeCalculator.calculateMealNutrients(meal.getMealParts(), NutrientType.FAT).getDisplayValue();
+			case CARBOHYDRATE:
+				return IntakeCalculator.calculateMealNutrients(meal.getMealParts(), NutrientType.CARBOHYDRATE).getDisplayValue();
+			case PROTEIN:
+				return IntakeCalculator.calculateMealNutrients(meal.getMealParts(), NutrientType.PROTEIN).getDisplayValue();
+		}
+		return "";
+	}
+	
 	public void setCurrentDailyIntakeWeek(List<DailyIntake> currentDailyIntakeWeek) {
 		this.currentDailyIntakeWeek = currentDailyIntakeWeek;
 	}
 	
-	public BaseNutrient calculate(DailyIntake dailyIntake, NutrientType nutrientType, TotalType totalType) {
-		return new Calorie(100);
+	public String calculatedTotal(DailyIntake dailyIntake, NutrientType nutrientType, TotalType totalType) {
+		BaseNutrient calculatedTotal = null;
+		switch(totalType) {
+			case EXPECTED:
+				break;
+			case CURRENT:
+				calculatedTotal = IntakeCalculator.calculateTotalDailyIntake(dailyIntake, nutrientType);
+			case REMAINING:
+				break;
+		}
+		return calculatedTotal == null ? "" : calculatedTotal.getDisplayValue();
 	}
 	
-	public BaseNutrient calculateCurrentCalories(DailyIntake dailyIntake) {
-		return IntakeCalculator.calculateTotalDailyIntake(dailyIntake, NutrientType.CALORIE);
-	}
-	
-	public BaseNutrient calculateCurrentFat(DailyIntake dailyIntake) {
-		return IntakeCalculator.calculateTotalDailyIntake(dailyIntake, NutrientType.FAT);
-	}
-	
-	public BaseNutrient calculateCurrentCarbohydrates(DailyIntake dailyIntake) {
-		return IntakeCalculator.calculateTotalDailyIntake(dailyIntake, NutrientType.CARBOHYDRATE);
-	}
-	
-	public BaseNutrient calculateCurrentProtein(DailyIntake dailyIntake) {
-		return IntakeCalculator.calculateTotalDailyIntake(dailyIntake, NutrientType.PROTEIN);
-	}
 }

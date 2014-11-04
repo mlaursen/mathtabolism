@@ -1,7 +1,7 @@
 package com.mathtabolism.test.calculation.intakecalculator;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 import java.util.Arrays;
 
@@ -15,7 +15,10 @@ import com.mathtabolism.entity.food.DailyIntakeMeal;
 import com.mathtabolism.entity.food.Ingredient;
 import com.mathtabolism.entity.food.Meal;
 import com.mathtabolism.entity.food.MealPart;
+
 import static com.mathtabolism.util.calculation.IntakeCalculator.calculateNutrient;
+
+import com.mathtabolism.util.nutrition.BaseNutrient;
 import com.mathtabolism.util.nutrition.Calorie;
 import com.mathtabolism.util.nutrition.Carbohydrate;
 import com.mathtabolism.util.nutrition.Fat;
@@ -74,42 +77,50 @@ public class CalculateNutrientUTest {
 	
 	@Test
 	public void testCalculateCalories300gChicken() {
-		assertThat(calculateNutrient(meal300gChicken, NutrientType.CALORIE), is(new Calorie(375)));
+		BaseNutrient bn = new Calorie(375);
+		assertThat(calculateNutrient(meal300gChicken, NutrientType.CALORIE), is(bn));
 	}
 	
 	@Test
 	public void testCalculateFat300gChicken() {
-		assertThat(calculateNutrient(meal300gChicken, NutrientType.FAT), is(new Fat(6.696)));
+		BaseNutrient bn = new Fat(6.696);
+		assertThat(calculateNutrient(meal300gChicken, NutrientType.FAT), is(bn));
 	}
 	
 	@Test
 	public void testCalculateCarbohydrates300gChicken() {
-		assertThat(calculateNutrient(meal300gChicken, NutrientType.CARBOHYDRATE), is(new Carbohydrate(0)));
+		BaseNutrient bn = new Carbohydrate(0);
+		assertThat(calculateNutrient(meal300gChicken, NutrientType.CARBOHYDRATE), is(bn));
 	}
 	
 	@Test
 	public void testCalculateProtein300gChicken() {
-		assertThat(calculateNutrient(meal300gChicken, NutrientType.PROTEIN), is(new Protein(64.285)));
+		BaseNutrient bn = new Protein(64.285);
+		assertThat(calculateNutrient(meal300gChicken, NutrientType.PROTEIN), is(bn));
 	}
 	
 	@Test
 	public void testCalculateCalories4ozChicken() {
-		assertThat(calculateNutrient(meal4ozChicken, NutrientType.CALORIE), is(chickenBreast.getCalories()));
+		BaseNutrient bn = chickenBreast.getCalories();
+		assertThat(calculateNutrient(meal4ozChicken, NutrientType.CALORIE), is(bn));
 	}
 	
 	@Test
 	public void testCalculateFat4ozChicken() {
-		assertThat(calculateNutrient(meal4ozChicken, NutrientType.FAT), is(chickenBreast.getFat()));
+		BaseNutrient bn = chickenBreast.getFat();
+		assertThat(calculateNutrient(meal4ozChicken, NutrientType.FAT), is(bn));
 	}
 	
 	@Test
 	public void testCalculateCarbohydrates4ozChicken() {
-		assertThat(calculateNutrient(meal4ozChicken, NutrientType.CARBOHYDRATE), is(chickenBreast.getCarbohydrates()));
+		BaseNutrient bn = chickenBreast.getCarbohydrates();
+		assertThat(calculateNutrient(meal4ozChicken, NutrientType.CARBOHYDRATE), is(bn));
 	}
 	
 	@Test
 	public void testCalculateProtein4ozChicken() {
-		assertThat(calculateNutrient(meal4ozChicken, NutrientType.PROTEIN), is(chickenBreast.getProtein()));
+		BaseNutrient bn = chickenBreast.getProtein();
+		assertThat(calculateNutrient(meal4ozChicken, NutrientType.PROTEIN), is(bn));
 	}
 
 }
