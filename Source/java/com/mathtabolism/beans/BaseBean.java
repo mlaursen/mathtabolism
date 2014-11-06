@@ -10,6 +10,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 
@@ -20,33 +21,33 @@ public abstract class BaseBean implements Serializable {
 	
 	
 	/**
-	 * 
-	 * @param lookupString
+	 * Displays an info message to the user
+	 * @param lookupString a message String to display
 	 */
 	protected void displayInfoMessage(String lookupString) {
 		displayMessage(FacesMessage.SEVERITY_INFO, lookupString);
 	}
 	
 	/**
-	 * 
-	 * @param lookupString
+	 * Displays a warning message to the user
+	 * @param lookupString a message String to display
 	 */
 	protected void displayWarnMessage(String lookupString) {
 		displayMessage(FacesMessage.SEVERITY_WARN, lookupString);
 	}
 	
 	/**
-	 * 
-	 * @param lookupString
+	 * Displays an error message to the user
+	 * @param lookupString a message String to display
 	 */
 	protected void displayErrorMessage(String lookupString) {
 		displayMessage(FacesMessage.SEVERITY_ERROR, lookupString);
 	}
 	
 	/**
-	 * 
-	 * @param severity
-	 * @param lookupString
+	 * Displays a message with a given Severity
+	 * @param severity the {@link Severity} of the message
+	 * @param lookupString a message String to display
 	 */
 	protected void displayMessage(Severity severity, String lookupString) {
 		FacesContext context = getContext();
@@ -54,20 +55,38 @@ public abstract class BaseBean implements Serializable {
 		context.addMessage(null, new FacesMessage(severity, message, message));
 	}
 	
+	/**
+	 * Gets a String from the Messages Resource bundle by Enum name
+	 * @param lookupEnum an enum to convert to a String
+	 * @return a String from the resource bundle or null
+	 */
 	protected String getString(Enum<?> lookupEnum) {
 		return getString(lookupEnum.name());
 	}
 	
+	/**
+	 * Gets a String from the Messages Resource Bundle
+	 * @param lookupString a String to look up from the resource bundle
+	 * @return a String from the resource bundle or null
+	 */
 	protected String getString(String lookupString) {
 		return ResourceBundle.getBundle("messages", getContext().getViewRoot().getLocale()).getString(lookupString);
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Gets the current instance of FacesContext
+	 * @return the FacesContext
 	 */
 	protected FacesContext getContext() {
 		return FacesContext.getCurrentInstance();
+	}
+	
+	/**
+	 * Gets the HttpServletRequest from the FacesContext
+	 * @return the current HttpServletRequest
+	 */
+	protected HttpServletRequest getRequest() {
+		return (HttpServletRequest) getContext().getExternalContext().getRequest();
 	}
 	
 	/**

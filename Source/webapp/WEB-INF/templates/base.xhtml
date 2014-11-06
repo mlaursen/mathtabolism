@@ -21,26 +21,26 @@
             <h:commandLink action="info" value="#{msg.info}" />
           </li>
           <li>
-            <h:commandLink action="viewIngredients" value="#{msg.viewIngredients}" />
+            <h:commandLink action="#{navigationBean.redirect('IngredientNav.VIEW_INGREDIENTS')}" value="#{msg.viewIngredients}" />
           </li>
           <li>
             <h:commandLink action="statistics" value="#{msg.statistics}" />
           </li>
-          <li>
-            <h:commandLink action="dailyIntake" value="#{msg.intake}" />
-          </li>
           <c:choose>
             <c:when test="#{not empty request.remoteUser}">
               <li>
-                <h:commandLink action="updateSettings" value="#{msg.updateSettings}"/>
+                <h:commandLink action="#{navigationBean.redirect('AccountNav.DAILY_INTAKE')}" value="#{msg.intake}" />
               </li>
               <li>
-                <h:commandLink action="#{accountBean.logOut()}" value="#{msg.logout}"/>
+                <h:commandLink action="#{navigationBean.redirect('AccountNav.ACCOUNT_SETTINGS')}" value="#{msg.updateSettings}"/>
+              </li>
+              <li>
+                <h:commandLink action="#{navigationBean.logOut()}" value="#{msg.logout}"/>
               </li>
             </c:when>
             <c:otherwise>
               <li>
-                <h:commandLink action="toLogin" value="#{msg.login}" rendered="#{empty request.remoteUser}"/>
+                <h:commandLink action="#{navigationBean.redirect('AccountNav.LOGIN')}" value="#{msg.login}" rendered="#{empty request.remoteUser}"/>
               </li>
             </c:otherwise>
           </c:choose>
