@@ -9,15 +9,15 @@ import com.mathtabolism.util.unit.UnitMeasurement;
  *
  */
 public class PSVMTest {
-	
-	/**
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		Measurement m = new Measurement(UnitMeasurement.GRAM, 100);
-		m = UnitConverter.convert(m, UnitMeasurement.MILLIGRAM);
-		System.out.println(m);
-	}
-	
+  
+  /**
+   * 
+   * @param args
+   */
+  public static void main(String[] args) {
+    Measurement m = new Measurement(UnitMeasurement.GRAM, 100);
+    m = UnitConverter.convert(m, UnitMeasurement.MILLIGRAM);
+    System.out.println(m);
+  }
+  
 }

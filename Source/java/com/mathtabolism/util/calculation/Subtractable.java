@@ -5,6 +5,6 @@ package com.mathtabolism.util.calculation;
  *
  */
 public interface Subtractable {
-	
-	void subtract(Subtractable subtractable);
+  
+  void subtract(Subtractable subtractable);
 }

@@ -22,24 +22,27 @@ import com.mathtabolism.entity.account.DailyIntake;
  */
 @Stateless
 public class DailyIntakeEAO extends BaseEAO<DailyIntake> {
-	protected DailyIntakeEAO() {
-		super(DailyIntake.class);
-	}
-	
-	/**
-	 * Finds the current week for an account
-	 * @param account the {@link Account} to find a DailyIntake week for
-	 * @param startDate the startDate as a Calendar to find
-	 * @return a List of {@link DailyIntake}
-	 */
-	public List<DailyIntake> findCurrentWeek(Account account, DateTime startDate) {
-		TypedQuery<DailyIntake> q = em.createNamedQuery(DailyIntake.Q_findCurrentWeek, DailyIntake.class);
-		Map<String, Object> parameters = new HashMap<>();
-		parameters.put("account_id", account.getId());
-		parameters.put("start_date", startDate.toDate());
-		parameters.put("end_date", startDate.plusDays(7).toDate());
-		bindParameters(q, parameters);
-		return q.getResultList();
-	}
-	
+  protected DailyIntakeEAO() {
+    super(DailyIntake.class);
+  }
+  
+  /**
+   * Finds the current week for an account
+   * 
+   * @param account
+   *          the {@link Account} to find a DailyIntake week for
+   * @param startDate
+   *          the startDate as a Calendar to find
+   * @return a List of {@link DailyIntake}
+   */
+  public List<DailyIntake> findCurrentWeek(Account account, DateTime startDate) {
+    TypedQuery<DailyIntake> q = em.createNamedQuery(DailyIntake.Q_findCurrentWeek, DailyIntake.class);
+    Map<String, Object> parameters = new HashMap<>();
+    parameters.put("account_id", account.getId());
+    parameters.put("start_date", startDate.toDate());
+    parameters.put("end_date", startDate.plusDays(7).toDate());
+    bindParameters(q, parameters);
+    return q.getResultList();
+  }
+  
 }

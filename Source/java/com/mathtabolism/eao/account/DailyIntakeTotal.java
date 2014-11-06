@@ -16,78 +16,77 @@ import com.mathtabolism.util.nutrition.Protein;
  */
 @Embeddable
 public class DailyIntakeTotal {
-	
-	private Calorie calories;
-	private Fat fat;
-	private Carbohydrate carbohydrates;
-	private Protein protein;
-
-	public DailyIntakeTotal() {
-	}
-
-	/**
-	 * 
-	 * @return 
-	 */
-	public Calorie getCalories() {
-		return calories;
-	}
-
-	/**
-	 * 
-	 * @param calories 
-	 */
-	public void setCalories(Calorie calories) {
-		this.calories = calories;
-	}
-
-	/**
-	 * 
-	 * @return 
-	 */
-	public Fat getFat() {
-		return fat;
-	}
-
-	/**
-	 * 
-	 * @param fat 
-	 */
-	public void setFat(Fat fat) {
-		this.fat = fat;
-	}
-
-	/**
-	 * 
-	 * @return 
-	 */
-	public Carbohydrate getCarbohydrates() {
-		return carbohydrates;
-	}
-
-	/**
-	 * 
-	 * @param carbohydrates 
-	 */
-	public void setCarbohydrates(Carbohydrate carbohydrates) {
-		this.carbohydrates = carbohydrates;
-	}
-
-	/**
-	 * 
-	 * @return 
-	 */
-	public Protein getProtein() {
-		return protein;
-	}
-
-	/**
-	 * 
-	 * @param protein 
-	 */
-	public void setProtein(Protein protein) {
-		this.protein = protein;
-	}
-	
-	
+  
+  private Calorie calories;
+  private Fat fat;
+  private Carbohydrate carbohydrates;
+  private Protein protein;
+  
+  public DailyIntakeTotal() {
+  }
+  
+  /**
+   * 
+   * @return
+   */
+  public Calorie getCalories() {
+    return calories;
+  }
+  
+  /**
+   * 
+   * @param calories
+   */
+  public void setCalories(Calorie calories) {
+    this.calories = calories;
+  }
+  
+  /**
+   * 
+   * @return
+   */
+  public Fat getFat() {
+    return fat;
+  }
+  
+  /**
+   * 
+   * @param fat
+   */
+  public void setFat(Fat fat) {
+    this.fat = fat;
+  }
+  
+  /**
+   * 
+   * @return
+   */
+  public Carbohydrate getCarbohydrates() {
+    return carbohydrates;
+  }
+  
+  /**
+   * 
+   * @param carbohydrates
+   */
+  public void setCarbohydrates(Carbohydrate carbohydrates) {
+    this.carbohydrates = carbohydrates;
+  }
+  
+  /**
+   * 
+   * @return
+   */
+  public Protein getProtein() {
+    return protein;
+  }
+  
+  /**
+   * 
+   * @param protein
+   */
+  public void setProtein(Protein protein) {
+    this.protein = protein;
+  }
+  
 }

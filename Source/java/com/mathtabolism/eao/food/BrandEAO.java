@@ -17,12 +17,12 @@ import com.mathtabolism.entity.food.Brand;
  */
 @Stateless
 public class BrandEAO extends BaseEAO<Brand> {
-	public BrandEAO() {
-		super(Brand.class);
-	}
-	
-	public List<Brand> findAllBrands() {
-		TypedQuery<Brand> q = em.createNamedQuery(Brand.Q_findAllBrands, Brand.class);
-		return q.getResultList();
-	}
+  public BrandEAO() {
+    super(Brand.class);
+  }
+  
+  public List<Brand> findAllBrands() {
+    TypedQuery<Brand> q = em.createNamedQuery(Brand.Q_findAllBrands, Brand.class);
+    return q.getResultList();
+  }
 }

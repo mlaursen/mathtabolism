@@ -11,16 +11,16 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class Protein extends MacroNutrient {
-	
-	public Protein() {
-	}
-	
-	/**
-	 * @param amount
-	 * @param toCalorieMultiplier
-	 */
-	public Protein(double amount) {
-		super(amount, 4);
-	}
-	
+  
+  public Protein() {
+  }
+  
+  /**
+   * @param amount
+   * @param toCalorieMultiplier
+   */
+  public Protein(double amount) {
+    super(amount, 4);
+  }
+  
 }

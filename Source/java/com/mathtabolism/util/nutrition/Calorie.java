@@ -11,15 +11,15 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class Calorie extends BaseNutrient {
-	
-	public Calorie() {
-	}
-	
-	/**
-	 * @param amount
-	 */
-	public Calorie(double amount) {
-		super(amount);
-	}
-	
+  
+  public Calorie() {
+  }
+  
+  /**
+   * @param amount
+   */
+  public Calorie(double amount) {
+    super(amount);
+  }
+  
 }

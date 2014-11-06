@@ -9,5 +9,5 @@ package com.mathtabolism.util.unit;
  *
  */
 public enum UnitType {
-	DISTANCE, WEIGHT, VOLUME,
+  DISTANCE, WEIGHT, VOLUME,
 }

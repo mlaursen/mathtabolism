@@ -18,31 +18,33 @@ import com.mathtabolism.entity.account.Account;
  */
 @Stateless
 public class AccountEAO extends BaseEAO<Account> {
-	public AccountEAO() {
-		super(Account.class);
-	}
-	
-	/**
-	 * 
-	 * @param username
-	 *          the username to search by
-	 * @return an {@link Account} or null
-	 */
-	public Account findAccountByUsername(String username) {
-		Map<String, Object> parameters = new HashMap<>();
-		parameters.put("username", username);
-		
-		return findOneResult(Account.Q_findByUsername, parameters);
-	}
-	
-	/**
-	 * Updates the last logic date for an account to the current time
-	 * @param a the account to update
-	 * @return an Account with the last login date updated
-	 */
-	public Account updateLastLogin(Account a) {
-		a.setLastLogin(Calendar.getInstance().getTime());
-		update(a);
-		return a;
-	}
+  public AccountEAO() {
+    super(Account.class);
+  }
+  
+  /**
+   * 
+   * @param username
+   *          the username to search by
+   * @return an {@link Account} or null
+   */
+  public Account findAccountByUsername(String username) {
+    Map<String, Object> parameters = new HashMap<>();
+    parameters.put("username", username);
+    
+    return findOneResult(Account.Q_findByUsername, parameters);
+  }
+  
+  /**
+   * Updates the last logic date for an account to the current time
+   * 
+   * @param a
+   *          the account to update
+   * @return an Account with the last login date updated
+   */
+  public Account updateLastLogin(Account a) {
+    a.setLastLogin(Calendar.getInstance().getTime());
+    update(a);
+    return a;
+  }
 }

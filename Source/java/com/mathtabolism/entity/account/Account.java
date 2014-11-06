@@ -31,173 +31,172 @@ import com.mathtabolism.entity.BaseGeneratedEntity;
 @Entity
 @NamedQueries(@NamedQuery(name = Account.Q_findByUsername, query = "SELECT a FROM Account a WHERE a.username = :username"))
 public class Account extends BaseGeneratedEntity {
-	
-	public static final String Q_findByUsername = "Account.findByUsername";
-	
-	@Column(unique=true)
-	private String username;
-	private String password;
-	
-	@Enumerated(EnumType.STRING)
-	private AccountRole role;
-	
-	@Temporal(TemporalType.DATE)
-	private Date birthday;
-	
-	@Temporal(TemporalType.DATE)
-	private Date lastLogin;
-	
-	@Temporal(TemporalType.DATE)
-	private Date activeSince;
-	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.account")
-	private List<AccountWeight> accountWeights;
-	
-	@Transient
-	private String unhashedPassword;
-	
-	public Account() {
-	}
-	
-	/**
-	 * 
-	 * @return the username
-	 */
-	public String getUsername() {
-		return username;
-	}
-	
-	/**
-	 * 
-	 * @param username
-	 *          the new username
-	 */
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	
-	/**
-	 * 
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
-	
-	/**
-	 * 
-	 * @param password
-	 *          the new password
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	/**
-	 * 
-	 * @return the {@link AccountRole}
-	 */
-	public AccountRole getRole() {
-		return role;
-	}
-	
-	/**
-	 * 
-	 * @param role
-	 *          the new {@link AccountRole}
-	 */
-	public void setRole(AccountRole role) {
-		this.role = role;
-	}
-	
-	/**
-	 * 
-	 * @return the birthday date
-	 */
-	public Date getBirthday() {
-		return birthday;
-	}
-	
-	/**
-	 * 
-	 * @param birthday
-	 *          the new birthday date
-	 */
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
-	
-	/**
-	 * 
-	 * @return the last login date
-	 */
-	public Date getLastLogin() {
-		return lastLogin;
-	}
-	
-	/**
-	 * 
-	 * @param lastLogin
-	 *          the new last login date
-	 */
-	public void setLastLogin(Date lastLogin) {
-		this.lastLogin = lastLogin;
-	}
-	
-	/**
-	 * 
-	 * @param activeSince
-	 */
-	public void setActiveSince(Date activeSince) {
-		this.activeSince = activeSince;
-	}
-	
-	/**
-	 * 
-	 * @return the date the account was created
-	 */
-	public Date getActiveSince() {
-		return activeSince;
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public String getUnhashedPassword() {
-		return unhashedPassword;
-	}
-	
-	/**
-	 * 
-	 * @param unhashedPassword
-	 */
-	public void setUnhashedPassword(String unhashedPassword) {
-		this.unhashedPassword = unhashedPassword;
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public List<AccountWeight> getAccountWeights() {
-		return accountWeights;
-	}
-	
-	/**
-	 * 
-	 * @param accountWeights
-	 */
-	public void setAccountWeights(List<AccountWeight> accountWeights) {
-		this.accountWeights = accountWeights;
-	}
-	
-	@Override
-	public String toString() {
-		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", id).append("username", username)
-				.append("password", password).append("unhashedPassword", unhashedPassword)
-				.append("role", role).append("birthday", birthday).append("lastLogin", lastLogin)
-				.append("activeSince", activeSince).toString();
-	}
-	
+  
+  public static final String Q_findByUsername = "Account.findByUsername";
+  
+  @Column(unique = true)
+  private String username;
+  private String password;
+  
+  @Enumerated(EnumType.STRING)
+  private AccountRole role;
+  
+  @Temporal(TemporalType.DATE)
+  private Date birthday;
+  
+  @Temporal(TemporalType.DATE)
+  private Date lastLogin;
+  
+  @Temporal(TemporalType.DATE)
+  private Date activeSince;
+  
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.account")
+  private List<AccountWeight> accountWeights;
+  
+  @Transient
+  private String unhashedPassword;
+  
+  public Account() {
+  }
+  
+  /**
+   * 
+   * @return the username
+   */
+  public String getUsername() {
+    return username;
+  }
+  
+  /**
+   * 
+   * @param username
+   *          the new username
+   */
+  public void setUsername(String username) {
+    this.username = username;
+  }
+  
+  /**
+   * 
+   * @return the password
+   */
+  public String getPassword() {
+    return password;
+  }
+  
+  /**
+   * 
+   * @param password
+   *          the new password
+   */
+  public void setPassword(String password) {
+    this.password = password;
+  }
+  
+  /**
+   * 
+   * @return the {@link AccountRole}
+   */
+  public AccountRole getRole() {
+    return role;
+  }
+  
+  /**
+   * 
+   * @param role
+   *          the new {@link AccountRole}
+   */
+  public void setRole(AccountRole role) {
+    this.role = role;
+  }
+  
+  /**
+   * 
+   * @return the birthday date
+   */
+  public Date getBirthday() {
+    return birthday;
+  }
+  
+  /**
+   * 
+   * @param birthday
+   *          the new birthday date
+   */
+  public void setBirthday(Date birthday) {
+    this.birthday = birthday;
+  }
+  
+  /**
+   * 
+   * @return the last login date
+   */
+  public Date getLastLogin() {
+    return lastLogin;
+  }
+  
+  /**
+   * 
+   * @param lastLogin
+   *          the new last login date
+   */
+  public void setLastLogin(Date lastLogin) {
+    this.lastLogin = lastLogin;
+  }
+  
+  /**
+   * 
+   * @param activeSince
+   */
+  public void setActiveSince(Date activeSince) {
+    this.activeSince = activeSince;
+  }
+  
+  /**
+   * 
+   * @return the date the account was created
+   */
+  public Date getActiveSince() {
+    return activeSince;
+  }
+  
+  /**
+   * 
+   * @return
+   */
+  public String getUnhashedPassword() {
+    return unhashedPassword;
+  }
+  
+  /**
+   * 
+   * @param unhashedPassword
+   */
+  public void setUnhashedPassword(String unhashedPassword) {
+    this.unhashedPassword = unhashedPassword;
+  }
+  
+  /**
+   * 
+   * @return
+   */
+  public List<AccountWeight> getAccountWeights() {
+    return accountWeights;
+  }
+  
+  /**
+   * 
+   * @param accountWeights
+   */
+  public void setAccountWeights(List<AccountWeight> accountWeights) {
+    this.accountWeights = accountWeights;
+  }
+  
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", id).append("username", username)
+        .append("password", password).append("unhashedPassword", unhashedPassword).append("role", role)
+        .append("birthday", birthday).append("lastLogin", lastLogin).append("activeSince", activeSince).toString();
+  }
+  
 }

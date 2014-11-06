@@ -18,18 +18,19 @@ import com.mathtabolism.entity.account.AccountSetting;
  */
 @Stateless
 public class AccountSettingEAO extends BaseEAO<AccountSetting> {
-	public AccountSettingEAO() {
-		super(AccountSetting.class);
-	}
-	
-	/**
-	 * 
-	 * @param account the account to get the current AccountSetting for
-	 * @return
-	 */
-	public AccountSetting findCurrentAccountSetting(Account account) {
-		Map<String, Object> parameters = new HashMap<>();
-		parameters.put("account_id", account.getId());
-		return findOneResult(AccountSetting.Q_findCurrentAccountSetting, parameters);
-	}
+  public AccountSettingEAO() {
+    super(AccountSetting.class);
+  }
+  
+  /**
+   * 
+   * @param account
+   *          the account to get the current AccountSetting for
+   * @return
+   */
+  public AccountSetting findCurrentAccountSetting(Account account) {
+    Map<String, Object> parameters = new HashMap<>();
+    parameters.put("account_id", account.getId());
+    return findOneResult(AccountSetting.Q_findCurrentAccountSetting, parameters);
+  }
 }

@@ -20,8 +20,10 @@ import com.mathtabolism.test.unit.UnitPackageUSuite;
  * @author mlaursen
  */
 @RunWith(Suite.class)
-@SuiteClasses({ FractionUtilsUSuite.class, StringUtilsUSuite.class, MathUtilsUSuite.class, DateUtilsUSuite.class,
-		NutritionUSuite.class, UnitPackageUSuite.class, IntakeCalculatorUSuite.class })
+@SuiteClasses({
+    FractionUtilsUSuite.class, StringUtilsUSuite.class, MathUtilsUSuite.class, DateUtilsUSuite.class,
+    NutritionUSuite.class, UnitPackageUSuite.class, IntakeCalculatorUSuite.class
+})
 public class AllTests {
-	
+  
 }

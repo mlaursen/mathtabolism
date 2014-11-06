@@ -8,5 +8,5 @@ package com.mathtabolism.entity;
  *
  */
 public abstract class BaseEntity {
-	
+  
 }

@@ -5,6 +5,6 @@ package com.mathtabolism.util.calculation;
  *
  */
 public interface Addable {
-	
-	void add(Addable addable);
+  
+  void add(Addable addable);
 }

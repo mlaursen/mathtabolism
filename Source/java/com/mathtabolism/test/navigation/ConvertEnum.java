@@ -16,16 +16,16 @@ import com.mathtabolism.util.string.StringUtils;
  * @author mlaursen
  */
 public class ConvertEnum {
-	
-	@Test
-	public void test() {
-		String r = redirect(AccountNav.ACCOUNT_SETTINGS);
-		System.out.println(r);
-	}
-	
-	private <T extends Enum<T> & Navigatable> String redirect(T page) {
-		
-		return "/pages/" + page.getFolder() + "/" + StringUtils.toCamelCase(page.name()) + "?faces-redirect=true";
-	}
-	
+  
+  @Test
+  public void test() {
+    String r = redirect(AccountNav.ACCOUNT_SETTINGS);
+    System.out.println(r);
+  }
+  
+  private <T extends Enum<T> & Navigatable> String redirect(T page) {
+    
+    return "/pages/" + page.getFolder() + "/" + StringUtils.toCamelCase(page.name()) + "?faces-redirect=true";
+  }
+  
 }

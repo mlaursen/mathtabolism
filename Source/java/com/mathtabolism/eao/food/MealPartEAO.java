@@ -14,7 +14,7 @@ import com.mathtabolism.entity.food.MealPart;
  */
 @Stateless
 public class MealPartEAO extends BaseEAO<MealPart> {
-	public MealPartEAO() {
-		super(MealPart.class);
-	}
+  public MealPartEAO() {
+    super(MealPart.class);
+  }
 }

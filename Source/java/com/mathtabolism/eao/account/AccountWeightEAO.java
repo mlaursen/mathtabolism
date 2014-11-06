@@ -25,57 +25,62 @@ import com.mathtabolism.entity.account.AccountWeight;
  */
 @Stateless
 public class AccountWeightEAO extends BaseEAO<AccountWeight> {
-	public AccountWeightEAO() {
-		super(AccountWeight.class);
-	}
-	
-	public AccountWeight findLatestWeight(Account account) {
-		TypedQuery<AccountWeight> q = em.createNamedQuery(AccountWeight.Q_findLatestWeight, AccountWeight.class);
-		Map<String, Object> parameters = new HashMap<>();
-		parameters.put("account_id", account.getId());
-		
-		bindParameters(q, parameters);
-		try {
-			return q.getSingleResult();
-		} catch(NoResultException e) {
-			return createDefaultWeight(account);
-		}
-	}
-	
-	private AccountWeight createWeightForAccount(Account account, double weight) {
-		AccountWeight accountWeight = new AccountWeight(account, Calendar.getInstance().getTime());
-		accountWeight.setWeight(weight);
-		create(accountWeight);
-		return accountWeight;
-	}
-	
-	private AccountWeight createDefaultWeight(Account account) {
-		return createWeightForAccount(account, 0.0);
-	}
-	
-	/**
-	 * Attempts to find the {@link AccountWeight} for today and the given account.
-	 * @param account the {@link Account} to look up a weight for
-	 * @return 
-	 */
-	public AccountWeight findTodaysWeight(Account account) {
-		TypedQuery<AccountWeight> q = em.createNamedQuery(AccountWeight.Q_findTodaysWeight, AccountWeight.class);
-		Map<String, Object> parameters = new HashMap<>();
-		parameters.put("account_id", account.getId());
-		parameters.put("today", Calendar.getInstance().getTime());
-		
-		bindParameters(q, parameters);
-		try {
-			return q.getSingleResult();
-		} catch(NoResultException e) {
-			AccountWeight latestWeight = findLatestWeight(account);
-			
-			if(!DateUtils.isSameDay(latestWeight.getWeighInDate(), new Date())) {
-				return createWeightForAccount(account, latestWeight.getWeight());
-			} else {
-				return latestWeight;
-			}
-		}
-		
-	}
+  public AccountWeightEAO() {
+    super(AccountWeight.class);
+  }
+  
+  public AccountWeight findLatestWeight(Account account) {
+    TypedQuery<AccountWeight> q = em.createNamedQuery(AccountWeight.Q_findLatestWeight, AccountWeight.class);
+    Map<String, Object> parameters = new HashMap<>();
+    parameters.put("account_id", account.getId());
+    
+    bindParameters(q, parameters);
+    try {
+      return q.getSingleResult();
+    }
+    catch (NoResultException e) {
+      return createDefaultWeight(account);
+    }
+  }
+  
+  private AccountWeight createWeightForAccount(Account account, double weight) {
+    AccountWeight accountWeight = new AccountWeight(account, Calendar.getInstance().getTime());
+    accountWeight.setWeight(weight);
+    create(accountWeight);
+    return accountWeight;
+  }
+  
+  private AccountWeight createDefaultWeight(Account account) {
+    return createWeightForAccount(account, 0.0);
+  }
+  
+  /**
+   * Attempts to find the {@link AccountWeight} for today and the given account.
+   * 
+   * @param account
+   *          the {@link Account} to look up a weight for
+   * @return
+   */
+  public AccountWeight findTodaysWeight(Account account) {
+    TypedQuery<AccountWeight> q = em.createNamedQuery(AccountWeight.Q_findTodaysWeight, AccountWeight.class);
+    Map<String, Object> parameters = new HashMap<>();
+    parameters.put("account_id", account.getId());
+    parameters.put("today", Calendar.getInstance().getTime());
+    
+    bindParameters(q, parameters);
+    try {
+      return q.getSingleResult();
+    }
+    catch (NoResultException e) {
+      AccountWeight latestWeight = findLatestWeight(account);
+      
+      if(!DateUtils.isSameDay(latestWeight.getWeighInDate(), new Date())) {
+        return createWeightForAccount(account, latestWeight.getWeight());
+      }
+      else {
+        return latestWeight;
+      }
+    }
+    
+  }
 }

@@ -15,9 +15,9 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public abstract class BasePK implements Serializable {
-	private static final long serialVersionUID = 1L;
-	
-	public abstract boolean equals(Object object);
-	
-	public abstract int hashCode();
+  private static final long serialVersionUID = 1L;
+  
+  public abstract boolean equals(Object object);
+  
+  public abstract int hashCode();
 }

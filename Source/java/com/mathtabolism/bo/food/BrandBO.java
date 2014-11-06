@@ -17,30 +17,31 @@ import com.mathtabolism.entity.food.Brand;
  */
 @Stateless
 public class BrandBO {
-	
-	@Inject
-	private BrandEAO brandEAO;
-	/**
+  
+  @Inject
+  private BrandEAO brandEAO;
+  
+  /**
 	 * 
 	 */
-	public BrandBO() {
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public List<Brand> findAllBrands() {
-		return brandEAO.findAllBrands();
-	}
-	
-	/**
-	 * 
-	 * @param brand
-	 * @return
-	 */
-	public Brand create(Brand brand) {
-		brandEAO.create(brand);
-		return brand;
-	}
+  public BrandBO() {
+  }
+  
+  /**
+   * 
+   * @return
+   */
+  public List<Brand> findAllBrands() {
+    return brandEAO.findAllBrands();
+  }
+  
+  /**
+   * 
+   * @param brand
+   * @return
+   */
+  public Brand create(Brand brand) {
+    brandEAO.create(brand);
+    return brand;
+  }
 }

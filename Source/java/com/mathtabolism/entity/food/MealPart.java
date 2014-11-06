@@ -20,71 +20,70 @@ import com.mathtabolism.util.unit.Measurement;
  */
 @Entity
 public class MealPart extends BaseGeneratedEntity {
-	
-	@ManyToOne
-	@JoinColumn(name="meal_id")
-	private Meal meal;
-	
-	@OneToOne
-	@JoinColumn(name="ingredient_id")
-	private Ingredient ingredient;
-	
-	@AttributeOverrides({
-		@AttributeOverride(name="unitMeasurement", column=@Column(name="ingredient_serving")),
-		@AttributeOverride(name="value", column=@Column(name="ingredient_size"))
-	})
-	private Measurement serving;
-	
-	public MealPart() {
-	}
-
-	/**
-	 * 
-	 * @return 
-	 */
-	public Meal getMeal() {
-		return meal;
-	}
-
-	/**
-	 * 
-	 * @param meal 
-	 */
-	public void setMeal(Meal meal) {
-		this.meal = meal;
-	}
-
-	/**
-	 * 
-	 * @return 
-	 */
-	public Ingredient getIngredient() {
-		return ingredient;
-	}
-
-	/**
-	 * 
-	 * @param ingredient 
-	 */
-	public void setIngredient(Ingredient ingredient) {
-		this.ingredient = ingredient;
-	}
-
-	/**
-	 * 
-	 * @return 
-	 */
-	public Measurement getServing() {
-		return serving;
-	}
-
-	/**
-	 * 
-	 * @param serving 
-	 */
-	public void setServing(Measurement serving) {
-		this.serving = serving;
-	}
-	
-	
+  
+  @ManyToOne
+  @JoinColumn(name = "meal_id")
+  private Meal meal;
+  
+  @OneToOne
+  @JoinColumn(name = "ingredient_id")
+  private Ingredient ingredient;
+  
+  @AttributeOverrides({
+      @AttributeOverride(name = "unitMeasurement", column = @Column(name = "ingredient_serving")),
+      @AttributeOverride(name = "value", column = @Column(name = "ingredient_size"))
+  })
+  private Measurement serving;
+  
+  public MealPart() {
+  }
+  
+  /**
+   * 
+   * @return
+   */
+  public Meal getMeal() {
+    return meal;
+  }
+  
+  /**
+   * 
+   * @param meal
+   */
+  public void setMeal(Meal meal) {
+    this.meal = meal;
+  }
+  
+  /**
+   * 
+   * @return
+   */
+  public Ingredient getIngredient() {
+    return ingredient;
+  }
+  
+  /**
+   * 
+   * @param ingredient
+   */
+  public void setIngredient(Ingredient ingredient) {
+    this.ingredient = ingredient;
+  }
+  
+  /**
+   * 
+   * @return
+   */
+  public Measurement getServing() {
+    return serving;
+  }
+  
+  /**
+   * 
+   * @param serving
+   */
+  public void setServing(Measurement serving) {
+    this.serving = serving;
+  }
+  
 }

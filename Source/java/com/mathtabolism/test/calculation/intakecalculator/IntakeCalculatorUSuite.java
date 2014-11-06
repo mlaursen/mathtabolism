@@ -12,7 +12,9 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author mlaursen
  */
 @RunWith(Suite.class)
-@SuiteClasses({ CalculateNutrientUTest.class })
+@SuiteClasses({
+  CalculateNutrientUTest.class
+})
 public class IntakeCalculatorUSuite {
-	
+  
 }

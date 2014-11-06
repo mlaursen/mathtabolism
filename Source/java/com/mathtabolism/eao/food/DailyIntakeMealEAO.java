@@ -14,7 +14,7 @@ import com.mathtabolism.entity.food.DailyIntakeMeal;
  */
 @Stateless
 public class DailyIntakeMealEAO extends BaseEAO<DailyIntakeMeal> {
-	public DailyIntakeMealEAO() {
-		super(DailyIntakeMeal.class);
-	}
+  public DailyIntakeMealEAO() {
+    super(DailyIntakeMeal.class);
+  }
 }

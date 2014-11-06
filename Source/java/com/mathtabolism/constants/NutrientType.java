@@ -1,8 +1,5 @@
 package com.mathtabolism.constants;
 
 public enum NutrientType {
-	CALORIE,
-	FAT,
-	CARBOHYDRATE,
-	PROTEIN;
+  CALORIE, FAT, CARBOHYDRATE, PROTEIN;
 }

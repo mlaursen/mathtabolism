@@ -11,16 +11,16 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class Carbohydrate extends MacroNutrient {
-	
-	public Carbohydrate() {
-	}
-	
-	/**
-	 * @param amount
-	 * @param toCalorieMultiplier
-	 */
-	public Carbohydrate(double amount) {
-		super(amount, 4);
-	}
-	
+  
+  public Carbohydrate() {
+  }
+  
+  /**
+   * @param amount
+   * @param toCalorieMultiplier
+   */
+  public Carbohydrate(double amount) {
+    super(amount, 4);
+  }
+  
 }
