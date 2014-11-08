@@ -48,7 +48,7 @@ public class DailyIntakeBO {
   public List<DailyIntake> findCurrentWeek(Account account, AccountSetting currentSettings) {
     int recalcDOW = currentSettings.getRecalculationDay().toInt();
     List<DailyIntake> currentWeek = dailyIntakeEAO.findCurrentWeek(account, DateUtils.findStartDate(recalcDOW));
-    if(currentWeek == null || currentWeek.isEmpty() || currentWeek.size() < 7) {
+    if(currentWeek == null || currentWeek.isEmpty()) {
       currentWeek = generateNewWeek(account, currentSettings);
     }
     return currentWeek;

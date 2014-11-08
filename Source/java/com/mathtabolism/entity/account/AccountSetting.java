@@ -35,7 +35,8 @@ import com.mathtabolism.entity.BasePK;
   @NamedQuery(name = AccountSetting.Q_findCurrentAccountSetting, query = "SELECT as1 FROM AccountSetting as1 WHERE as1.pk.account.id = :account_id "
       + "AND as1.pk.dateChanged = (SELECT max(as2.pk.dateChanged) FROM AccountSetting as2 WHERE as2.pk.account.id = :account_id)"),
   @NamedQuery(name = AccountSetting.Q_findLatestSettingsForDate, query = "SELECT as1 FROM AccountSetting as1 WHERE as1.pk.account.id = :account_id "
-      + "AND as1.pk.dateChanged <= :date")
+      + "AND as1.pk.dateChanged = (SELECT max(as2.pk.dateChanged) FROM AccountSetting as2 WHERE as2.pk.account.id = :account_id "
+      + "AND as2.pk.dateChanged <= :date)")
 })
 public class AccountSetting extends BaseEntity {
   public static final String Q_findCurrentAccountSetting = "AccountSetting.findCurrentAccountSetting";

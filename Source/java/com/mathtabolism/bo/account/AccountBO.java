@@ -108,8 +108,9 @@ public class AccountBO {
    * @param account
    * @return
    */
-  public Account update(Account account, AccountSetting currentSettings) {
+  public Account updateSettings(Account account, AccountSetting currentSettings) {
     accountEAO.update(account);
+    currentSettings.setDateChanged(Calendar.getInstance().getTime());
     AccountSetting currentSettingsDB = accountSettingEAO.findCurrentAccountSetting(account);
     if(DateUtils.isSameDate(currentSettings.getDateChanged(), currentSettingsDB.getDateChanged())) {
       accountSettingEAO.update(currentSettings);

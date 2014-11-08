@@ -91,9 +91,9 @@ public class DailyIntakeBean extends BaseBean {
   }
   
   public String calculatedTotal(DailyIntake dailyIntake, NutrientType nutrientType, TotalType totalType) {
-//    Account account = dailyIntake.getAccount();
-//    Date d = dailyIntake.getIntakeDate();
-//    AccountSetting accountSettings = accountBO.findLatestSettingsForDate(account, d);
+    Account account = dailyIntake.getAccount();
+    Date d = dailyIntake.getIntakeDate();
+    AccountSetting accountSettings = accountBO.findLatestSettingsForDate(account, d);
     BaseNutrient calculatedTotal = null;
 //    AccountWeight weight = getCurrentAccountWeightWeek().stream().filter(w -> w.getWeighInDate().equals(d)).findFirst().get();
     //FormulaCalculation.calculateTDEE(weight, height, age, gender, unitSystem, formula)

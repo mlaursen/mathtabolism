@@ -123,7 +123,7 @@ public class AccountBean extends BaseBean {
   }
   
   public void saveUpdatedSettings() {
-    accountBO.update(account, currentSettings);
+    accountBO.updateSettings(account, currentSettings);
     displayInfoMessage("account_UpdatedSettings");
   }
   
