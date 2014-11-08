@@ -96,6 +96,10 @@ public class AccountWeight extends BaseEntity {
     this.weight = weight;
   }
   
+  public void setWeight(String weight) {
+    this.weight = Double.valueOf(weight);
+  }
+  
   @Override
   public String toString() {
     return new ToStringBuilder(this).append("accountId", pk.account.getId()).append("weight", weight)

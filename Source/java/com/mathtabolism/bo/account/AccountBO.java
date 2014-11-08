@@ -109,4 +109,17 @@ public class AccountBO {
     }
     return account;
   }
+  
+  public AccountWeight createOrUpdateWeight(AccountWeight weight) {
+    Date d = Calendar.getInstance().getTime();
+    if(DateUtils.isSameDate(d, weight.getWeighInDate())) {
+      return accountWeightEAO.update(weight);
+    } else {
+      AccountWeight currentWeight = new AccountWeight();
+      currentWeight.setWeighInDate(d);
+      currentWeight.setWeight(weight.getWeight());
+      accountWeightEAO.create(currentWeight);
+      return currentWeight;
+    }
+  }
 }

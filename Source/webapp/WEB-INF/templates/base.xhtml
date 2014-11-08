@@ -48,6 +48,21 @@
       </nav>
     </h:form>
   </div>
+  <c:if test="#{not empty request.remoteUser and not accountBean.todayWeightSet}">
+  <div class="update-weight">
+    <div class="rectangle-speech">
+      <h:form>
+        <h:outputLabel value="#{msg.weight}" />
+        <div>
+          <h:inputText value="#{accountBean.currentWeight}" size="3" />
+        </div>
+        <div>
+          <h:commandButton action="#{accountBean.saveCurrentWeight()}" value="#{msg.update}" styleClass="update-weight-button" />
+        </div>
+      </h:form>
+    </div>
+  </div>
+  </c:if>
   <div class="content fluid">
     <p:growl />
     <ui:insert name="content" />

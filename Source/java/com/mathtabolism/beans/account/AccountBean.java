@@ -12,6 +12,8 @@ import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.lang3.time.DateUtils;
+
 import com.mathtabolism.beans.BaseBean;
 import com.mathtabolism.bo.account.AccountBO;
 import com.mathtabolism.constants.ActivityMultiplier;
@@ -20,6 +22,7 @@ import com.mathtabolism.constants.Weekday;
 import com.mathtabolism.entity.account.Account;
 import com.mathtabolism.entity.account.AccountSetting;
 import com.mathtabolism.entity.account.AccountWeight;
+import com.mathtabolism.util.number.NumberUtils;
 
 /**
  * 
@@ -75,20 +78,12 @@ public class AccountBean extends BaseBean {
     this.currentSettings = currentSettings;
   }
   
-  /**
-   * 
-   * @return
-   */
-  public AccountWeight getCurrentWeight() {
-    return currentWeight;
+  public String getCurrentWeight() {
+    return NumberUtils.formatAsString(currentWeight.getWeight(), 2);
   }
   
-  /**
-   * 
-   * @param currentWeight
-   */
-  public void setCurrentWeight(AccountWeight currentWeight) {
-    this.currentWeight = currentWeight;
+  public void setCurrentWeight(String currentWeight) {
+    this.currentWeight.setWeight(currentWeight);
   }
   
   public String getSelectedWeekday() {
@@ -127,10 +122,14 @@ public class AccountBean extends BaseBean {
     return convertEnumToSelectItems(TDEEFormula.values());
   }
   
-  public String saveUpdatedSettings() {
+  public void saveUpdatedSettings() {
     accountBO.update(account, currentSettings);
     displayInfoMessage("account_UpdatedSettings");
-    return "update";
+  }
+  
+  public void saveCurrentWeight() {
+    currentWeight = accountBO.createOrUpdateWeight(currentWeight);
+    displayInfoMessage("account_UpdatedWeight");
   }
   
   /**
@@ -147,5 +146,11 @@ public class AccountBean extends BaseBean {
    */
   public int getMaxBirthdayYear() {
     return CURRENT_YEAR + MAX_BIRTHDAY_OFFSET;
+  }
+  
+  public boolean isTodayWeightSet() {
+    getAccount();
+    return DateUtils.isSameDay(currentWeight.getWeighInDate(), Calendar.getInstance().getTime())
+        && currentWeight.getWeight() > 0;
   }
 }

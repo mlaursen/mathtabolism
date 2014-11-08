@@ -4,6 +4,7 @@
 package com.mathtabolism.beans;
 
 import java.io.Serializable;
+import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
@@ -22,67 +23,67 @@ public abstract class BaseBean implements Serializable {
   /**
    * Displays an info message to the user
    * 
-   * @param lookupString
-   *          a message String to display
+   * @param lookupString a message String to display
+   * @param params optional parameters to pass to the message
    */
-  protected void displayInfoMessage(String lookupString) {
-    displayMessage(FacesMessage.SEVERITY_INFO, lookupString);
+  protected void displayInfoMessage(String lookupString, Object... params) {
+    displayMessage(FacesMessage.SEVERITY_INFO, lookupString, params);
   }
   
   /**
    * Displays a warning message to the user
    * 
-   * @param lookupString
-   *          a message String to display
+   * @param lookupString a message String to display
+   * @param params optional parameters to pass to the message
    */
-  protected void displayWarnMessage(String lookupString) {
-    displayMessage(FacesMessage.SEVERITY_WARN, lookupString);
+  protected void displayWarnMessage(String lookupString, Object... params) {
+    displayMessage(FacesMessage.SEVERITY_WARN, lookupString, params);
   }
   
   /**
    * Displays an error message to the user
    * 
-   * @param lookupString
-   *          a message String to display
+   * @param lookupString a message String to display
+   * @param params optional parameters to pass to the message
    */
-  protected void displayErrorMessage(String lookupString) {
-    displayMessage(FacesMessage.SEVERITY_ERROR, lookupString);
+  protected void displayErrorMessage(String lookupString, Object... params) {
+    displayMessage(FacesMessage.SEVERITY_ERROR, lookupString, params);
   }
   
   /**
    * Displays a message with a given Severity
    * 
-   * @param severity
-   *          the {@link Severity} of the message
-   * @param lookupString
-   *          a message String to display
+   * @param severity the {@link Severity} of the message
+   * @param lookupString a message String to display
+   * @param params optional parameters to pass to the message
    */
-  protected void displayMessage(Severity severity, String lookupString) {
+  protected void displayMessage(Severity severity, String lookupString, Object... params) {
     FacesContext context = getContext();
-    String message = getString(lookupString);
+    String message = getString(lookupString, params);
     context.addMessage(null, new FacesMessage(severity, message, message));
   }
   
   /**
    * Gets a String from the Messages Resource bundle by Enum name
    * 
-   * @param lookupEnum
-   *          an enum to convert to a String
+   * @param lookupEnum an enum to convert to a String
+   * @param params optional parameters to pass to the message
    * @return a String from the resource bundle or null
    */
-  protected String getString(Enum<?> lookupEnum) {
-    return getString(lookupEnum.name());
+  protected String getString(Enum<?> lookupEnum, Object... params) {
+    return getString(lookupEnum.name(), params);
   }
   
   /**
    * Gets a String from the Messages Resource Bundle
    * 
-   * @param lookupString
-   *          a String to look up from the resource bundle
+   * @param lookupString a String to look up from the resource bundle
+   * @param params optional parameters to pass to the message
    * @return a String from the resource bundle or null
    */
-  protected String getString(String lookupString) {
-    return ResourceBundle.getBundle("messages", getContext().getViewRoot().getLocale()).getString(lookupString);
+  protected String getString(String lookupString, Object... params) {
+    String msg = ResourceBundle.getBundle("messages", getContext().getViewRoot().getLocale()).getString(lookupString);
+    return MessageFormat.format(msg, params);
   }
   
   /**
