@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.jboss.logging.Logger;
+import org.joda.time.DateTime;
 
 import com.mathtabolism.constants.AccountRole;
 import com.mathtabolism.eao.account.AccountEAO;
@@ -54,8 +55,17 @@ public class AccountBO {
     return accountSettingEAO.findCurrentAccountSetting(account);
   }
   
+  public AccountSetting findLatestSettingsForDate(Account account, Date date) {
+    return accountSettingEAO.findLatestSettingsForDate(account.getId(), date);
+  }
+  
   public List<DailyIntake> findCurrentDailyIntakeWeekForAccount(Account account, AccountSetting currentSettings) {
     return dailyIntakeBO.findCurrentWeek(account, currentSettings);
+  }
+  
+  public List<AccountWeight> findCurrentAccountWeightWeek(Account account, AccountSetting currentSettings) {
+    DateTime startDate = DateUtils.findStartDate(currentSettings.getRecalculationDay().toInt());
+    return accountWeightEAO.findCurrentAccountWeightWeek(account.getId(), startDate);
   }
   
   public AccountWeight findTodaysWeight(Account account) {

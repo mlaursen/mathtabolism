@@ -3,6 +3,7 @@
  */
 package com.mathtabolism.eao.account;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,5 +33,12 @@ public class AccountSettingEAO extends BaseEAO<AccountSetting> {
     Map<String, Object> parameters = new HashMap<>();
     parameters.put("account_id", account.getId());
     return findOneResult(AccountSetting.Q_findCurrentAccountSetting, parameters);
+  }
+  
+  public AccountSetting findLatestSettingsForDate(String accountId, Date date) {
+    Map<String, Object> parameters = new HashMap<>();
+    parameters.put("account_id", accountId);
+    parameters.put("date", date);
+    return findOneResult(AccountSetting.Q_findLatestSettingsForDate, parameters);
   }
 }

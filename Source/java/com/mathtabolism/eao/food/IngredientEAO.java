@@ -46,11 +46,10 @@ public class IngredientEAO extends BaseEAO<Ingredient> {
    * @return a list of ingredients that have the given brand
    */
   public List<Ingredient> findIngredientsByBrand(String brand) {
-    TypedQuery<Ingredient> q = em.createNamedQuery(Ingredient.Q_findIngredientsByBrand, Ingredient.class);
     Map<String, Object> parameters = new HashMap<>();
     parameters.put("brand", brand);
-    bindParameters(q, parameters);
-    return q.getResultList();
+    
+    return findResultList(Ingredient.Q_findIngredientsByBrand, parameters);
   }
   
   /**
@@ -63,24 +62,21 @@ public class IngredientEAO extends BaseEAO<Ingredient> {
   public List<Ingredient> findIngredientsByCategory(IngredientCategory category) {
     Map<String, Object> parameters = new HashMap<>();
     parameters.put("category", category);
-    TypedQuery<Ingredient> q = em.createNamedQuery(Ingredient.Q_findIngredientsByCategory, Ingredient.class);
-    bindParameters(q, parameters);
-    return q.getResultList();
+    
+    return findResultList(Ingredient.Q_findIngredientsByCategory, parameters);
   }
   
   /**
    * Gets all ingredients that match like the given name. This is a case insensitive search and matches any characters
    * before or after the name.
    * 
-   * @param name
-   *          the Ingredient name to lookup
+   * @param name the Ingredient name to lookup
    * @return the List of Ingredients with a name like the search name
    */
   public List<Ingredient> findIngredientsByName(String name) {
     Map<String, Object> parameters = new HashMap<>();
     parameters.put("name", "%" + name.toUpperCase() + "%");
-    TypedQuery<Ingredient> q = em.createNamedQuery(Ingredient.Q_findIngredientsByName, Ingredient.class);
-    bindParameters(q, parameters);
-    return q.getResultList();
+    
+    return findResultList(Ingredient.Q_findIngredientsByName, parameters);
   }
 }

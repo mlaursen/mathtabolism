@@ -3,6 +3,7 @@
  */
 package com.mathtabolism.eao;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -71,16 +72,18 @@ public abstract class BaseEAO<T> {
     return em.find(entityClass, id);
   }
   
+  protected T findOneResult(String namedQuery) {
+    return findOneResult(namedQuery, null);
+  }
+  
   /**
    * Attempts to create a named query and gets a single result
    * 
-   * @param namedQuery
-   *          a named query to create
-   * @param parameters
-   *          the parameters to bind
+   * @param namedQuery a named query to create
+   * @param parameters the parameters to bind
    * @return a Single entity or null
    */
-  public T findOneResult(String namedQuery, Map<String, Object> parameters) {
+  protected T findOneResult(String namedQuery, Map<String, Object> parameters) {
     T result = null;
     try {
       TypedQuery<T> q = em.createNamedQuery(namedQuery, this.entityClass);
@@ -94,6 +97,22 @@ public abstract class BaseEAO<T> {
       e.printStackTrace();
     }
     return result;
+  }
+  
+  protected List<T> findResultList(String namedQuery) {
+    return findResultList(namedQuery, null);
+  }
+  
+  protected List<T> findResultList(String namedQuery, Map<String, Object> parameters) {
+    try {
+      TypedQuery<T> q = em.createNamedQuery(namedQuery, this.entityClass);
+      if(parameters != null && !parameters.isEmpty()) {
+        bindParameters(q, parameters);
+      }
+      return q.getResultList();
+    } catch(Exception e) {
+      return null;
+    }
   }
   
   /**

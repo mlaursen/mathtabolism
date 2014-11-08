@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Stateless;
-import javax.persistence.TypedQuery;
 
 import org.joda.time.DateTime;
 
@@ -36,13 +35,12 @@ public class DailyIntakeEAO extends BaseEAO<DailyIntake> {
    * @return a List of {@link DailyIntake}
    */
   public List<DailyIntake> findCurrentWeek(Account account, DateTime startDate) {
-    TypedQuery<DailyIntake> q = em.createNamedQuery(DailyIntake.Q_findCurrentWeek, DailyIntake.class);
     Map<String, Object> parameters = new HashMap<>();
     parameters.put("account_id", account.getId());
     parameters.put("start_date", startDate.toDate());
     parameters.put("end_date", startDate.plusDays(7).toDate());
-    bindParameters(q, parameters);
-    return q.getResultList();
+    
+    return findResultList(DailyIntake.Q_findCurrentWeek, parameters);
   }
   
 }

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.eao.account;
+package com.mathtabolism.util;
 
 import javax.persistence.Embeddable;
 

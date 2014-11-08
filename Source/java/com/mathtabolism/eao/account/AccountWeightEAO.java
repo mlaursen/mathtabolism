@@ -6,14 +6,14 @@ package com.mathtabolism.eao.account;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
 
 import org.apache.commons.lang3.time.DateUtils;
+import org.joda.time.DateTime;
 
 import com.mathtabolism.eao.BaseEAO;
 import com.mathtabolism.entity.account.Account;
@@ -30,13 +30,10 @@ public class AccountWeightEAO extends BaseEAO<AccountWeight> {
   }
   
   public AccountWeight findLatestWeight(Account account) {
-    TypedQuery<AccountWeight> q = em.createNamedQuery(AccountWeight.Q_findLatestWeight, AccountWeight.class);
     Map<String, Object> parameters = new HashMap<>();
     parameters.put("account_id", account.getId());
-    
-    bindParameters(q, parameters);
     try {
-      return q.getSingleResult();
+      return findOneResult(AccountWeight.Q_findLatestWeight, parameters);
     }
     catch (NoResultException e) {
       return createDefaultWeight(account);
@@ -62,14 +59,12 @@ public class AccountWeightEAO extends BaseEAO<AccountWeight> {
    * @return
    */
   public AccountWeight findTodaysWeight(Account account) {
-    TypedQuery<AccountWeight> q = em.createNamedQuery(AccountWeight.Q_findTodaysWeight, AccountWeight.class);
     Map<String, Object> parameters = new HashMap<>();
     parameters.put("account_id", account.getId());
     parameters.put("today", Calendar.getInstance().getTime());
     
-    bindParameters(q, parameters);
     try {
-      return q.getSingleResult();
+      return findOneResult(AccountWeight.Q_findTodaysWeight, parameters);
     }
     catch (NoResultException e) {
       AccountWeight latestWeight = findLatestWeight(account);
@@ -82,5 +77,14 @@ public class AccountWeightEAO extends BaseEAO<AccountWeight> {
       }
     }
     
+  }
+  
+  public List<AccountWeight> findCurrentAccountWeightWeek(String accountId, DateTime startDate) {
+    Map<String, Object> parameters = new HashMap<>();
+    parameters.put("account_id", accountId);
+    parameters.put("start_date", startDate.toDate());
+    parameters.put("end_date", startDate.plusDays(7).toDate());
+    
+    return findResultList(AccountWeight.Q_findCurrentAccountWeightWeek, parameters);
   }
 }
