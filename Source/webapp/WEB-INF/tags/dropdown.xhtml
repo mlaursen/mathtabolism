@@ -10,7 +10,7 @@
   selected: A formatted object to display of the binding
   label: the label to display for this dropdown
   </ui:remove>
-  <h:outputLabel value="#{label}" />
+  <h:outputLabel value="#{label}" rendered="#{not empty label}" />
   <div class="dropdown-container">
     <h:inputHidden value="#{binding}" />
     <div class="displayed">

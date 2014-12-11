@@ -63,20 +63,7 @@ public class AccountWeightEAO extends BaseEAO<AccountWeight> {
     parameters.put("account_id", account.getId());
     parameters.put("today", Calendar.getInstance().getTime());
     
-    try {
-      return findOneResult(AccountWeight.Q_findTodaysWeight, parameters);
-    }
-    catch (NoResultException e) {
-      AccountWeight latestWeight = findLatestWeight(account);
-      
-      if(!DateUtils.isSameDay(latestWeight.getWeighInDate(), new Date())) {
-        return createWeightForAccount(account, latestWeight.getWeight());
-      }
-      else {
-        return latestWeight;
-      }
-    }
-    
+    return findOneResult(AccountWeight.Q_findTodaysWeight, parameters);
   }
   
   public List<AccountWeight> findCurrentAccountWeightWeek(String accountId, DateTime startDate) {

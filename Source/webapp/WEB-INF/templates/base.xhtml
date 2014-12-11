@@ -54,7 +54,7 @@
       <h:form>
         <h:outputLabel value="#{msg.weight}" />
         <div>
-          <h:inputText value="#{accountBean.currentWeight}" size="3" />
+          <p:inputText value="#{accountBean.currentWeight}" size="3" placeholder="#{accountBean.previousWeight}" />
         </div>
         <div>
           <h:commandButton action="#{accountBean.saveCurrentWeight()}" value="#{msg.update}" styleClass="update-weight-button" />

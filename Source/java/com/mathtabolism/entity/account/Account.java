@@ -22,6 +22,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.mathtabolism.constants.AccountRole;
+import com.mathtabolism.constants.Gender;
 import com.mathtabolism.entity.BaseGeneratedEntity;
 
 /**
@@ -40,6 +41,9 @@ public class Account extends BaseGeneratedEntity {
   
   @Enumerated(EnumType.STRING)
   private AccountRole role;
+  
+  @Enumerated(EnumType.STRING)
+  private Gender gender;
   
   @Temporal(TemporalType.DATE)
   private Date birthday;
@@ -108,6 +112,14 @@ public class Account extends BaseGeneratedEntity {
    */
   public void setRole(AccountRole role) {
     this.role = role;
+  }
+  
+  public Gender getGender() {
+    return gender;
+  }
+  
+  public void setGender(Gender gender) {
+    this.gender = gender;
   }
   
   /**

@@ -4,6 +4,7 @@ CREATE TABLE account
 , password CHAR(44)
 , role VARCHAR(5)
 , birthday DATE
+, gender VARCHAR(6)
 , last_login DATE
 , active_since DATE
 , CONSTRAINT pk_Account_Id PRIMARY KEY(id)
@@ -17,6 +18,7 @@ CREATE TABLE account_setting
 , activity_multiplier VARCHAR(17) NOT NULL
 , tdee_formula CHAR(15) NOT NULL
 , age INTEGER
+, height DECIMAL
 , CONSTRAINT pk_Account_Setting_Id PRIMARY KEY(account_id, date_changed)
 , CONSTRAINT fk_Account_Id_Setting FOREIGN KEY(account_id) REFERENCES account(id)
 );

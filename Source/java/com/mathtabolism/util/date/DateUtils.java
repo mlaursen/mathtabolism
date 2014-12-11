@@ -85,4 +85,13 @@ public class DateUtils {
   public static DateTime findStartDate(int dayOfWeek) {
     return findStartDate(dayOfWeek, new DateTime());
   }
+  
+  public static int calculateAge(Date birthday) {
+    Calendar today = Calendar.getInstance();
+    Calendar birth = Calendar.getInstance();
+    birth.setTime(birthday);
+    int todayYear = today.get(Calendar.YEAR);
+    int birthYear = birth.get(Calendar.YEAR);
+    return todayYear - birthYear;
+  }
 }

@@ -112,7 +112,7 @@ public class AccountWeight extends BaseEntity {
   public static class PK extends BasePK {
     private static final long serialVersionUID = 1L;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id")
     private Account account;
     

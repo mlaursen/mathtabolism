@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -92,9 +93,7 @@ public abstract class BaseEAO<T> {
       }
       result = q.getSingleResult();
     }
-    catch (Exception e) {
-      System.out.println("Error while running query: " + e.getMessage());
-      e.printStackTrace();
+    catch (NoResultException e) {
     }
     return result;
   }

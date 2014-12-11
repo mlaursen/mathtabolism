@@ -4,6 +4,7 @@
 package com.mathtabolism.beans.account;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
@@ -17,6 +18,7 @@ import org.apache.commons.lang3.time.DateUtils;
 import com.mathtabolism.beans.BaseBean;
 import com.mathtabolism.bo.account.AccountBO;
 import com.mathtabolism.constants.ActivityMultiplier;
+import com.mathtabolism.constants.Gender;
 import com.mathtabolism.constants.TDEEFormula;
 import com.mathtabolism.constants.Weekday;
 import com.mathtabolism.entity.account.Account;
@@ -38,6 +40,7 @@ public class AccountBean extends BaseBean {
   private Account account;
   private AccountSetting currentSettings;
   private AccountWeight currentWeight;
+  private AccountWeight previousWeight;
   
   private static final int CURRENT_YEAR = Calendar.getInstance().get(Calendar.YEAR);
   public static final int MIN_BIRTHDAY_OFFSET = 80;
@@ -55,6 +58,10 @@ public class AccountBean extends BaseBean {
       account = accountBO.findAccountByUsername(username);
       currentSettings = accountBO.findAccountSettingsForAccount(account);
       currentWeight = accountBO.findTodaysWeight(account);
+      if(currentWeight == null) {
+        currentWeight = new AccountWeight(account, new Date());
+      }
+      previousWeight = accountBO.findLatestWeight(account);
       if(account != null) {
         account = accountBO.updateLastLogin(account);
       }
@@ -79,11 +86,19 @@ public class AccountBean extends BaseBean {
   }
   
   public String getCurrentWeight() {
-    return NumberUtils.formatAsString(currentWeight.getWeight(), 2);
+    return currentWeight == null ? "" : NumberUtils.formatAsString(currentWeight.getWeight(), 2);
+  }
+  
+  public String getPreviousWeight() {
+    return previousWeight == null ? "" : NumberUtils.formatAsString(previousWeight.getWeight(), 2);
   }
   
   public void setCurrentWeight(String currentWeight) {
     this.currentWeight.setWeight(currentWeight);
+  }
+  
+  public String getSelectedGender() {
+    return account.getGender() != null ? getString(account.getGender()) : "";
   }
   
   public String getSelectedWeekday() {
@@ -108,6 +123,10 @@ public class AccountBean extends BaseBean {
   
   public boolean isAccountAdmin() {
     return getRequest().isUserInRole("ADMIN");
+  }
+  
+  public SelectItem[] getGenders() {
+    return convertEnumToSelectItems(Gender.values());
   }
   
   public SelectItem[] getWeekdays() {
@@ -150,7 +169,7 @@ public class AccountBean extends BaseBean {
   
   public boolean isTodayWeightSet() {
     getAccount();
-    return DateUtils.isSameDay(currentWeight.getWeighInDate(), Calendar.getInstance().getTime())
-        && currentWeight.getWeight() > 0;
+    return currentWeight != null && DateUtils.isSameDay(currentWeight.getWeighInDate(), 
+        Calendar.getInstance().getTime()) && currentWeight.getWeight() > 0;
   }
 }

@@ -72,6 +72,10 @@ public class AccountBO {
     return accountWeightEAO.findTodaysWeight(account);
   }
   
+  public AccountWeight findLatestWeight(Account account) {
+    return accountWeightEAO.findLatestWeight(account);
+  }
+  
   /**
    * 
    * @param account

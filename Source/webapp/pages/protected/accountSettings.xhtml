@@ -26,6 +26,16 @@
         </h:column>
       </h:panelGrid>
       
+      <h:outputLabel value="#{msg.account_Height}" />
+      <h:inputText value="#{accountBean.currentSettings.height}" size="6" />
+      
+      <ui:include src="/WEB-INF/tags/dropdown.xhtml">
+        <ui:param name="label" value="#{msg.account_Gender}" />
+        <ui:param name="items" value="#{accountBean.genders}" />
+        <ui:param name="selected" value="#{accountBean.selectedGender}" />
+        <ui:param name="binding" value="#{accountBean.account.gender}" />
+      </ui:include>
+      
       <ui:include src="/WEB-INF/tags/dropdown.xhtml">
         <ui:param name="label" value="#{msg.account_RecalcDay}" />
         <ui:param name="items" value="#{accountBean.weekdays}" />

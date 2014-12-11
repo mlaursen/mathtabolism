@@ -62,6 +62,7 @@ public class AccountSetting extends BaseEntity {
   private TDEEFormula tdeeFormula;
   
   private Integer age;
+  private Double height;
   
   /**
    * 
@@ -168,6 +169,14 @@ public class AccountSetting extends BaseEntity {
     setTdeeFormula(TDEEFormula.HARRIS_BENEDICT);
   }
   
+  public Double getHeight() {
+    return height;
+  }
+  
+  public void setHeight(Double height) {
+    this.height = height;
+  }
+  
   /**
    * @return
    */
@@ -175,7 +184,8 @@ public class AccountSetting extends BaseEntity {
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("accountId", pk.account.getId())
         .append("recalculationDay", recalculationDay).append("activityMultiplier", activityMultiplier)
-        .append("tdeeFormula", tdeeFormula).append("dateChanged", pk.dateChanged).append("age", age).toString();
+        .append("tdeeFormula", tdeeFormula).append("dateChanged", pk.dateChanged).append("age", age)
+        .append("height", height).toString();
   }
   
   public static class PK extends BasePK {

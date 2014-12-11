@@ -63,6 +63,10 @@ public abstract class BaseBean implements Serializable {
     context.addMessage(null, new FacesMessage(severity, message, message));
   }
   
+  protected void displayDebugMessage(Object object) {
+    getContext().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, object.toString(), object.toString()));
+  }
+  
   /**
    * Gets a String from the Messages Resource bundle by Enum name
    * 
