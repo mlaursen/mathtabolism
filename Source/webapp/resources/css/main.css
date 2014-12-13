@@ -258,3 +258,29 @@ table.data-table td {
   -moz-transform: skewX(-30deg);
   -webkit-transform: skewX(-30deg);
 }
+
+
+/* Measurement Abbreviations */
+.lbs {
+  content: 'lbs';
+}
+
+.kg {
+  content: 'kg';
+}
+
+.ft {
+  content: 'ft';
+}
+
+.in {
+  content: 'in';
+}
+
+.m {
+  content: 'm';
+}
+
+.cm {
+  content: 'cm';
+}

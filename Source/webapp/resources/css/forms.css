@@ -1,3 +1,8 @@
+/* Remove the chrome auto-fill yellow color.. Sets it to white. */
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #fff inset;
+}
+
 .content form {
   padding: 10px 30px;
 }
@@ -54,6 +59,7 @@ input[type="password"]:hover {
   color: #e75854;
 }
 
+.dropdown-container,
 input[type="submit"]:hover,
 input[type="button"]:hover,
 button:hover {
