@@ -8,7 +8,7 @@
   
   <ui:define name="content">
     <div class="container">
-      <h:panelGroup rendered="#{requestScope['javax.servlet.forward.servlet_path'] == '/j_security_check'}">
+      <h:panelGroup rendered="#{requestScope['javax.servlet.forward.servlet_path'].contains('/j_security_check')}">
         <h:outputText value="#{msg.account_LoginError}" />
       </h:panelGroup>
       <div class="flip-container">
@@ -33,16 +33,25 @@
             <h:form styleClass="one-line" p:autocomplete="off">
               <p>
                 <h:outputLabel value="#{msg.username}" />
-                <h:inputText id="username" value="#{createAccountBean.account.username}" />
+                <h:inputText id="username" value="#{createAccountBean.account.username}">
+                  <f:ajax event="blur" execute="username" listener="#{createAccountBean.checkIsUsernameAvailable}"
+                          render="username-available"  />
+                </h:inputText>
+                <span class="account-validation"></span>
               </p>
+              <h:outputText id="username-available" value="#{createAccountBean.usernameAvailable}" />
               <p>
                 <h:outputLabel value="#{msg.password}" />
                 <h:inputSecret id="password" value="#{createAccountBean.account.unhashedPassword}" />
+                <span class="account-validation"></span>
               </p>
+              <div class="checkboxes"></div>
               <p>
                 <h:outputLabel value="#{msg.passwordConfirm}" />
                 <h:inputSecret id="passwordConfirm" value="#{createAccountBean.confirmPassword}" />
+                <span class="account-validation"></span>
               </p>
+              <div class="checkboxes"></div>
               <h:commandButton action="#{createAccountBean.createAccount()}" value="#{msg.createAccount}" />
               <button type="button" onclick="flip()">#{msg.cancelSignup}</button>
             </h:form>
@@ -50,5 +59,6 @@
         </div>
       </div>
     </div>
+    <h:outputScript library="js" name="accountValidation.js" />
   </ui:define>
 </ui:composition>

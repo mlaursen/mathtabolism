@@ -38,7 +38,7 @@ label {
 .dropdown-container ul,
 input[type="text"],
 input[type="password"] {
-  padding: 10px;
+  padding: 0.3em;
   border: 2px solid #f012be;
   background: transparent;
   font-weight: 300;
