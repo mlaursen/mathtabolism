@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jboss.logging.Logger;
 import org.joda.time.DateTime;
 
@@ -136,5 +137,9 @@ public class AccountBO {
       accountWeightEAO.create(currentWeight);
       return currentWeight;
     }
+  }
+  
+  public boolean isUsernameAvailable(String username) {
+    return StringUtils.isBlank(username) || accountEAO.findAccountByUsername(username) == null;
   }
 }

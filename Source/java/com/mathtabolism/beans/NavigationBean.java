@@ -97,6 +97,10 @@ public class NavigationBean extends BaseBean {
    */
   private <T extends Enum<T> & Navigatable> String redirect(T page) {
     logger.debug("/pages/" + page.getFolder() + "/" + StringUtils.toCamelCase(page.name()) + "?faces-redirect=true");
-    return "/pages/" + page.getFolder() + "/" + StringUtils.toCamelCase(page.name()) + "?faces-redirect=true";
+    String folder = page.getFolder();
+    if(StringUtils.isNotBlank(folder)) {
+      folder += "/";
+    }
+    return "/pages/" + folder + StringUtils.toCamelCase(page.name()) + "?faces-redirect=true";
   }
 }

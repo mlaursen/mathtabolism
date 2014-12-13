@@ -32,6 +32,7 @@ public class CreateAccountBean extends BaseBean {
   private static final String BACK_CSS = "flipper-back";
   private String loginCss = FRONT_CSS;
   private String signupCss = BACK_CSS;
+  private boolean isUsernameAvailable = true;
   
   /**
    * Lazy create of the account
@@ -129,4 +130,19 @@ public class CreateAccountBean extends BaseBean {
     this.confirmPassword = confirmPassword;
   }
   
+  /**
+   * Checks if the username is available for a new user.
+   * This should only be called from the ajax call.
+   */
+  public void checkIsUsernameAvailable() {
+    isUsernameAvailable = accountBO.isUsernameAvailable(getAccount().getUsername());
+  }
+  
+  /**
+   * 
+   * @return true if the username is available
+   */
+  public boolean isUsernameAvailable() {
+    return isUsernameAvailable;
+  }
 }
