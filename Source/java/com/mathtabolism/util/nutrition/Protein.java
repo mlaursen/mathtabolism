@@ -13,6 +13,7 @@ import javax.persistence.Embeddable;
 public class Protein extends MacroNutrient {
   
   public Protein() {
+    this(0);
   }
   
   /**

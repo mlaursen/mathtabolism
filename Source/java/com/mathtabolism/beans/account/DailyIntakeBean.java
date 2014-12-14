@@ -28,6 +28,9 @@ import com.mathtabolism.util.calculation.IntakeCalculator;
 import com.mathtabolism.util.date.DateUtils;
 import com.mathtabolism.util.nutrition.BaseNutrient;
 import com.mathtabolism.util.nutrition.Calorie;
+import com.mathtabolism.util.nutrition.Carbohydrate;
+import com.mathtabolism.util.nutrition.Fat;
+import com.mathtabolism.util.nutrition.Protein;
 import com.mathtabolism.util.unit.UnitSystem;
 
 /**
@@ -106,16 +109,7 @@ public class DailyIntakeBean extends BaseBean {
       weight = week.stream().filter(w -> w.getWeighInDate().equals(intakeDate)).findFirst().get();
     }
     
-    Calorie expected = new Calorie();
-    if(weight != null && (account.getBirthday() != null || accountSettings.getAge() != null)
-        && accountSettings.getHeight() != null && account.getGender() != null) {
-      double w = weight.getWeight();
-      double height = accountSettings.getHeight();
-      int age = accountSettings.getAge() != null ? accountSettings.getAge() : DateUtils.calculateAge(account.getBirthday());
-      Gender gender = account.getGender();
-      UnitSystem unitSystem = UnitSystem.IMPERIAL;
-      expected = FormulaCalculation.calculateBMR(w, height, age, gender, unitSystem);
-    }
+    BaseNutrient expected = calculateExpected(nutrientType, account, accountSettings, weight);
     
     switch(totalType) {
       case EXPECTED:
@@ -132,4 +126,39 @@ public class DailyIntakeBean extends BaseBean {
     return calculatedTotal == null ? "" : calculatedTotal.getDisplayValue();
   }
   
+  
+  private BaseNutrient calculateExpected(NutrientType nutrientType, Account account, AccountSetting accountSettings, AccountWeight accountWeight) {
+    Calorie calories = new Calorie();
+    if(accountWeight != null && (account.getBirthday() != null || accountSettings.getAge() != null)
+        && accountSettings.getHeight() != null && account.getGender() != null) {
+      double weight = accountWeight.getWeight();
+      double height = accountSettings.getHeight();
+      int age = accountSettings.getAge() != null ? accountSettings.getAge() : DateUtils.calculateAge(account.getBirthday());
+      Gender gender = account.getGender();
+      UnitSystem unitSystem = UnitSystem.IMPERIAL;
+      calories = FormulaCalculation.calculateBMR(weight, height, age, gender, unitSystem);
+    }
+    
+    Fat fat = new Fat();
+    Carbohydrate carbs = new Carbohydrate();
+    Protein protein = new Protein();
+    //TODO: Implement splits. Just doing a 20/40/40 split right now
+    if(calories.getAmount() > 0) {
+      fat.setFromCalories(calories, 0.2);
+      carbs.setFromCalories(calories, 0.4);
+      protein.setFromCalories(calories, 0.4);
+    }
+    
+    switch(nutrientType) {
+      case CALORIE:
+        return calories;
+      case CARBOHYDRATE:
+        return carbs;
+      case FAT:
+        return fat;
+      case PROTEIN:
+        return protein;
+    }
+    return BaseNutrient.create(nutrientType);
+  }
 }

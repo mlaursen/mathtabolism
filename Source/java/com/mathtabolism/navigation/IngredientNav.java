@@ -10,6 +10,7 @@ package com.mathtabolism.navigation;
 public enum IngredientNav implements Navigatable {
   VIEW_INGREDIENTS;
   
+  @Override
   public String getFolder() {
     return "ingredients";
   }

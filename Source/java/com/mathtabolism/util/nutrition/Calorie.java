@@ -21,5 +21,4 @@ public class Calorie extends BaseNutrient {
   public Calorie(double amount) {
     super(amount);
   }
-  
 }

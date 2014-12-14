@@ -13,6 +13,7 @@ import javax.persistence.Embeddable;
 public class Fat extends MacroNutrient {
   
   public Fat() {
+    this(0);
   }
   
   /**

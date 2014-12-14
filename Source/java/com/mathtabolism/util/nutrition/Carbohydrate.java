@@ -13,6 +13,7 @@ import javax.persistence.Embeddable;
 public class Carbohydrate extends MacroNutrient {
   
   public Carbohydrate() {
+    this(0);
   }
   
   /**

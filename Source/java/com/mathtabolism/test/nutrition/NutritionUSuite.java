@@ -13,7 +13,7 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses({
-    CalorieUTest.class, TDEEUtest.class
+    CalorieUTest.class, TDEEUtest.class, FatUTest.class
 })
 public class NutritionUSuite {
   

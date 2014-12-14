@@ -45,6 +45,7 @@ public class NavigationBean extends BaseBean {
   private static Logger logger = Logger.getLogger(NavigationBean.class);
   private static final long serialVersionUID = 1L;
   private static final String NAVIGATION_PACKAGE = "com.mathtabolism.navigation.";
+  private static final String REDIRECT = "/pages/%s%s?faces-redirect=true";
   
   public NavigationBean() {
   }
@@ -101,6 +102,8 @@ public class NavigationBean extends BaseBean {
     if(StringUtils.isNotBlank(folder)) {
       folder += "/";
     }
-    return "/pages/" + folder + StringUtils.toCamelCase(page.name()) + "?faces-redirect=true";
+    String redirect = String.format(REDIRECT, folder, StringUtils.toCamelCase(page.name()));
+    logger.debug(redirect);
+    return redirect;
   }
 }

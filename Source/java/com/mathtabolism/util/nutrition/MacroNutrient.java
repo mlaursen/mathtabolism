@@ -3,36 +3,36 @@
  */
 package com.mathtabolism.util.nutrition;
 
+
 /**
  * 
  * @author mlaursen
  */
 public abstract class MacroNutrient extends BaseNutrient {
   
-  private int toCalorieMultiplier;
+  private int calorieMultiplier;
   
   public MacroNutrient() {
   }
   
-  protected MacroNutrient(double amount, int toCalorieMultiplier) {
+  protected MacroNutrient(double amount, int calorieMultiplier) {
     super(amount);
-    this.toCalorieMultiplier = toCalorieMultiplier;
+    this.calorieMultiplier = calorieMultiplier;
   }
   
-  /**
-   * 
-   * @return
-   */
-  public int getToCalorieMultiplier() {
-    return toCalorieMultiplier;
+  public Calorie toCalories() {
+    return new Calorie(amount * calorieMultiplier);
   }
   
-  /**
-   * 
-   * @param toCalorieMultiplier
-   */
-  public void setToCalorieMultiplier(int toCalorieMultiplier) {
-    this.toCalorieMultiplier = toCalorieMultiplier;
+  public void setFromCalories(Calorie calories) {
+    setFromCalories(calories, 1);
   }
   
+  public void setFromCalories(Calorie calories, double multiplier) {
+    amount = calories.getAmount() / calorieMultiplier * multiplier;
+  }
+  
+  public int getCalorieMultiplier() {
+    return calorieMultiplier;
+  }
 }
