@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.mathtabolism.beans.BaseBean;
 import com.mathtabolism.bo.account.AccountBO;
 import com.mathtabolism.entity.account.Account;
+import com.mathtabolism.util.string.UsernameGenerator;
 
 /**
  * 
@@ -144,5 +145,9 @@ public class CreateAccountBean extends BaseBean {
    */
   public boolean isUsernameAvailable() {
     return isUsernameAvailable;
+  }
+  
+  public String getRandomUsername() {
+    return UsernameGenerator.getRandomUsername();
   }
 }
