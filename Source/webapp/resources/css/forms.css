@@ -142,7 +142,7 @@ input[type="button"]:hover {
 .container {
   display: block;
   position: relative;
-  width: 30%;
+  width: 40%;
   top: 0;
   bottom: 0;
   left: 0;
@@ -161,6 +161,23 @@ input[type="button"]:hover {
   font-weight: 300;
   font-size: 3.5em;
   text-align: center;
+}
+
+.account-form form div > div {
+  display: inline-block;
+}
+
+/*
+ * We want the form data to be 30% of the entire page. Since the
+ * flipper section is 40%, 75% of the 40% would be the 30%..
+ */
+.account-form form div div:nth-child(2) {
+  width: 75%;
+}
+
+/* Just the remaining 25% / 2 */
+.account-form form div div:nth-child(odd) {
+  width: 12.5%;
 }
 
 .account-form form p {
