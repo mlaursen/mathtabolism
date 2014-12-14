@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.beans.food;
+package com.mathtabolism.controller.food;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,10 +11,10 @@ import javax.annotation.ManagedBean;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.mathtabolism.beans.BaseBean;
 import com.mathtabolism.bo.food.BrandBO;
 import com.mathtabolism.bo.food.IngredientBO;
 import com.mathtabolism.constants.IngredientCategory;
+import com.mathtabolism.controller.BaseController;
 import com.mathtabolism.entity.food.Brand;
 import com.mathtabolism.entity.food.Ingredient;
 
@@ -24,7 +24,7 @@ import com.mathtabolism.entity.food.Ingredient;
  */
 @Named
 @ManagedBean
-public class IngredientBean extends BaseBean {
+public class IngredientController extends BaseController {
   
   private static final long serialVersionUID = 3469181205289527376L;
   
@@ -39,7 +39,7 @@ public class IngredientBean extends BaseBean {
   private List<Brand> filteredBrands = new ArrayList<>();
   private List<IngredientCategory> selectedCategories = new ArrayList<>();
   
-  public IngredientBean() {
+  public IngredientController() {
   }
   
   /**

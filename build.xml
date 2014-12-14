@@ -53,7 +53,7 @@
 			</fileset>
 			<fileset dir="${classes.dir}">
 				<include name="**/*.class" />
-				<exclude name="**/beans/**/*"/>
+				<exclude name="**/controller/**/*"/>
 				<exclude name="**/jsf/**/*"/>
 				<exclude name="**/test/**/*" />
 			</fileset>
@@ -73,7 +73,7 @@
 		</copy>
 		<copy todir="${war.loc}/WEB-INF/classes">
 			<fileset dir="${classes.dir}">
-				<include name="**/beans/**/*.class" />
+				<include name="**/controller/**/*.class" />
 				<include name="**/jsf/**/*.class" />
 			</fileset>
 			<fileset dir="${resources.dir}">

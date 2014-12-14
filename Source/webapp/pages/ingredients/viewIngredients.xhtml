@@ -9,21 +9,21 @@
   <ui:define name="content">
   <h:form>
     <div class="span1">
-      <h:dataTable value="#{ingredientBean.filteredBrands}" var="b" styleClass="data-table">
+      <h:dataTable value="#{ingredientController.filteredBrands}" var="b" styleClass="data-table">
         <h:column>
           <f:facet name="header">#{msg.ingredient_Brand}</f:facet>
           <h:outputText value="#{b.name}"/>
         </h:column>
       </h:dataTable>
-      <h:dataTable value="#{ingredientBean.categories}" var="c" styleClass="data-table">
+      <h:dataTable value="#{ingredientController.categories}" var="c" styleClass="data-table">
         <h:column>
           <f:facet name="header">#{msg.ingredient_Category}</f:facet>
-          <h:outputText value="#{c}" styleClass="#{ingredientBean.selectedCategories.contains(c) ? 'selected' : ''}"/>
+          <h:outputText value="#{c}" styleClass="#{ingredientController.selectedCategories.contains(c) ? 'selected' : ''}"/>
         </h:column>
       </h:dataTable>
     </div>
     <div class="span8 offset1">
-      <h:dataTable value="#{ingredientBean.filteredIngredients}" var="i" styleClass="data-table striped">
+      <h:dataTable value="#{ingredientController.filteredIngredients}" var="i" styleClass="data-table striped">
         <h:column>
           <f:facet name="header">#{msg.ingredient_Brand}</f:facet>
           <h:outputText value="i.brand" />
@@ -61,7 +61,7 @@
           <h:outputText value="i.protein" />
         </h:column>
         <f:facet name="footer">
-          <h:outputText value="#{msg.ingredient_NoDataFound}" rendered="#{empty ingredientBean.filteredIngredients}" />
+          <h:outputText value="#{msg.ingredient_NoDataFound}" rendered="#{empty ingredientController.filteredIngredients}" />
         </f:facet>
       </h:dataTable>
     </div>

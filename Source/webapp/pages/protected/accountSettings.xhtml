@@ -10,54 +10,54 @@
   <div class="span2 offset4">
     <h2>
       <h:outputFormat value="#{msg.welcomeUser}">
-        <f:param value="#{accountBean.account.username}"/>
+        <f:param value="#{accountController.account.username}"/>
       </h:outputFormat>
     </h2>
     <h:form styleClass="one-line">
       <h:panelGrid columns="2">
         <h:column>
           <h:outputLabel value="#{msg.account_Birthday}" />
-          <p:calendar value="#{accountBean.account.birthday}" navigator="true" mask="true"
-                      pattern="MM/dd/yyyy" yearRange="#{accountBean.minBirthdayYear}:#{accountBean.maxBirthdayYear}"/>
+          <p:calendar value="#{accountController.account.birthday}" navigator="true" mask="true"
+                      pattern="MM/dd/yyyy" yearRange="#{accountController.minBirthdayYear}:#{accountController.maxBirthdayYear}"/>
         </h:column>
         <h:column>
           <h:outputLabel value="#{msg.account_Age}" />
-          <h:inputText value="#{accountBean.currentSettings.age}" size="3" />
+          <h:inputText value="#{accountController.currentSettings.age}" size="3" />
         </h:column>
       </h:panelGrid>
       
       <h:outputLabel value="#{msg.account_Height}" />
-      <h:inputText value="#{accountBean.currentSettings.height}" size="6" />
+      <h:inputText value="#{accountController.currentSettings.height}" size="6" />
       
       <ui:include src="/WEB-INF/tags/dropdown.xhtml">
         <ui:param name="label" value="#{msg.account_Gender}" />
-        <ui:param name="items" value="#{accountBean.genders}" />
-        <ui:param name="selected" value="#{accountBean.selectedGender}" />
-        <ui:param name="binding" value="#{accountBean.account.gender}" />
+        <ui:param name="items" value="#{accountController.genders}" />
+        <ui:param name="selected" value="#{accountController.selectedGender}" />
+        <ui:param name="binding" value="#{accountController.account.gender}" />
       </ui:include>
       
       <ui:include src="/WEB-INF/tags/dropdown.xhtml">
         <ui:param name="label" value="#{msg.account_RecalcDay}" />
-        <ui:param name="items" value="#{accountBean.weekdays}" />
-        <ui:param name="selected" value="#{accountBean.selectedWeekday}" />
-        <ui:param name="binding" value="#{accountBean.currentSettings.recalculationDay}" />
+        <ui:param name="items" value="#{accountController.weekdays}" />
+        <ui:param name="selected" value="#{accountController.selectedWeekday}" />
+        <ui:param name="binding" value="#{accountController.currentSettings.recalculationDay}" />
       </ui:include>
       
       <ui:include src="/WEB-INF/tags/dropdown.xhtml">
         <ui:param name="label" value="#{msg.account_ActivityMultiplier}" />
-        <ui:param name="items" value="#{accountBean.activityMultipliers}" />
-        <ui:param name="selected" value="#{accountBean.selectedActivityMultiplier}" />
-        <ui:param name="binding" value="#{accountBean.currentSettings.activityMultiplier}" />
+        <ui:param name="items" value="#{accountController.activityMultipliers}" />
+        <ui:param name="selected" value="#{accountController.selectedActivityMultiplier}" />
+        <ui:param name="binding" value="#{accountController.currentSettings.activityMultiplier}" />
       </ui:include>
       
       <ui:include src="/WEB-INF/tags/dropdown.xhtml">
         <ui:param name="label" value="#{msg.account_Formula}" />
-        <ui:param name="items" value="#{accountBean.formulas}" />
-        <ui:param name="selected" value="#{accountBean.selectedFormula}" />
-        <ui:param name="binding" value="#{accountBean.currentSettings.tdeeFormula}" />
+        <ui:param name="items" value="#{accountController.formulas}" />
+        <ui:param name="selected" value="#{accountController.selectedFormula}" />
+        <ui:param name="binding" value="#{accountController.currentSettings.tdeeFormula}" />
       </ui:include>
       
-      <h:commandButton action="#{accountBean.saveUpdatedSettings()}" value="#{msg.updateSettings}" />
+      <h:commandButton action="#{accountController.saveUpdatedSettings()}" value="#{msg.updateSettings}" />
     </h:form>
   </div>
   </ui:define>

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.beans.account;
+package com.mathtabolism.controller.account;
 
 import java.util.Date;
 import java.util.List;
@@ -10,13 +10,13 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.mathtabolism.beans.BaseBean;
 import com.mathtabolism.bo.account.AccountBO;
 import com.mathtabolism.bo.account.DailyIntakeBO;
 import com.mathtabolism.constants.Gender;
 import com.mathtabolism.constants.MealFactType;
 import com.mathtabolism.constants.NutrientType;
 import com.mathtabolism.constants.TotalType;
+import com.mathtabolism.controller.BaseController;
 import com.mathtabolism.entity.account.Account;
 import com.mathtabolism.entity.account.AccountSetting;
 import com.mathtabolism.entity.account.AccountWeight;
@@ -39,19 +39,19 @@ import com.mathtabolism.util.unit.UnitSystem;
  */
 @Named
 @RequestScoped
-public class DailyIntakeBean extends BaseBean {
+public class DailyIntakeController extends BaseController {
   private static final long serialVersionUID = 592730676183607742L;
   @Inject
   private DailyIntakeBO dailyIntakeBO;
   @Inject
   private AccountBO accountBO;
   @Inject
-  private AccountBean accountBean;
+  private AccountController accountBean;
   
   private List<DailyIntake> currentDailyIntakeWeek;
   private List<AccountWeight> currentAccountWeightWeek;
   
-  public DailyIntakeBean() {
+  public DailyIntakeController() {
   }
   
   public List<DailyIntake> getCurrentDailyIntakeWeek() {

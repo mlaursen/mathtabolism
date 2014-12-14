@@ -20,7 +20,7 @@
       </h:panelGroup>
       <div class="flip-container">
         <div class="flipper">
-          <div id="login" class="account-form #{createAccountBean.loginCss}">
+          <div id="login" class="account-form #{createAccountController.loginCss}">
             <h2>#{msg.login}</h2>
             <form method="post" action="j_security_check" name="loginForm" class="one-line">
               <div>
@@ -61,7 +61,7 @@
               </div>
             </form>
           </div>
-          <div id="signup" class="account-form #{createAccountBean.signupCss}">
+          <div id="signup" class="account-form #{createAccountController.signupCss}">
             <h2>#{msg.signup}</h2>
             <h:form styleClass="one-line" p:autocomplete="off">
               <div>
@@ -69,13 +69,13 @@
                 </div><div>
                   <p>
                     <h:outputLabel value="#{msg.username}" />
-                    <h:inputText id="username" value="#{createAccountBean.account.username}">
-                      <f:ajax event="blur" execute="username" listener="#{createAccountBean.checkIsUsernameAvailable}"
+                    <h:inputText id="username" value="#{createAccountController.account.username}">
+                      <f:ajax event="blur" execute="username" listener="#{createAccountController.checkIsUsernameAvailable}"
                               render="username-available"  />
                     </h:inputText>
-                    <pf:watermark id="rand-user" for="username" value="#{createAccountBean.randomUsername}" />
+                    <pf:watermark id="rand-user" for="username" value="#{createAccountController.randomUsername}" />
                   </p>
-                </div><div><h:outputText id="username-available" styleClass="#{createAccountBean.usernameAvailable ? '' : 'caret'}" />
+                </div><div><h:outputText id="username-available" styleClass="#{createAccountController.usernameAvailable ? '' : 'caret'}" />
                 </div>
               </div>
               
@@ -84,7 +84,7 @@
                 </div><div>
                   <p>
                     <h:outputLabel value="#{msg.password}" />
-                    <h:inputSecret id="password" value="#{createAccountBean.account.unhashedPassword}" />
+                    <h:inputSecret id="password" value="#{createAccountController.account.unhashedPassword}" />
                   </p>
                 </div><div>
                 </div>
@@ -95,7 +95,7 @@
                 </div><div>
                   <p>
                     <h:outputLabel value="#{msg.passwordConfirm}" />
-                    <h:inputSecret id="passwordConfirm" value="#{createAccountBean.confirmPassword}" />
+                    <h:inputSecret id="passwordConfirm" value="#{createAccountController.confirmPassword}" />
                   </p>
                 </div><div>
                 </div>
@@ -104,7 +104,7 @@
               <div>
                 <div>
                 </div><div>
-                  <h:commandButton action="#{createAccountBean.createAccount()}" value="#{msg.createAccount}" />
+                  <h:commandButton action="#{createAccountController.createAccount()}" value="#{msg.createAccount}" />
                 </div><div>
                 </div>
               </div>

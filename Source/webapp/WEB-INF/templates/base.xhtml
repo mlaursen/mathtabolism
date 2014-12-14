@@ -21,7 +21,7 @@
             <h:commandLink action="info" value="#{msg.info}" />
           </li>
           <li>
-            <h:commandLink action="#{navigationBean.redirect('IngredientNav.VIEW_INGREDIENTS')}" value="#{msg.viewIngredients}" />
+            <h:commandLink action="#{navigationController.redirect('IngredientNav.VIEW_INGREDIENTS')}" value="#{msg.viewIngredients}" />
           </li>
           <li>
             <h:commandLink action="statistics" value="#{msg.statistics}" />
@@ -29,18 +29,18 @@
           <c:choose>
             <c:when test="#{not empty request.remoteUser}">
               <li>
-                <h:commandLink action="#{navigationBean.redirect('AccountNav.DAILY_INTAKE')}" value="#{msg.intake}" />
+                <h:commandLink action="#{navigationController.redirect('AccountNav.DAILY_INTAKE')}" value="#{msg.intake}" />
               </li>
               <li>
-                <h:commandLink action="#{navigationBean.redirect('AccountNav.ACCOUNT_SETTINGS')}" value="#{msg.updateSettings}"/>
+                <h:commandLink action="#{navigationController.redirect('AccountNav.ACCOUNT_SETTINGS')}" value="#{msg.updateSettings}"/>
               </li>
               <li>
-                <h:commandLink action="#{navigationBean.logOut()}" value="#{msg.logout}"/>
+                <h:commandLink action="#{navigationController.logOut()}" value="#{msg.logout}"/>
               </li>
             </c:when>
             <c:otherwise>
               <li>
-                <h:commandLink action="#{navigationBean.redirect('AccountNav.LOGIN')}" value="#{msg.login}" rendered="#{empty request.remoteUser}"/>
+                <h:commandLink action="#{navigationController.redirect('AccountNav.LOGIN')}" value="#{msg.login}" rendered="#{empty request.remoteUser}"/>
               </li>
             </c:otherwise>
           </c:choose>
@@ -48,16 +48,16 @@
       </nav>
     </h:form>
   </div>
-  <c:if test="#{not empty request.remoteUser and not accountBean.todayWeightSet}">
+  <c:if test="#{not empty request.remoteUser and not accountController.todayWeightSet}">
   <div class="update-weight">
     <div class="rectangle-speech">
       <h:form>
         <h:outputLabel value="#{msg.weight}" />
         <div>
-          <p:inputText value="#{accountBean.currentWeight}" size="3" placeholder="#{accountBean.previousWeight}" />
+          <p:inputText value="#{accountController.currentWeight}" size="3" placeholder="#{accountController.previousWeight}" />
         </div>
         <div>
-          <h:commandButton action="#{accountBean.saveCurrentWeight()}" value="#{msg.update}" styleClass="update-weight-button" />
+          <h:commandButton action="#{accountController.saveCurrentWeight()}" value="#{msg.update}" styleClass="update-weight-button" />
         </div>
       </h:form>
     </div>

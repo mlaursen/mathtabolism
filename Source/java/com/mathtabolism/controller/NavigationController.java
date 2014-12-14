@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.beans;
+package com.mathtabolism.controller;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -40,14 +40,14 @@ import com.mathtabolism.util.string.StringUtils;
  */
 @Named
 @RequestScoped
-public class NavigationBean extends BaseBean {
+public class NavigationController extends BaseController {
   
-  private static Logger logger = Logger.getLogger(NavigationBean.class);
+  private static Logger logger = Logger.getLogger(NavigationController.class);
   private static final long serialVersionUID = 1L;
   private static final String NAVIGATION_PACKAGE = "com.mathtabolism.navigation.";
   private static final String REDIRECT = "/pages/%s%s?faces-redirect=true";
   
-  public NavigationBean() {
+  public NavigationController() {
   }
   
   /**
