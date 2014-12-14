@@ -5,6 +5,7 @@ CREATE TABLE account
 , role VARCHAR(5)
 , birthday DATE
 , gender VARCHAR(6)
+, use_birthday INT(1)
 , last_login DATE
 , active_since DATE
 , CONSTRAINT pk_Account_Id PRIMARY KEY(id)

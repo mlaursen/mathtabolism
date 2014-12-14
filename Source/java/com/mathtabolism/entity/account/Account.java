@@ -23,6 +23,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.mathtabolism.constants.AccountRole;
 import com.mathtabolism.constants.Gender;
+import com.mathtabolism.constants.Indicator;
 import com.mathtabolism.entity.BaseGeneratedEntity;
 
 /**
@@ -53,6 +54,9 @@ public class Account extends BaseGeneratedEntity {
   
   @Temporal(TemporalType.DATE)
   private Date activeSince;
+  
+  @Enumerated(EnumType.ORDINAL)
+  private Indicator useBirthday;
   
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.account")
   private List<AccountWeight> accountWeights;
@@ -204,6 +208,28 @@ public class Account extends BaseGeneratedEntity {
     this.accountWeights = accountWeights;
   }
   
+  /**
+   * @return the isUsingBirthday
+   */
+  public Indicator getUseBirthday() {
+    return useBirthday;
+  }
+
+  /**
+   * @param isUsingBirthday the isUsingBirthday to set
+   */
+  public void setUseBirthday(Indicator useBirthday) {
+    this.useBirthday = useBirthday;
+  }
+  
+  public boolean isUsingBirthday() {
+    return Indicator.isTrue(useBirthday);
+  }
+  
+  public void setUsingBirthday(boolean isUsingBirthday) {
+    useBirthday = Indicator.fromBoolean(isUsingBirthday);
+  }
+
   @Override
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", id).append("username", username)
