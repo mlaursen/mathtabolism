@@ -37,6 +37,13 @@
       </ui:include>
       
       <ui:include src="/WEB-INF/tags/dropdown.xhtml">
+        <ui:param name="label" value="#{msg.account_UnitSystem}" />
+        <ui:param name="items" value="#{accountController.unitSystems}" />
+        <ui:param name="selected" value="#{accountController.selectedUnitSystem}" />
+        <ui:param name="binding" value="#{accountController.currentSettings.unitSystem}" />
+      </ui:include>
+      
+      <ui:include src="/WEB-INF/tags/dropdown.xhtml">
         <ui:param name="label" value="#{msg.account_RecalcDay}" />
         <ui:param name="items" value="#{accountController.weekdays}" />
         <ui:param name="selected" value="#{accountController.selectedWeekday}" />

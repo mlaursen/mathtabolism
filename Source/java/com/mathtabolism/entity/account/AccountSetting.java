@@ -25,6 +25,7 @@ import com.mathtabolism.constants.TDEEFormula;
 import com.mathtabolism.constants.Weekday;
 import com.mathtabolism.entity.BaseEntity;
 import com.mathtabolism.entity.BasePK;
+import com.mathtabolism.util.unit.UnitSystem;
 
 /**
  * 
@@ -60,6 +61,9 @@ public class AccountSetting extends BaseEntity {
   
   @Enumerated(EnumType.STRING)
   private TDEEFormula tdeeFormula;
+  
+  @Enumerated(EnumType.STRING)
+  private UnitSystem unitSystem;
   
   private Integer age;
   private Double height;
@@ -177,6 +181,20 @@ public class AccountSetting extends BaseEntity {
     this.height = height;
   }
   
+  /**
+   * @return the unitSystem
+   */
+  public UnitSystem getUnitSystem() {
+    return unitSystem;
+  }
+
+  /**
+   * @param unitSystem the unitSystem to set
+   */
+  public void setUnitSystem(UnitSystem unitSystem) {
+    this.unitSystem = unitSystem;
+  }
+
   /**
    * @return
    */

@@ -75,6 +75,9 @@ public abstract class BaseController implements Serializable {
    * @return a String from the resource bundle or null
    */
   protected String getString(Enum<?> lookupEnum, Object... params) {
+    if(lookupEnum == null) {
+      return "";
+    }
     return getString(lookupEnum.name(), params);
   }
   
@@ -86,6 +89,9 @@ public abstract class BaseController implements Serializable {
    * @return a String from the resource bundle or null
    */
   protected String getString(String lookupString, Object... params) {
+    if(lookupString == null) {
+      return "";
+    }
     String msg = ResourceBundle.getBundle("messages", getContext().getViewRoot().getLocale()).getString(lookupString);
     return MessageFormat.format(msg, params);
   }

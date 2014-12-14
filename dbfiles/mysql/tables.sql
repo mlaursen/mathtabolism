@@ -14,9 +14,10 @@ CREATE TABLE account
 CREATE TABLE account_setting
 ( account_id CHAR(10)
 , date_changed DATE
-, recalculation_day VARCHAR(9) NOT NULL
-, activity_multiplier VARCHAR(17) NOT NULL
-, tdee_formula CHAR(15) NOT NULL
+, recalculation_day VARCHAR(9)
+, activity_multiplier VARCHAR(17)
+, tdee_formula CHAR(15)
+, unit_system VARCHAR(8)
 , age INTEGER
 , height DECIMAL
 , CONSTRAINT pk_Account_Setting_Id PRIMARY KEY(account_id, date_changed)

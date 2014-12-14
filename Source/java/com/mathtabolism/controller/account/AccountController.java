@@ -25,6 +25,7 @@ import com.mathtabolism.entity.account.Account;
 import com.mathtabolism.entity.account.AccountSetting;
 import com.mathtabolism.entity.account.AccountWeight;
 import com.mathtabolism.util.number.NumberUtils;
+import com.mathtabolism.util.unit.UnitSystem;
 
 /**
  * 
@@ -113,6 +114,10 @@ public class AccountController extends BaseController {
     return getString(currentSettings.getTdeeFormula());
   }
   
+  public String getSelectedUnitSystem() {
+    return getString(currentSettings.getUnitSystem());
+  }
+  
   /**
    * 
    * @param account
@@ -139,6 +144,10 @@ public class AccountController extends BaseController {
   
   public SelectItem[] getFormulas() {
     return convertEnumToSelectItems(TDEEFormula.values());
+  }
+  
+  public SelectItem[] getUnitSystems() {
+    return convertEnumToSelectItems(UnitSystem.values());
   }
   
   public void saveUpdatedSettings() {
