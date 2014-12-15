@@ -102,7 +102,6 @@ public class AccountBO {
     accountEAO.create(account);
     
     AccountSetting accountSetting = new AccountSetting(account, creationDate);
-    accountSetting.setDefaults();
     accountSettingEAO.create(accountSetting);
     logger.debug("Account created: " + account);
     return account;

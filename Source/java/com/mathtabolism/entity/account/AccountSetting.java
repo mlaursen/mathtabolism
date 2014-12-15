@@ -164,15 +164,6 @@ public class AccountSetting extends BaseEntity {
     this.age = age;
   }
   
-  /**
-	 * 
-	 */
-  public void setDefaults() {
-    setActivityMultiplier(ActivityMultiplier.SEDENTARY);
-    setRecalculationDay(Weekday.MONDAY);
-    setTdeeFormula(TDEEFormula.HARRIS_BENEDICT);
-  }
-  
   public Double getHeight() {
     return height;
   }
