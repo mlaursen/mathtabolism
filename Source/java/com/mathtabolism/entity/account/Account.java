@@ -58,6 +58,8 @@ public class Account extends BaseGeneratedEntity {
   @Enumerated(EnumType.ORDINAL)
   private Indicator useBirthday;
   
+  private String email;
+  
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.account")
   private List<AccountWeight> accountWeights;
   
@@ -228,6 +230,20 @@ public class Account extends BaseGeneratedEntity {
   
   public void setUsingBirthday(boolean isUsingBirthday) {
     useBirthday = Indicator.fromBoolean(isUsingBirthday);
+  }
+
+  /**
+   * @return the email
+   */
+  public String getEmail() {
+    return email;
+  }
+
+  /**
+   * @param email the email to set
+   */
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   @Override

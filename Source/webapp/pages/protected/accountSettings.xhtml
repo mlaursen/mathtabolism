@@ -30,6 +30,9 @@
       <h:outputLabel value="#{msg.account_Height}" />
       <h:inputText value="#{accountController.currentSettings.height}" size="6" />
       
+      <h:outputLabel value="#{msg.account_RecoveryEmail}" />
+      <h:inputText value="#{accountController.account.email}" />
+      
       <ui:include src="/WEB-INF/tags/dropdown.xhtml">
         <ui:param name="label" value="#{msg.account_Gender}" />
         <ui:param name="items" value="#{accountController.genders}" />

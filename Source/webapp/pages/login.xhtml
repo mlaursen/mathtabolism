@@ -71,13 +71,15 @@
                     <h:outputLabel value="#{msg.username}" />
                     <h:inputText id="username" value="#{createAccountController.account.username}">
                       <f:ajax event="blur" execute="username" listener="#{createAccountController.checkIsUsernameAvailable}"
-                              render="username-available"  />
+                              render="username-available username-exists"  />
                     </h:inputText>
                     <pf:watermark id="rand-user" for="username" value="#{createAccountController.randomUsername}" />
                   </p>
                 </div><div><h:outputText id="username-available" styleClass="#{createAccountController.usernameAvailable ? '' : 'caret'}" />
                 </div>
               </div>
+              <h:outputText id="username-exists" value="#{msg.account_AccountExists}" 
+                            styleClass="error #{createAccountController.usernameAvailable ? '' : 'visible'}" />
               
               <div>
                 <div>
@@ -89,6 +91,8 @@
                 </div><div>
                 </div>
               </div>
+              <h:outputText value="#{msg.account_PasswordMatchError}" 
+                            styleClass="error" />
               
               <div>
                 <div>
@@ -96,6 +100,20 @@
                   <p>
                     <h:outputLabel value="#{msg.passwordConfirm}" />
                     <h:inputSecret id="passwordConfirm" value="#{createAccountController.confirmPassword}" />
+                  </p>
+                </div><div>
+                </div>
+              </div>
+              <h:outputText value="#{msg.account_PasswordMatchError}" 
+                            styleClass="error" />
+              
+              <div>
+                <div>
+                </div><div>
+                  <p>
+                    <h:outputLabel value="#{msg.account_RecoveryEmail}" />
+                    <h:inputSecret id="email" value="#{createAccountController.account.email}" />
+                    <pf:watermark for="email" value="#{msg.account_OptionalEmail}" />
                   </p>
                 </div><div>
                 </div>

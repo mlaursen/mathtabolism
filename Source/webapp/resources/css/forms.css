@@ -3,6 +3,18 @@ input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 1000px #fff inset;
 }
 
+.error {
+  font-style: italic;
+  display: none;
+  opacity: 0;
+  font-size: 1.2em;
+}
+
+.error.visible {
+  display: inherit;
+  opacity: 1;
+}
+
 .content form {
   padding: 10px 30px;
 }
@@ -161,6 +173,10 @@ input[type="button"]:hover {
   font-weight: 300;
   font-size: 3.5em;
   text-align: center;
+}
+
+.account-form form span.error {
+  margin-left: 12.5%;
 }
 
 .account-form form div > div {

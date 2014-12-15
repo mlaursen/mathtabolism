@@ -2,6 +2,7 @@ CREATE TABLE account
 ( id CHAR(10)
 , username VARCHAR(60)
 , password CHAR(44)
+, email VARCHAR(120)
 , role VARCHAR(5)
 , birthday DATE
 , gender VARCHAR(6)
