@@ -23,117 +23,67 @@
           <div id="login" class="account-form #{createAccountController.loginCss}">
             <h2>#{msg.login}</h2>
             <form method="post" action="j_security_check" name="loginForm" class="one-line">
-              <div>
-                <div>
-                </div><div>            
-                  <p>
-                    <h:outputLabel value="#{msg.username}" />
-                    <h:inputText id="j_username" name="j_username" p:autofocus="true" />
-                  </p>
-                </div><div>
-                </div>
-              </div>
+              <p>
+                <h:outputLabel value="#{msg.username}" />
+                <h:inputText id="j_username" name="j_username" p:autofocus="true" />
+              </p>
               
-              <div>
-                <div>
-                </div><div>
-                  <p>
-                    <h:outputLabel value="#{msg.password}" />
-                    <h:inputSecret id="j_password" name="j_password" />
-                  </p>
-                </div><div>
-                </div>
-              </div>
+              <p>
+                <h:outputLabel value="#{msg.password}" />
+                <h:inputSecret id="j_password" name="j_password" />
+              </p>
               
-              <div>
-                <div>
-                </div><div>
-                  <h:commandButton value="#{msg.login}" />
-                </div><div>
-                </div>
-              </div>
-              <div>
-                <div>
-                </div><div>
-                  <button type="button" onclick="flip()">#{msg.signup}</button>
-                </div><div>
-                </div>
-              </div>
+              <p>
+                <h:commandButton value="#{msg.login}" />
+                <button type="button" onclick="flip()">#{msg.signup}</button>
+              </p>
             </form>
           </div>
           <div id="signup" class="account-form #{createAccountController.signupCss}">
             <h2>#{msg.signup}</h2>
             <h:form styleClass="one-line" p:autocomplete="off">
               <div>
-                <div>
-                </div><div>
-                  <p>
-                    <h:outputLabel value="#{msg.username}" />
-                    <h:inputText id="username" value="#{createAccountController.account.username}">
-                      <f:ajax event="blur" execute="username" listener="#{createAccountController.checkIsUsernameAvailable}"
-                              render="username-available username-exists"  />
-                    </h:inputText>
-                    <pf:watermark id="rand-user" for="username" value="#{createAccountController.randomUsername}" />
-                  </p>
-                </div><div><h:outputText id="username-available" styleClass="#{createAccountController.usernameAvailable ? '' : 'caret'}" />
-                </div>
+                <p>
+                  <h:outputLabel value="#{msg.username}" />
+                  <h:inputText id="username" value="#{createAccountController.account.username}">
+                    <f:ajax event="blur" execute="username" listener="#{createAccountController.checkIsUsernameAvailable}"
+                            render="username-available username-exists"  />
+                  </h:inputText>
+                  <pf:watermark id="rand-user" for="username" value="#{createAccountController.randomUsername}" />
+                </p>
+                <div class="checklist"></div>
               </div>
               <h:outputText id="username-exists" value="#{msg.account_AccountExists}" 
                             styleClass="error #{createAccountController.usernameAvailable ? '' : 'visible'}" />
               
               <div>
-                <div>
-                </div><div>
-                  <p>
-                    <h:outputLabel value="#{msg.password}" />
-                    <h:inputSecret id="password" value="#{createAccountController.account.unhashedPassword}" />
-                  </p>
-                </div><div>
-                </div>
+                <p>
+                  <h:outputLabel value="#{msg.password}" />
+                  <h:inputSecret id="password" value="#{createAccountController.account.unhashedPassword}" />
+                </p>
+                <div class="checklist"></div>
               </div>
-              <h:outputText value="#{msg.account_PasswordMatchError}" 
-                            styleClass="error" />
+              <h:outputText value="#{msg.account_PasswordMatchError}" styleClass="error" />
               
               <div>
-                <div>
-                </div><div>
-                  <p>
-                    <h:outputLabel value="#{msg.passwordConfirm}" />
-                    <h:inputSecret id="passwordConfirm" value="#{createAccountController.confirmPassword}" />
-                  </p>
-                </div><div>
-                </div>
+                <p>
+                  <h:outputLabel value="#{msg.passwordConfirm}" />
+                  <h:inputSecret id="passwordConfirm" value="#{createAccountController.confirmPassword}" />
+                </p>
+                <div class="checklist"></div>
               </div>
-              <h:outputText value="#{msg.account_PasswordMatchError}" 
-                            styleClass="error" />
+              <h:outputText value="#{msg.account_PasswordMatchError}" styleClass="error" />
               
-              <div>
-                <div>
-                </div><div>
-                  <p>
-                    <h:outputLabel value="#{msg.account_RecoveryEmail}" />
-                    <h:inputSecret id="email" value="#{createAccountController.account.email}" />
-                    <pf:watermark for="email" value="#{msg.account_OptionalEmail}" />
-                  </p>
-                </div><div>
-                </div>
-              </div>
+              <p>
+                <h:outputLabel value="#{msg.account_RecoveryEmail}" />
+                <h:inputText id="email" value="#{createAccountController.account.email}" />
+                <pf:watermark for="email" value="#{msg.account_OptionalEmail}" />
+              </p>
               
-              <div>
-                <div>
-                </div><div>
-                  <h:commandButton action="#{createAccountController.createAccount()}" value="#{msg.createAccount}" />
-                </div><div>
-                </div>
-              </div>
-              
-              <div>
-                <div>
-                </div><div>
-                  <button type="button" onclick="flip()">#{msg.cancelSignup}</button>
-                </div><div>
-                </div>
-              </div>
+              <p>
+                <h:commandButton action="#{createAccountController.createAccount()}" value="#{msg.createAccount}" />
+                <button type="button" onclick="flip()">#{msg.cancelSignup}</button>
+              </p>
             </h:form>
           </div>
         </div>

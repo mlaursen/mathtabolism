@@ -15,10 +15,6 @@ input:-webkit-autofill {
   opacity: 1;
 }
 
-.content form {
-  padding: 10px 30px;
-}
-
 form input {
   font-size: 1em;
 }
@@ -179,26 +175,32 @@ input[type="button"]:hover {
   margin-left: 12.5%;
 }
 
-.account-form form div > div {
+.account-form form > div {
   display: inline-block;
-}
-
-/*
- * We want the form data to be 30% of the entire page. Since the
- * flipper section is 40%, 75% of the 40% would be the 30%..
- */
-.account-form form div div:nth-child(2) {
-  width: 75%;
-}
-
-/* Just the remaining 25% / 2 */
-.account-form form div div:nth-child(odd) {
-  width: 12.5%;
+  width: 100%;
 }
 
 .account-form form p {
-  margin: 0 0 5px 0;
-  font-size: 0.9em;
+  font-size 0.9em;
+}
+
+.account-form form > p {
+  margin-right: 12.5%;
+}
+
+.account-form form > p,
+.account-form form > div {
+  margin-left: 12.5%;
+}
+
+.account-form form > div p {
+  width: 75%;
+  display: inline-block;
+}
+
+.account-form form > div .checklist {
+  width: 12.5%;
+  display: inline-block;
 }
 
 .account-form input[type="text"],
