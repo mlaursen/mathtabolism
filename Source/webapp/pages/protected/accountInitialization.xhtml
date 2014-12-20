@@ -6,6 +6,19 @@
     xmlns:c="http://java.sun.com/jsp/jstl/core">
   <ui:define name="title"><h:outputText value="#{msg.account_Initialization}" /></ui:define>
   <ui:define name="content">
-  
+  <ui:include src="/WEB-INF/includes/mainLogo.xhtml">
+    <ui:param name="extraHeaderDetail" value="#{msg.firstTimeUser}" />
+  </ui:include>
+  <div class="container">
+    <h:form id="account-settings" styleClass="">
+      <h:outputText value="#{msg.unitSystemStep1}" />
+      <ui:include src="/WEB-INF/tags/dropdown.xhtml">
+        <ui:param name="items" value="#{accountController.unitSystems}" />
+        <ui:param name="selected" value="#{accountController.selectedUnitSystem}" />
+        <ui:param name="binding" value="#{accountController.currentSettings.unitSystem}" />
+      </ui:include>
+      <h:outputText value="#{msg.unitSystemStep2}" />
+    </h:form>
+  </div>
   </ui:define>
 </ui:composition>
