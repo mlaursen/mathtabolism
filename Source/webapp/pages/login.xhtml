@@ -92,6 +92,8 @@
     </div>
     <h:outputScript library="js" name="accountValidation.js" />
     <script type="text/javascript">
+      var usernameError = "#{msg.account_UsernameError}";
+      var passwordError = "#{msg.account_PasswordError}";
       var passwordMatchError = "#{msg.account_PasswordMatchError}";
       var checkmark = "#{resource['icons/checkmark.png']}";
       var cross = "#{resource['icons/cross.png']}";
