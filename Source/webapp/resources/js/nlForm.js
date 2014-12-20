@@ -21,6 +21,9 @@ $(".nl-form .form-field").each(function() {
       $(mainDiv).removeClass("form-field-open");
     });
   });
+  $(".form-field-overlay").click(function() {
+    $(mainDiv).removeClass("form-field-open");
+  });
 });
 
 function updateSelected(mainDiv, toSelect) {
