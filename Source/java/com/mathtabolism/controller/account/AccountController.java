@@ -115,12 +115,15 @@ public class AccountController extends BaseController {
   }
   
   /**
-   * Gets the selected unit system or the fallback string
-   * @return the selected unit system or a fallback String
+   * Gets the Selected Unit system. If the Unit System is not set, it
+   * is defaulted to Imperial
+   * @return the selected Unit System
    */
   public String getSelectedUnitSystem() {
-    UnitSystem us = currentSettings.getUnitSystem();
-    return getString(us == null ? UnitSystem.IMPERIAL : us);
+    if(currentSettings.getUnitSystem() == null) {
+      currentSettings.setUnitSystem(UnitSystem.IMPERIAL);
+    }
+    return getString(currentSettings.getUnitSystem());
   }
   
   /**

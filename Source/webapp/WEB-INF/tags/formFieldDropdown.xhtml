@@ -1,0 +1,19 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+  <ui:remove>
+  This is similar to the dropdown tag. TO get this to work, you need the array of SelectItem.
+  binding: the binding to the controller
+  selected: the selected value
+  items: the Array of SelectItem
+  </ui:remove>
+  <div id="unit-system-field" class="form-field form-field-dd">
+    <h:inputHidden value="#{binding}" />
+    <div class="form-field-toggle"><h:outputText value="#{selected}" /></div>
+    <ul><c:forEach items="#{items}" var="item">
+      <li tabindex="-1" data-value="#{item.value}" class="#{binding == item.value ? 'dd-selected': ''}"><h:outputText value="#{item.label}" /></li>
+    </c:forEach></ul>
+  </div>
+</ui:composition>

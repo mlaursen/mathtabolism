@@ -12,14 +12,11 @@
   <div class="container">
     <h:form id="account-settings" styleClass="nl-form">
       <span><h:outputText value="#{msg.unitSystemStep1}" /></span>
-      <div id="unit-system-field" class="form-field form-field-dd">
-        <h:inputHidden value="#{accountController.selectedUnitSystem}" />
-        <div class="form-field-toggle"><h:outputText value="#{accountController.selectedUnitSystem}" /></div>
-        <ul>
-          <li class="dd-selected" data-value="IMPERIAL"><h:outputText value="#{msg.IMPERIAL}" /></li>
-          <li data-value="METRIC"><h:outputText value="#{msg.METRIC}" /></li>
-        </ul>
-      </div>
+      <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
+        <ui:param name="binding" value="#{accountController.currentSettings.unitSystem}" />
+        <ui:param name="selected" value="#{accountController.selectedUnitSystem}" />
+        <ui:param name="items" value="#{accountController.unitSystems}" />
+      </ui:include>
       <span><h:outputText value="#{msg.unitSystemStep2}" /></span>
       
       <div class="form-field-overlay"></div>
