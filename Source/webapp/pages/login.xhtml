@@ -41,19 +41,22 @@
           </div>
           <div id="signup" class="account-form #{createAccountController.signupCss}">
             <h2>#{msg.signup}</h2>
-            <h:form styleClass="one-line" p:autocomplete="off">
+            <h:form id="signup-form" styleClass="one-line" p:autocomplete="off">
               <div>
                 <p>
                   <h:outputLabel value="#{msg.username}" />
                   <h:inputText id="username" value="#{createAccountController.account.username}">
                     <f:ajax event="blur" execute="username" listener="#{createAccountController.checkIsUsernameAvailable}"
-                            render="username-available username-exists"  />
+                            render="username-exists checklist-username" />
                   </h:inputText>
                   <pf:watermark id="rand-user" for="username" value="#{createAccountController.randomUsername}" />
                 </p>
-                <div class="checklist"></div>
+                <div class="checklist">
+                  <h:graphicImage id="checklist-username" styleClass="icon-medium #{empty createAccountController.account.username ? 'hidden': ''}" 
+                                  library="icons" name="#{createAccountController.usernameAvailable ? 'checkmark' : 'cross'}.png" />
+                </div>
               </div>
-              <h:outputText id="username-exists" value="#{msg.account_AccountExists}" 
+              <h:outputText id="username-exists" value="#{empty createAccountController.account.username ? msg.account_UsernameError: msg.account_AccountExists}" 
                             styleClass="error #{createAccountController.usernameAvailable ? '' : 'visible'}" />
               
               <div>
@@ -61,18 +64,22 @@
                   <h:outputLabel value="#{msg.password}" />
                   <h:inputSecret id="password" value="#{createAccountController.account.unhashedPassword}" />
                 </p>
-                <div class="checklist"></div>
+                <div class="checklist">
+                  <h:graphicImage id="checklist-password" styleClass="icon-medium hidden" />
+                </div>
               </div>
-              <h:outputText value="#{msg.account_PasswordMatchError}" styleClass="error" />
+              <span id="password-error" class="error"></span>
               
               <div>
                 <p>
                   <h:outputLabel value="#{msg.passwordConfirm}" />
-                  <h:inputSecret id="passwordConfirm" value="#{createAccountController.confirmPassword}" />
+                  <h:inputSecret id="confirm-password" value="#{createAccountController.confirmPassword}" />
                 </p>
-                <div class="checklist"></div>
+                <div class="checklist">
+                  <h:graphicImage id="checklist-confirm-password" styleClass="icon-medium hidden"  />
+                </div>
               </div>
-              <h:outputText value="#{msg.account_PasswordMatchError}" styleClass="error" />
+              <span id="confirm-password-error" class="error"></span>
               
               <p>
                 <h:outputLabel value="#{msg.account_RecoveryEmail}" />
@@ -89,5 +96,11 @@
         </div>
       </div>
     </div>
+    <h:outputScript library="js" name="accountValidation.js" />
+    <script type="text/javascript">
+      var passwordMatchError = "#{msg.account_PasswordMatchError}";
+      var checkmark = "#{resource['icons/checkmark.png']}";
+      var cross = "#{resource['icons/cross.png']}";
+    </script>
   </ui:define>
 </ui:composition>

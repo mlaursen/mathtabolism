@@ -181,4 +181,9 @@ public class AccountController extends BaseController {
     return currentWeight != null && DateUtils.isSameDay(currentWeight.getWeighInDate(), 
         Calendar.getInstance().getTime()) && currentWeight.getWeight() > 0;
   }
+  
+  public boolean isFirstTimeUser() {
+    getAccount();
+    return DateUtils.isSameDay(account.getActiveSince(), new Date());
+  }
 }

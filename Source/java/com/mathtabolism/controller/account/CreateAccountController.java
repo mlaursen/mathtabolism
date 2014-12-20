@@ -7,12 +7,16 @@ import javax.ejb.EJBException;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jboss.logging.Logger;
 
 import com.mathtabolism.bo.account.AccountBO;
 import com.mathtabolism.controller.BaseController;
 import com.mathtabolism.entity.account.Account;
+import com.mathtabolism.navigation.AccountNav;
 import com.mathtabolism.util.string.UsernameGenerator;
 
 /**
@@ -23,6 +27,8 @@ import com.mathtabolism.util.string.UsernameGenerator;
 @RequestScoped
 public class CreateAccountController extends BaseController {
   private static final long serialVersionUID = 1L;
+  private static Logger logger = Logger.getLogger(CreateAccountController.class);
+  
   @Inject
   private AccountBO accountBO;
   private Account account;
@@ -53,12 +59,12 @@ public class CreateAccountController extends BaseController {
       String password = account.getUnhashedPassword();
       
       boolean isValid = true;
-      if(StringUtils.isEmpty(username) || username.length() < 6 || username.length() > 60) {
+      if(StringUtils.isEmpty(username) || username.length() < 3 || username.length() > 60) {
         displayErrorMessage("account_UsernameError");
         isValid = false;
       }
       
-      if(StringUtils.isEmpty(password) || password.length() < 6) {
+      if(StringUtils.isEmpty(password)) {
         displayErrorMessage("account_PasswordError");
         isValid = false;
       }
@@ -74,13 +80,22 @@ public class CreateAccountController extends BaseController {
         return null;
       }
       account = accountBO.create(account);
+      HttpServletRequest request = (HttpServletRequest) getContext().getExternalContext().getRequest();
+      try {
+        if(request.getUserPrincipal() != null) {
+          request.logout();
+        }
+        request.login(username, password);
+      } catch(ServletException e) {
+        logger.error("Unable to login after creating an account.");
+      }
     }
     catch (EJBException e) {
       displayErrorMessage("account_AccountExists");
       return null;
     }
     displayInfoMessage("account_AccountCreated");
-    return "create";
+    return redirect(AccountNav.ACCOUNT_INITIALIZATION);
   }
   
   /**

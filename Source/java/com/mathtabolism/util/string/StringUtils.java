@@ -249,4 +249,7 @@ public class StringUtils {
     return sb.toString();
   }
   
+  public static boolean isBetween(String toCheck, int min, int max) {
+    return StringUtils.isNotEmpty(toCheck) && toCheck.length() >= min && toCheck.length() <= max;
+  }
 }

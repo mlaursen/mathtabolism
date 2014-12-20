@@ -13,12 +13,20 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 
+import org.jboss.logging.Logger;
+
+import com.mathtabolism.navigation.AccountNav;
+import com.mathtabolism.navigation.Navigatable;
+import com.mathtabolism.util.string.StringUtils;
+
 /**
  * 
  * @author mlaursen
  */
 public abstract class BaseController implements Serializable {
   private static final long serialVersionUID = -6686889317225940807L;
+  private static final String REDIRECT = "/pages/%s%s?faces-redirect=true";
+  private static Logger logger = Logger.getLogger(BaseController.class);
   
   /**
    * Displays an info message to the user
@@ -141,5 +149,32 @@ public abstract class BaseController implements Serializable {
       items[value.ordinal()] = new SelectItem(value, getString(value));
     }
     return items;
+  }
+  
+
+  
+  /**
+   * Invalidates the current session and redirects to the welcome page
+   * 
+   * @return the welcome page
+   */
+  public String logOut() {
+    getRequest().getSession().invalidate();
+    return redirect(AccountNav.ACCOUNT_SETTINGS);
+  }
+  
+  /**
+   * 
+   * @param page a {@link Navigatable} enum to navigate to
+   * @return a redirect action for JSF 2
+   */
+  protected <T extends Enum<T> & Navigatable> String redirect(T page) {
+    String folder = page.getFolder();
+    if(StringUtils.isNotBlank(folder)) {
+      folder += "/";
+    }
+    String redirect = String.format(REDIRECT, folder, StringUtils.toCamelCase(page.name()));
+    logger.debug(redirect);
+    return redirect;
   }
 }

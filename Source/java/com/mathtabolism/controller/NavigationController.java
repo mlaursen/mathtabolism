@@ -8,9 +8,7 @@ import javax.inject.Named;
 
 import org.jboss.logging.Logger;
 
-import com.mathtabolism.navigation.AccountNav;
 import com.mathtabolism.navigation.Navigatable;
-import com.mathtabolism.util.string.StringUtils;
 
 /**
  * <p>
@@ -36,29 +34,22 @@ import com.mathtabolism.util.string.StringUtils;
  * </code>
  * </pre>
  * 
+ * <p>This is a sole-purpose class. It is only meant to handle navigation changes. Technically all Controllers will be able to navigate/redirect.
+ * 
+ * 
  * @author mlaursen
  */
 @Named
 @RequestScoped
 public class NavigationController extends BaseController {
-  
-  private static Logger logger = Logger.getLogger(NavigationController.class);
   private static final long serialVersionUID = 1L;
   private static final String NAVIGATION_PACKAGE = "com.mathtabolism.navigation.";
-  private static final String REDIRECT = "/pages/%s%s?faces-redirect=true";
+  private static Logger logger = Logger.getLogger(NavigationController.class);
   
   public NavigationController() {
   }
   
-  /**
-   * Invalidates the current session and redirects to the welcome page
-   * 
-   * @return the welcome page
-   */
-  public String logOut() {
-    getRequest().getSession().invalidate();
-    return redirect(AccountNav.ACCOUNT_SETTINGS);
-  }
+
   
   /**
    * Converts a String into a {@link Navigatable} Enum from the {@link #NAVIGATION_PACKAGE}.
@@ -86,24 +77,8 @@ public class NavigationController extends BaseController {
       return redirect(Enum.valueOf(enumClass, values[1]));
     }
     catch (ClassNotFoundException | IllegalArgumentException e) {
+      logger.error("Unable to find a Navigatable resource from: " + values[0]);
       return null;
     }
-  }
-  
-  /**
-   * 
-   * @param page
-   *          a {@link Navigatable} enum to navigate to
-   * @return a redirect action for JSF 2
-   */
-  private <T extends Enum<T> & Navigatable> String redirect(T page) {
-    logger.debug("/pages/" + page.getFolder() + "/" + StringUtils.toCamelCase(page.name()) + "?faces-redirect=true");
-    String folder = page.getFolder();
-    if(StringUtils.isNotBlank(folder)) {
-      folder += "/";
-    }
-    String redirect = String.format(REDIRECT, folder, StringUtils.toCamelCase(page.name()));
-    logger.debug(redirect);
-    return redirect;
   }
 }
