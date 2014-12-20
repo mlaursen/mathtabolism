@@ -10,13 +10,13 @@ import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang3.StringUtils;
 import org.jboss.logging.Logger;
 
 import com.mathtabolism.bo.account.AccountBO;
 import com.mathtabolism.controller.BaseController;
 import com.mathtabolism.entity.account.Account;
 import com.mathtabolism.navigation.AccountNav;
+import com.mathtabolism.util.string.StringUtils;
 import com.mathtabolism.util.string.UsernameGenerator;
 
 /**
@@ -40,6 +40,7 @@ public class CreateAccountController extends BaseController {
   private String loginCss = FRONT_CSS;
   private String signupCss = BACK_CSS;
   private boolean isUsernameAvailable = true;
+  private boolean isValidUsernameLength = true;
   
   /**
    * Lazy create of the account
@@ -152,6 +153,11 @@ public class CreateAccountController extends BaseController {
    */
   public void checkIsUsernameAvailable() {
     isUsernameAvailable = accountBO.isUsernameAvailable(getAccount().getUsername());
+    isValidUsernameLength = StringUtils.isBetween(getAccount().getUsername(), 3, 60);
+  }
+  
+  public boolean isValidUsernameLength() {
+    return isValidUsernameLength;
   }
   
   /**

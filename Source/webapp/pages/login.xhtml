@@ -7,12 +7,6 @@
     <h:outputFormat value="#{msg.login}" />
   </ui:define>
   
-  <ui:remove>
-  The divs inside of these forms are formatted this way because whitespace ruins the formatting of it..
-  So much fun, eh? These things probably would have been better formatted as a table. Since it really
-  is row-ular data. But eh. It *works* now.
-  </ui:remove>
-  
   <ui:define name="content">
     <div class="container">
       <h:panelGroup rendered="#{requestScope['javax.servlet.forward.servlet_path'].contains('/j_security_check')}">
@@ -53,11 +47,11 @@
                 </p>
                 <div class="checklist">
                   <h:graphicImage id="checklist-username" styleClass="icon-medium #{empty createAccountController.account.username ? 'hidden': ''}" 
-                                  library="icons" name="#{createAccountController.usernameAvailable ? 'checkmark' : 'cross'}.png" />
+                                  library="icons" name="#{createAccountController.usernameAvailable and createAccountController.validUsernameLength ? 'checkmark' : 'cross'}.png" />
                 </div>
               </div>
-              <h:outputText id="username-exists" value="#{empty createAccountController.account.username ? msg.account_UsernameError: msg.account_AccountExists}" 
-                            styleClass="error #{createAccountController.usernameAvailable ? '' : 'visible'}" />
+              <h:outputText id="username-exists" value="#{not createAccountController.validUsernameLength ? msg.account_UsernameError: msg.account_AccountExists}" 
+                            styleClass="error #{createAccountController.usernameAvailable and createAccountController.validUsernameLength ? '' : 'visible'}" />
               
               <div>
                 <p>

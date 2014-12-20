@@ -9,16 +9,12 @@ var pswdImg = $("img[id$=':checklist-password']");
 var conf = $("input[id$=':confirm-password']");
 var confErr = $("#confirm-password-error");
 var confImg = $("img[id$=':checklist-confirm-password']");
+
+
 form.submit(function() {
   var isUsernameSet = user.val() != '';
   return isUsernameSet && isMatchingPasswords() && pswd.val().length > 1;
 });
-
-function isStrongPassword() {
-  var v = pswd.val();
-  console.log(v);
-  return v.match(/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$/);
-}
 
 function isMatchingPasswords() {
   if(pswd.val() !== conf.val()) {
