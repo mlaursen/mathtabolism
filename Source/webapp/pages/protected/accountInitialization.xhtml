@@ -10,15 +10,21 @@
     <ui:param name="extraHeaderDetail" value="#{msg.firstTimeUser}" />
   </ui:include>
   <div class="container">
-    <h:form id="account-settings" styleClass="">
-      <h:outputText value="#{msg.unitSystemStep1}" />
-      <ui:include src="/WEB-INF/tags/dropdown.xhtml">
-        <ui:param name="items" value="#{accountController.unitSystems}" />
-        <ui:param name="selected" value="#{accountController.selectedUnitSystem}" />
-        <ui:param name="binding" value="#{accountController.currentSettings.unitSystem}" />
-      </ui:include>
-      <h:outputText value="#{msg.unitSystemStep2}" />
+    <h:form id="account-settings" styleClass="nl-form">
+      <span><h:outputText value="#{msg.unitSystemStep1}" /></span>
+      <div id="unit-system-field" class="form-field form-field-dd">
+        <h:inputHidden value="#{accountController.selectedUnitSystem}" />
+        <div class="form-field-toggle"><h:outputText value="#{accountController.selectedUnitSystem}" /></div>
+        <ul>
+          <li class="dd-selected" data-value="IMPERIAL"><h:outputText value="#{msg.IMPERIAL}" /></li>
+          <li data-value="METRIC"><h:outputText value="#{msg.METRIC}" /></li>
+        </ul>
+      </div>
+      <span><h:outputText value="#{msg.unitSystemStep2}" /></span>
+      
+      <div class="form-field-overlay"></div>
     </h:form>
   </div>
+  <h:outputScript library="js" name="nlForm.js" />
   </ui:define>
 </ui:composition>

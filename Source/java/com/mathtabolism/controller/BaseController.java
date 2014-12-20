@@ -88,7 +88,7 @@ public abstract class BaseController implements Serializable {
     }
     return getString(lookupEnum.name(), params);
   }
-  
+    
   /**
    * Gets a String from the Messages Resource Bundle
    * 

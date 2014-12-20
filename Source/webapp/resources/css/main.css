@@ -19,6 +19,17 @@
   src: url("#{resource['fonts/sansation/Sansation-Bold.ttf']}");
 }
 
+@font-face {
+  font-family: 'nlicons';
+  src:url("#{resource['fonts/nlicons/nlicons.eot']}");
+  src:url("#{resource['fonts/nlicons/nlicons.eot']}?#iefix") format("embedded-opentype"),
+  	  url("#{resource['fonts/nlicons/nlicons.woff']}") format("woff"),
+  	  url("#{resource['fonts/nlicons/nlicons.ttf']}") format("truetype"),
+  	  url("#{resource['fonts/nlicons/nlicons.svg']}?#nlicons") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   margin: 0;
 }
@@ -30,16 +41,18 @@ body {
 }
 
 .container > header h1 {
-  font-size: 3.125em;
-  line-height: 1.5em;
+  font-size: 2.625em;
+  line-height: 1.3em;
   margin: 0;
   font-weight: 300;
+  color: #f012be;
 }
 
 .container > header span {
   display: block;
   font-size: 60%;
   padding: 0 0 0.6em 0.1em;
+  color: #b10dc9;
 }
 
 .centered {

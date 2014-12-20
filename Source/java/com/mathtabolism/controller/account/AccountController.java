@@ -114,8 +114,13 @@ public class AccountController extends BaseController {
     return getString(currentSettings.getTdeeFormula());
   }
   
+  /**
+   * Gets the selected unit system or the fallback string
+   * @return the selected unit system or a fallback String
+   */
   public String getSelectedUnitSystem() {
-    return getString(currentSettings.getUnitSystem());
+    UnitSystem us = currentSettings.getUnitSystem();
+    return getString(us == null ? UnitSystem.IMPERIAL : us);
   }
   
   /**

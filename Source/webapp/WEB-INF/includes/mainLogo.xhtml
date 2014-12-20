@@ -9,8 +9,10 @@
   </ui:remove>
     <div class="container">
     <header>
-      <h1><h:outputText value="#{msg.appTitle}" /></h1>
-      <h:outputText value="#{extraHeaderDetail}" rendered="#{not empty extraHeaderDetail}" />
+      <h1>
+        <h:outputText value="#{msg.appTitle}" /><span><h:outputText value="#{extraHeaderDetail}" rendered="#{not empty extraHeaderDetail}" /></span>
+      </h1>
+      
     </header>
   </div>
 </ui:composition>

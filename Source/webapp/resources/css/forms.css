@@ -1,3 +1,5 @@
+
+
 /* Remove the chrome auto-fill yellow color.. Sets it to white. */
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 1000px #fff inset;
@@ -218,6 +220,134 @@ input[type="button"]:hover {
   font-weight: 800;
   font-size: 1.25em;
 }
+
+.nl-form {
+  width: 100%;
+  font-size: 4em;
+  line-height: 1.5em;
+}
+
+.nl-form ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.form-field {
+  display: inline-block;
+  position: relative;
+}
+
+.form-field-dd ul li {
+  padding: 0 1.5em 0 0.5em;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.form-field-dd ul li:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+.form-field-dd ul li:hover:active,
+.form-field-dd ul li.dd-selected {
+  color: #478982
+}
+
+.form-field-toggle {
+  line-height: inherit;
+  display: inline-block;
+  cursor: pointer;
+  color: #ff8518;
+  border-bottom: 2px solid #ff8518;
+}
+
+.form-field-toggle:active,
+.form-field-toggle:hover {
+  color: #333;
+  border-bottom-color: #333;
+}
+
+.form-field ul {
+  position: absolute;
+  visibility: hidden;
+  background: #76c3bd;
+  left: -0.5em;
+  top: 50%;
+  font-size: 80%;
+  opacity: 0;
+  -webkit-transform: translateY(-40%) scale(0.9);
+  -moz-transform: translateY(-40%) scale(0.9);
+  trasform: translateY(-40%) scale(0.9);
+  -webkit-transition: visibility 0s 0.3s, opacity 0.3s, -webkit-transform 0.3s;
+  -moz-transition: visibility 0s 0.3s, opacity 0.3s, -moz-transform 0.3s;
+  transition: visibility 0s 0.3s, opacity 0.3s, transform 0.3s;
+}
+
+.form-field.form-field-open {
+  z-index: 10000;
+}
+
+.form-field.form-field-open ul {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transform: translateY(-50%) scale(1);
+  -moz-transform: translateY(-50%) scale(1);
+  transform: translateY(-50%) scale(1);
+  -webkit-transition: visibility 0s 0s, opacity 0.3s, -webkit-transform 0.3s;
+  -moz-transition: visibility 0s 0s, opacity 0.3s, -moz-transform 0.3s;
+  transition: visibility 0s 0s, opacity 0.3s, transform 0.3s;
+}
+
+.form-field ul li {
+  color: #fff;
+  position: relative;
+}
+
+.form-field-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  z-index: 9999;
+  visibility: hidden;
+  -webkit-transition: visibility 0s 0.3s, opacity 0.3s;
+  -moz-transition: visibility 0s 0.3s, opacity 0.3s;
+  transition: visibility 0s 0.3s, opacity 0.3s;
+}
+
+.form-field.form-field-open ~ .form-field-overlay {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition-delay: 0s;
+  -moz-transition-delay: 0s;
+  transition-delay: 0s;
+}
+
+/*
+ *
+ */
+.form-field-dd ul li.dd-selected:before,
+.nl-form input[type=submit]:before {
+  font-family: 'nlicons';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.form-field-dd ul li.dd-selected:before {
+  content: "\e000";
+  position: absolute;
+  right: 1em;
+  font-size: 50%;
+  line-height: 3;
+}
+
 
 /*
  * Override annoying primefaces shit
