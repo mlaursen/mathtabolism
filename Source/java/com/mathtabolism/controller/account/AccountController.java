@@ -35,6 +35,12 @@ import com.mathtabolism.util.unit.UnitSystem;
 @SessionScoped
 public class AccountController extends BaseController {
   private static final long serialVersionUID = 5069047046599920651L;
+  private static final int CURRENT_YEAR = Calendar.getInstance().get(Calendar.YEAR);
+  public static final int MIN_BIRTHDAY_OFFSET = 80;
+  public static final int MAX_BIRTHDAY_OFFSET = 5;
+  private static final String EVERY_WEEKDAY = "eachWeekday";
+  
+  
   @Inject
   private AccountBO accountBO;
   
@@ -42,13 +48,14 @@ public class AccountController extends BaseController {
   private AccountSetting currentSettings;
   private AccountWeight currentWeight;
   private AccountWeight previousWeight;
-  
-  private static final int CURRENT_YEAR = Calendar.getInstance().get(Calendar.YEAR);
-  public static final int MIN_BIRTHDAY_OFFSET = 80;
-  public static final int MAX_BIRTHDAY_OFFSET = 5;
+  private String heightLarge;
+  private String heightSmall;
   
   /**
-   * Gets the current account. If the account is null, it attempts to get it from the FacesContext
+   * Lazy loads the account.
+   * <p>Also sets the currentSettings, currentWeight, previousWeight, and the last login date
+   * 
+   * <p>This should technically be an AccountModel or something.
    * 
    * @return the account
    */
@@ -71,52 +78,100 @@ public class AccountController extends BaseController {
   }
   
   /**
-   * 
-   * @return
+   * Gets the current account settings
+   * @return the current account settings
    */
   public AccountSetting getCurrentSettings() {
     return currentSettings;
   }
   
   /**
-   * 
-   * @param currentSettings
+   * Sets the current account settings
+   * @param currentSettings the current account settings
    */
   public void setCurrentSettings(AccountSetting currentSettings) {
     this.currentSettings = currentSettings;
   }
   
+  /**
+   * Gets the current weight for the account.
+   * @return the current weight formatted to 2 decimal places or the empty String
+   */
   public String getCurrentWeight() {
     return currentWeight == null ? "" : NumberUtils.formatAsString(currentWeight.getWeight(), 2);
   }
   
+  /**
+   * Gets the previous weight for the account.
+   * <p>This is really only used as a suggested weight for that update weight div.
+   * 
+   * @return the previous weight formatted to 2 decimal places or the empty String
+   */
   public String getPreviousWeight() {
     return previousWeight == null ? "" : NumberUtils.formatAsString(previousWeight.getWeight(), 2);
   }
   
+  /**
+   * Sets the current weight for the account
+   * @param currentWeight the current weight String
+   */
   public void setCurrentWeight(String currentWeight) {
     this.currentWeight.setWeight(currentWeight);
   }
   
+  /**
+   * Gets the selected gender for the account. If the gender is not set,
+   * it defaults to Male
+   * @return the selected gender
+   */
   public String getSelectedGender() {
-    return account.getGender() != null ? getString(account.getGender()) : "";
+    if(account.getGender() == null) {
+      account.setGender(Gender.MALE);
+    }
+    return getString(account.getGender());
   }
   
+  /**
+   * Gets the account's selected recalculation day. If it is not set, it
+   * defaults to daily. If the recalculation day is not {@link Weekday#DAILY},
+   * "each " is appened to the String.
+   * <p>Example: "every Sunday"
+   * @return the selected recalculation day as a String
+   */
   public String getSelectedWeekday() {
-    return getString(currentSettings.getRecalculationDay());
+    if(currentSettings.getRecalculationDay() == null) {
+      currentSettings.setRecalculationDay(Weekday.DAILY);
+    }
+    String selected = getString(currentSettings.getRecalculationDay());
+    return !Weekday.DAILY.equals(currentSettings.getRecalculationDay()) ? getString(EVERY_WEEKDAY, selected) : selected;
   }
   
+  /**
+   * Gets the account's activity multiplier. If it is not set, it defaults to {@link ActivityMultiplier#SEDENTARY}.
+   * 
+   * @return the selected activity multiplier as a String
+   */
   public String getSelectedActivityMultiplier() {
+    if(currentSettings.getActivityMultiplier() == null) {
+      currentSettings.setActivityMultiplier(ActivityMultiplier.SEDENTARY);
+    }
     return getString(currentSettings.getActivityMultiplier());
   }
   
+  /**
+   * Gets the account's selected TDEEFormula. If it is not set, it defaults to {@link TDEEFormula#MIFFLIN_ST_JEOR}.
+   * @return the selected TDEE Formula as a String
+   */
   public String getSelectedFormula() {
+    if(currentSettings.getTdeeFormula() == null) {
+      currentSettings.setTdeeFormula(TDEEFormula.MIFFLIN_ST_JEOR);
+    }
     return getString(currentSettings.getTdeeFormula());
   }
   
   /**
    * Gets the Selected Unit system. If the Unit System is not set, it
-   * is defaulted to Imperial
+   * is defaulted to {@link UnitSystem#IMPERIAL}
    * @return the selected Unit System
    */
   public String getSelectedUnitSystem() {
@@ -190,8 +245,33 @@ public class AccountController extends BaseController {
         Calendar.getInstance().getTime()) && currentWeight.getWeight() > 0;
   }
   
+  /**
+   * Checks if the current account is considered a first time user. A first time user is someone that has not gone
+   * through the account initialization fancy page. (They don't have any settings set)
+   * @return true if the account is considered a first time user
+   */
   public boolean isFirstTimeUser() {
     getAccount();
-    return DateUtils.isSameDay(account.getActiveSince(), new Date());
+    return DateUtils.isSameDay(account.getActiveSince(), new Date()) || currentSettings == null
+        || currentSettings.getActivityMultiplier() == null || currentSettings.getHeight() == null
+        || currentSettings.getRecalculationDay() == null || currentSettings.getTdeeFormula() == null;
+  }
+
+  public String getHeightLarge() {
+    return heightLarge;
+  }
+
+  public void setHeightLarge(String heightLarge) {
+    this.heightLarge = heightLarge;
+    currentSettings.setHeight(NumberUtils.stringToDouble(heightLarge) + NumberUtils.stringToDouble(heightSmall));
+  }
+
+  public String getHeightSmall() {
+    return heightSmall;
+  }
+
+  public void setHeightSmall(String heightSmall) {
+    this.heightSmall = heightSmall;
+    currentSettings.setHeight(NumberUtils.stringToDouble(heightLarge) + NumberUtils.stringToDouble(heightSmall));
   }
 }

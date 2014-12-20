@@ -3,7 +3,6 @@
  */
 package com.mathtabolism.util.number;
 
-import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
@@ -51,5 +50,13 @@ public class NumberUtils {
     df.setMaximumFractionDigits(precision);
     df.setMinimumFractionDigits(precision);
     return df.format(decimal);
+  }
+  
+  public static Double stringToDouble(String possibleDouble) {
+    return org.apache.commons.lang3.math.NumberUtils.toDouble(possibleDouble);
+  }
+  
+  public static Integer stringToInteger(String possibleInteger) {
+    return org.apache.commons.lang3.math.NumberUtils.toInt(possibleInteger);
   }
 }

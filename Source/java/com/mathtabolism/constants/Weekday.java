@@ -10,7 +10,7 @@ import com.mathtabolism.util.string.StringUtils;
  * @author mlaursen
  */
 public enum Weekday {
-  DAY, SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY;
+  DAILY, SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY;
   
   public String formatted() {
     return StringUtils.toCamelCase(name(), true);

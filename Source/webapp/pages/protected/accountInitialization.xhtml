@@ -11,14 +11,38 @@
   </ui:include>
   <div class="container">
     <h:form id="account-settings" styleClass="nl-form">
-      <span><h:outputText value="#{msg.unitSystemStep1}" /></span>
-      <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
-        <ui:param name="binding" value="#{accountController.currentSettings.unitSystem}" />
-        <ui:param name="selected" value="#{accountController.selectedUnitSystem}" />
-        <ui:param name="items" value="#{accountController.unitSystems}" />
-      </ui:include>
-      <span><h:outputText value="#{msg.unitSystemStep2}" /></span>
-      
+      <ol class="steps">
+        <ui:remove>Step 1: Setting Unit System</ui:remove>
+        <li>
+          <span><h:outputText value="#{msg.unitSystemStep1}" /></span>
+          <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
+            <ui:param name="binding" value="#{accountController.currentSettings.unitSystem}" />
+            <ui:param name="selected" value="#{accountController.selectedUnitSystem}" />
+            <ui:param name="items" value="#{accountController.unitSystems}" />
+          </ui:include>
+          <span><h:outputText value="#{msg.unitSystemStep2}" /></span>
+        </li>
+        
+        <ui:remove>Step 2: Setting gender, height, and starting weight.</ui:remove>
+        <li>
+          <span><h:outputText value="#{msg.genderStep}" /></span>
+          <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
+            <ui:param name="binding" value="#{accountController.account.gender}" />
+            <ui:param name="selected" value="#{accountController.selectedGender}" />
+            <ui:param name="items" value="#{accountController.genders}" />
+          </ui:include>
+          
+          <span><h:outputText value="#{msg.heightStep}" /></span>
+          <div>
+            <h:inputText value="#{accountController.heightLarge}" size="2" />
+            <span id="height-large-unit" class="#{accountController.currentSettings.unitSystem == 'IMPERIAL' ? 'ft' : 'm'}"></span>
+            <h:inputText value="#{accountController.heightSmall}" size="2" />
+            <span id="height-small-unit" class="#{accountController.currentSettings.unitSystem == 'IMPERIAL' ? 'in' : 'cm'}"></span>
+          </div>
+          
+          <span><h:outputText value="#{msg.weightStep}" /></span>
+        </li>
+      </ol>
       <div class="form-field-overlay"></div>
     </h:form>
   </div>

@@ -297,27 +297,27 @@ table.data-table td {
 
 
 /* Measurement Abbreviations */
-.lbs {
+.lbs:before {
   content: 'lbs';
 }
 
-.kg {
+.kg:before {
   content: 'kg';
 }
 
-.ft {
+.ft:before {
   content: 'ft';
 }
 
-.in {
+.in:before {
   content: 'in';
 }
 
-.m {
+.m:before {
   content: 'm';
 }
 
-.cm {
+.cm:before {
   content: 'cm';
 }
 
