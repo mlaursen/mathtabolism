@@ -13,7 +13,7 @@
     <h:form id="account-settings" styleClass="nl-form">
       <ol class="steps">
         <ui:remove>Step 1: Setting Unit System</ui:remove>
-        <li>
+        <li class="current">
           <span><h:outputText value="#{msg.unitSystemStep1}" /></span>
           <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
             <ui:param name="binding"  value="#{accountController.currentSettings.unitSystem}" />

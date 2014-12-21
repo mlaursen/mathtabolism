@@ -234,8 +234,38 @@ ol.steps,
   padding: 0;
 }
 
+ol.steps {
+  position: relative;
+  -webkit-transition: height 0.4s;
+  -moz-transition: height 0.4s;
+  transition: height 0.4s;
+}
+
+/*ol.steps:before {
+  content: '';
+  background-color: rgba(0, 0, 0, 0.1);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2.35em;
+}*/
+
 ol.steps > li {
-  
+  position: relative;
+  visibility: hidden;
+  height: 0;
+  -webkit-transition: visibility 0s 0.4s, height 0s 0.4s;
+  -moz-transition: visibility 0s 0.4s, height 0s 0.4s;
+  transition: visibility 0s 0.4s, height 0s 0.4s;
+}
+
+ol.steps li.current {
+  visibility: visible;
+  height: auto;
+  -webkit-transition: none;
+  -moz-transition: none;
+  transition: none;
 }
 
 .form-field {
