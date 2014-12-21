@@ -15,8 +15,10 @@
 	<!-- ================================= 
           target: clean-wildfly              
          ================================= -->
-    <target name="clean-wildfly" description="Deletes the deployments folder and recreates it in the wildfly directory">
+    <target name="clean-wildfly" description="Cleans out the data, deployments, and tmp folders in the Wildfly standalone">
       <delete dir="${wildfly.deployments.dir}"/>
+      <delete dir="${wildfly.standalone.dir}/data" />
+      <delete dir="${wildfly.standalone.dir}/tmp" />
       <mkdir dir="${wildfly.deployments.dir}"/>
     </target>
 
