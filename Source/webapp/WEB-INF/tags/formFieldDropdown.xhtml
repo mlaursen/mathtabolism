@@ -8,11 +8,14 @@
   binding: the binding to the controller
   selected: the selected value
   items: the Array of SelectItem
+  toggleId: the form-field-toggle id
+  ulId: the ordered list id
+  ulClass: the ordered list css class
   </ui:remove>
   <div id="unit-system-field" class="form-field form-field-dd">
     <h:inputHidden value="#{binding}" />
-    <div class="form-field-toggle"><h:outputText value="#{selected}" /></div>
-    <ul><c:forEach items="#{items}" var="item">
+    <div id="#{toggleId}" class="form-field-toggle"><h:outputText value="#{selected}" /></div>
+    <ul id="#{ulId}" class="#{ulClass}"><c:forEach items="#{items}" var="item">
       <li tabindex="-1" data-value="#{item.value}" class="#{binding == item.value ? 'dd-selected': ''}"><h:outputText value="#{item.label}" /></li>
     </c:forEach></ul>
   </div>

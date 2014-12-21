@@ -1,15 +1,13 @@
 /**
  * 
  */
-
-var form = $(".nl-form");
-
 $(".nl-form .form-field").each(function() {
   var mainDiv = this;
   var hidden = $(this).find("input[type='hidden']");
   var toggle = $(this).find(".form-field-toggle");
   $(toggle).click(function() {
     $(mainDiv).addClass("form-field-open");
+    $("#form-field-overlay").addClass("open");
   });
   
   $(mainDiv).find($("ul > li")).each(function() {
@@ -18,11 +16,16 @@ $(".nl-form .form-field").each(function() {
       var val = $(this).data("value");
       hidden.val(val);
       toggle.html($(this).html());
+      toggle.change();
       $(mainDiv).removeClass("form-field-open");
+      $("#form-field-overlay").removeClass("open");
     });
   });
-  $(".form-field-overlay").click(function() {
+
+
+  $("#form-field-overlay").click(function() {
     $(mainDiv).removeClass("form-field-open");
+    $(this).removeClass("open");
   });
 });
 

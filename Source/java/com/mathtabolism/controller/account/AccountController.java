@@ -175,10 +175,14 @@ public class AccountController extends BaseController {
    * @return the selected Unit System
    */
   public String getSelectedUnitSystem() {
+    return getString(getCurrentUnitSystem());
+  }
+  
+  private UnitSystem getCurrentUnitSystem() {
     if(currentSettings.getUnitSystem() == null) {
       currentSettings.setUnitSystem(UnitSystem.IMPERIAL);
     }
-    return getString(currentSettings.getUnitSystem());
+    return currentSettings.getUnitSystem();
   }
   
   /**
@@ -273,5 +277,47 @@ public class AccountController extends BaseController {
   public void setHeightSmall(String heightSmall) {
     this.heightSmall = heightSmall;
     currentSettings.setHeight(NumberUtils.stringToDouble(heightLarge) + NumberUtils.stringToDouble(heightSmall));
+  }
+  
+  public SelectItem[] getStartingLargeHeights() {
+    int min = 1;
+    int max;
+    switch(getCurrentUnitSystem()) {
+      case IMPERIAL:
+        max = 9;
+        break;
+      case METRIC:
+        max = 3;
+        break;
+      default:
+        max = min;
+        break;
+    }
+    SelectItem[] items = new SelectItem[max + min];
+    for(; min <= max; min++) {
+      items[min] = new SelectItem(min, "" + min);
+    }
+    return items;
+  }
+  
+  public SelectItem[] getStartingSmallHeights() {
+    int min = 1;
+    int max;
+    switch(getCurrentUnitSystem()) {
+      case IMPERIAL:
+        max = 11; // 12 is really a foot
+        break;
+      case METRIC:
+        max = 9; // 10 is really a meter
+        break;
+      default:
+        max = min;
+        break;
+    }
+    SelectItem[] items = new SelectItem[max + min];
+    for(; min <= max; min++) {
+      items[min] = new SelectItem(min, "" + min);
+    }
+    return items;
   }
 }

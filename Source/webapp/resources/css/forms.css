@@ -223,7 +223,7 @@ input[type="button"]:hover {
 
 .nl-form {
   width: 100%;
-  font-size: 4em;
+  font-size: 3em;
   line-height: 1.5em;
 }
 
@@ -288,6 +288,16 @@ ol.steps > li {
   transition: visibility 0s 0.3s, opacity 0.3s, transform 0.3s;
 }
 
+.form-field ul.small {
+  line-height: initial;
+  font-size: 50%;
+}
+
+.form-field ul.small li.dd-selected:before {
+  line-height: 2.2;
+  right: 1.5em;
+}
+
 .form-field.form-field-open {
   z-index: 10000;
 }
@@ -323,7 +333,7 @@ ol.steps > li {
   transition: visibility 0s 0.3s, opacity 0.3s;
 }
 
-.form-field.form-field-open ~ .form-field-overlay {
+.form-field-overlay.open {
   opacity: 1;
   visibility: visible;
   -webkit-transition-delay: 0s;
