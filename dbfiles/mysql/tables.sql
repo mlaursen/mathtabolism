@@ -66,6 +66,7 @@ CREATE TABLE ingredient
 CREATE TABLE daily_intake
 ( id CHAR(10)
 , account_id CHAR(10)
+, account_weight_id CHAR(10)
 , intake_date DATE
 , calorie_change INT
 , fat_multiplier NUMERIC(3, 2)
@@ -73,6 +74,7 @@ CREATE TABLE daily_intake
 , protein_multiplier NUMERIC(3, 2)
 , CONSTRAINT pk_Daily_Intake PRIMARY KEY(id)
 , CONSTRAINT uq_Daily_Intake UNIQUE(account_id, intake_date)
+, CONSTRAINT fk_Daily_Intake_Weight FOREIGN KEY(account_weight_id) REFERENCES account_weight(id)
 , CONSTRAINT fk_Daily_Intake_Account FOREIGN KEY(account_id) REFERENCES account(id)
 );
 

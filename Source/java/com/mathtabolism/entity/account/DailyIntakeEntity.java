@@ -8,9 +8,11 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,6 +21,7 @@ import javax.persistence.UniqueConstraint;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.mathtabolism.emcontract.DailyIntake;
 import com.mathtabolism.entity.food.DailyIntakeMealEntity;
 
 /**
@@ -36,11 +39,15 @@ import com.mathtabolism.entity.food.DailyIntakeMealEntity;
       + "WHERE di.accountEntity.id = :account_id AND di.intakeDate BETWEEN :start_date AND :end_date "
       + "ORDER BY di.intakeDate ASC")
 })
-public class DailyIntakeEntity extends AccountIdFK {
+public class DailyIntakeEntity extends AccountIdFK implements DailyIntake {
   public static final String Q_findCurrentWeek = "DailyIntakeEntity.getCurrentWeek";
   
   public DailyIntakeEntity() {
   }
+  
+  @OneToOne
+  @JoinColumn(name = "account_weight_id")
+  private AccountWeightEntity accountWeightEntity;
   
   @Temporal(TemporalType.DATE)
   private Date intakeDate;
@@ -52,75 +59,52 @@ public class DailyIntakeEntity extends AccountIdFK {
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "dailyIntakeEntity")
   private List<DailyIntakeMealEntity> meals;
   
+  @Override
   public Date getIntakeDate() {
     return intakeDate;
   }
   
+  @Override
   public void setIntakeDate(Date intakeDate) {
     this.intakeDate = intakeDate;
   }
   
-  /**
-   * 
-   * @return
-   */
+  @Override
   public Integer getCalorieChange() {
     return calorieChange;
   }
   
-  /**
-   * 
-   * @param calorieChange
-   */
+  @Override
   public void setCalorieChange(Integer calorieChange) {
     this.calorieChange = calorieChange;
   }
   
-  /**
-   * 
-   * @return
-   */
+  @Override
   public Double getFatMultiplier() {
     return fatMultiplier;
   }
   
-  /**
-   * 
-   * @param fatMultiplier
-   */
+  @Override
   public void setFatMultiplier(Double fatMultiplier) {
     this.fatMultiplier = fatMultiplier;
   }
   
-  /**
-   * 
-   * @return
-   */
+  @Override
   public Double getCarbMultiplier() {
     return carbMultiplier;
   }
   
-  /**
-   * 
-   * @param carbMultiplier
-   *          the new Carbohydrate multiplier
-   */
+  @Override
   public void setCarbMultiplier(Double carbMultiplier) {
     this.carbMultiplier = carbMultiplier;
   }
   
-  /**
-   * 
-   * @return
-   */
+  @Override
   public Double getProteinMultiplier() {
     return proteinMultiplier;
   }
   
-  /**
-   * 
-   * @param proteinMultiplier
-   */
+  @Override
   public void setProteinMultiplier(Double proteinMultiplier) {
     this.proteinMultiplier = proteinMultiplier;
   }
@@ -139,6 +123,14 @@ public class DailyIntakeEntity extends AccountIdFK {
    */
   public void setMeals(List<DailyIntakeMealEntity> meals) {
     this.meals = meals;
+  }
+  
+  public AccountWeightEntity getAccountWeightEntity() {
+    return accountWeightEntity;
+  }
+  
+  public void setAccountWeightEntity(AccountWeightEntity accountWeightEntity) {
+    this.accountWeightEntity = accountWeightEntity;
   }
   
   @Override

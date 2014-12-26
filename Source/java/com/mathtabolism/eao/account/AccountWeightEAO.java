@@ -4,6 +4,7 @@
 package com.mathtabolism.eao.account;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,19 @@ import com.mathtabolism.entity.account.AccountWeightEntity;
 public class AccountWeightEAO extends BaseGeneratedEntityEAO<AccountWeightEntity> {
   public AccountWeightEAO() {
     super(AccountWeightEntity.class);
+  }
+  
+  /**
+   * Attempts to find a single account weight by a given search date
+   * @param accountId the account id
+   * @param date the search date
+   * @return the account weight or null
+   */
+  public AccountWeightEntity findAccountWeightByDate(String accountId, Date date) {
+    Map<String, Object> parameters = new HashMap<>();
+    parameters.put("account_id", accountId);
+    parameters.put("weigh_in_date", date);
+    return findOneResult(AccountWeightEntity.Q_findAccountWeightByDate, parameters);
   }
   
   public AccountWeightEntity findLatestWeight(AccountEntity accountEntity) {
@@ -52,7 +66,7 @@ public class AccountWeightEAO extends BaseGeneratedEntityEAO<AccountWeightEntity
   /**
    * Attempts to find the {@link AccountWeightEntity} for today and the given account.
    * 
-   * @param accountEntity
+   * @param account
    *          the {@link AccountEntity} to look up a weight for
    * @return
    */

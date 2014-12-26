@@ -9,13 +9,13 @@
   <ui:define name="content">
   <div class="span">
     <h:form>
-      <c:forEach items="#{dailyIntakeController.currentDailyIntakeWeek}" var="intake">
+      <c:forEach items="#{dailyIntakeController.dailyIntakes}" var="intake">
       <div class="data-table-container">
         <table class="data-table">
           <tr>
             <td style="background: transparent"></td>
             <th><h:outputText value="#{intake.intakeDate}" /></th>
-            <c:forEach items="#{dailyIntakeController.getDailyIntakeMeals(intake)}" var="meal">
+            <c:forEach items="#{intake.meals}" var="meal">
             <th><h:outputText value="#{dailyIntakeController.getMealFact(meal, 'NAME')}" /></th>
             </c:forEach>
             <th><h:outputText value="#{msg.intake_ExpectedTotal}" /></th>
@@ -25,7 +25,7 @@
           <tr>
             <th><h:outputText value="#{msg.calories}" /></th>
             <td></td>
-            <c:forEach items="#{dailyIntakeController.getDailyIntakeMeals(intake)}" var="meal">
+            <c:forEach items="#{intake.meals}" var="meal">
             <td><h:outputText value="#{dailyIntakeController.getMealFact(meal, 'CALORIE')}" /></td>
             </c:forEach>
             <td><h:outputText value="#{dailyIntakeController.calculatedTotal(intake, 'CALORIE', 'EXPECTED')}" /></td>
@@ -35,7 +35,7 @@
           <tr>
             <th><h:outputText value="#{msg.fat}" /></th>
             <td></td>
-            <c:forEach items="#{dailyIntakeController.getDailyIntakeMeals(intake)}" var="meal">
+            <c:forEach items="#{intake.meals}" var="meal">
             <td><h:outputText value="#{dailyIntakeController.getMealFact(meal, 'FAT')}" /></td>
             </c:forEach>
             <td><h:outputText value="#{dailyIntakeController.calculatedTotal(intake, 'FAT', 'EXPECTED')}" /></td>
@@ -45,7 +45,7 @@
           <tr>
             <th><h:outputText value="#{msg.carbs}" /></th>
             <td></td>
-            <c:forEach items="#{dailyIntakeController.getDailyIntakeMeals(intake)}" var="meal">
+            <c:forEach items="#{intake.meals}" var="meal">
             <td><h:outputText value="#{dailyIntakeController.getMealFact(meal, 'CARBOHYDRATE')}" /></td>
             </c:forEach>
             <td><h:outputText value="#{dailyIntakeController.calculatedTotal(intake, 'CARBOHYDRATE', 'EXPECTED')}" /></td>
@@ -55,7 +55,7 @@
           <tr>
             <th><h:outputText value="#{msg.protein}" /></th>
             <td></td>
-            <c:forEach items="#{dailyIntakeController.getDailyIntakeMeals(intake)}" var="meal">
+            <c:forEach items="#{intake.meals}" var="meal">
             <td><h:outputText value="#{dailyIntakeController.getMealFact(meal, 'PROTEIN')}" /></td>
             </c:forEach>
             <td><h:outputText value="#{dailyIntakeController.calculatedTotal(intake, 'PROTEIN', 'EXPECTED')}" /></td>

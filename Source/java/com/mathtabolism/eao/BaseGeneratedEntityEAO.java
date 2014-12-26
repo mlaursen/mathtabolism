@@ -24,7 +24,7 @@ public abstract class BaseGeneratedEntityEAO<T extends BaseGeneratedEntity> exte
    * @return the found entity or null
    */
   public T findById(T entity) {
-    return super.findById(entity.getId());
+    return entity.getId() == null ? null : super.findById(entity.getId());
   }
   
 }

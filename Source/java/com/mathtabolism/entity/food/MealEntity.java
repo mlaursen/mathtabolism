@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.mathtabolism.emcontract.Meal;
 import com.mathtabolism.entity.BaseGeneratedEntity;
 
 /**
@@ -19,7 +20,7 @@ import com.mathtabolism.entity.BaseGeneratedEntity;
  * @author mlaursen
  */
 @Entity
-public class MealEntity extends BaseGeneratedEntity {
+public class MealEntity extends BaseGeneratedEntity implements Meal {
   
   private String name;
   
@@ -30,18 +31,12 @@ public class MealEntity extends BaseGeneratedEntity {
   public MealEntity() {
   }
   
-  /**
-   * 
-   * @return
-   */
+  @Override
   public String getName() {
     return name;
   }
   
-  /**
-   * 
-   * @param name
-   */
+  @Override
   public void setName(String name) {
     this.name = name;
   }

@@ -23,16 +23,11 @@ public class FormulaCalculation {
   /**
    * Calculates the BRM
    * 
-   * @param weight
-   *          the person's weight
-   * @param height
-   *          the person's height
-   * @param age
-   *          the person's age
-   * @param gender
-   *          the person's {@link Gender}
-   * @param unitSystem
-   *          the person's {@link UnitSystem}
+   * @param weight the person's weight
+   * @param height the person's height
+   * @param age the person's age
+   * @param gender the person's {@link Gender}
+   * @param unitSystem the person's {@link UnitSystem}
    * @return the number of {@link Calorie} for a person's BMR
    */
   public static Calorie calculateBMR(double weight, double height, int age, Gender gender, UnitSystem unitSystem) {

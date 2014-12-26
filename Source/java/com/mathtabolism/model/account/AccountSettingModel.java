@@ -2,6 +2,9 @@ package com.mathtabolism.model.account;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.mathtabolism.constants.ActivityMultiplier;
 import com.mathtabolism.constants.TDEEFormula;
 import com.mathtabolism.constants.Weekday;
@@ -121,4 +124,10 @@ public class AccountSettingModel extends BaseModel implements AccountSetting {
     return unitSystem;
   }
   
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("dateChanged", dateChanged).append("height", height)
+        .append("heightLarge", heightLarge).append("heightSmall", heightSmall).append("unitSystem", unitSystem)
+        .append("recalculationDay", recalculationDay).append("tdeeFormula", tdeeFormula).append("activityMultiplier", activityMultiplier).toString();
+  }
 }

@@ -3,10 +3,10 @@ package com.mathtabolism.util.calculation;
 import java.util.List;
 
 import com.mathtabolism.constants.NutrientType;
-import com.mathtabolism.entity.account.DailyIntakeEntity;
-import com.mathtabolism.entity.food.DailyIntakeMealEntity;
-import com.mathtabolism.entity.food.IngredientEntity;
-import com.mathtabolism.entity.food.MealPartEntity;
+import com.mathtabolism.model.food.DailyIntakeModel;
+import com.mathtabolism.model.food.IngredientModel;
+import com.mathtabolism.model.food.MealModel;
+import com.mathtabolism.model.food.MealPartModel;
 import com.mathtabolism.util.nutrition.BaseNutrient;
 import com.mathtabolism.util.unit.Measurement;
 import com.mathtabolism.util.unit.UnitConverter;
@@ -15,23 +15,15 @@ public class IntakeCalculator {
   private IntakeCalculator() {
   }
   
-  /**
-   * Calculate's a Nutrient's total value for a DailyIntakeMeal by adding all the ingredients in a meal with their
-   * serving value together.
-   * 
-   * @param dailyIntakeMealEntity
-   * @param nutrientType
-   * @return
-   */
-  public static BaseNutrient calculateNutrient(DailyIntakeMealEntity dailyIntakeMealEntity, NutrientType nutrientType) {
-    return calculateMealNutrients(dailyIntakeMealEntity.getMeal().getMealParts(), nutrientType);
+  public static BaseNutrient calculateNutrient(MealModel dailyIntakeMealEntity, NutrientType nutrientType) {
+    return calculateMealNutrients(dailyIntakeMealEntity.getMealParts(), nutrientType);
   }
   
-  public static BaseNutrient calculateMealNutrients(List<MealPartEntity> mealPartEntities, NutrientType nutrientType) {
+  public static BaseNutrient calculateMealNutrients(List<MealPartModel> mealPartModels, NutrientType nutrientType) {
     BaseNutrient nutrient = BaseNutrient.create(nutrientType);
-    for(MealPartEntity mealPartEntity : mealPartEntities) {
-      Measurement mealPartServing = mealPartEntity.getServing();
-      IngredientEntity i = mealPartEntity.getIngredient();
+    for(MealPartModel mealPartModel : mealPartModels) {
+      Measurement mealPartServing = mealPartModel.getServing();
+      IngredientModel i = mealPartModel.getIngredient();
       Measurement ingredientServing = UnitConverter.getServing(mealPartServing, i);
       double ratio = mealPartServing.getValue() / ingredientServing.getValue();
       BaseNutrient iNutrient = BaseNutrient.getFromIngredient(i, nutrientType);
@@ -40,11 +32,11 @@ public class IntakeCalculator {
     return nutrient;
   }
   
-  public static BaseNutrient calculateTotalDailyIntake(DailyIntakeEntity dailyIntakeEntity, NutrientType nutrientType) {
+  public static BaseNutrient calculateTotalDailyIntake(DailyIntakeModel dailyIntakeModel, NutrientType nutrientType) {
     BaseNutrient total = BaseNutrient.create(nutrientType);
-    List<DailyIntakeMealEntity> dailyIntakeMealEntities = dailyIntakeEntity.getMeals();
-    for(DailyIntakeMealEntity dailyIntakeMealEntity : dailyIntakeMealEntities) {
-      total.add(calculateNutrient(dailyIntakeMealEntity, nutrientType));
+    List<MealModel> meals = dailyIntakeModel.getMeals();
+    for(MealModel meal : meals) {
+      total.add(calculateNutrient(meal, nutrientType));
     }
     return total;
   }

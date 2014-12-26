@@ -18,6 +18,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.mathtabolism.constants.IngredientCategory;
+import com.mathtabolism.emcontract.Ingredient;
 import com.mathtabolism.entity.BaseGeneratedEntity;
 import com.mathtabolism.util.nutrition.Calorie;
 import com.mathtabolism.util.nutrition.Carbohydrate;
@@ -36,11 +37,13 @@ import com.mathtabolism.util.unit.Measurement;
     @NamedQuery(name = IngredientEntity.Q_findIngredientsByCategory, query = "SELECT i FROM IngredientEntity i WHERE i.category = :category ORDER BY i.name, i.brandEntity, i.category DESC"),
     @NamedQuery(name = IngredientEntity.Q_findIngredientsByName, query = "SELECT i FROM IngredientEntity i WHERE UPPER(i.name) LIKE :name ORDER BY i.name, i.brandEntity, i.category DESC")
 })
-public class IngredientEntity extends BaseGeneratedEntity {
+public class IngredientEntity extends BaseGeneratedEntity implements Ingredient {
   public static final String Q_findAllIngredients = "IngredientEntity.findAllIngredients";
   public static final String Q_findIngredientsByBrand = "IngredientEntity.findIngredientsByBrand";
   public static final String Q_findIngredientsByCategory = "IngredientEntity.findIngredientsByCategory";
   public static final String Q_findIngredientsByName = "IngredientEntity.findIngredientsByName";
+  
+  
   private String name;
   
   @OneToOne
@@ -73,10 +76,12 @@ public class IngredientEntity extends BaseGeneratedEntity {
   public IngredientEntity() {
   }
   
+  @Override
   public String getName() {
     return name;
   }
   
+  @Override
   public void setName(String name) {
     this.name = name;
   }
@@ -89,132 +94,74 @@ public class IngredientEntity extends BaseGeneratedEntity {
     this.brandEntity = brandEntity;
   }
   
-  /**
-   * 
-   * @return
-   */
+  @Override
   public IngredientCategory getCategory() {
     return category;
   }
   
-  /**
-   * 
-   * @param category
-   */
+  @Override
   public void setCategory(IngredientCategory category) {
     this.category = category;
   }
   
-  /**
-   * 
-   * @return
-   */
+  @Override
   public Measurement getServing() {
     return serving;
   }
   
-  /**
-   * 
-   * @param serving
-   */
+  @Override
   public void setServing(Measurement serving) {
     this.serving = serving;
   }
   
-  /**
-   * 
-   * @return
-   */
+  @Override
   public Measurement getAlternateServing() {
     return alternateServing;
   }
   
-  /**
-   * 
-   * @param alternateServing
-   */
+  @Override
   public void setAlternateServing(Measurement alternateServing) {
     this.alternateServing = alternateServing;
   }
   
-  /**
-   * 
-   * @return
-   */
+  @Override
   public Calorie getCalories() {
     return calories;
   }
   
-  /**
-   * 
-   * @param calories
-   */
+  @Override
   public void setCalories(Calorie calories) {
     this.calories = calories;
   }
   
-  public void setCalories(double calories) {
-    this.calories = new Calorie(calories);
-  }
-  
-  /**
-   * 
-   * @return
-   */
+  @Override
   public Fat getFat() {
     return fat;
   }
   
-  /**
-   * 
-   * @param fat
-   */
+  @Override
   public void setFat(Fat fat) {
     this.fat = fat;
   }
   
-  public void setFat(double fat) {
-    this.fat = new Fat(fat);
-  }
-  
-  /**
-   * 
-   * @return
-   */
+  @Override
   public Carbohydrate getCarbohydrates() {
     return carbohydrates;
   }
   
-  /**
-   * 
-   * @param carbohydrates
-   */
+  @Override
   public void setCarbohydrates(Carbohydrate carbohydrates) {
     this.carbohydrates = carbohydrates;
   }
   
-  public void setCarbohydrates(double carbohydrates) {
-    this.carbohydrates = new Carbohydrate(carbohydrates);
-  }
-  
-  /**
-   * 
-   * @return
-   */
+  @Override
   public Protein getProtein() {
     return protein;
   }
   
-  /**
-   * 
-   * @param protein
-   */
+  @Override
   public void setProtein(Protein protein) {
     this.protein = protein;
-  }
-  
-  public void setProtein(double protein) {
-    this.protein = new Protein(protein);
   }
   
   @Override

@@ -7,7 +7,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.mathtabolism.constants.NutrientType;
-import com.mathtabolism.entity.food.IngredientEntity;
+import com.mathtabolism.emcontract.Ingredient;
 import com.mathtabolism.util.number.NumberUtils;
 
 /**
@@ -101,16 +101,16 @@ public abstract class BaseNutrient {
     return null;
   }
   
-  public static BaseNutrient getFromIngredient(IngredientEntity ingredientEntity, NutrientType whichNutrient) {
+  public static BaseNutrient getFromIngredient(Ingredient ingredient, NutrientType whichNutrient) {
     switch(whichNutrient) {
       case CALORIE:
-        return ingredientEntity.getCalories();
+        return ingredient.getCalories();
       case FAT:
-        return ingredientEntity.getFat();
+        return ingredient.getFat();
       case CARBOHYDRATE:
-        return ingredientEntity.getCarbohydrates();
+        return ingredient.getCarbohydrates();
       case PROTEIN:
-        return ingredientEntity.getProtein();
+        return ingredient.getProtein();
     }
     return null;
   }

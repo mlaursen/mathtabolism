@@ -5,6 +5,7 @@ import java.util.Date;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.mathtabolism.constants.AccountRole;
 import com.mathtabolism.constants.Gender;
 import com.mathtabolism.constants.Indicator;
 import com.mathtabolism.emcontract.Account;
@@ -20,6 +21,7 @@ public class AccountModel extends BaseModel implements Account {
   private String username;
   private String email;
   private String password;
+  private AccountRole role;
   
   private Gender gender;
   private Indicator useBirthday;
@@ -81,6 +83,10 @@ public class AccountModel extends BaseModel implements Account {
     return previousWeight;
   }
   
+  /**
+   * Checks if the account is using the birthday over the age
+   * @return true if using birthday
+   */
   public boolean isUsingBirthday() {
     return Indicator.isTrue(useBirthday);
   }
@@ -176,5 +182,15 @@ public class AccountModel extends BaseModel implements Account {
   @Override
   public Date getActiveSince() {
     return activeSince;
+  }
+
+  @Override
+  public void setRole(AccountRole role) {
+    this.role = role;
+  }
+
+  @Override
+  public AccountRole getRole() {
+    return role;
   }
 }

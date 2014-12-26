@@ -24,12 +24,17 @@ import com.mathtabolism.emcontract.AccountWeight;
     @NamedQuery(name = AccountWeightEntity.Q_findTodaysWeight, query = "SELECT aw FROM AccountWeightEntity aw WHERE aw.accountEntity.id = :account_id "
         + "AND aw.weighInDate = :today"),
     @NamedQuery(name = AccountWeightEntity.Q_findCurrentAccountWeightWeek, query = "SELECT aw FROM AccountWeightEntity aw WHERE aw.accountEntity.id = :account_id "
-        + "AND aw.weighInDate BETWEEN :start_date AND :end_date ORDER BY aw.weighInDate")
+        + "AND aw.weighInDate BETWEEN :start_date AND :end_date ORDER BY aw.weighInDate"),
+    @NamedQuery(
+        name = AccountWeightEntity.Q_findAccountWeightByDate,
+        query = "SELECT aw FROM AccountWeightEntity aw WHERE aw.accountEntity.id = :account_id AND aw.weighInDate = :weigh_in_date"
+    )
 })
 public class AccountWeightEntity extends AccountIdFK implements AccountWeight {
   public static final String Q_findLatestWeight = "AccountWeightEntity.findLatestWeight";
   public static final String Q_findTodaysWeight = "AccountWeightEntity.findTodaysWeight";
   public static final String Q_findCurrentAccountWeightWeek = "AccountWeightEntity.findCurrentAccountWeightWeek";
+  public static final String Q_findAccountWeightByDate = "AccountWeightEntity.findAccountWeightByDate";
   
   private Date weighInDate;
   private double weight;

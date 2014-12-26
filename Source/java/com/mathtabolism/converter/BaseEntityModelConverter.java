@@ -68,6 +68,40 @@ public abstract class BaseEntityModelConverter<C, E extends C, M extends C> {
   }
   
   /**
+   * Converts a List of Entities into a List of Models. If the List of Entities is null,
+   * null is returned
+   * @param entities a List of Entities
+   * @return a List of Models or null
+   */
+  public List<M> convertEntitiesToModels(List<E> entities) {
+    if(entities != null) {
+      List<M> models = new ArrayList<>();
+      for(E entity : entities) {
+        models.add(convertEntityToModel(entity));
+      }
+      return models;
+    }
+    return null;
+  }
+  
+  /**
+   * Converts a List of Models into a List of Entities. If the List of Models is null,
+   * null is returned
+   * @param models a List of Models
+   * @return a List of Entities or null
+   */
+  public List<E> convertModelsToEntities(List<M> models) {
+    if(models != null) {
+      List<E> entities = new ArrayList<>();
+      for(M model : models) {
+        entities.add(convertModelToEntity(model));
+      }
+      return entities;
+    }
+    return null;
+  }
+  
+  /**
    * Converts a generic <tt>convertFrom</tt> Object to a <tt>convertTo</tt> Object by using the <tt>converterClass</tt>
    * interface.  The convert from and convert to Objects are both subclasses of the converter class interface.
    * 
@@ -110,6 +144,7 @@ public abstract class BaseEntityModelConverter<C, E extends C, M extends C> {
       }
       
       if(toSet != null && toGet != null) {
+        logger.debug("Attempted to invoke: " + toSet + " with the result of: " + toGet);
         toSet.invoke(convertTo, toGet.invoke(convertFrom));
       }
     }

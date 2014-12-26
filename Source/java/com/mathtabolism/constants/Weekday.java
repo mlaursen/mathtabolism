@@ -16,7 +16,26 @@ public enum Weekday {
     return StringUtils.toCamelCase(name(), true);
   }
   
+  /**
+   * <p>Converts the Weekday into a day of the week number. If the current
+   * Weekday is {@link #DAILY} or {@link #SUNDAY}, 7 is returned. Otherwise
+   * their ordinal position -1.
+   * 
+   * <code><pre>
+   * MONDAY -> 1
+   * TUESDAY -> 2
+   * ...
+   * SATURDAY -> 6
+   * </pre></code>
+   * @return a day of week number
+   */
   public int toInt() {
-    return this.equals(SUNDAY) ? 7 : this.ordinal() - 1;
+    switch(this) {
+      case SUNDAY:
+      case DAILY:
+        return 7;
+      default:
+        return this.ordinal() - 1;
+    }
   }
 }

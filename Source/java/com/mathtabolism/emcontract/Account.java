@@ -2,6 +2,7 @@ package com.mathtabolism.emcontract;
 
 import java.util.Date;
 
+import com.mathtabolism.constants.AccountRole;
 import com.mathtabolism.constants.Gender;
 import com.mathtabolism.constants.Indicator;
 
@@ -113,4 +114,8 @@ public interface Account extends GeneratedIdContract {
    * @return the date
    */
   Date getActiveSince();
+  
+  void setRole(AccountRole role);
+  
+  AccountRole getRole();
 }

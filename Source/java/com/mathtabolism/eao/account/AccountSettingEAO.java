@@ -26,7 +26,7 @@ public class AccountSettingEAO extends BaseGeneratedEntityEAO<AccountSettingEnti
   
   /**
    * 
-   * @param accountEntity the account to get the current AccountSetting for
+   * @param account the account to get the current AccountSetting for
    * @return
    */
   public AccountSettingEntity findCurrentAccountSetting(AccountEntity accountEntity) {

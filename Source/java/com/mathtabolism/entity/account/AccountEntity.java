@@ -4,19 +4,15 @@
 package com.mathtabolism.entity.account;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -61,12 +57,6 @@ public class AccountEntity extends BaseGeneratedEntity implements Account {
   
   private String email;
   
-  @OneToMany(fetch = FetchType.EAGER, mappedBy = "accountEntity")
-  private List<AccountWeightEntity> accountWeights;
-  
-  @Transient
-  private String unhashedPassword;
-  
   public AccountEntity() {
   }
   
@@ -90,18 +80,12 @@ public class AccountEntity extends BaseGeneratedEntity implements Account {
     this.password = password;
   }
   
-  /**
-   * 
-   * @return the {@link AccountRole}
-   */
+  @Override
   public AccountRole getRole() {
     return role;
   }
   
-  /**
-   * 
-   * @param role the new {@link AccountRole}
-   */
+  @Override
   public void setRole(AccountRole role) {
     this.role = role;
   }
@@ -126,68 +110,24 @@ public class AccountEntity extends BaseGeneratedEntity implements Account {
     this.birthday = birthday;
   }
   
-  /**
-   * 
-   * @return the last login date
-   */
+  @Override
   public Date getLastLogin() {
     return lastLogin;
   }
   
-  /**
-   * 
-   * @param lastLogin the new last login date
-   */
+  @Override
   public void setLastLogin(Date lastLogin) {
     this.lastLogin = lastLogin;
   }
   
-  /**
-   * 
-   * @param activeSince
-   */
+  @Override
   public void setActiveSince(Date activeSince) {
     this.activeSince = activeSince;
   }
   
-  /**
-   * 
-   * @return the date the account was created
-   */
+  @Override
   public Date getActiveSince() {
     return activeSince;
-  }
-  
-  /**
-   * 
-   * @return
-   */
-  public String getUnhashedPassword() {
-    return unhashedPassword;
-  }
-  
-  /**
-   * 
-   * @param unhashedPassword
-   */
-  public void setUnhashedPassword(String unhashedPassword) {
-    this.unhashedPassword = unhashedPassword;
-  }
-  
-  /**
-   * 
-   * @return
-   */
-  public List<AccountWeightEntity> getAccountWeights() {
-    return accountWeights;
-  }
-  
-  /**
-   * 
-   * @param accountWeightEntities
-   */
-  public void setAccountWeights(List<AccountWeightEntity> accountWeights) {
-    this.accountWeights = accountWeights;
   }
   
   @Override
@@ -200,14 +140,6 @@ public class AccountEntity extends BaseGeneratedEntity implements Account {
     this.useBirthday = useBirthday;
   }
   
-  public boolean isUsingBirthday() {
-    return Indicator.isTrue(useBirthday);
-  }
-  
-  public void setUsingBirthday(boolean isUsingBirthday) {
-    useBirthday = Indicator.fromBoolean(isUsingBirthday);
-  }
-
   @Override
   public String getEmail() {
     return email;
@@ -221,7 +153,7 @@ public class AccountEntity extends BaseGeneratedEntity implements Account {
   @Override
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", id).append("username", username)
-        .append("password", password).append("unhashedPassword", unhashedPassword).append("role", role)
+        .append("password", password).append("role", role)
         .append("birthday", birthday).append("lastLogin", lastLogin).append("activeSince", activeSince)
         .append("email", email).append("useBirthday", useBirthday).toString();
   }

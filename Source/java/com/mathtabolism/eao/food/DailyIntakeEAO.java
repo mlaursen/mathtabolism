@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.eao.account;
+package com.mathtabolism.eao.food;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +11,7 @@ import javax.ejb.Stateless;
 
 import org.joda.time.DateTime;
 
-import com.mathtabolism.eao.BaseEAO;
+import com.mathtabolism.eao.BaseGeneratedEntityEAO;
 import com.mathtabolism.entity.account.AccountEntity;
 import com.mathtabolism.entity.account.DailyIntakeEntity;
 
@@ -20,7 +20,7 @@ import com.mathtabolism.entity.account.DailyIntakeEntity;
  * @author mlaursen
  */
 @Stateless
-public class DailyIntakeEAO extends BaseEAO<DailyIntakeEntity> {
+public class DailyIntakeEAO extends BaseGeneratedEntityEAO<DailyIntakeEntity> {
   protected DailyIntakeEAO() {
     super(DailyIntakeEntity.class);
   }
@@ -28,7 +28,7 @@ public class DailyIntakeEAO extends BaseEAO<DailyIntakeEntity> {
   /**
    * Finds the current week for an account
    * 
-   * @param accountEntity
+   * @param account
    *          the {@link AccountEntity} to find a DailyIntake week for
    * @param startDate
    *          the startDate as a Calendar to find
