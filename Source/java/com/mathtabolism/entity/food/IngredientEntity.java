@@ -16,7 +16,6 @@ import javax.persistence.OneToOne;
 
 import com.mathtabolism.constants.IngredientCategory;
 import com.mathtabolism.entity.BaseGeneratedEntity;
-import com.mathtabolism.entity.BasePK;
 import com.mathtabolism.util.nutrition.Calorie;
 import com.mathtabolism.util.nutrition.Carbohydrate;
 import com.mathtabolism.util.nutrition.Fat;
@@ -29,21 +28,21 @@ import com.mathtabolism.util.unit.Measurement;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = Ingredient.Q_findAllIngredients, query = "SELECT i FROM Ingredient i ORDER BY i.name, i.brand, i.category DESC"),
-    @NamedQuery(name = Ingredient.Q_findIngredientsByBrand, query = "SELECT i FROM Ingredient i WHERE i.brand = :brand ORDER BY i.name, i.brand, i.category DESC"),
-    @NamedQuery(name = Ingredient.Q_findIngredientsByCategory, query = "SELECT i FROM Ingredient i WHERE i.category = :category ORDER BY i.name, i.brand, i.category DESC"),
-    @NamedQuery(name = Ingredient.Q_findIngredientsByName, query = "SELECT i FROM Ingredient i WHERE UPPER(i.name) LIKE :name ORDER BY i.name, i.brand, i.category DESC")
+    @NamedQuery(name = IngredientEntity.Q_findAllIngredients, query = "SELECT i FROM IngredientEntity i ORDER BY i.name, i.brandEntity, i.category DESC"),
+    @NamedQuery(name = IngredientEntity.Q_findIngredientsByBrand, query = "SELECT i FROM IngredientEntity i WHERE i.brandEntity = :brand ORDER BY i.name, i.brandEntity, i.category DESC"),
+    @NamedQuery(name = IngredientEntity.Q_findIngredientsByCategory, query = "SELECT i FROM IngredientEntity i WHERE i.category = :category ORDER BY i.name, i.brandEntity, i.category DESC"),
+    @NamedQuery(name = IngredientEntity.Q_findIngredientsByName, query = "SELECT i FROM IngredientEntity i WHERE UPPER(i.name) LIKE :name ORDER BY i.name, i.brandEntity, i.category DESC")
 })
-public class Ingredient extends BaseGeneratedEntity {
-  public static final String Q_findAllIngredients = "Ingredient.findAllIngredients";
-  public static final String Q_findIngredientsByBrand = "Ingredient.findIngredientsByBrand";
-  public static final String Q_findIngredientsByCategory = "Ingredient.findIngredientsByCategory";
-  public static final String Q_findIngredientsByName = "Ingredient.findIngredientsByName";
+public class IngredientEntity extends BaseGeneratedEntity {
+  public static final String Q_findAllIngredients = "IngredientEntity.findAllIngredients";
+  public static final String Q_findIngredientsByBrand = "IngredientEntity.findIngredientsByBrand";
+  public static final String Q_findIngredientsByCategory = "IngredientEntity.findIngredientsByCategory";
+  public static final String Q_findIngredientsByName = "IngredientEntity.findIngredientsByName";
   private String name;
   
   @OneToOne
-  @JoinColumn(name = "brand_id", referencedColumnName = "id")
-  private Brand brand;
+  @JoinColumn(name = "brand_id")
+  private BrandEntity brandEntity;
   @Enumerated(EnumType.STRING)
   private IngredientCategory category;
   
@@ -68,44 +67,7 @@ public class Ingredient extends BaseGeneratedEntity {
   @AttributeOverride(name = "value", column = @Column)
   private Protein protein;
   
-  public Ingredient() {
-  }
-  
-  public static class PK extends BasePK {
-    private static final long serialVersionUID = -6682394873697416961L;
-    
-    private String name;
-    private String brand;
-    
-    public PK() {
-    }
-    
-    public PK(String name, String brand) {
-      this.name = name;
-      this.brand = brand;
-    }
-    
-    /**
-     * @param object
-     * @return
-     */
-    @Override
-    public boolean equals(Object object) {
-      if(object instanceof PK) {
-        PK pk = (PK) object;
-        return name.equals(pk.name) && brand.equals(pk.brand);
-      }
-      return false;
-    }
-    
-    /**
-     * @return
-     */
-    @Override
-    public int hashCode() {
-      return name.hashCode() + brand.hashCode();
-    }
-    
+  public IngredientEntity() {
   }
   
   public String getName() {
@@ -116,12 +78,12 @@ public class Ingredient extends BaseGeneratedEntity {
     this.name = name;
   }
   
-  public Brand getBrand() {
-    return brand;
+  public BrandEntity getBrand() {
+    return brandEntity;
   }
   
-  public void setBrand(Brand brand) {
-    this.brand = brand;
+  public void setBrand(BrandEntity brandEntity) {
+    this.brandEntity = brandEntity;
   }
   
   /**
@@ -254,9 +216,9 @@ public class Ingredient extends BaseGeneratedEntity {
   
   @Override
   public boolean equals(Object object) {
-    if(object instanceof Ingredient) {
-      Ingredient i = (Ingredient) object;
-      return name.equals(i.name) && brand.equals(i.brand) && category.equals(i.category) && serving.equals(i.serving)
+    if(object instanceof IngredientEntity) {
+      IngredientEntity i = (IngredientEntity) object;
+      return name.equals(i.name) && brandEntity.equals(i.brandEntity) && category.equals(i.category) && serving.equals(i.serving)
           && alternateServing.equals(i.alternateServing) && calories.equals(i.calories) && fat.equals(i.fat)
           && carbohydrates.equals(i.carbohydrates) && protein.equals(i.protein);
     }

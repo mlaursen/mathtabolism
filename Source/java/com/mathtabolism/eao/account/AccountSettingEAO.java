@@ -10,35 +10,35 @@ import java.util.Map;
 import javax.ejb.Stateless;
 
 import com.mathtabolism.eao.BaseEAO;
-import com.mathtabolism.entity.account.Account;
-import com.mathtabolism.entity.account.AccountSetting;
+import com.mathtabolism.entity.account.AccountEntity;
+import com.mathtabolism.entity.account.AccountSettingEntity;
 
 /**
  * 
  * @author mlaursen
  */
 @Stateless
-public class AccountSettingEAO extends BaseEAO<AccountSetting> {
+public class AccountSettingEAO extends BaseEAO<AccountSettingEntity> {
   public AccountSettingEAO() {
-    super(AccountSetting.class);
+    super(AccountSettingEntity.class);
   }
   
   /**
    * 
-   * @param account
+   * @param accountEntity
    *          the account to get the current AccountSetting for
    * @return
    */
-  public AccountSetting findCurrentAccountSetting(Account account) {
+  public AccountSettingEntity findCurrentAccountSetting(AccountEntity accountEntity) {
     Map<String, Object> parameters = new HashMap<>();
-    parameters.put("account_id", account.getId());
-    return findOneResult(AccountSetting.Q_findCurrentAccountSetting, parameters);
+    parameters.put("account_id", accountEntity.getId());
+    return findOneResult(AccountSettingEntity.Q_findCurrentAccountSetting, parameters);
   }
   
-  public AccountSetting findLatestSettingsForDate(String accountId, Date date) {
+  public AccountSettingEntity findLatestSettingsForDate(String accountId, Date date) {
     Map<String, Object> parameters = new HashMap<>();
     parameters.put("account_id", accountId);
     parameters.put("date", date);
-    return findOneResult(AccountSetting.Q_findLatestSettingsForDate, parameters);
+    return findOneResult(AccountSettingEntity.Q_findLatestSettingsForDate, parameters);
   }
 }

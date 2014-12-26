@@ -18,10 +18,10 @@ import com.mathtabolism.constants.AccountRole;
 import com.mathtabolism.eao.account.AccountEAO;
 import com.mathtabolism.eao.account.AccountSettingEAO;
 import com.mathtabolism.eao.account.AccountWeightEAO;
-import com.mathtabolism.entity.account.Account;
-import com.mathtabolism.entity.account.AccountSetting;
-import com.mathtabolism.entity.account.AccountWeight;
-import com.mathtabolism.entity.account.DailyIntake;
+import com.mathtabolism.entity.account.AccountEntity;
+import com.mathtabolism.entity.account.AccountSettingEntity;
+import com.mathtabolism.entity.account.AccountWeightEntity;
+import com.mathtabolism.entity.account.DailyIntakeEntity;
 import com.mathtabolism.util.PasswordEncryption;
 import com.mathtabolism.util.date.DateUtils;
 
@@ -46,91 +46,91 @@ public class AccountBO {
    * 
    * @param username
    *          the username to search for
-   * @return an {@link Account}
+   * @return an {@link AccountEntity}
    */
-  public Account findAccountByUsername(String username) {
+  public AccountEntity findAccountByUsername(String username) {
     return accountEAO.findAccountByUsername(username);
   }
   
-  public AccountSetting findAccountSettingsForAccount(Account account) {
-    return accountSettingEAO.findCurrentAccountSetting(account);
+  public AccountSettingEntity findAccountSettingsForAccount(AccountEntity accountEntity) {
+    return accountSettingEAO.findCurrentAccountSetting(accountEntity);
   }
   
-  public AccountSetting findLatestSettingsForDate(Account account, Date date) {
-    return accountSettingEAO.findLatestSettingsForDate(account.getId(), date);
+  public AccountSettingEntity findLatestSettingsForDate(AccountEntity accountEntity, Date date) {
+    return accountSettingEAO.findLatestSettingsForDate(accountEntity.getId(), date);
   }
   
-  public List<DailyIntake> findCurrentDailyIntakeWeekForAccount(Account account, AccountSetting currentSettings) {
-    return dailyIntakeBO.findCurrentWeek(account, currentSettings);
+  public List<DailyIntakeEntity> findCurrentDailyIntakeWeekForAccount(AccountEntity accountEntity, AccountSettingEntity currentSettings) {
+    return dailyIntakeBO.findCurrentWeek(accountEntity, currentSettings);
   }
   
-  public List<AccountWeight> findCurrentAccountWeightWeek(Account account, AccountSetting currentSettings) {
+  public List<AccountWeightEntity> findCurrentAccountWeightWeek(AccountEntity accountEntity, AccountSettingEntity currentSettings) {
     DateTime startDate = DateUtils.findStartDate(currentSettings.getRecalculationDay().toInt());
-    return accountWeightEAO.findCurrentAccountWeightWeek(account.getId(), startDate);
+    return accountWeightEAO.findCurrentAccountWeightWeek(accountEntity.getId(), startDate);
   }
   
-  public AccountWeight findTodaysWeight(Account account) {
-    return accountWeightEAO.findTodaysWeight(account);
+  public AccountWeightEntity findTodaysWeight(AccountEntity accountEntity) {
+    return accountWeightEAO.findTodaysWeight(accountEntity);
   }
   
-  public AccountWeight findLatestWeight(Account account) {
-    return accountWeightEAO.findLatestWeight(account);
+  public AccountWeightEntity findLatestWeight(AccountEntity accountEntity) {
+    return accountWeightEAO.findLatestWeight(accountEntity);
   }
   
   /**
    * 
-   * @param account
+   * @param accountEntity
    *          the account to update
    * @return an account with an updated last login date
    */
-  public Account updateLastLogin(Account account) {
-    return accountEAO.updateLastLogin(account);
+  public AccountEntity updateLastLogin(AccountEntity accountEntity) {
+    return accountEAO.updateLastLogin(accountEntity);
   }
   
   /**
    * 
-   * @param account
+   * @param accountEntity
    *          the account to create
-   * @return an Account with a generated primary key and default {@link AccountSetting}
+   * @return an Account with a generated primary key and default {@link AccountSettingEntity}
    */
-  public Account create(Account account) {
+  public AccountEntity create(AccountEntity accountEntity) {
     Date creationDate = Calendar.getInstance().getTime();
-    account.setPassword(PasswordEncryption.encrypt(account.getUnhashedPassword()));
-    account.setUnhashedPassword("");
-    account.setRole(AccountRole.USER);
-    account.setActiveSince(creationDate);
-    accountEAO.create(account);
+    accountEntity.setPassword(PasswordEncryption.encrypt(accountEntity.getUnhashedPassword()));
+    accountEntity.setUnhashedPassword("");
+    accountEntity.setRole(AccountRole.USER);
+    accountEntity.setActiveSince(creationDate);
+    accountEAO.create(accountEntity);
     
-    AccountSetting accountSetting = new AccountSetting(account, creationDate);
-    accountSettingEAO.create(accountSetting);
-    logger.debug("Account created: " + account);
-    return account;
+    AccountSettingEntity accountSettingEntity = new AccountSettingEntity(accountEntity, creationDate);
+    accountSettingEAO.create(accountSettingEntity);
+    logger.debug("Account created: " + accountEntity);
+    return accountEntity;
   }
   
   /**
    * 
-   * @param account
+   * @param accountEntity
    * @return
    */
-  public Account updateSettings(Account account, AccountSetting currentSettings) {
-    accountEAO.update(account);
+  public AccountEntity updateSettings(AccountEntity accountEntity, AccountSettingEntity currentSettings) {
+    accountEAO.update(accountEntity);
     currentSettings.setDateChanged(Calendar.getInstance().getTime());
-    AccountSetting currentSettingsDB = accountSettingEAO.findCurrentAccountSetting(account);
+    AccountSettingEntity currentSettingsDB = accountSettingEAO.findCurrentAccountSetting(accountEntity);
     if(DateUtils.isSameDate(currentSettings.getDateChanged(), currentSettingsDB.getDateChanged())) {
       accountSettingEAO.update(currentSettings);
     }
     else {
       accountSettingEAO.create(currentSettings);
     }
-    return account;
+    return accountEntity;
   }
   
-  public AccountWeight createOrUpdateWeight(AccountWeight weight) {
+  public AccountWeightEntity createOrUpdateWeight(AccountWeightEntity weight) {
     Date d = Calendar.getInstance().getTime();
     if(DateUtils.isSameDate(d, weight.getWeighInDate())) {
       return accountWeightEAO.update(weight);
     } else {
-      AccountWeight currentWeight = new AccountWeight();
+      AccountWeightEntity currentWeight = new AccountWeightEntity();
       currentWeight.setWeighInDate(d);
       currentWeight.setWeight(weight.getWeight());
       accountWeightEAO.create(currentWeight);

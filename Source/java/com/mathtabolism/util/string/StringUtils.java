@@ -72,8 +72,7 @@ public class StringUtils {
   /**
    * Formats a database attribute (table name, column, sequence, etc) from camel case to all lowercase and underscores
    * 
-   * @param attribute
-   *          the attribute to format
+   * @param attribute the attribute to format
    * @return a String formated as <tt>words_with_more_words</tt>
    */
   public static String toDatabaseFormat(String attribute) {

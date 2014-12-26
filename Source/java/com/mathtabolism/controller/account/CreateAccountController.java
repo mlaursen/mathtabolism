@@ -14,7 +14,7 @@ import org.jboss.logging.Logger;
 
 import com.mathtabolism.bo.account.AccountBO;
 import com.mathtabolism.controller.BaseController;
-import com.mathtabolism.entity.account.Account;
+import com.mathtabolism.entity.account.AccountEntity;
 import com.mathtabolism.navigation.AccountNav;
 import com.mathtabolism.util.string.StringUtils;
 import com.mathtabolism.util.string.UsernameGenerator;
@@ -31,7 +31,7 @@ public class CreateAccountController extends BaseController {
   
   @Inject
   private AccountBO accountBO;
-  private Account account;
+  private AccountEntity accountEntity;
   
   private String confirmPassword;
   
@@ -47,17 +47,17 @@ public class CreateAccountController extends BaseController {
    * 
    * @return the account or a new account if null
    */
-  public Account getAccount() {
-    if(account == null) {
-      account = new Account();
+  public AccountEntity getAccount() {
+    if(accountEntity == null) {
+      accountEntity = new AccountEntity();
     }
-    return account;
+    return accountEntity;
   }
   
   public String createAccount() {
     try {
-      String username = account.getUsername();
-      String password = account.getUnhashedPassword();
+      String username = accountEntity.getUsername();
+      String password = accountEntity.getUnhashedPassword();
       
       boolean isValid = true;
       if(StringUtils.isEmpty(username) || username.length() < 3 || username.length() > 60) {
@@ -80,7 +80,7 @@ public class CreateAccountController extends BaseController {
         setSignupCss(FRONT_CSS);
         return null;
       }
-      account = accountBO.create(account);
+      accountEntity = accountBO.create(accountEntity);
       HttpServletRequest request = (HttpServletRequest) getContext().getExternalContext().getRequest();
       try {
         if(request.getUserPrincipal() != null) {

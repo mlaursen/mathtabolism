@@ -31,10 +31,10 @@ import com.mathtabolism.entity.BaseGeneratedEntity;
  *
  */
 @Entity
-@NamedQueries(@NamedQuery(name = Account.Q_findByUsername, query = "SELECT a FROM Account a WHERE a.username = :username"))
-public class Account extends BaseGeneratedEntity {
+@NamedQueries(@NamedQuery(name = AccountEntity.Q_findByUsername, query = "SELECT a FROM AccountEntity a WHERE a.username = :username"))
+public class AccountEntity extends BaseGeneratedEntity {
   
-  public static final String Q_findByUsername = "Account.findByUsername";
+  public static final String Q_findByUsername = "AccountEntity.findByUsername";
   
   @Column(unique = true)
   private String username;
@@ -60,13 +60,13 @@ public class Account extends BaseGeneratedEntity {
   
   private String email;
   
-  @OneToMany(fetch = FetchType.EAGER, mappedBy = "account")
-  private List<AccountWeight> accountWeights;
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "accountEntity")
+  private List<AccountWeightEntity> accountWeights;
   
   @Transient
   private String unhashedPassword;
   
-  public Account() {
+  public AccountEntity() {
   }
   
   /**
@@ -198,15 +198,15 @@ public class Account extends BaseGeneratedEntity {
    * 
    * @return
    */
-  public List<AccountWeight> getAccountWeights() {
+  public List<AccountWeightEntity> getAccountWeights() {
     return accountWeights;
   }
   
   /**
    * 
-   * @param accountWeights
+   * @param accountWeightEntities
    */
-  public void setAccountWeights(List<AccountWeight> accountWeights) {
+  public void setAccountWeights(List<AccountWeightEntity> accountWeights) {
     this.accountWeights = accountWeights;
   }
   

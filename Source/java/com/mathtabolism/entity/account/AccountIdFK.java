@@ -3,6 +3,7 @@
  */
 package com.mathtabolism.entity.account;
 
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
@@ -19,15 +20,15 @@ import com.mathtabolism.entity.BaseGeneratedEntity;
 @MappedSuperclass
 public abstract class AccountIdFK extends BaseGeneratedEntity {
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "account_id")
-  protected Account account;
+  protected AccountEntity accountEntity;
   
-  public void setAccount(Account account) {
-    this.account = account;
+  public void setAccountEntity(AccountEntity accountEntity) {
+    this.accountEntity = accountEntity;
   }
   
-  public Account getAccount() {
-    return account;
+  public AccountEntity getAccountEntity() {
+    return accountEntity;
   }
 }

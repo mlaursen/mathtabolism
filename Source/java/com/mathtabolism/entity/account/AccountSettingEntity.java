@@ -25,21 +25,21 @@ import com.mathtabolism.util.unit.UnitSystem;
  */
 @Entity
 @NamedQueries({
-  @NamedQuery(name = AccountSetting.Q_findCurrentAccountSetting, query = "SELECT as1 FROM AccountSetting as1 WHERE as1.account.id = :account_id "
-      + "AND as1.dateChanged = (SELECT max(as2.dateChanged) FROM AccountSetting as2 WHERE as2.account.id = :account_id)"),
-  @NamedQuery(name = AccountSetting.Q_findLatestSettingsForDate, query = "SELECT as1 FROM AccountSetting as1 WHERE as1.account.id = :account_id "
-      + "AND as1.dateChanged = (SELECT max(as2.dateChanged) FROM AccountSetting as2 WHERE as2.account.id = :account_id "
+  @NamedQuery(name = AccountSettingEntity.Q_findCurrentAccountSetting, query = "SELECT as1 FROM AccountSettingEntity as1 WHERE as1.accountEntity.id = :account_id "
+      + "AND as1.dateChanged = (SELECT max(as2.dateChanged) FROM AccountSettingEntity as2 WHERE as2.accountEntity.id = :account_id)"),
+  @NamedQuery(name = AccountSettingEntity.Q_findLatestSettingsForDate, query = "SELECT as1 FROM AccountSettingEntity as1 WHERE as1.accountEntity.id = :account_id "
+      + "AND as1.dateChanged = (SELECT max(as2.dateChanged) FROM AccountSettingEntity as2 WHERE as2.accountEntity.id = :account_id "
       + "AND as2.dateChanged <= :date)")
 })
-public class AccountSetting extends AccountIdFK {
-  public static final String Q_findCurrentAccountSetting = "AccountSetting.findCurrentAccountSetting";
-  public static final String Q_findLatestSettingsForDate = "AccountSetting.findLatestSettingsForDate";
+public class AccountSettingEntity extends AccountIdFK {
+  public static final String Q_findCurrentAccountSetting = "AccountSettingEntity.findCurrentAccountSetting";
+  public static final String Q_findLatestSettingsForDate = "AccountSettingEntity.findLatestSettingsForDate";
   
-  public AccountSetting() {
+  public AccountSettingEntity() {
   }
   
-  public AccountSetting(Account account, Date dateChanged) {
-    this.account = account;
+  public AccountSettingEntity(AccountEntity accountEntity, Date dateChanged) {
+    this.accountEntity = accountEntity;
     this.dateChanged = dateChanged;
   }
   
@@ -168,7 +168,7 @@ public class AccountSetting extends AccountIdFK {
    */
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("accountId", account.getId())
+    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("accountId", accountEntity.getId())
         .append("recalculationDay", recalculationDay).append("activityMultiplier", activityMultiplier)
         .append("tdeeFormula", tdeeFormula).append("dateChanged", dateChanged).append("age", age)
         .append("height", height).toString();

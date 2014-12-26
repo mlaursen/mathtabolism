@@ -9,7 +9,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import com.mathtabolism.eao.food.BrandEAO;
-import com.mathtabolism.entity.food.Brand;
+import com.mathtabolism.entity.food.BrandEntity;
 
 /**
  * 
@@ -31,17 +31,17 @@ public class BrandBO {
    * 
    * @return
    */
-  public List<Brand> findAllBrands() {
+  public List<BrandEntity> findAllBrands() {
     return brandEAO.findAllBrands();
   }
   
   /**
    * 
-   * @param brand
+   * @param brandEntity
    * @return
    */
-  public Brand create(Brand brand) {
-    brandEAO.create(brand);
-    return brand;
+  public BrandEntity create(BrandEntity brandEntity) {
+    brandEAO.create(brandEntity);
+    return brandEntity;
   }
 }

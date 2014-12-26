@@ -17,12 +17,12 @@ import com.mathtabolism.constants.MealFactType;
 import com.mathtabolism.constants.NutrientType;
 import com.mathtabolism.constants.TotalType;
 import com.mathtabolism.controller.BaseController;
-import com.mathtabolism.entity.account.Account;
-import com.mathtabolism.entity.account.AccountSetting;
-import com.mathtabolism.entity.account.AccountWeight;
-import com.mathtabolism.entity.account.DailyIntake;
-import com.mathtabolism.entity.food.DailyIntakeMeal;
-import com.mathtabolism.entity.food.Meal;
+import com.mathtabolism.entity.account.AccountEntity;
+import com.mathtabolism.entity.account.AccountSettingEntity;
+import com.mathtabolism.entity.account.AccountWeightEntity;
+import com.mathtabolism.entity.account.DailyIntakeEntity;
+import com.mathtabolism.entity.food.DailyIntakeMealEntity;
+import com.mathtabolism.entity.food.MealEntity;
 import com.mathtabolism.util.calculation.FormulaCalculation;
 import com.mathtabolism.util.calculation.IntakeCalculator;
 import com.mathtabolism.util.date.DateUtils;
@@ -48,93 +48,93 @@ public class DailyIntakeController extends BaseController {
   @Inject
   private AccountController accountBean;
   
-  private List<DailyIntake> currentDailyIntakeWeek;
-  private List<AccountWeight> currentAccountWeightWeek;
+  private List<DailyIntakeEntity> currentDailyIntakeWeek;
+  private List<AccountWeightEntity> currentAccountWeightWeek;
   
   public DailyIntakeController() {
   }
   
-  public List<DailyIntake> getCurrentDailyIntakeWeek() {
+  public List<DailyIntakeEntity> getCurrentDailyIntakeWeek() {
     if(currentDailyIntakeWeek == null || currentDailyIntakeWeek.isEmpty()) {
       currentDailyIntakeWeek = dailyIntakeBO.findCurrentWeek(accountBean.getAccount(), accountBean.getCurrentSettings());
     }
     return currentDailyIntakeWeek;
   }
   
-  private List<AccountWeight> getCurrentAccountWeightWeek() {
+  private List<AccountWeightEntity> getCurrentAccountWeightWeek() {
     if(currentAccountWeightWeek == null) {
       currentAccountWeightWeek = accountBO.findCurrentAccountWeightWeek(accountBean.getAccount(), accountBean.getCurrentSettings());
     }
     return currentAccountWeightWeek;
   }
   
-  public List<DailyIntakeMeal> getDailyIntakeMeals(DailyIntake dailyIntake) {
-    List<DailyIntakeMeal> meals = dailyIntake.getMeals();
+  public List<DailyIntakeMealEntity> getDailyIntakeMeals(DailyIntakeEntity dailyIntakeEntity) {
+    List<DailyIntakeMealEntity> meals = dailyIntakeEntity.getMeals();
     for(int i = meals.size(); i < 5; i++) {
-      meals.add(dailyIntakeBO.getDefaultDailyIntakeMeal(dailyIntake, i));
+      meals.add(dailyIntakeBO.getDefaultDailyIntakeMeal(dailyIntakeEntity, i));
     }
     return meals;
   }
   
-  public String getMealFact(DailyIntakeMeal dailyIntakeMeal, MealFactType mealFactType) {
-    Meal meal = dailyIntakeMeal.getMeal();
+  public String getMealFact(DailyIntakeMealEntity dailyIntakeMealEntity, MealFactType mealFactType) {
+    MealEntity mealEntity = dailyIntakeMealEntity.getMeal();
     switch(mealFactType) {
       case NAME:
-        return meal.getName();
+        return mealEntity.getName();
       case CALORIE:
-        return IntakeCalculator.calculateMealNutrients(meal.getMealParts(), NutrientType.CALORIE).getDisplayValue();
+        return IntakeCalculator.calculateMealNutrients(mealEntity.getMealParts(), NutrientType.CALORIE).getDisplayValue();
       case FAT:
-        return IntakeCalculator.calculateMealNutrients(meal.getMealParts(), NutrientType.FAT).getDisplayValue();
+        return IntakeCalculator.calculateMealNutrients(mealEntity.getMealParts(), NutrientType.FAT).getDisplayValue();
       case CARBOHYDRATE:
-        return IntakeCalculator.calculateMealNutrients(meal.getMealParts(), NutrientType.CARBOHYDRATE)
+        return IntakeCalculator.calculateMealNutrients(mealEntity.getMealParts(), NutrientType.CARBOHYDRATE)
             .getDisplayValue();
       case PROTEIN:
-        return IntakeCalculator.calculateMealNutrients(meal.getMealParts(), NutrientType.PROTEIN).getDisplayValue();
+        return IntakeCalculator.calculateMealNutrients(mealEntity.getMealParts(), NutrientType.PROTEIN).getDisplayValue();
     }
     return "";
   }
   
-  public void setCurrentDailyIntakeWeek(List<DailyIntake> currentDailyIntakeWeek) {
+  public void setCurrentDailyIntakeWeek(List<DailyIntakeEntity> currentDailyIntakeWeek) {
     this.currentDailyIntakeWeek = currentDailyIntakeWeek;
   }
   
-  public String calculatedTotal(DailyIntake dailyIntake, NutrientType nutrientType, TotalType totalType) {
-    Account account = dailyIntake.getAccount();
-    Date intakeDate = dailyIntake.getIntakeDate();
-    AccountSetting accountSettings = accountBO.findLatestSettingsForDate(account, intakeDate);
+  public String calculatedTotal(DailyIntakeEntity dailyIntakeEntity, NutrientType nutrientType, TotalType totalType) {
+    AccountEntity accountEntity = dailyIntakeEntity.getAccountEntity();
+    Date intakeDate = dailyIntakeEntity.getIntakeDate();
+    AccountSettingEntity accountSettingEntities = accountBO.findLatestSettingsForDate(accountEntity, intakeDate);
     BaseNutrient calculatedTotal = null;
-    List<AccountWeight> week = getCurrentAccountWeightWeek();
-    AccountWeight weight = null;
+    List<AccountWeightEntity> week = getCurrentAccountWeightWeek();
+    AccountWeightEntity weight = null;
     if(week.stream().anyMatch(w -> DateUtils.isSameDate(w.getWeighInDate(), intakeDate))) {
       weight = week.stream().filter(w -> w.getWeighInDate().equals(intakeDate)).findFirst().get();
     }
     
-    BaseNutrient expected = calculateExpected(nutrientType, account, accountSettings, weight);
+    BaseNutrient expected = calculateExpected(nutrientType, accountEntity, accountSettingEntities, weight);
     
     switch(totalType) {
       case EXPECTED:
         calculatedTotal = expected;
         break;
       case CURRENT:
-        calculatedTotal = IntakeCalculator.calculateTotalDailyIntake(dailyIntake, nutrientType);
+        calculatedTotal = IntakeCalculator.calculateTotalDailyIntake(dailyIntakeEntity, nutrientType);
         break;
       case REMAINING:
         calculatedTotal = expected;
-        calculatedTotal.subtract(IntakeCalculator.calculateTotalDailyIntake(dailyIntake, nutrientType));
+        calculatedTotal.subtract(IntakeCalculator.calculateTotalDailyIntake(dailyIntakeEntity, nutrientType));
         break;
     }
     return calculatedTotal == null ? "" : calculatedTotal.getDisplayValue();
   }
   
   
-  private BaseNutrient calculateExpected(NutrientType nutrientType, Account account, AccountSetting accountSettings, AccountWeight accountWeight) {
+  private BaseNutrient calculateExpected(NutrientType nutrientType, AccountEntity accountEntity, AccountSettingEntity accountSettingEntities, AccountWeightEntity accountWeightEntity) {
     Calorie calories = new Calorie();
-    if(accountWeight != null && (account.getBirthday() != null || accountSettings.getAge() != null)
-        && accountSettings.getHeight() != null && account.getGender() != null) {
-      double weight = accountWeight.getWeight();
-      double height = accountSettings.getHeight();
-      int age = accountSettings.getAge() != null ? accountSettings.getAge() : DateUtils.calculateAge(account.getBirthday());
-      Gender gender = account.getGender();
+    if(accountWeightEntity != null && (accountEntity.getBirthday() != null || accountSettingEntities.getAge() != null)
+        && accountSettingEntities.getHeight() != null && accountEntity.getGender() != null) {
+      double weight = accountWeightEntity.getWeight();
+      double height = accountSettingEntities.getHeight();
+      int age = accountSettingEntities.getAge() != null ? accountSettingEntities.getAge() : DateUtils.calculateAge(accountEntity.getBirthday());
+      Gender gender = accountEntity.getGender();
       UnitSystem unitSystem = UnitSystem.IMPERIAL;
       calories = FormulaCalculation.calculateBMR(weight, height, age, gender, unitSystem);
     }

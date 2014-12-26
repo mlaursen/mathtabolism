@@ -12,35 +12,35 @@ import javax.ejb.Stateless;
 import org.joda.time.DateTime;
 
 import com.mathtabolism.eao.BaseEAO;
-import com.mathtabolism.entity.account.Account;
-import com.mathtabolism.entity.account.DailyIntake;
+import com.mathtabolism.entity.account.AccountEntity;
+import com.mathtabolism.entity.account.DailyIntakeEntity;
 
 /**
  * 
  * @author mlaursen
  */
 @Stateless
-public class DailyIntakeEAO extends BaseEAO<DailyIntake> {
+public class DailyIntakeEAO extends BaseEAO<DailyIntakeEntity> {
   protected DailyIntakeEAO() {
-    super(DailyIntake.class);
+    super(DailyIntakeEntity.class);
   }
   
   /**
    * Finds the current week for an account
    * 
-   * @param account
-   *          the {@link Account} to find a DailyIntake week for
+   * @param accountEntity
+   *          the {@link AccountEntity} to find a DailyIntake week for
    * @param startDate
    *          the startDate as a Calendar to find
-   * @return a List of {@link DailyIntake}
+   * @return a List of {@link DailyIntakeEntity}
    */
-  public List<DailyIntake> findCurrentWeek(Account account, DateTime startDate) {
+  public List<DailyIntakeEntity> findCurrentWeek(AccountEntity accountEntity, DateTime startDate) {
     Map<String, Object> parameters = new HashMap<>();
-    parameters.put("account_id", account.getId());
+    parameters.put("account_id", accountEntity.getId());
     parameters.put("start_date", startDate.toDate());
     parameters.put("end_date", startDate.plusDays(7).toDate());
     
-    return findResultList(DailyIntake.Q_findCurrentWeek, parameters);
+    return findResultList(DailyIntakeEntity.Q_findCurrentWeek, parameters);
   }
   
 }

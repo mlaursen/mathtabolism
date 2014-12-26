@@ -12,17 +12,17 @@ import javax.persistence.TypedQuery;
 
 import com.mathtabolism.constants.IngredientCategory;
 import com.mathtabolism.eao.BaseEAO;
-import com.mathtabolism.entity.food.Ingredient;
+import com.mathtabolism.entity.food.IngredientEntity;
 
 /**
  * 
  * @author mlaursen
  */
 @Stateless
-public class IngredientEAO extends BaseEAO<Ingredient> {
+public class IngredientEAO extends BaseEAO<IngredientEntity> {
   
   public IngredientEAO() {
-    super(Ingredient.class);
+    super(IngredientEntity.class);
   }
   
   /**
@@ -30,8 +30,8 @@ public class IngredientEAO extends BaseEAO<Ingredient> {
    * 
    * @return a List of all ingredients from the database
    */
-  public List<Ingredient> findAllIngredients(int limit) {
-    TypedQuery<Ingredient> q = em.createNamedQuery(Ingredient.Q_findAllIngredients, Ingredient.class);
+  public List<IngredientEntity> findAllIngredients(int limit) {
+    TypedQuery<IngredientEntity> q = em.createNamedQuery(IngredientEntity.Q_findAllIngredients, IngredientEntity.class);
     if(limit > 0) {
       q.setMaxResults(limit);
     }
@@ -45,11 +45,11 @@ public class IngredientEAO extends BaseEAO<Ingredient> {
    *          the brand name
    * @return a list of ingredients that have the given brand
    */
-  public List<Ingredient> findIngredientsByBrand(String brand) {
+  public List<IngredientEntity> findIngredientsByBrand(String brand) {
     Map<String, Object> parameters = new HashMap<>();
     parameters.put("brand", brand);
     
-    return findResultList(Ingredient.Q_findIngredientsByBrand, parameters);
+    return findResultList(IngredientEntity.Q_findIngredientsByBrand, parameters);
   }
   
   /**
@@ -59,11 +59,11 @@ public class IngredientEAO extends BaseEAO<Ingredient> {
    *          an {@link IngredientCategory} to lookup Ingredients for
    * @return a List of Ingredients for the given category
    */
-  public List<Ingredient> findIngredientsByCategory(IngredientCategory category) {
+  public List<IngredientEntity> findIngredientsByCategory(IngredientCategory category) {
     Map<String, Object> parameters = new HashMap<>();
     parameters.put("category", category);
     
-    return findResultList(Ingredient.Q_findIngredientsByCategory, parameters);
+    return findResultList(IngredientEntity.Q_findIngredientsByCategory, parameters);
   }
   
   /**
@@ -73,10 +73,10 @@ public class IngredientEAO extends BaseEAO<Ingredient> {
    * @param name the Ingredient name to lookup
    * @return the List of Ingredients with a name like the search name
    */
-  public List<Ingredient> findIngredientsByName(String name) {
+  public List<IngredientEntity> findIngredientsByName(String name) {
     Map<String, Object> parameters = new HashMap<>();
     parameters.put("name", "%" + name.toUpperCase() + "%");
     
-    return findResultList(Ingredient.Q_findIngredientsByName, parameters);
+    return findResultList(IngredientEntity.Q_findIngredientsByName, parameters);
   }
 }

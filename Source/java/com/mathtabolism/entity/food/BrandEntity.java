@@ -15,15 +15,15 @@ import com.mathtabolism.entity.BaseGeneratedEntity;
  */
 @Entity
 @NamedQueries({
-  @NamedQuery(name = Brand.Q_findAllBrands, query = "SELECT b FROM Brand b ORDER BY name")
+  @NamedQuery(name = BrandEntity.Q_findAllBrands, query = "SELECT b FROM BrandEntity b ORDER BY name")
 })
-public class Brand extends BaseGeneratedEntity {
+public class BrandEntity extends BaseGeneratedEntity {
   public static final String Q_findAllBrands = "Brand.findAllBrands";
   
-  public Brand() {
+  public BrandEntity() {
   }
   
-  public Brand(String name) {
+  public BrandEntity(String name) {
     this.name = name;
   }
   
@@ -47,8 +47,8 @@ public class Brand extends BaseGeneratedEntity {
   
   @Override
   public boolean equals(Object object) {
-    if(object instanceof Brand) {
-      Brand b = (Brand) object;
+    if(object instanceof BrandEntity) {
+      BrandEntity b = (BrandEntity) object;
       return id.equals(b.id);
     }
     return false;

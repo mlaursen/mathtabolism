@@ -21,9 +21,9 @@ import com.mathtabolism.constants.Gender;
 import com.mathtabolism.constants.TDEEFormula;
 import com.mathtabolism.constants.Weekday;
 import com.mathtabolism.controller.BaseController;
-import com.mathtabolism.entity.account.Account;
-import com.mathtabolism.entity.account.AccountSetting;
-import com.mathtabolism.entity.account.AccountWeight;
+import com.mathtabolism.entity.account.AccountEntity;
+import com.mathtabolism.entity.account.AccountSettingEntity;
+import com.mathtabolism.entity.account.AccountWeightEntity;
 import com.mathtabolism.util.number.NumberUtils;
 import com.mathtabolism.util.unit.UnitSystem;
 
@@ -44,10 +44,10 @@ public class AccountController extends BaseController {
   @Inject
   private AccountBO accountBO;
   
-  private Account account;
-  private AccountSetting currentSettings;
-  private AccountWeight currentWeight;
-  private AccountWeight previousWeight;
+  private AccountEntity accountEntity;
+  private AccountSettingEntity currentSettings;
+  private AccountWeightEntity currentWeight;
+  private AccountWeightEntity previousWeight;
   private String heightLarge;
   private String heightSmall;
   
@@ -59,29 +59,29 @@ public class AccountController extends BaseController {
    * 
    * @return the account
    */
-  public Account getAccount() {
-    if(account == null) {
+  public AccountEntity getAccount() {
+    if(accountEntity == null) {
       ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
       String username = context.getUserPrincipal().getName();
-      account = accountBO.findAccountByUsername(username);
-      currentSettings = accountBO.findAccountSettingsForAccount(account);
-      currentWeight = accountBO.findTodaysWeight(account);
+      accountEntity = accountBO.findAccountByUsername(username);
+      currentSettings = accountBO.findAccountSettingsForAccount(accountEntity);
+      currentWeight = accountBO.findTodaysWeight(accountEntity);
       if(currentWeight == null) {
-        currentWeight = new AccountWeight(account, new Date());
+        currentWeight = new AccountWeightEntity(accountEntity, new Date());
       }
-      previousWeight = accountBO.findLatestWeight(account);
-      if(account != null) {
-        account = accountBO.updateLastLogin(account);
+      previousWeight = accountBO.findLatestWeight(accountEntity);
+      if(accountEntity != null) {
+        accountEntity = accountBO.updateLastLogin(accountEntity);
       }
     }
-    return account;
+    return accountEntity;
   }
   
   /**
    * Gets the current account settings
    * @return the current account settings
    */
-  public AccountSetting getCurrentSettings() {
+  public AccountSettingEntity getCurrentSettings() {
     return currentSettings;
   }
   
@@ -89,7 +89,7 @@ public class AccountController extends BaseController {
    * Sets the current account settings
    * @param currentSettings the current account settings
    */
-  public void setCurrentSettings(AccountSetting currentSettings) {
+  public void setCurrentSettings(AccountSettingEntity currentSettings) {
     this.currentSettings = currentSettings;
   }
   
@@ -125,10 +125,10 @@ public class AccountController extends BaseController {
    * @return the selected gender
    */
   public String getSelectedGender() {
-    if(account.getGender() == null) {
-      account.setGender(Gender.MALE);
+    if(accountEntity.getGender() == null) {
+      accountEntity.setGender(Gender.MALE);
     }
-    return getString(account.getGender());
+    return getString(accountEntity.getGender());
   }
   
   /**
@@ -187,10 +187,10 @@ public class AccountController extends BaseController {
   
   /**
    * 
-   * @param account
+   * @param accountEntity
    */
-  public void setAccount(Account account) {
-    this.account = account;
+  public void setAccount(AccountEntity accountEntity) {
+    this.accountEntity = accountEntity;
   }
   
   public boolean isAccountAdmin() {
@@ -218,7 +218,7 @@ public class AccountController extends BaseController {
   }
   
   public void saveUpdatedSettings() {
-    accountBO.updateSettings(account, currentSettings);
+    accountBO.updateSettings(accountEntity, currentSettings);
     displayInfoMessage("account_UpdatedSettings");
   }
   
@@ -256,7 +256,7 @@ public class AccountController extends BaseController {
    */
   public boolean isFirstTimeUser() {
     getAccount();
-    return DateUtils.isSameDay(account.getActiveSince(), new Date()) || currentSettings == null
+    return DateUtils.isSameDay(accountEntity.getActiveSince(), new Date()) || currentSettings == null
         || currentSettings.getActivityMultiplier() == null || currentSettings.getHeight() == null
         || currentSettings.getRecalculationDay() == null || currentSettings.getTdeeFormula() == null;
   }

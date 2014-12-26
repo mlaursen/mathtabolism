@@ -10,29 +10,29 @@ import java.util.Map;
 import javax.ejb.Stateless;
 
 import com.mathtabolism.eao.BaseEAO;
-import com.mathtabolism.entity.account.Account;
+import com.mathtabolism.entity.account.AccountEntity;
 
 /**
  * @author mlaursen
  *
  */
 @Stateless
-public class AccountEAO extends BaseEAO<Account> {
+public class AccountEAO extends BaseEAO<AccountEntity> {
   public AccountEAO() {
-    super(Account.class);
+    super(AccountEntity.class);
   }
   
   /**
    * 
    * @param username
    *          the username to search by
-   * @return an {@link Account} or null
+   * @return an {@link AccountEntity} or null
    */
-  public Account findAccountByUsername(String username) {
+  public AccountEntity findAccountByUsername(String username) {
     Map<String, Object> parameters = new HashMap<>();
     parameters.put("username", username);
     
-    return findOneResult(Account.Q_findByUsername, parameters);
+    return findOneResult(AccountEntity.Q_findByUsername, parameters);
   }
   
   /**
@@ -42,7 +42,7 @@ public class AccountEAO extends BaseEAO<Account> {
    *          the account to update
    * @return an Account with the last login date updated
    */
-  public Account updateLastLogin(Account a) {
+  public AccountEntity updateLastLogin(AccountEntity a) {
     a.setLastLogin(Calendar.getInstance().getTime());
     update(a);
     return a;

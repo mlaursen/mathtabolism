@@ -15,8 +15,8 @@ import com.mathtabolism.bo.food.BrandBO;
 import com.mathtabolism.bo.food.IngredientBO;
 import com.mathtabolism.constants.IngredientCategory;
 import com.mathtabolism.controller.BaseController;
-import com.mathtabolism.entity.food.Brand;
-import com.mathtabolism.entity.food.Ingredient;
+import com.mathtabolism.entity.food.BrandEntity;
+import com.mathtabolism.entity.food.IngredientEntity;
 
 /**
  * 
@@ -33,10 +33,10 @@ public class IngredientController extends BaseController {
   @Inject
   public BrandBO brandBO;
   
-  private List<Ingredient> unfilteredIngredients;
-  private List<Ingredient> filteredIngredients = new ArrayList<>();
-  private List<Brand> unfilteredBrands;
-  private List<Brand> filteredBrands = new ArrayList<>();
+  private List<IngredientEntity> unfilteredIngredients;
+  private List<IngredientEntity> filteredIngredients = new ArrayList<>();
+  private List<BrandEntity> unfilteredBrands;
+  private List<BrandEntity> filteredBrands = new ArrayList<>();
   private List<IngredientCategory> selectedCategories = new ArrayList<>();
   
   public IngredientController() {
@@ -46,7 +46,7 @@ public class IngredientController extends BaseController {
    * 
    * @return
    */
-  public List<Ingredient> getUnfilteredIngredients() {
+  public List<IngredientEntity> getUnfilteredIngredients() {
     if(unfilteredIngredients == null) {
       unfilteredIngredients = ingredientBO.findPopularIngredients();
       Collections.copy(filteredIngredients, unfilteredIngredients);
@@ -58,11 +58,11 @@ public class IngredientController extends BaseController {
    * 
    * @return
    */
-  public List<Ingredient> getFilteredIngredients() {
+  public List<IngredientEntity> getFilteredIngredients() {
     return filteredIngredients;
   }
   
-  public List<Brand> getUnfilteredBrands() {
+  public List<BrandEntity> getUnfilteredBrands() {
     if(unfilteredBrands == null) {
       unfilteredBrands = brandBO.findAllBrands();
       Collections.copy(filteredBrands, unfilteredBrands);
@@ -70,7 +70,7 @@ public class IngredientController extends BaseController {
     return unfilteredBrands;
   }
   
-  public List<Brand> getFilteredBrands() {
+  public List<BrandEntity> getFilteredBrands() {
     return filteredBrands;
   }
   

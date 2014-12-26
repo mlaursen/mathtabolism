@@ -19,15 +19,15 @@ import com.mathtabolism.util.unit.Measurement;
  * @author mlaursen
  */
 @Entity
-public class MealPart extends BaseGeneratedEntity {
+public class MealPartEntity extends BaseGeneratedEntity {
   
   @ManyToOne
   @JoinColumn(name = "meal_id")
-  private Meal meal;
+  private MealEntity mealEntity;
   
   @OneToOne
   @JoinColumn(name = "ingredient_id")
-  private Ingredient ingredient;
+  private IngredientEntity ingredientEntity;
   
   @AttributeOverrides({
       @AttributeOverride(name = "unitMeasurement", column = @Column(name = "ingredient_serving")),
@@ -35,39 +35,39 @@ public class MealPart extends BaseGeneratedEntity {
   })
   private Measurement serving;
   
-  public MealPart() {
+  public MealPartEntity() {
   }
   
   /**
    * 
    * @return
    */
-  public Meal getMeal() {
-    return meal;
+  public MealEntity getMeal() {
+    return mealEntity;
   }
   
   /**
    * 
-   * @param meal
+   * @param mealEntity
    */
-  public void setMeal(Meal meal) {
-    this.meal = meal;
+  public void setMeal(MealEntity mealEntity) {
+    this.mealEntity = mealEntity;
   }
   
   /**
    * 
    * @return
    */
-  public Ingredient getIngredient() {
-    return ingredient;
+  public IngredientEntity getIngredient() {
+    return ingredientEntity;
   }
   
   /**
    * 
-   * @param ingredient
+   * @param ingredientEntity
    */
-  public void setIngredient(Ingredient ingredient) {
-    this.ingredient = ingredient;
+  public void setIngredient(IngredientEntity ingredientEntity) {
+    this.ingredientEntity = ingredientEntity;
   }
   
   /**

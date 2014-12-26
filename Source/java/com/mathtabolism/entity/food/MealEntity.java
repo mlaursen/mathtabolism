@@ -16,15 +16,15 @@ import com.mathtabolism.entity.BaseGeneratedEntity;
  * @author mlaursen
  */
 @Entity
-public class Meal extends BaseGeneratedEntity {
+public class MealEntity extends BaseGeneratedEntity {
   
   private String name;
   
   @OneToMany
   @JoinColumn(name = "meal_id")
-  private List<MealPart> mealParts;
+  private List<MealPartEntity> mealParts;
   
-  public Meal() {
+  public MealEntity() {
   }
   
   /**
@@ -47,7 +47,7 @@ public class Meal extends BaseGeneratedEntity {
    * 
    * @return
    */
-  public List<MealPart> getMealParts() {
+  public List<MealPartEntity> getMealParts() {
     return mealParts;
   }
   
@@ -55,7 +55,7 @@ public class Meal extends BaseGeneratedEntity {
    * 
    * @param mealParts
    */
-  public void setMealParts(List<MealPart> mealParts) {
+  public void setMealParts(List<MealPartEntity> mealParts) {
     this.mealParts = mealParts;
   }
 }

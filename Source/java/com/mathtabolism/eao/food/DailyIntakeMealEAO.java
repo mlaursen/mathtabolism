@@ -6,15 +6,15 @@ package com.mathtabolism.eao.food;
 import javax.ejb.Stateless;
 
 import com.mathtabolism.eao.BaseEAO;
-import com.mathtabolism.entity.food.DailyIntakeMeal;
+import com.mathtabolism.entity.food.DailyIntakeMealEntity;
 
 /**
  * 
  * @author mlaursen
  */
 @Stateless
-public class DailyIntakeMealEAO extends BaseEAO<DailyIntakeMeal> {
+public class DailyIntakeMealEAO extends BaseEAO<DailyIntakeMealEntity> {
   public DailyIntakeMealEAO() {
-    super(DailyIntakeMeal.class);
+    super(DailyIntakeMealEntity.class);
   }
 }

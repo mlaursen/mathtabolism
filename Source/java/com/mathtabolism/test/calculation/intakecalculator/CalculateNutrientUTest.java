@@ -10,11 +10,11 @@ import org.junit.Test;
 
 import com.mathtabolism.constants.IngredientCategory;
 import com.mathtabolism.constants.NutrientType;
-import com.mathtabolism.entity.food.Brand;
-import com.mathtabolism.entity.food.DailyIntakeMeal;
-import com.mathtabolism.entity.food.Ingredient;
-import com.mathtabolism.entity.food.Meal;
-import com.mathtabolism.entity.food.MealPart;
+import com.mathtabolism.entity.food.BrandEntity;
+import com.mathtabolism.entity.food.DailyIntakeMealEntity;
+import com.mathtabolism.entity.food.IngredientEntity;
+import com.mathtabolism.entity.food.MealEntity;
+import com.mathtabolism.entity.food.MealPartEntity;
 
 import static com.mathtabolism.util.calculation.IntakeCalculator.calculateNutrient;
 
@@ -28,21 +28,21 @@ import com.mathtabolism.util.unit.UnitMeasurement;
 
 public class CalculateNutrientUTest {
   
-  private static Ingredient chickenBreast;
+  private static IngredientEntity chickenBreast;
   private static Measurement chickenOzServing;
   private static Measurement chickenGServing;
-  private static DailyIntakeMeal meal300gChicken;
-  private static DailyIntakeMeal meal4ozChicken;
-  private static Meal chicken300g;
-  private static Meal chicken4oz;
+  private static DailyIntakeMealEntity meal300gChicken;
+  private static DailyIntakeMealEntity meal4ozChicken;
+  private static MealEntity chicken300g;
+  private static MealEntity chicken4oz;
   
   @BeforeClass
   public static void initConstants() {
     chickenOzServing = new Measurement(UnitMeasurement.OUNCE, 4);
     chickenGServing = new Measurement(UnitMeasurement.GRAM, 112);
-    chickenBreast = new Ingredient();
+    chickenBreast = new IngredientEntity();
     chickenBreast.setName("Chicken Breast");
-    chickenBreast.setBrand(new Brand("Test"));
+    chickenBreast.setBrand(new BrandEntity("Test"));
     chickenBreast.setCategory(IngredientCategory.MEAT);
     chickenBreast.setCalories(140);
     chickenBreast.setFat(2.5);
@@ -51,26 +51,26 @@ public class CalculateNutrientUTest {
     chickenBreast.setServing(chickenOzServing);
     chickenBreast.setAlternateServing(chickenGServing);
     
-    chicken300g = new Meal();
+    chicken300g = new MealEntity();
     chicken300g.setName("300g Chicken Breast");
     
-    MealPart mpChicken300g = new MealPart();
+    MealPartEntity mpChicken300g = new MealPartEntity();
     mpChicken300g.setIngredient(chickenBreast);
     mpChicken300g.setMeal(chicken300g);
     mpChicken300g.setServing(new Measurement(UnitMeasurement.GRAM, 300));
     chicken300g.setMealParts(Arrays.asList(mpChicken300g));
     
-    chicken4oz = new Meal();
+    chicken4oz = new MealEntity();
     chicken4oz.setName("4 oz Chicken Breast");
-    MealPart mpChicken4oz = new MealPart();
+    MealPartEntity mpChicken4oz = new MealPartEntity();
     mpChicken4oz.setIngredient(chickenBreast);
     mpChicken4oz.setMeal(chicken4oz);
     mpChicken4oz.setServing(new Measurement(UnitMeasurement.OUNCE, 4));
     chicken4oz.setMealParts(Arrays.asList(mpChicken4oz));
     
-    meal300gChicken = new DailyIntakeMeal();
+    meal300gChicken = new DailyIntakeMealEntity();
     meal300gChicken.setMeal(chicken300g);
-    meal4ozChicken = new DailyIntakeMeal();
+    meal4ozChicken = new DailyIntakeMealEntity();
     meal4ozChicken.setMeal(chicken4oz);
   }
   

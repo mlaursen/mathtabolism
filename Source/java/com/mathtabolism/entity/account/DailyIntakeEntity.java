@@ -8,8 +8,6 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -18,8 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
-import com.mathtabolism.entity.BaseGeneratedEntity;
-import com.mathtabolism.entity.food.DailyIntakeMeal;
+import com.mathtabolism.entity.food.DailyIntakeMealEntity;
 
 /**
  * 
@@ -32,19 +29,15 @@ import com.mathtabolism.entity.food.DailyIntakeMeal;
   })
 })
 @NamedQueries({
-  @NamedQuery(name = DailyIntake.Q_findCurrentWeek, query = "SELECT di FROM DailyIntake di "
-      + "WHERE di.account.id=:account_id AND di.intakeDate BETWEEN :start_date AND :end_date "
+  @NamedQuery(name = DailyIntakeEntity.Q_findCurrentWeek, query = "SELECT di FROM DailyIntakeEntity di "
+      + "WHERE di.accountEntity.id = :account_id AND di.intakeDate BETWEEN :start_date AND :end_date "
       + "ORDER BY di.intakeDate ASC")
 })
-public class DailyIntake extends BaseGeneratedEntity {
-  public static final String Q_findCurrentWeek = "DailyIntake.getCurrentWeek";
+public class DailyIntakeEntity extends AccountIdFK {
+  public static final String Q_findCurrentWeek = "DailyIntakeEntity.getCurrentWeek";
   
-  public DailyIntake() {
+  public DailyIntakeEntity() {
   }
-  
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "account_id")
-  private Account account;
   
   @Temporal(TemporalType.DATE)
   private Date intakeDate;
@@ -53,16 +46,8 @@ public class DailyIntake extends BaseGeneratedEntity {
   private Double carbMultiplier;
   private Double proteinMultiplier;
   
-  @OneToMany(fetch = FetchType.EAGER, mappedBy = "dailyIntake")
-  private List<DailyIntakeMeal> meals;
-  
-  public Account getAccount() {
-    return account;
-  }
-  
-  public void setAccount(Account account) {
-    this.account = account;
-  }
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "dailyIntakeEntity")
+  private List<DailyIntakeMealEntity> meals;
   
   public Date getIntakeDate() {
     return intakeDate;
@@ -141,7 +126,7 @@ public class DailyIntake extends BaseGeneratedEntity {
    * 
    * @return
    */
-  public List<DailyIntakeMeal> getMeals() {
+  public List<DailyIntakeMealEntity> getMeals() {
     return meals;
   }
   
@@ -149,7 +134,7 @@ public class DailyIntake extends BaseGeneratedEntity {
    * 
    * @param meals
    */
-  public void setMeals(List<DailyIntakeMeal> meals) {
+  public void setMeals(List<DailyIntakeMealEntity> meals) {
     this.meals = meals;
   }
   
