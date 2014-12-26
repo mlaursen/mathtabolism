@@ -82,23 +82,30 @@ public abstract class BaseEntityModelConverter<C, E extends C, M extends C> {
    * @throws IllegalAccessException 
    */
   private <F extends C, T extends C> void doConversion(F convertFrom, T convertTo, Class<C> converterClass) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-    Method[] converterMethods = converterClass.getDeclaredMethods();
-    Method[] convertFromMethods = convertFrom.getClass().getDeclaredMethods();
-    Method[] convertToMethods = convertTo.getClass().getDeclaredMethods();
+    Method[] converterMethods = converterClass.getMethods();
+    Method[] convertFromMethods = convertFrom.getClass().getMethods();
+    Method[] convertToMethods = convertTo.getClass().getMethods();
 
     String[] getters = getGetters(converterMethods);
     String[] setters = getSetters(converterMethods);
-    if(getters.length != setters.length) {
-      logger.error(String.format("There is an uneven amount of getters (%d) and setters (%d).", getters.length, setters.length));
-      return;
-    }
+    logger.debug("Getters for contract: " + getters);
+    logger.debug("Setters for contract: " + setters);
     
     for(String setter : setters) {
-      String getter = setter.replace(SET, GET); // assumes that it exists.... :/
+      String getter = setter.replace(SET, GET);
       Method toSet = findSetter(convertToMethods, setter);
       Method toGet = findGetter(convertFromMethods, getter);
+      if(toSet == null) {
+        logger.error("Missing the setter method '" + setter + "' for the corresponding getter '" + getter + "' from " + convertTo);
+      }
       
-      toSet.invoke(convertTo, toGet.invoke(convertFrom));
+      if(toGet == null) {
+        logger.error("Missing the getter method '" + getter + "' for the corresponding setter '" + setter + "' from " + convertFrom);
+      }
+      
+      if(toSet != null && toGet != null) {
+        toSet.invoke(convertTo, toGet.invoke(convertFrom));
+      }
     }
   }
   

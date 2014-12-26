@@ -122,10 +122,24 @@ public class AccountBO {
     }
   }
   
+  /**
+   * Checks if a given username is currently available.
+   * <p>A username is considered available if blank or there are no usernames that match the given username.
+   * 
+   * @param username the username to search for
+   * @return true if the username is available.
+   */
   public boolean isUsernameAvailable(String username) {
     return StringUtils.isBlank(username) || accountEAO.findAccountByUsername(username) == null;
   }
   
+  /**
+   * Creates a new account from a {@link CreateAccountModel}. Also creates a dummy {@link AccountSettingEntity}
+   * once the account was created.
+   * 
+   * 
+   * @param createAccountModel the model to create from
+   */
   public void createAccount(CreateAccountModel createAccountModel) {
     AccountEntity account = accountConverter.convertModelToEntity(createAccountModel);
     Date creationDate = Calendar.getInstance().getTime();
