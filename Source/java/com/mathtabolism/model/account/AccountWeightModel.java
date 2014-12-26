@@ -6,12 +6,14 @@ package com.mathtabolism.model.account;
 import java.util.Date;
 
 import com.mathtabolism.emcontract.AccountWeight;
+import com.mathtabolism.model.BaseModel;
+import com.mathtabolism.util.number.NumberUtils;
 
 /**
  * @author mlaursen
  *
  */
-public class AccountWeightModel implements AccountWeight {
+public class AccountWeightModel extends BaseModel implements AccountWeight {
   
   private Double weight;
   private Date weighInDate;
@@ -36,4 +38,12 @@ public class AccountWeightModel implements AccountWeight {
     return weighInDate;
   }
 
+  /**
+   * Gets the weight formatted to 2 decimal places.
+   * 
+   * @return the weight as a String
+   */
+  public String getWeightStr() {
+    return NumberUtils.formatAsString(weight);
+  }
 }

@@ -26,15 +26,26 @@ import com.mathtabolism.util.unit.UnitSystem;
  */
 @Entity
 @NamedQueries({
-  @NamedQuery(name = AccountSettingEntity.Q_findCurrentAccountSetting, query = "SELECT as1 FROM AccountSettingEntity as1 WHERE as1.accountEntity.id = :account_id "
-      + "AND as1.dateChanged = (SELECT max(as2.dateChanged) FROM AccountSettingEntity as2 WHERE as2.accountEntity.id = :account_id)"),
-  @NamedQuery(name = AccountSettingEntity.Q_findLatestSettingsForDate, query = "SELECT as1 FROM AccountSettingEntity as1 WHERE as1.accountEntity.id = :account_id "
-      + "AND as1.dateChanged = (SELECT max(as2.dateChanged) FROM AccountSettingEntity as2 WHERE as2.accountEntity.id = :account_id "
-      + "AND as2.dateChanged <= :date)")
+  @NamedQuery(
+      name = AccountSettingEntity.Q_findCurrentAccountSetting,
+      query = "SELECT as1 FROM AccountSettingEntity as1 WHERE as1.accountEntity.id = :account_id "
+            + "AND as1.dateChanged = (SELECT max(as2.dateChanged) FROM AccountSettingEntity as2 WHERE as2.accountEntity.id = :account_id)"
+  ),
+  @NamedQuery(
+      name = AccountSettingEntity.Q_findLatestSettingsForDate,
+      query = "SELECT as1 FROM AccountSettingEntity as1 WHERE as1.accountEntity.id = :account_id "
+            + "AND as1.dateChanged = (SELECT max(as2.dateChanged) FROM AccountSettingEntity as2 WHERE as2.accountEntity.id = :account_id "
+            + "AND as2.dateChanged <= :date)"
+  ),
+  @NamedQuery(
+      name = AccountSettingEntity.Q_findLatestAccountSettingByAccountId,
+      query = "SELECT max(as1.dateChanged) FROM AccountSettingEntity as1 WHERE as1.accountEntity.id = :account_id"
+  )
 })
 public class AccountSettingEntity extends AccountIdFK implements AccountSetting {
   public static final String Q_findCurrentAccountSetting = "AccountSettingEntity.findCurrentAccountSetting";
   public static final String Q_findLatestSettingsForDate = "AccountSettingEntity.findLatestSettingsForDate";
+  public static final String Q_findLatestAccountSettingByAccountId = "AccountSettingEntity.findLatestAccountSettingByAccountId";
   
   public AccountSettingEntity() {
   }

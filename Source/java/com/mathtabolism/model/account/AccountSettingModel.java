@@ -6,6 +6,8 @@ import com.mathtabolism.constants.ActivityMultiplier;
 import com.mathtabolism.constants.TDEEFormula;
 import com.mathtabolism.constants.Weekday;
 import com.mathtabolism.emcontract.AccountSetting;
+import com.mathtabolism.model.BaseModel;
+import com.mathtabolism.util.number.NumberUtils;
 import com.mathtabolism.util.unit.UnitSystem;
 
 /**
@@ -13,7 +15,10 @@ import com.mathtabolism.util.unit.UnitSystem;
  * @author mlaursen
  *
  */
-public class AccountSettingModel implements AccountSetting {
+public class AccountSettingModel extends BaseModel implements AccountSetting {
+  
+  private String heightSmall;
+  private String heightLarge;
   
   private Date dateChanged;
   private Integer age;
@@ -22,7 +27,30 @@ public class AccountSettingModel implements AccountSetting {
   private Weekday recalculationDay;
   private TDEEFormula tdeeFormula;
   private UnitSystem unitSystem;
+  
+  public void updateHeight() {
+    double smallH = NumberUtils.stringToDouble(heightSmall);
+    double largeH = NumberUtils.stringToDouble(heightLarge);
+    int mult = UnitSystem.isImperial(unitSystem) ? 12 : 100;
+    setHeight(largeH * mult + smallH);
+  }
 
+  public String getHeightSmall() {
+    return heightSmall;
+  }
+
+  public void setHeightSmall(String heightSmall) {
+    this.heightSmall = heightSmall;
+  }
+
+  public String getHeightLarge() {
+    return heightLarge;
+  }
+
+  public void setHeightLarge(String heightLarge) {
+    this.heightLarge = heightLarge;
+  }
+  
   @Override
   public void setDateChanged(Date dateChanged) {
     this.dateChanged = dateChanged;

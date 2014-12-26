@@ -3,13 +3,12 @@
  */
 package com.mathtabolism.eao.account;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.ejb.Stateless;
 
-import com.mathtabolism.eao.BaseEAO;
+import com.mathtabolism.eao.BaseGeneratedEntityEAO;
 import com.mathtabolism.entity.account.AccountEntity;
 
 /**
@@ -17,7 +16,7 @@ import com.mathtabolism.entity.account.AccountEntity;
  *
  */
 @Stateless
-public class AccountEAO extends BaseEAO<AccountEntity> {
+public class AccountEAO extends BaseGeneratedEntityEAO<AccountEntity> {
   public AccountEAO() {
     super(AccountEntity.class);
   }
@@ -33,18 +32,5 @@ public class AccountEAO extends BaseEAO<AccountEntity> {
     parameters.put("username", username);
     
     return findOneResult(AccountEntity.Q_findByUsername, parameters);
-  }
-  
-  /**
-   * Updates the last logic date for an account to the current time
-   * 
-   * @param a
-   *          the account to update
-   * @return an Account with the last login date updated
-   */
-  public AccountEntity updateLastLogin(AccountEntity a) {
-    a.setLastLogin(Calendar.getInstance().getTime());
-    update(a);
-    return a;
   }
 }

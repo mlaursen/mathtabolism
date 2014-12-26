@@ -13,7 +13,7 @@ import javax.persistence.NoResultException;
 
 import org.joda.time.DateTime;
 
-import com.mathtabolism.eao.BaseEAO;
+import com.mathtabolism.eao.BaseGeneratedEntityEAO;
 import com.mathtabolism.entity.account.AccountEntity;
 import com.mathtabolism.entity.account.AccountWeightEntity;
 
@@ -22,7 +22,7 @@ import com.mathtabolism.entity.account.AccountWeightEntity;
  * @author mlaursen
  */
 @Stateless
-public class AccountWeightEAO extends BaseEAO<AccountWeightEntity> {
+public class AccountWeightEAO extends BaseGeneratedEntityEAO<AccountWeightEntity> {
   public AccountWeightEAO() {
     super(AccountWeightEntity.class);
   }

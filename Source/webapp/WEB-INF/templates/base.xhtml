@@ -24,7 +24,7 @@
             <h:commandLink action="#{navigationController.redirect('IngredientNav.VIEW_INGREDIENTS')}" value="#{msg.viewIngredients}" />
           </li>
           <li>
-            <h:commandLink action="statistics" value="#{msg.statistics}" />
+            <h:commandLink action="#{navigationController.redirect('AccountNav.STATISTICS')}" value="#{msg.statistics}" />
           </li>
           <c:choose>
             <c:when test="#{not empty request.remoteUser}">
@@ -54,10 +54,10 @@
       <h:form>
         <h:outputLabel value="#{msg.weight}" />
         <div>
-          <p:inputText value="#{accountController.currentWeight}" size="3" placeholder="#{accountController.previousWeight}" />
+          <p:inputText value="#{accountController.accountModel.currentWeight}" size="3" placeholder="#{accountController.accountModel.previousWeight}" />
         </div>
         <div>
-          <h:commandButton action="#{accountController.saveCurrentWeight()}" value="#{msg.update}" styleClass="update-weight-button" />
+          <h:commandButton action="#{accountController.createOrUpdateCurrentWeight()}" value="#{msg.update}" styleClass="update-weight-button" />
         </div>
       </h:form>
     </div>

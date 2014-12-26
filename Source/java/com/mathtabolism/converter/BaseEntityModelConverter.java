@@ -35,13 +35,16 @@ public abstract class BaseEntityModelConverter<C, E extends C, M extends C> {
    * @return a model
    */
   public M convertEntityToModel(E entity) {
-    try {
-      M model = modelClass.newInstance();
-      doConversion(entity, model, converterClass);
-      return model;
-    } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-      logger.error(e);
+    if(entity != null) {
+      try {
+        M model = modelClass.newInstance();
+        doConversion(entity, model, converterClass);
+        return model;
+      } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+        logger.error(e);
+      }
     }
+    
     return null;
   }
   
@@ -51,13 +54,16 @@ public abstract class BaseEntityModelConverter<C, E extends C, M extends C> {
    * @return an entity
    */
   public E convertModelToEntity(M model) {
-    try {
-      E entity = entityClass.newInstance();
-      doConversion(model, entity, converterClass);
-      return entity;
-    } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-      logger.error(e);
+    if(model != null) {
+      try {
+        E entity = entityClass.newInstance();
+        doConversion(model, entity, converterClass);
+        return entity;
+      } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+        logger.error(e);
+      }
     }
+    
     return null;
   }
   

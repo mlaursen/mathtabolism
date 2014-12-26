@@ -11,7 +11,7 @@ import com.mathtabolism.constants.Indicator;
  * @author mlaursen
  *
  */
-public interface Account {
+public interface Account extends GeneratedIdContract {
 
   /**
    * Set the username
@@ -86,4 +86,31 @@ public interface Account {
    */
   Date getBirthday();
   
+  /**
+   * Sets the last login date
+   * @param lastLogin the date
+   */
+  void setLastLogin(Date lastLogin);
+  
+  /**
+   * Gets the last login date
+   * @return the date
+   */
+  Date getLastLogin();
+  
+  /**
+   * Sets the date since the account has been active. This is mostly used
+   * to check if a user is a new user and the obvious.. how long they have been
+   * tracking dem gainz son.
+   * @param activeSince the date
+   */
+  void setActiveSince(Date activeSince);
+  
+  /**
+   * Gets the date since the account has been active. This is mostly used
+   * to check if a user is a new user and the obvious.. how long they have been
+   * tracking dem gainz son.
+   * @return the date
+   */
+  Date getActiveSince();
 }

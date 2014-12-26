@@ -16,7 +16,7 @@
         <li class="current">
           <span><h:outputText value="#{msg.unitSystemStep1}" /></span>
           <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
-            <ui:param name="binding"  value="#{accountController.currentSettings.unitSystem}" />
+            <ui:param name="binding"  value="#{accountController.accountModel.currentSettings.unitSystem}" />
             <ui:param name="selected" value="#{accountController.selectedUnitSystem}" />
             <ui:param name="items"    value="#{accountController.unitSystems}" />
             <ui:param name="toggleId" value="unit-system" />
@@ -28,7 +28,7 @@
         <li>
           <span><h:outputText value="#{msg.genderStep}" /></span>
           <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
-            <ui:param name="binding"  value="#{accountController.account.gender}" />
+            <ui:param name="binding"  value="#{accountController.accountModel.gender}" />
             <ui:param name="selected" value="#{accountController.selectedGender}" />
             <ui:param name="items"    value="#{accountController.genders}" />
           </ui:include>
@@ -36,29 +36,29 @@
           <span><h:outputText value="#{msg.heightStep}" /></span>
           <div class="inline">
             <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
-              <ui:param name="binding"  value="#{accountController.heightLarge}" />
+              <ui:param name="binding"  value="#{accountController.accountModel.currentSettings.heightLarge}" />
               <ui:param name="selected" value="1" />
               <ui:param name="items"    value="#{accountController.startingLargeHeights}" />
               <ui:param name="toggleId" value="height-large-value" />
               <ui:param name="ulId"     value="height-large-items" />
               <ui:param name="ulClass"  value="small" />
             </ui:include>
-            <span id="height-large-unit" class="#{accountController.currentSettings.unitSystem == 'IMPERIAL' ? 'ft' : 'm'}"></span>
+            <span id="height-large-unit" class="#{accountController.accountModel.currentSettings.unitSystem == 'IMPERIAL' ? 'ft' : 'm'}"></span>
             
             <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
-              <ui:param name="binding"  value="#{accountController.heightSmall}" />
+              <ui:param name="binding"  value="#{accountController.accountModel.currentSettings.heightSmall}" />
               <ui:param name="selected" value="1" />
               <ui:param name="items"    value="#{accountController.startingSmallHeights}" />
               <ui:param name="toggleId" value="height-small-value" />
               <ui:param name="ulId"     value="height-small-items" />
               <ui:param name="ulClass"  value="small" />
             </ui:include>
-            <span id="height-small-unit" class="#{accountController.currentSettings.unitSystem == 'IMPERIAL' ? 'in' : 'cm'}"></span>
+            <span id="height-small-unit" class="#{accountController.accountModel.currentSettings.unitSystem == 'IMPERIAL' ? 'in' : 'cm'}"></span>
           </div>
           
           <span><h:outputText value="#{msg.weightStep}" /></span>
           <h:inputText value="#{accountController.currentWeight}" />
-          <span id="weight-unit" class="#{accountController.currentSettings.unitSystem == 'IMPERIAL' ? 'lbs' : 'kg'}"></span>
+          <span id="weight-unit" class="#{accountController.accountModel.currentSettings.unitSystem == 'IMPERIAL' ? 'lbs' : 'kg'}"></span>
         </li>
       </ol>
       <div id="form-field-overlay" class="form-field-overlay"></div>

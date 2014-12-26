@@ -12,7 +12,7 @@ import com.mathtabolism.util.unit.UnitSystem;
  * @author mlaursen
  *
  */
-public interface AccountSetting {
+public interface AccountSetting extends GeneratedIdContract {
   
   /**
    * Sets the date that the account settings were changed

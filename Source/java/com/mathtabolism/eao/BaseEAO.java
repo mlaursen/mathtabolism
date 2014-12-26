@@ -65,14 +65,18 @@ public abstract class BaseEAO<T> {
   /**
    * Attempts to find an entity from the Datbase by the given id.
    * 
-   * @param id
-   *          the id to search by
+   * @param id the id to search by
    * @return an entity with the id or null
    */
-  public T findById(Long id) {
+  public T findById(String id) {
     return em.find(entityClass, id);
   }
   
+  /**
+   * Finds a single result without any parameters
+   * @param namedQuery the named query
+   * @return a single result or null
+   */
   protected T findOneResult(String namedQuery) {
     return findOneResult(namedQuery, null);
   }

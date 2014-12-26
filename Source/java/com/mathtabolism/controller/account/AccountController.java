@@ -7,13 +7,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import org.apache.commons.lang3.time.DateUtils;
 
 import com.mathtabolism.bo.account.AccountBO;
 import com.mathtabolism.constants.ActivityMultiplier;
@@ -21,10 +17,10 @@ import com.mathtabolism.constants.Gender;
 import com.mathtabolism.constants.TDEEFormula;
 import com.mathtabolism.constants.Weekday;
 import com.mathtabolism.controller.BaseController;
-import com.mathtabolism.entity.account.AccountEntity;
-import com.mathtabolism.entity.account.AccountSettingEntity;
-import com.mathtabolism.entity.account.AccountWeightEntity;
-import com.mathtabolism.util.number.NumberUtils;
+import com.mathtabolism.model.account.AccountModel;
+import com.mathtabolism.model.account.AccountSettingModel;
+import com.mathtabolism.model.account.AccountWeightModel;
+import com.mathtabolism.util.date.DateUtils;
 import com.mathtabolism.util.unit.UnitSystem;
 
 /**
@@ -35,121 +31,92 @@ import com.mathtabolism.util.unit.UnitSystem;
 @SessionScoped
 public class AccountController extends BaseController {
   private static final long serialVersionUID = 5069047046599920651L;
-  private static final int CURRENT_YEAR = Calendar.getInstance().get(Calendar.YEAR);
   public static final int MIN_BIRTHDAY_OFFSET = 80;
   public static final int MAX_BIRTHDAY_OFFSET = 5;
+
+  private final int CURRENT_YEAR = Calendar.getInstance().get(Calendar.YEAR);
   
   
   @Inject
   private AccountBO accountBO;
   
-  private AccountEntity accountEntity;
-  private AccountSettingEntity currentSettings;
-  private AccountWeightEntity currentWeight;
-  private AccountWeightEntity previousWeight;
-  private String heightLarge;
-  private String heightSmall;
+  private AccountModel accountModel;
   
   /**
-   * Lazy loads the account.
-   * <p>Also sets the currentSettings, currentWeight, previousWeight, and the last login date
+   * Lazily loads the AccountModel.
+   * <p>If the account model was null, the user has just logged in. The username is searched 
+   * in the external context and then an account is attempted to be found. (It should be since the
+   * jaas authentication allowed us to get here).
    * 
-   * <p>This should technically be an AccountModel or something.
-   * 
-   * @return the account
+   * @return the account model
    */
-  public AccountEntity getAccount() {
-    if(accountEntity == null) {
-      ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-      String username = context.getUserPrincipal().getName();
-      accountEntity = accountBO.findAccountByUsername(username);
-      currentSettings = accountBO.findAccountSettingsForAccount(accountEntity);
-      currentWeight = accountBO.findTodaysWeight(accountEntity);
-      if(currentWeight == null) {
-        currentWeight = new AccountWeightEntity(accountEntity, new Date());
-      }
-      previousWeight = accountBO.findLatestWeight(accountEntity);
-      if(accountEntity != null) {
-        accountEntity = accountBO.updateLastLogin(accountEntity);
-      }
+  public AccountModel getAccountModel() {
+    if(accountModel == null) {
+      String username = getContext().getExternalContext().getUserPrincipal().getName();
+      accountModel = accountBO.findAccountByUsername(username);
+      accountModel = accountBO.updateLastLogin(accountModel);
     }
-    return accountEntity;
+    return accountModel;
   }
   
   /**
-   * Gets the current account settings
-   * @return the current account settings
+   * Gets the current settings
+   * @return the current settings
    */
-  public AccountSettingEntity getCurrentSettings() {
-    return currentSettings;
+  public AccountSettingModel getCurrentSettings() {
+    return accountModel.getCurrentSettings();
   }
   
   /**
-   * Sets the current account settings
-   * @param currentSettings the current account settings
+   * Gets the current account weight
+   * @return the current weight
    */
-  public void setCurrentSettings(AccountSettingEntity currentSettings) {
-    this.currentSettings = currentSettings;
+  public AccountWeightModel getCurrentWeight() {
+    return accountModel.getCurrentWeight();
   }
   
   /**
-   * Gets the current weight for the account.
-   * @return the current weight formatted to 2 decimal places or the empty String
+   * Gets the previous account weight
+   * @return the previous weight
    */
-  public String getCurrentWeight() {
-    return currentWeight == null ? "" : NumberUtils.formatAsString(currentWeight.getWeight(), 2);
+  public AccountWeightModel getPreviousWeight() {
+    return accountModel.getPreviousWeight();
   }
   
   /**
-   * Gets the previous weight for the account.
-   * <p>This is really only used as a suggested weight for that update weight div.
-   * 
-   * @return the previous weight formatted to 2 decimal places or the empty String
-   */
-  public String getPreviousWeight() {
-    return previousWeight == null ? "" : NumberUtils.formatAsString(previousWeight.getWeight(), 2);
-  }
-  
-  /**
-   * Sets the current weight for the account
-   * @param currentWeight the current weight String
-   */
-  public void setCurrentWeight(String currentWeight) {
-    this.currentWeight.setWeight(currentWeight);
-  }
-  
-  /**
-   * Gets the selected gender for the account. If the gender is not set,
-   * it defaults to Male
-   * @return the selected gender
+   * Gets the current gender that is selected as a String. If this is a new account
+   * with no settings set, the gender is defaulted to {@link Gender#MALE}.
+   * @return a String
    */
   public String getSelectedGender() {
-    if(accountEntity.getGender() == null) {
-      accountEntity.setGender(Gender.MALE);
+    if(accountModel.getGender() == null) {
+      accountModel.setGender(Gender.MALE);
     }
-    return getString(accountEntity.getGender());
+    
+    return getString(accountModel.getGender());
   }
   
   /**
-   * Gets the account's selected recalculation day. If it is not set, it
-   * defaults to daily. If the recalculation day is not {@link Weekday#DAILY},
-   * "each " is appened to the String.
-   * <p>Example: "every Sunday"
-   * @return the selected recalculation day as a String
+   * Gets the selected Formula Recalculation day as a String. If this is a new Account
+   * with no settings set, the day is set to {@link Weekday#DAILY}
+   * @return the String
    */
-  public String getSelectedWeekday() {
+  public String getSelectedRecalculationDay() {
+    AccountSettingModel currentSettings = getCurrentSettings();
     if(currentSettings.getRecalculationDay() == null) {
       currentSettings.setRecalculationDay(Weekday.DAILY);
     }
+    
     return getString(currentSettings.getRecalculationDay());
   }
   
   /**
-   * Gets the account's activity multiplier. If it is not set, it defaults to {@link ActivityMultiplier#SEDENTARY}.
-   * 
-   * @return the selected activity multiplier as a String
+   * Gets the selected activity multiplier as a String. If this is a new Account
+   * with no settings set, it defaults to {@link ActivityMultiplier#SEDENTARY}.
+   * @return the String
    */
   public String getSelectedActivityMultiplier() {
+    AccountSettingModel currentSettings = getCurrentSettings();
     if(currentSettings.getActivityMultiplier() == null) {
       currentSettings.setActivityMultiplier(ActivityMultiplier.SEDENTARY);
     }
@@ -157,10 +124,12 @@ public class AccountController extends BaseController {
   }
   
   /**
-   * Gets the account's selected TDEEFormula. If it is not set, it defaults to {@link TDEEFormula#MIFFLIN_ST_JEOR}.
-   * @return the selected TDEE Formula as a String
+   * Gets the selected TDEEFormula as a String. If this is a new Account
+   * with no settings set, it defaults to {@link TDEEFormula#MIFFLIN_ST_JEOR}.
+   * @return the String
    */
   public String getSelectedFormula() {
+    AccountSettingModel currentSettings = getCurrentSettings();
     if(currentSettings.getTdeeFormula() == null) {
       currentSettings.setTdeeFormula(TDEEFormula.MIFFLIN_ST_JEOR);
     }
@@ -168,15 +137,21 @@ public class AccountController extends BaseController {
   }
   
   /**
-   * Gets the Selected Unit system. If the Unit System is not set, it
-   * is defaulted to {@link UnitSystem#IMPERIAL}
-   * @return the selected Unit System
+   * Gets the Selected Unit system as a String. If this is a new Account
+   * with no settings set, it defaults to {@link UnitSystem#IMPERIAL}
+   * @return the String
    */
   public String getSelectedUnitSystem() {
     return getString(getCurrentUnitSystem());
   }
   
+  /**
+   * Gets the current selected Unit System as a String. If this is a new Account
+   * with no settings set, it defaults to {@link UnitSystem#IMPERIAL}
+   * @return the String
+   */
   private UnitSystem getCurrentUnitSystem() {
+    AccountSettingModel currentSettings = getCurrentSettings();
     if(currentSettings.getUnitSystem() == null) {
       currentSettings.setUnitSystem(UnitSystem.IMPERIAL);
     }
@@ -184,99 +159,110 @@ public class AccountController extends BaseController {
   }
   
   /**
-   * 
-   * @param accountEntity
+   * Gets the Genders as an array of SelectItem for the dropdown selection.
+   * @return an array of SelectItem
    */
-  public void setAccount(AccountEntity accountEntity) {
-    this.accountEntity = accountEntity;
-  }
-  
-  public boolean isAccountAdmin() {
-    return getRequest().isUserInRole("ADMIN");
-  }
-  
   public SelectItem[] getGenders() {
     return convertEnumToSelectItems(Gender.values());
   }
   
+  /**
+   * Gets the Recalculation Days as an array of SelectItem for the dropdown selection.
+   * @return an array of SelectItem
+   */
   public SelectItem[] getWeekdays() {
     return convertEnumToSelectItems(Weekday.values());
   }
   
+  /**
+   * Gets the Activity Multipliers as an array of SelectItem for the dropdown selection.
+   * @return an array of SelectItem
+   */
   public SelectItem[] getActivityMultipliers() {
     return convertEnumToSelectItems(ActivityMultiplier.values());
   }
   
+  /**
+   * Gets the TDEE Formulas as an array of SelectItem for the dropdown selection.
+   * @return an array of SelectItem
+   */
   public SelectItem[] getFormulas() {
     return convertEnumToSelectItems(TDEEFormula.values());
   }
   
+  /**
+   * Gets the Unit Systems as an array of SelectItem for the dropdown selection.
+   * @return an array of SelectItem
+   */
   public SelectItem[] getUnitSystems() {
     return convertEnumToSelectItems(UnitSystem.values());
   }
   
-  public void saveUpdatedSettings() {
-    accountBO.updateSettings(accountEntity, currentSettings);
+  /**
+   * Creates or updates the Account's Settings/configuration
+   */
+  public void createOrUpdateAccountSettings() {
+    accountModel = accountBO.createOrUpdateSettings(accountModel);
     displayInfoMessage("account_UpdatedSettings");
   }
   
-  public void saveCurrentWeight() {
-    currentWeight = accountBO.createOrUpdateWeight(currentWeight);
+  /**
+   * Creates or updates the current weight
+   */
+  public void createOrUpdateCurrentWeight() {
+    accountBO.createOrUpdateWeight(accountModel);
     displayInfoMessage("account_UpdatedWeight");
   }
   
   /**
-   * 
-   * @return the minimum year for a person's birthday
+   * Gets the {@link #CURRENT_YEAR} - {@link #MIN_BIRTHDAY_OFFSET}
+   * @return minimum birthday year
    */
   public int getMinBirthdayYear() {
     return CURRENT_YEAR - MIN_BIRTHDAY_OFFSET;
   }
   
   /**
-   * 
-   * @return the maximum year for a person's birthday
+   * Gets the {@link #CURRENT_YEAR} + {@link #MAX_BIRTHDAY_OFFSET}
+   * @return the maximum birthday year
    */
   public int getMaxBirthdayYear() {
     return CURRENT_YEAR + MAX_BIRTHDAY_OFFSET;
   }
   
+  /**
+   * Checks if the current weight is set for the account.
+   * <p>The current weight is considered set if
+   * <ul>
+   * <li>The current weight is not null
+   * <li>The current weight is greater than 0
+   * <li>The weigh in date is today
+   * </ul>
+   * @return true if the weight is set
+   */
   public boolean isTodayWeightSet() {
-    getAccount();
-    return currentWeight != null && DateUtils.isSameDay(currentWeight.getWeighInDate(), 
-        Calendar.getInstance().getTime()) && currentWeight.getWeight() > 0;
+    AccountWeightModel currentWeight = getAccountModel().getCurrentWeight();
+    return currentWeight != null && DateUtils.isSameDate(currentWeight.getWeighInDate(), new Date())
+        && currentWeight.getWeight() > 0;
   }
   
   /**
-   * Checks if the current account is considered a first time user. A first time user is someone that has not gone
-   * through the account initialization fancy page. (They don't have any settings set)
+   * Checks if the account is considered a first time user. (Someone that has no settings set)
    * @return true if the account is considered a first time user
    */
   public boolean isFirstTimeUser() {
-    getAccount();
-    return DateUtils.isSameDay(accountEntity.getActiveSince(), new Date()) || currentSettings == null
-        || currentSettings.getActivityMultiplier() == null || currentSettings.getHeight() == null
-        || currentSettings.getRecalculationDay() == null || currentSettings.getTdeeFormula() == null;
+    AccountSettingModel currentSettings = getAccountModel().getCurrentSettings();
+    return DateUtils.isSameDate(accountModel.getActiveSince(), new Date())
+        || currentSettings == null || currentSettings.getActivityMultiplier() == null
+        || currentSettings.getTdeeFormula() == null || currentSettings.getUnitSystem() == null
+        || (accountModel.getBirthday() == null || currentSettings.getAge() == null);
   }
 
-  public String getHeightLarge() {
-    return heightLarge;
-  }
-
-  public void setHeightLarge(String heightLarge) {
-    this.heightLarge = heightLarge;
-    currentSettings.setHeight(NumberUtils.stringToDouble(heightLarge) + NumberUtils.stringToDouble(heightSmall));
-  }
-
-  public String getHeightSmall() {
-    return heightSmall;
-  }
-
-  public void setHeightSmall(String heightSmall) {
-    this.heightSmall = heightSmall;
-    currentSettings.setHeight(NumberUtils.stringToDouble(heightLarge) + NumberUtils.stringToDouble(heightSmall));
-  }
-  
+  /**
+   * Gets an array of SelectItem for the dropdown choice of Large Heights (Feet or Meters)
+   * This will be an array of numbers start at 1 going to 9 for Imperial and going to 3 for Metric
+   * @return an array of SelectItem
+   */
   public SelectItem[] getStartingLargeHeights() {
     int min = 1;
     int max;
@@ -298,6 +284,13 @@ public class AccountController extends BaseController {
     return items;
   }
   
+  /**
+   * Gets an array of SelectItem for the dropdown choce of Small Heights (Inches or Centimeters).
+   * This will be an array of numbers starting at 1 going to 11 for Imperial and going to 9 for Metric.
+   * <p>0 is ignored since it is really the large unit still. 12 is ignored for imperial because
+   * it is considered a foot and 10 is ignored for metric because it is considered a meter.
+   * @return an array of SelectItem
+   */
   public SelectItem[] getStartingSmallHeights() {
     int min = 1;
     int max;

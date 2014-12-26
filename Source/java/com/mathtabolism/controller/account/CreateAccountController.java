@@ -20,8 +20,17 @@ import com.mathtabolism.util.string.StringUtils;
 import com.mathtabolism.util.string.UsernameGenerator;
 
 /**
+ * <p>Controller for handling ONLY account creation. During the attempted creation process, the flipper
+ * css will be changed to have the Signup Form starting front facing if some backend process failed. Hopefully
+ * the javascript should never allow it to get to that point, but it is there just in case.
+ * 
+ * <p>Some other things the controller does is check if a new username is available and does some semi-validation
+ * on the new account fields. Currently, no validation is done on email
+ * 
+ * <p>For fun, there is a <i>random</i> username generator to give suggestions for new users
+ * 
  * @author mlaursen
- *
+ * @see CreateAccountModel
  */
 @Named
 @RequestScoped
@@ -88,8 +97,7 @@ public class CreateAccountController extends BaseController {
       } catch(ServletException e) {
         logger.error("Unable to login after creating an account.");
       }
-    }
-    catch (EJBException e) {
+    } catch (EJBException e) {
       displayErrorMessage("account_AccountExists");
       return null;
     }

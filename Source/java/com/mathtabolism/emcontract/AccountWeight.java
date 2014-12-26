@@ -7,7 +7,7 @@ import java.util.Date;
  * @author mlaursen
  *
  */
-public interface AccountWeight {
+public interface AccountWeight extends GeneratedIdContract {
 
   /**
    * Sets the weight
