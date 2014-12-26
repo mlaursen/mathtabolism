@@ -9,6 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.mathtabolism.entity.BaseGeneratedEntity;
 import com.mathtabolism.entity.account.DailyIntakeEntity;
 
@@ -62,4 +65,9 @@ public class DailyIntakeMealEntity extends BaseGeneratedEntity {
     this.dailyIntakeEntity = dailyIntakeEntity;
   }
   
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("dailyIntake", dailyIntakeEntity)
+        .append("meal", mealEntity).toString();
+  }
 }

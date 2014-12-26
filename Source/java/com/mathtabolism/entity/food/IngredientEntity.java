@@ -14,6 +14,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.mathtabolism.constants.IngredientCategory;
 import com.mathtabolism.entity.BaseGeneratedEntity;
 import com.mathtabolism.util.nutrition.Calorie;
@@ -223,5 +226,12 @@ public class IngredientEntity extends BaseGeneratedEntity {
           && carbohydrates.equals(i.carbohydrates) && protein.equals(i.protein);
     }
     return false;
+  }
+  
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("brand", brandEntity)
+        .append("name", name).append("caloires", calories).append("fat", fat).append("carbohydrates", carbohydrates)
+        .append("protein", protein).append("serving", serving).append("alternateServing", alternateServing).toString();
   }
 }

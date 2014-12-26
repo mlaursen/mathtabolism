@@ -38,6 +38,16 @@ public class DateUtils {
         && c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR);
   }
   
+  /**
+   * Creates a new date with the specified month, day, and year
+   * 
+   * <p>The month starts with <tt>January</tt> being <tt>0</tt>
+   * 
+   * @param month the month
+   * @param day the day of the month
+   * @param year the year
+   * @return a new date
+   */
   public static Date createDate(int month, int day, int year) {
     Calendar c = Calendar.getInstance();
     c.set(Calendar.MONTH, month);

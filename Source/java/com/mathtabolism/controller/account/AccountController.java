@@ -38,7 +38,6 @@ public class AccountController extends BaseController {
   private static final int CURRENT_YEAR = Calendar.getInstance().get(Calendar.YEAR);
   public static final int MIN_BIRTHDAY_OFFSET = 80;
   public static final int MAX_BIRTHDAY_OFFSET = 5;
-  private static final String EVERY_WEEKDAY = "eachWeekday";
   
   
   @Inject
@@ -142,8 +141,7 @@ public class AccountController extends BaseController {
     if(currentSettings.getRecalculationDay() == null) {
       currentSettings.setRecalculationDay(Weekday.DAILY);
     }
-    String selected = getString(currentSettings.getRecalculationDay());
-    return !Weekday.DAILY.equals(currentSettings.getRecalculationDay()) ? getString(EVERY_WEEKDAY, selected) : selected;
+    return getString(currentSettings.getRecalculationDay());
   }
   
   /**

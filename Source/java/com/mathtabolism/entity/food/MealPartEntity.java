@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.mathtabolism.entity.BaseGeneratedEntity;
 import com.mathtabolism.util.unit.Measurement;
 
@@ -86,4 +89,9 @@ public class MealPartEntity extends BaseGeneratedEntity {
     this.serving = serving;
   }
   
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("ingredient", ingredientEntity)
+        .append("meal", mealEntity).append("serving", serving).toString();
+  }
 }

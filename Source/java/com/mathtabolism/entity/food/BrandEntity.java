@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.mathtabolism.entity.BaseGeneratedEntity;
 
 /**
@@ -54,9 +57,6 @@ public class BrandEntity extends BaseGeneratedEntity {
     return false;
   }
   
-  /**
-   * @return
-   */
   @Override
   public int hashCode() {
     final int prime = 31;
@@ -64,5 +64,10 @@ public class BrandEntity extends BaseGeneratedEntity {
     result = prime * result + ((id == null) ? 0 : id.hashCode());
     result = prime * result + ((name == null) ? 0 : name.hashCode());
     return result;
+  }
+  
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("name", name).toString();
   }
 }

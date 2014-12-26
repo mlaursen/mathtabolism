@@ -16,6 +16,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.mathtabolism.entity.food.DailyIntakeMealEntity;
 
 /**
@@ -136,6 +139,14 @@ public class DailyIntakeEntity extends AccountIdFK {
    */
   public void setMeals(List<DailyIntakeMealEntity> meals) {
     this.meals = meals;
+  }
+  
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("intakeDate", intakeDate)
+        .append("calorieChange", calorieChange).append("carbMultiplier", carbMultiplier)
+        .append("fatMultiplier", fatMultiplier).append("proteinMultiplier")
+        .append("meals", meals).toString();
   }
   
 }

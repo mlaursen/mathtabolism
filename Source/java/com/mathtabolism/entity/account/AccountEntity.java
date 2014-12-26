@@ -24,6 +24,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.mathtabolism.constants.AccountRole;
 import com.mathtabolism.constants.Gender;
 import com.mathtabolism.constants.Indicator;
+import com.mathtabolism.emcontract.Account;
 import com.mathtabolism.entity.BaseGeneratedEntity;
 
 /**
@@ -32,7 +33,7 @@ import com.mathtabolism.entity.BaseGeneratedEntity;
  */
 @Entity
 @NamedQueries(@NamedQuery(name = AccountEntity.Q_findByUsername, query = "SELECT a FROM AccountEntity a WHERE a.username = :username"))
-public class AccountEntity extends BaseGeneratedEntity {
+public class AccountEntity extends BaseGeneratedEntity implements Account {
   
   public static final String Q_findByUsername = "AccountEntity.findByUsername";
   
@@ -69,36 +70,22 @@ public class AccountEntity extends BaseGeneratedEntity {
   public AccountEntity() {
   }
   
-  /**
-   * 
-   * @return the username
-   */
+  @Override
   public String getUsername() {
     return username;
   }
   
-  /**
-   * 
-   * @param username
-   *          the new username
-   */
+  @Override
   public void setUsername(String username) {
     this.username = username;
   }
   
-  /**
-   * 
-   * @return the password
-   */
+  @Override
   public String getPassword() {
     return password;
   }
   
-  /**
-   * 
-   * @param password
-   *          the new password
-   */
+  @Override
   public void setPassword(String password) {
     this.password = password;
   }
@@ -113,34 +100,28 @@ public class AccountEntity extends BaseGeneratedEntity {
   
   /**
    * 
-   * @param role
-   *          the new {@link AccountRole}
+   * @param role the new {@link AccountRole}
    */
   public void setRole(AccountRole role) {
     this.role = role;
   }
   
+  @Override
   public Gender getGender() {
     return gender;
   }
   
+  @Override
   public void setGender(Gender gender) {
     this.gender = gender;
   }
   
-  /**
-   * 
-   * @return the birthday date
-   */
+  @Override
   public Date getBirthday() {
     return birthday;
   }
   
-  /**
-   * 
-   * @param birthday
-   *          the new birthday date
-   */
+  @Override
   public void setBirthday(Date birthday) {
     this.birthday = birthday;
   }
@@ -155,8 +136,7 @@ public class AccountEntity extends BaseGeneratedEntity {
   
   /**
    * 
-   * @param lastLogin
-   *          the new last login date
+   * @param lastLogin the new last login date
    */
   public void setLastLogin(Date lastLogin) {
     this.lastLogin = lastLogin;
@@ -210,16 +190,12 @@ public class AccountEntity extends BaseGeneratedEntity {
     this.accountWeights = accountWeights;
   }
   
-  /**
-   * @return the isUsingBirthday
-   */
+  @Override
   public Indicator getUseBirthday() {
     return useBirthday;
   }
 
-  /**
-   * @param isUsingBirthday the isUsingBirthday to set
-   */
+  @Override
   public void setUseBirthday(Indicator useBirthday) {
     this.useBirthday = useBirthday;
   }
@@ -232,16 +208,12 @@ public class AccountEntity extends BaseGeneratedEntity {
     useBirthday = Indicator.fromBoolean(isUsingBirthday);
   }
 
-  /**
-   * @return the email
-   */
+  @Override
   public String getEmail() {
     return email;
   }
 
-  /**
-   * @param email the email to set
-   */
+  @Override
   public void setEmail(String email) {
     this.email = email;
   }
@@ -250,7 +222,8 @@ public class AccountEntity extends BaseGeneratedEntity {
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", id).append("username", username)
         .append("password", password).append("unhashedPassword", unhashedPassword).append("role", role)
-        .append("birthday", birthday).append("lastLogin", lastLogin).append("activeSince", activeSince).toString();
+        .append("birthday", birthday).append("lastLogin", lastLogin).append("activeSince", activeSince)
+        .append("email", email).append("useBirthday", useBirthday).toString();
   }
   
 }

@@ -11,6 +11,8 @@ import javax.persistence.NamedQuery;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import com.mathtabolism.emcontract.AccountWeight;
+
 /**
  * 
  * @author mlaursen
@@ -24,7 +26,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
     @NamedQuery(name = AccountWeightEntity.Q_findCurrentAccountWeightWeek, query = "SELECT aw FROM AccountWeightEntity aw WHERE aw.accountEntity.id = :account_id "
         + "AND aw.weighInDate BETWEEN :start_date AND :end_date ORDER BY aw.weighInDate")
 })
-public class AccountWeightEntity extends AccountIdFK {
+public class AccountWeightEntity extends AccountIdFK implements AccountWeight {
   public static final String Q_findLatestWeight = "AccountWeightEntity.findLatestWeight";
   public static final String Q_findTodaysWeight = "AccountWeightEntity.findTodaysWeight";
   public static final String Q_findCurrentAccountWeightWeek = "AccountWeightEntity.findCurrentAccountWeightWeek";
@@ -40,35 +42,23 @@ public class AccountWeightEntity extends AccountIdFK {
     this.weighInDate = weighInDate;
   }
   
-  /**
-   * 
-   * @return
-   */
+  @Override
   public Date getWeighInDate() {
     return weighInDate;
   }
   
-  /**
-   * 
-   * @param weighInDate
-   */
+  @Override
   public void setWeighInDate(Date weighInDate) {
     this.weighInDate = weighInDate;
   }
   
-  /**
-   * 
-   * @return
-   */
-  public double getWeight() {
+  @Override
+  public Double getWeight() {
     return weight;
   }
   
-  /**
-   * 
-   * @param weight
-   */
-  public void setWeight(double weight) {
+  @Override
+  public void setWeight(Double weight) {
     this.weight = weight;
   }
   

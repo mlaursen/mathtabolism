@@ -4,7 +4,6 @@
 package com.mathtabolism.eao.account;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +11,6 @@ import java.util.Map;
 import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
 
-import org.apache.commons.lang3.time.DateUtils;
 import org.joda.time.DateTime;
 
 import com.mathtabolism.eao.BaseEAO;

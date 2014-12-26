@@ -17,6 +17,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.mathtabolism.constants.ActivityMultiplier;
 import com.mathtabolism.constants.TDEEFormula;
 import com.mathtabolism.constants.Weekday;
+import com.mathtabolism.emcontract.AccountSetting;
 import com.mathtabolism.util.unit.UnitSystem;
 
 /**
@@ -31,7 +32,7 @@ import com.mathtabolism.util.unit.UnitSystem;
       + "AND as1.dateChanged = (SELECT max(as2.dateChanged) FROM AccountSettingEntity as2 WHERE as2.accountEntity.id = :account_id "
       + "AND as2.dateChanged <= :date)")
 })
-public class AccountSettingEntity extends AccountIdFK {
+public class AccountSettingEntity extends AccountIdFK implements AccountSetting {
   public static final String Q_findCurrentAccountSetting = "AccountSettingEntity.findCurrentAccountSetting";
   public static final String Q_findLatestSettingsForDate = "AccountSettingEntity.findLatestSettingsForDate";
   
@@ -61,111 +62,76 @@ public class AccountSettingEntity extends AccountIdFK {
   private Double height;
   
   
-  /**
-   * 
-   * @return
-   */
+  @Override
   public Weekday getRecalculationDay() {
     return recalculationDay;
   }
   
-  /**
-   * 
-   * @param recalculationDay
-   */
+  @Override
   public void setRecalculationDay(Weekday recalculationDay) {
     this.recalculationDay = recalculationDay;
   }
   
-  /**
-   * 
-   * @return
-   */
+  @Override
   public ActivityMultiplier getActivityMultiplier() {
     return activityMultiplier;
   }
   
-  /**
-   * 
-   * @param activityMultiplier
-   */
+  @Override
   public void setActivityMultiplier(ActivityMultiplier activityMultiplier) {
     this.activityMultiplier = activityMultiplier;
   }
   
-  /**
-   * 
-   * @return
-   */
+  @Override
   public TDEEFormula getTdeeFormula() {
     return tdeeFormula;
   }
   
-  /**
-   * 
-   * @param tdeeFormula
-   */
+  @Override
   public void setTdeeFormula(TDEEFormula tdeeFormula) {
     this.tdeeFormula = tdeeFormula;
   }
   
-  /**
-   * 
-   * @return
-   */
+  @Override
   public Date getDateChanged() {
     return dateChanged;
   }
   
-  /**
-   * 
-   * @param dateChanged
-   */
+  @Override
   public void setDateChanged(Date dateChanged) {
     this.dateChanged = dateChanged;
   }
   
-  /**
-   * 
-   * @return
-   */
+  @Override
   public Integer getAge() {
     return age;
   }
   
-  /**
-   * 
-   * @param age
-   */
+  @Override
   public void setAge(Integer age) {
     this.age = age;
   }
   
+  @Override
   public Double getHeight() {
     return height;
   }
   
+  @Override
   public void setHeight(Double height) {
     this.height = height;
   }
   
-  /**
-   * @return the unitSystem
-   */
+  @Override
   public UnitSystem getUnitSystem() {
     return unitSystem;
   }
 
-  /**
-   * @param unitSystem the unitSystem to set
-   */
+  @Override
   public void setUnitSystem(UnitSystem unitSystem) {
     this.unitSystem = unitSystem;
   }
 
-  /**
-   * @return
-   */
   @Override
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("accountId", accountEntity.getId())
