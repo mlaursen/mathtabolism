@@ -60,7 +60,7 @@ public class Account extends BaseGeneratedEntity {
   
   private String email;
   
-  @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.account")
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "account")
   private List<AccountWeight> accountWeights;
   
   @Transient

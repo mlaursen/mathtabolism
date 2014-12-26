@@ -14,7 +14,8 @@ CREATE TABLE account
 );
 
 CREATE TABLE account_setting
-( account_id CHAR(10)
+( id CHAR(10)
+, account_id CHAR(10)
 , date_changed DATE
 , recalculation_day VARCHAR(9)
 , activity_multiplier VARCHAR(17)
@@ -22,15 +23,18 @@ CREATE TABLE account_setting
 , unit_system VARCHAR(8)
 , age INTEGER
 , height DECIMAL
-, CONSTRAINT pk_Account_Setting_Id PRIMARY KEY(account_id, date_changed)
+, CONSTRAINT pk_Account_Setting_Id PRIMARY KEY(id)
+, CONSTRAINT uk_Account_Setting_Id_Changed UNIQUE(account_id, date_changed)
 , CONSTRAINT fk_Account_Id_Setting FOREIGN KEY(account_id) REFERENCES account(id)
 );
 
 CREATE TABLE account_weight
-( account_id CHAR(10)
+( id CHAR(10)
+, account_id CHAR(10)
 , weigh_in_date DATE
 , weight NUMERIC(5,2)
-, CONSTRAINT pk_Account_Weight PRIMARY KEY(account_id, weigh_in_date)
+, CONSTRAINT pk_Account_Weight_Id PRIMARY KEY(id)
+, CONSTRAINT uk_Account_Weight_Id_Weigh_Date UNIQUE KEY(account_id, weigh_in_date)
 , CONSTRAINT fk_Account_Id_Weight FOREIGN KEY(account_id) REFERENCES account(id)
 );
 
