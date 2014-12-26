@@ -15,17 +15,25 @@
 	<!-- ================================= 
           target: clean-wildfly              
          ================================= -->
-    <target name="clean-wildfly" description="Cleans out the data, deployments, and tmp folders in the Wildfly standalone">
+    <target name="clean-wildfly" description="Cleans deployments folder in the Wildfly standalone">
       <delete dir="${wildfly.deployments.dir}"/>
-      <delete dir="${wildfly.standalone.dir}/data" />
-      <delete dir="${wildfly.standalone.dir}/tmp" />
       <mkdir dir="${wildfly.deployments.dir}"/>
     </target>
+  
+    <!-- ================================= 
+          target: clean-wildfly-all              
+         ================================= -->
+    <target name="clean-wildfly-all" depends="clean-wildfly" description="Cleans out the deployments, data, and tmp folders in the Wildfly standalone">
+      <delete dir="${wildfly.standalone.dir}/data" />
+      <delete dir="${wildfly.standalone.dir}/tmp" />
+    </target>
+
 
 
 	<target name="build">
 		<mkdir dir="${classes.dir}" />
-		<javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath" includeantruntime="false" excludes="**/test/**/*.java">
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath" 
+		  includeantruntime="false" excludes="**/test/**/*.java" debug="true">
 		</javac>
 	</target>
 	
