@@ -15,6 +15,7 @@ import org.jboss.logging.Logger;
 import org.joda.time.DateTime;
 
 import com.mathtabolism.constants.AccountRole;
+import com.mathtabolism.converter.account.AccountConverter;
 import com.mathtabolism.eao.account.AccountEAO;
 import com.mathtabolism.eao.account.AccountSettingEAO;
 import com.mathtabolism.eao.account.AccountWeightEAO;
@@ -22,6 +23,7 @@ import com.mathtabolism.entity.account.AccountEntity;
 import com.mathtabolism.entity.account.AccountSettingEntity;
 import com.mathtabolism.entity.account.AccountWeightEntity;
 import com.mathtabolism.entity.account.DailyIntakeEntity;
+import com.mathtabolism.model.account.CreateAccountModel;
 import com.mathtabolism.util.PasswordEncryption;
 import com.mathtabolism.util.date.DateUtils;
 
@@ -41,6 +43,8 @@ public class AccountBO {
   private AccountWeightEAO accountWeightEAO;
   @Inject
   private DailyIntakeBO dailyIntakeBO;
+  @Inject
+  private AccountConverter accountConverter;
   
   /**
    * 
@@ -90,26 +94,6 @@ public class AccountBO {
   /**
    * 
    * @param accountEntity
-   *          the account to create
-   * @return an Account with a generated primary key and default {@link AccountSettingEntity}
-   */
-  public AccountEntity create(AccountEntity accountEntity) {
-    Date creationDate = Calendar.getInstance().getTime();
-    accountEntity.setPassword(PasswordEncryption.encrypt(accountEntity.getUnhashedPassword()));
-    accountEntity.setUnhashedPassword("");
-    accountEntity.setRole(AccountRole.USER);
-    accountEntity.setActiveSince(creationDate);
-    accountEAO.create(accountEntity);
-    
-    AccountSettingEntity accountSettingEntity = new AccountSettingEntity(accountEntity, creationDate);
-    accountSettingEAO.create(accountSettingEntity);
-    logger.debug("Account created: " + accountEntity);
-    return accountEntity;
-  }
-  
-  /**
-   * 
-   * @param accountEntity
    * @return
    */
   public AccountEntity updateSettings(AccountEntity accountEntity, AccountSettingEntity currentSettings) {
@@ -140,5 +124,17 @@ public class AccountBO {
   
   public boolean isUsernameAvailable(String username) {
     return StringUtils.isBlank(username) || accountEAO.findAccountByUsername(username) == null;
+  }
+  
+  public void createAccount(CreateAccountModel createAccountModel) {
+    AccountEntity account = accountConverter.convertModelToEntity(createAccountModel);
+    Date creationDate = Calendar.getInstance().getTime();
+    account.setPassword(PasswordEncryption.encrypt(account.getPassword()));
+    account.setRole(AccountRole.USER);
+    account.setActiveSince(creationDate);
+    accountEAO.create(account);
+    
+    AccountSettingEntity accountSetting = new AccountSettingEntity(account, creationDate);
+    accountSettingEAO.create(accountSetting);
   }
 }

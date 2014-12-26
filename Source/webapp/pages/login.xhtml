@@ -39,14 +39,14 @@
               <div>
                 <p>
                   <h:outputLabel value="#{msg.username}" />
-                  <h:inputText id="username" value="#{createAccountController.account.username}">
+                  <h:inputText id="username" value="#{createAccountController.accountModel.username}">
                     <f:ajax event="blur" execute="username" listener="#{createAccountController.checkIsUsernameAvailable}"
                             render="username-exists checklist-username" />
                   </h:inputText>
                   <pf:watermark id="rand-user" for="username" value="#{createAccountController.randomUsername}" />
                 </p>
                 <div class="checklist">
-                  <h:graphicImage id="checklist-username" styleClass="icon-medium #{empty createAccountController.account.username ? 'hidden': ''}" 
+                  <h:graphicImage id="checklist-username" styleClass="icon-medium #{empty createAccountController.accountModel.username ? 'hidden': ''}" 
                                   library="icons" name="#{createAccountController.usernameAvailable and createAccountController.validUsernameLength ? 'checkmark' : 'cross'}.png" />
                 </div>
               </div>
@@ -56,7 +56,7 @@
               <div>
                 <p>
                   <h:outputLabel value="#{msg.password}" />
-                  <h:inputSecret id="password" value="#{createAccountController.account.unhashedPassword}" />
+                  <h:inputSecret id="password" value="#{createAccountController.accountModel.password}" />
                 </p>
                 <div class="checklist">
                   <h:graphicImage id="checklist-password" styleClass="icon-medium hidden" />
@@ -67,7 +67,7 @@
               <div>
                 <p>
                   <h:outputLabel value="#{msg.passwordConfirm}" />
-                  <h:inputSecret id="confirm-password" value="#{createAccountController.confirmPassword}" />
+                  <h:inputSecret id="confirm-password" value="#{createAccountController.accountModel.confirmPassword}" />
                 </p>
                 <div class="checklist">
                   <h:graphicImage id="checklist-confirm-password" styleClass="icon-medium hidden"  />
@@ -77,7 +77,7 @@
               
               <p>
                 <h:outputLabel value="#{msg.account_RecoveryEmail}" />
-                <h:inputText id="email" value="#{createAccountController.account.email}" />
+                <h:inputText id="email" value="#{createAccountController.accountModel.email}" />
                 <pf:watermark for="email" value="#{msg.account_OptionalEmail}" />
               </p>
               

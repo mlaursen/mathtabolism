@@ -14,8 +14,8 @@ import org.jboss.logging.Logger;
  * @author mlaursen
  *
  */
-public abstract class EntityModelConverter<C, E extends C, M extends C> {
-  private Logger logger = Logger.getLogger(EntityModelConverter.class);
+public abstract class BaseEntityModelConverter<C, E extends C, M extends C> {
+  private Logger logger = Logger.getLogger(BaseEntityModelConverter.class);
   private final String GET = "get";
   private final String SET = "set";
   
@@ -23,30 +23,40 @@ public abstract class EntityModelConverter<C, E extends C, M extends C> {
   private Class<E> entityClass;
   private Class<M> modelClass;
   
-  protected EntityModelConverter(Class<C> converterClass, Class<E> entityClass, Class<M> modelClass) {
+  protected BaseEntityModelConverter(Class<C> converterClass, Class<E> entityClass, Class<M> modelClass) {
     this.converterClass = converterClass;
     this.entityClass = entityClass;
     this.modelClass = modelClass;
   }
   
+  /**
+   * Converts an entity into its corresponding model
+   * @param entity the entity to convert
+   * @return a model
+   */
   public M convertEntityToModel(E entity) {
     try {
       M model = modelClass.newInstance();
       doConversion(entity, model, converterClass);
       return model;
     } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-      e.printStackTrace();
+      logger.error(e);
     }
     return null;
   }
   
+  /**
+   * Converts a model into its corresponding entity
+   * @param model the model to convert
+   * @return an entity
+   */
   public E convertModelToEntity(M model) {
     try {
       E entity = entityClass.newInstance();
       doConversion(model, entity, converterClass);
       return entity;
     } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-      e.printStackTrace();
+      logger.error(e);
     }
     return null;
   }

@@ -2,6 +2,9 @@ package com.mathtabolism.model.account;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.mathtabolism.constants.Gender;
 import com.mathtabolism.constants.Indicator;
 import com.mathtabolism.emcontract.Account;
@@ -114,5 +117,13 @@ public class AccountModel implements Account {
    */
   public void setCurrentWeight(AccountWeightModel currentWeight) {
     this.currentWeight = currentWeight;
+  }
+  
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("username", username)
+        .append("password", password).append("email", email)
+        .append("useBirthday", useBirthday).append("birthday", birthday)
+        .append("gender", gender).append("currentSettings", currentSettings).append("currentWeight", currentWeight).toString();
   }
 }
