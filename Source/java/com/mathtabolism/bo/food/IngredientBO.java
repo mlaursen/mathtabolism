@@ -9,7 +9,7 @@ import javax.inject.Inject;
 
 import com.mathtabolism.constants.IngredientCategory;
 import com.mathtabolism.eao.food.IngredientEAO;
-import com.mathtabolism.entity.food.IngredientEntity;
+import com.mathtabolism.model.entity.food.Ingredient;
 
 /**
  * 
@@ -29,7 +29,7 @@ public class IngredientBO {
    * 
    * @return a List of all ingredients from the database
    */
-  public List<IngredientEntity> findAllIngredients() {
+  public List<Ingredient> findAllIngredients() {
     return ingredientEAO.findAllIngredients(0);
   }
   
@@ -38,7 +38,7 @@ public class IngredientBO {
    * 
    * @return a List of Ingredients
    */
-  public List<IngredientEntity> findPopularIngredients() {
+  public List<Ingredient> findPopularIngredients() {
     return ingredientEAO.findAllIngredients(POPULAR_LIMIT);
   }
   
@@ -49,7 +49,7 @@ public class IngredientBO {
    *          the brand name
    * @return a list of ingredients that have the given brand
    */
-  public List<IngredientEntity> findIngredientsByBrand(String brand) {
+  public List<Ingredient> findIngredientsByBrand(String brand) {
     return ingredientEAO.findIngredientsByBrand(brand);
   }
   
@@ -60,7 +60,7 @@ public class IngredientBO {
    *          an {@link IngredientCategory} to lookup Ingredients for
    * @return a List of Ingredients for the given category
    */
-  public List<IngredientEntity> findIngredientsByCategory(IngredientCategory category) {
+  public List<Ingredient> findIngredientsByCategory(IngredientCategory category) {
     return ingredientEAO.findIngredientsByCategory(category);
   }
   
@@ -72,7 +72,7 @@ public class IngredientBO {
    *          the Ingredient name to lookup
    * @return the List of Ingredients with a name like the search name
    */
-  public List<IngredientEntity> findIngredientsByName(String name) {
+  public List<Ingredient> findIngredientsByName(String name) {
     return ingredientEAO.findIngredientsByName(name);
   }
   

@@ -3,10 +3,10 @@ package com.mathtabolism.util.calculation;
 import java.util.List;
 
 import com.mathtabolism.constants.NutrientType;
-import com.mathtabolism.model.food.DailyIntakeModel;
-import com.mathtabolism.model.food.IngredientModel;
-import com.mathtabolism.model.food.MealModel;
-import com.mathtabolism.model.food.MealPartModel;
+import com.mathtabolism.model.view.food.DailyIntakeModel;
+import com.mathtabolism.model.view.food.IngredientModel;
+import com.mathtabolism.model.view.food.MealModel;
+import com.mathtabolism.model.view.food.MealPartModel;
 import com.mathtabolism.util.nutrition.BaseNutrient;
 import com.mathtabolism.util.unit.Measurement;
 import com.mathtabolism.util.unit.UnitConverter;
@@ -15,8 +15,8 @@ public class IntakeCalculator {
   private IntakeCalculator() {
   }
   
-  public static BaseNutrient calculateNutrient(MealModel dailyIntakeMealEntity, NutrientType nutrientType) {
-    return calculateMealNutrients(dailyIntakeMealEntity.getMealParts(), nutrientType);
+  public static BaseNutrient calculateNutrient(MealModel dailyIntakeMeal, NutrientType nutrientType) {
+    return calculateMealNutrients(dailyIntakeMeal.getMealParts(), nutrientType);
   }
   
   public static BaseNutrient calculateMealNutrients(List<MealPartModel> mealPartModels, NutrientType nutrientType) {

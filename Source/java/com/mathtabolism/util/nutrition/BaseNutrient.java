@@ -7,7 +7,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.mathtabolism.constants.NutrientType;
-import com.mathtabolism.emcontract.Ingredient;
+import com.mathtabolism.model.Ingredient;
 import com.mathtabolism.util.number.NumberUtils;
 
 /**

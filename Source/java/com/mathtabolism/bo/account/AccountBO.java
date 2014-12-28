@@ -16,19 +16,19 @@ import org.joda.time.DateTime;
 
 import com.mathtabolism.constants.AccountRole;
 import com.mathtabolism.constants.Weekday;
-import com.mathtabolism.converter.account.AccountConverter;
-import com.mathtabolism.converter.account.AccountSettingConverter;
-import com.mathtabolism.converter.account.AccountWeightConverter;
 import com.mathtabolism.eao.account.AccountEAO;
 import com.mathtabolism.eao.account.AccountSettingEAO;
 import com.mathtabolism.eao.account.AccountWeightEAO;
-import com.mathtabolism.entity.account.AccountEntity;
-import com.mathtabolism.entity.account.AccountSettingEntity;
-import com.mathtabolism.entity.account.AccountWeightEntity;
-import com.mathtabolism.model.account.AccountModel;
-import com.mathtabolism.model.account.AccountSettingModel;
-import com.mathtabolism.model.account.AccountWeightModel;
-import com.mathtabolism.model.account.CreateAccountModel;
+import com.mathtabolism.model.converter.account.AccountConverter;
+import com.mathtabolism.model.converter.account.AccountSettingConverter;
+import com.mathtabolism.model.converter.account.AccountWeightConverter;
+import com.mathtabolism.model.entity.account.Account;
+import com.mathtabolism.model.entity.account.AccountSetting;
+import com.mathtabolism.model.entity.account.AccountWeight;
+import com.mathtabolism.model.view.account.AccountModel;
+import com.mathtabolism.model.view.account.AccountSettingModel;
+import com.mathtabolism.model.view.account.AccountWeightModel;
+import com.mathtabolism.model.view.account.CreateAccountModel;
 import com.mathtabolism.util.PasswordEncryption;
 import com.mathtabolism.util.date.DateUtils;
 
@@ -61,18 +61,18 @@ public class AccountBO {
    * @return the {@link AccountModel} with data populated from the database
    */
   public AccountModel findAccountByUsername(String username) {
-    AccountEntity account = accountEAO.findAccountByUsername(username);
-    AccountSettingEntity currentSettings = accountSettingEAO.findCurrentAccountSetting(account);
-    AccountWeightEntity currentWeight = accountWeightEAO.findTodaysWeight(account);
+    Account account = accountEAO.findAccountByUsername(username);
+    AccountSetting currentSettings = accountSettingEAO.findCurrentAccountSetting(account);
+    AccountWeight currentWeight = accountWeightEAO.findTodaysWeight(account);
     if(currentWeight == null) {
-      currentWeight = new AccountWeightEntity(account, new Date());
+      currentWeight = new AccountWeight(account, new Date());
     }
-    AccountWeightEntity previousWeight = accountWeightEAO.findLatestWeight(account);
+    AccountWeight previousWeight = accountWeightEAO.findLatestWeight(account);
 
-    AccountModel accountModel = aConverter.convertEntityToModel(account);
-    AccountSettingModel accountSettingModel = asConverter.convertEntityToModel(currentSettings);
-    AccountWeightModel currentWeightModel = awConverter.convertEntityToModel(currentWeight);
-    AccountWeightModel previousWeightModel = awConverter.convertEntityToModel(previousWeight);
+    AccountModel accountModel = aConverter.convertToModel(account);
+    AccountSettingModel accountSettingModel = asConverter.convertToModel(currentSettings);
+    AccountWeightModel currentWeightModel = awConverter.convertToModel(currentWeight);
+    AccountWeightModel previousWeightModel = awConverter.convertToModel(previousWeight);
     
     accountModel.setCurrentSettings(accountSettingModel);
     accountModel.setCurrentWeight(currentWeightModel);
@@ -89,7 +89,7 @@ public class AccountBO {
   public AccountModel updateLastLogin(AccountModel accountModel) {
     accountModel.setLastLogin(new Date());
     
-    AccountEntity account = aConverter.convertModelToEntity(accountModel);
+    Account account = aConverter.convertModelTo(accountModel);
     account = accountEAO.update(account);
     return accountModel;
   }
@@ -101,13 +101,13 @@ public class AccountBO {
    * @return the updated <tt>accountModel</tt>
    */
   public AccountModel createOrUpdateSettings(AccountModel accountModel) {
-    AccountEntity account = aConverter.convertModelToEntity(accountModel);
+    Account account = aConverter.convertModelTo(accountModel);
     accountEAO.update(account);
     
     AccountSettingModel currentSettingsModel = accountModel.getCurrentSettings();
     currentSettingsModel.setDateChanged(new Date());
     
-    AccountSettingEntity currentSettings = asConverter.convertModelToEntity(currentSettingsModel);
+    AccountSetting currentSettings = asConverter.convertModelTo(currentSettingsModel);
     if(DateUtils.isSameDate(currentSettings.getDateChanged(), accountSettingEAO.findLatestAccountSettingDateByAccount(account))) {
       accountSettingEAO.update(currentSettings);
     } else {
@@ -122,16 +122,16 @@ public class AccountBO {
    * @return the updated <tt>accountModel</tt>
    */
   public AccountModel createOrUpdateWeight(AccountModel accountModel) {
-    AccountWeightEntity currentWeight = awConverter.convertModelToEntity(accountModel.getCurrentWeight());
-    AccountWeightEntity existingWeight = accountWeightEAO.findById(currentWeight);
+    AccountWeight currentWeight = awConverter.convertModelTo(accountModel.getCurrentWeight());
+    AccountWeight existingWeight = accountWeightEAO.findById(currentWeight);
     if(existingWeight == null) {
       currentWeight = accountWeightEAO.update(currentWeight);
     } else {
-      AccountEntity account = aConverter.convertModelToEntity(accountModel);
-      AccountWeightEntity newWeight = new AccountWeightEntity(account, new Date());
+      Account account = aConverter.convertModelTo(accountModel);
+      AccountWeight newWeight = new AccountWeight(account, new Date());
       newWeight.setWeight(currentWeight.getWeight());
       accountWeightEAO.create(newWeight);
-      accountModel.setCurrentWeight(awConverter.convertEntityToModel(newWeight));
+      accountModel.setCurrentWeight(awConverter.convertToModel(newWeight));
     }
     return accountModel;
   }
@@ -148,20 +148,20 @@ public class AccountBO {
   }
   
   /**
-   * Creates a new account from a {@link CreateAccountModel}. Also creates a dummy {@link AccountSettingEntity}
+   * Creates a new account from a {@link CreateAccountModel}. Also creates a dummy {@link AccountSetting}
    * once the account was created.
    * 
    * @param createAccountModel the model to create from
    */
   public void createAccount(CreateAccountModel createAccountModel) {
-    AccountEntity account = aConverter.convertModelToEntity(createAccountModel);
+    Account account = aConverter.convertModelTo(createAccountModel);
     Date creationDate = Calendar.getInstance().getTime();
     account.setPassword(PasswordEncryption.encrypt(account.getPassword()));
     account.setRole(AccountRole.USER);
     account.setActiveSince(creationDate);
     accountEAO.create(account);
     
-    AccountSettingEntity accountSetting = new AccountSettingEntity(account, creationDate);
+    AccountSetting accountSetting = new AccountSetting(account, creationDate);
     accountSettingEAO.create(accountSetting);
   }
   
@@ -188,9 +188,9 @@ public class AccountBO {
    * @return the {@link AccountWeightModel} or an empty {@link AccountWeightModel}
    */
   public AccountWeightModel findAccountWeightByDate(AccountModel accountModel, Date date) {
-    AccountWeightEntity accountWeight = accountWeightEAO.findAccountWeightByDate(accountModel.getId(), date);
+    AccountWeight accountWeight = accountWeightEAO.findAccountWeightByDate(accountModel.getId(), date);
     if(accountWeight != null) {
-      return awConverter.convertEntityToModel(accountWeight);
+      return awConverter.convertToModel(accountWeight);
     } else {
       return new AccountWeightModel();
     }
@@ -203,19 +203,19 @@ public class AccountBO {
    * @return
    */
   public AccountSettingModel findLatestSettingsForDate(AccountModel accountModel, Date date) {
-    return asConverter.convertEntityToModel(accountSettingEAO.findLatestSettingsForDate(accountModel.getId(), date));
+    return asConverter.convertToModel(accountSettingEAO.findLatestSettingsForDate(accountModel.getId(), date));
   }
   
-  public List<AccountWeightEntity> findCurrentAccountWeightWeek(AccountEntity accountEntity, AccountSettingEntity currentSettings) {
+  public List<AccountWeight> findCurrentAccountWeightWeek(Account account, AccountSetting currentSettings) {
     DateTime startDate = DateUtils.findStartDate(currentSettings.getRecalculationDay().toInt());
-    return accountWeightEAO.findCurrentAccountWeightWeek(accountEntity.getId(), startDate);
+    return accountWeightEAO.findCurrentAccountWeightWeek(account.getId(), startDate);
   }
   
-  public AccountWeightEntity findTodaysWeight(AccountEntity accountEntity) {
-    return accountWeightEAO.findTodaysWeight(accountEntity);
+  public AccountWeight findTodaysWeight(Account account) {
+    return accountWeightEAO.findTodaysWeight(account);
   }
   
-  public AccountWeightEntity findLatestWeight(AccountEntity accountEntity) {
-    return accountWeightEAO.findLatestWeight(accountEntity);
+  public AccountWeight findLatestWeight(Account account) {
+    return accountWeightEAO.findLatestWeight(account);
   }
 }

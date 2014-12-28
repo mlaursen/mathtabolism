@@ -3,11 +3,11 @@
  */
 package com.mathtabolism.eao;
 
-import com.mathtabolism.entity.BaseGeneratedEntity;
+import com.mathtabolism.model.entity.BaseGeneratedEntity;
 
 /**
+ * 
  * @author mlaursen
- *
  */
 public abstract class BaseGeneratedEntityEAO<T extends BaseGeneratedEntity> extends BaseEAO<T> {
 

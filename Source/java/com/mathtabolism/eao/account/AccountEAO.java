@@ -9,28 +9,27 @@ import java.util.Map;
 import javax.ejb.Stateless;
 
 import com.mathtabolism.eao.BaseGeneratedEntityEAO;
-import com.mathtabolism.entity.account.AccountEntity;
+import com.mathtabolism.model.entity.account.Account;
 
 /**
  * @author mlaursen
  *
  */
 @Stateless
-public class AccountEAO extends BaseGeneratedEntityEAO<AccountEntity> {
+public class AccountEAO extends BaseGeneratedEntityEAO<Account> {
   public AccountEAO() {
-    super(AccountEntity.class);
+    super(Account.class);
   }
   
   /**
    * 
-   * @param username
-   *          the username to search by
-   * @return an {@link AccountEntity} or null
+   * @param username the username to search by
+   * @return an {@link Account} or null
    */
-  public AccountEntity findAccountByUsername(String username) {
+  public Account findAccountByUsername(String username) {
     Map<String, Object> parameters = new HashMap<>();
     parameters.put("username", username);
     
-    return findOneResult(AccountEntity.Q_findByUsername, parameters);
+    return findOneResult(Account.Q_findByUsername, parameters);
   }
 }

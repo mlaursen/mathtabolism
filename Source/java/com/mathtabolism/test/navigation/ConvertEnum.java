@@ -7,9 +7,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.mathtabolism.navigation.AccountNav;
-import com.mathtabolism.navigation.Navigatable;
 import com.mathtabolism.util.string.StringUtils;
+import com.mathtabolism.view.navigation.AccountNav;
+import com.mathtabolism.view.navigation.Navigatable;
 
 /**
  * 

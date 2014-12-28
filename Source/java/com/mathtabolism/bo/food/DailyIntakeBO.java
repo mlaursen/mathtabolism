@@ -15,17 +15,17 @@ import org.joda.time.DateTime;
 
 import com.mathtabolism.bo.account.AccountBO;
 import com.mathtabolism.constants.Weekday;
-import com.mathtabolism.converter.account.AccountConverter;
-import com.mathtabolism.converter.account.DailyIntakeConverter;
 import com.mathtabolism.eao.food.DailyIntakeEAO;
-import com.mathtabolism.entity.account.AccountEntity;
-import com.mathtabolism.entity.account.DailyIntakeEntity;
-import com.mathtabolism.model.account.AccountModel;
-import com.mathtabolism.model.account.AccountSettingModel;
-import com.mathtabolism.model.account.AccountWeightModel;
-import com.mathtabolism.model.food.DailyIntakeModel;
-import com.mathtabolism.model.food.MealModel;
-import com.mathtabolism.model.food.MealPartModel;
+import com.mathtabolism.model.converter.account.AccountConverter;
+import com.mathtabolism.model.converter.account.DailyIntakeConverter;
+import com.mathtabolism.model.entity.account.Account;
+import com.mathtabolism.model.entity.account.DailyIntake;
+import com.mathtabolism.model.view.account.AccountModel;
+import com.mathtabolism.model.view.account.AccountSettingModel;
+import com.mathtabolism.model.view.account.AccountWeightModel;
+import com.mathtabolism.model.view.food.DailyIntakeModel;
+import com.mathtabolism.model.view.food.MealModel;
+import com.mathtabolism.model.view.food.MealPartModel;
 import com.mathtabolism.util.date.DateUtils;
 
 /**
@@ -57,7 +57,7 @@ public class DailyIntakeBO {
    * @see DailyIntakeBO#generateNewWeek(AccountModel)
    */
   public List<DailyIntakeModel> findCurrentWeekForAccount(AccountModel accountModel) {
-    AccountEntity account = aConverter.convertModelToEntity(accountModel);
+    Account account = aConverter.convertModelTo(accountModel);
     AccountSettingModel currentSettings = accountModel.getCurrentSettings();
     
     Weekday recalculationDay = currentSettings.getRecalculationDay();
@@ -80,15 +80,15 @@ public class DailyIntakeBO {
    * @return an updated DailyIntakeModel
    */
   public DailyIntakeModel createOrUpdateDailyIntake(AccountModel accountModel, DailyIntakeModel dailyIntakeModel) {
-    DailyIntakeEntity dailyIntake = diConverter.convertModelToEntity(dailyIntakeModel);
-    dailyIntake.setAccountEntity(aConverter.convertModelToEntity(accountModel));
+    DailyIntake dailyIntake = diConverter.convertModelTo(dailyIntakeModel);
+    dailyIntake.setAccount(aConverter.convertModelTo(accountModel));
     if(dailyIntakeEAO.findById(dailyIntake) == null) {
       dailyIntakeEAO.create(dailyIntake);
     } else {
       dailyIntake = dailyIntakeEAO.update(dailyIntake);
     }
     
-    return diConverter.convertEntityToModel(dailyIntake);
+    return diConverter.convertToModel(dailyIntake);
   }
   
   

@@ -14,11 +14,10 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
+ * 
  * @author mlaursen
- *
  */
 public abstract class BaseEAO<T> {
-  
   private final static String UNIT_NAME = "MathtabolismPU";
   
   @PersistenceContext(unitName = UNIT_NAME)

@@ -15,17 +15,17 @@ import javax.persistence.NoResultException;
 import org.joda.time.DateTime;
 
 import com.mathtabolism.eao.BaseGeneratedEntityEAO;
-import com.mathtabolism.entity.account.AccountEntity;
-import com.mathtabolism.entity.account.AccountWeightEntity;
+import com.mathtabolism.model.entity.account.Account;
+import com.mathtabolism.model.entity.account.AccountWeight;
 
 /**
  * 
  * @author mlaursen
  */
 @Stateless
-public class AccountWeightEAO extends BaseGeneratedEntityEAO<AccountWeightEntity> {
+public class AccountWeightEAO extends BaseGeneratedEntityEAO<AccountWeight> {
   public AccountWeightEAO() {
-    super(AccountWeightEntity.class);
+    super(AccountWeight.class);
   }
   
   /**
@@ -34,56 +34,56 @@ public class AccountWeightEAO extends BaseGeneratedEntityEAO<AccountWeightEntity
    * @param date the search date
    * @return the account weight or null
    */
-  public AccountWeightEntity findAccountWeightByDate(String accountId, Date date) {
+  public AccountWeight findAccountWeightByDate(String accountId, Date date) {
     Map<String, Object> parameters = new HashMap<>();
     parameters.put("account_id", accountId);
     parameters.put("weigh_in_date", date);
-    return findOneResult(AccountWeightEntity.Q_findAccountWeightByDate, parameters);
+    return findOneResult(AccountWeight.Q_findAccountWeightByDate, parameters);
   }
   
-  public AccountWeightEntity findLatestWeight(AccountEntity accountEntity) {
+  public AccountWeight findLatestWeight(Account account) {
     Map<String, Object> parameters = new HashMap<>();
-    parameters.put("account_id", accountEntity.getId());
+    parameters.put("account_id", account.getId());
     try {
-      return findOneResult(AccountWeightEntity.Q_findLatestWeight, parameters);
+      return findOneResult(AccountWeight.Q_findLatestWeight, parameters);
     }
     catch (NoResultException e) {
-      return createDefaultWeight(accountEntity);
+      return createDefaultWeight(account);
     }
   }
   
-  private AccountWeightEntity createWeightForAccount(AccountEntity accountEntity, double weight) {
-    AccountWeightEntity accountWeightEntity = new AccountWeightEntity(accountEntity, Calendar.getInstance().getTime());
-    accountWeightEntity.setWeight(weight);
-    create(accountWeightEntity);
-    return accountWeightEntity;
+  private AccountWeight createWeightForAccount(Account account, double weight) {
+    AccountWeight accountWeight = new AccountWeight(account, Calendar.getInstance().getTime());
+    accountWeight.setWeight(weight);
+    create(accountWeight);
+    return accountWeight;
   }
   
-  private AccountWeightEntity createDefaultWeight(AccountEntity accountEntity) {
-    return createWeightForAccount(accountEntity, 0.0);
+  private AccountWeight createDefaultWeight(Account account) {
+    return createWeightForAccount(account, 0.0);
   }
   
   /**
-   * Attempts to find the {@link AccountWeightEntity} for today and the given account.
+   * Attempts to find the {@link AccountWeight} for today and the given account.
    * 
    * @param account
-   *          the {@link AccountEntity} to look up a weight for
+   *          the {@link Account} to look up a weight for
    * @return
    */
-  public AccountWeightEntity findTodaysWeight(AccountEntity accountEntity) {
+  public AccountWeight findTodaysWeight(Account account) {
     Map<String, Object> parameters = new HashMap<>();
-    parameters.put("account_id", accountEntity.getId());
+    parameters.put("account_id", account.getId());
     parameters.put("today", Calendar.getInstance().getTime());
     
-    return findOneResult(AccountWeightEntity.Q_findTodaysWeight, parameters);
+    return findOneResult(AccountWeight.Q_findTodaysWeight, parameters);
   }
   
-  public List<AccountWeightEntity> findCurrentAccountWeightWeek(String accountId, DateTime startDate) {
+  public List<AccountWeight> findCurrentAccountWeightWeek(String accountId, DateTime startDate) {
     Map<String, Object> parameters = new HashMap<>();
     parameters.put("account_id", accountId);
     parameters.put("start_date", startDate.toDate());
     parameters.put("end_date", startDate.plusDays(7).toDate());
     
-    return findResultList(AccountWeightEntity.Q_findCurrentAccountWeightWeek, parameters);
+    return findResultList(AccountWeight.Q_findCurrentAccountWeightWeek, parameters);
   }
 }

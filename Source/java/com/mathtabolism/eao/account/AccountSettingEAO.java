@@ -11,17 +11,17 @@ import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 
 import com.mathtabolism.eao.BaseGeneratedEntityEAO;
-import com.mathtabolism.entity.account.AccountEntity;
-import com.mathtabolism.entity.account.AccountSettingEntity;
+import com.mathtabolism.model.entity.account.Account;
+import com.mathtabolism.model.entity.account.AccountSetting;
 
 /**
  * 
  * @author mlaursen
  */
 @Stateless
-public class AccountSettingEAO extends BaseGeneratedEntityEAO<AccountSettingEntity> {
+public class AccountSettingEAO extends BaseGeneratedEntityEAO<AccountSetting> {
   public AccountSettingEAO() {
-    super(AccountSettingEntity.class);
+    super(AccountSetting.class);
   }
   
   /**
@@ -29,10 +29,10 @@ public class AccountSettingEAO extends BaseGeneratedEntityEAO<AccountSettingEnti
    * @param account the account to get the current AccountSetting for
    * @return
    */
-  public AccountSettingEntity findCurrentAccountSetting(AccountEntity accountEntity) {
+  public AccountSetting findCurrentAccountSetting(Account account) {
     Map<String, Object> parameters = new HashMap<>();
-    parameters.put("account_id", accountEntity.getId());
-    return findOneResult(AccountSettingEntity.Q_findCurrentAccountSetting, parameters);
+    parameters.put("account_id", account.getId());
+    return findOneResult(AccountSetting.Q_findCurrentAccountSetting, parameters);
   }
   
   /**
@@ -41,11 +41,11 @@ public class AccountSettingEAO extends BaseGeneratedEntityEAO<AccountSettingEnti
    * @param date
    * @return
    */
-  public AccountSettingEntity findLatestSettingsForDate(String accountId, Date date) {
+  public AccountSetting findLatestSettingsForDate(String accountId, Date date) {
     Map<String, Object> parameters = new HashMap<>();
     parameters.put("account_id", accountId);
     parameters.put("date", date);
-    return findOneResult(AccountSettingEntity.Q_findLatestSettingsForDate, parameters);
+    return findOneResult(AccountSetting.Q_findLatestSettingsForDate, parameters);
   }
   
   /**
@@ -53,10 +53,10 @@ public class AccountSettingEAO extends BaseGeneratedEntityEAO<AccountSettingEnti
    * @param account the account to search in
    * @return the latest date changed
    */
-  public Date findLatestAccountSettingDateByAccount(AccountEntity account) {
+  public Date findLatestAccountSettingDateByAccount(Account account) {
     Map<String, Object> parameters = new HashMap<>();
     parameters.put("account_id", account.getId());
-    TypedQuery<Date> q = em.createNamedQuery(AccountSettingEntity.Q_findLatestAccountSettingByAccountId, Date.class);
+    TypedQuery<Date> q = em.createNamedQuery(AccountSetting.Q_findLatestAccountSettingByAccountId, Date.class);
     bindParameters(q, parameters);
     return q.getSingleResult();
   }

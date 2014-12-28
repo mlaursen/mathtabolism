@@ -14,7 +14,7 @@ import com.mathtabolism.util.string.StringUtils;
  */
 public class CustomNamingStrategy extends ImprovedNamingStrategy {
   private static final long serialVersionUID = 1L;
-  private static final String ENTITY = "Entity";
+  private static final String ENTITY = "";
   private static final String EMPTY = "";
   
   @Override

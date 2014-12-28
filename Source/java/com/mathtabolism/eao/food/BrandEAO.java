@@ -8,19 +8,19 @@ import java.util.List;
 import javax.ejb.Stateless;
 
 import com.mathtabolism.eao.BaseEAO;
-import com.mathtabolism.entity.food.BrandEntity;
+import com.mathtabolism.model.entity.food.Brand;
 
 /**
  * 
  * @author mlaursen
  */
 @Stateless
-public class BrandEAO extends BaseEAO<BrandEntity> {
+public class BrandEAO extends BaseEAO<Brand> {
   public BrandEAO() {
-    super(BrandEntity.class);
+    super(Brand.class);
   }
   
-  public List<BrandEntity> findAllBrands() {
-    return findResultList(BrandEntity.Q_findAllBrands);
+  public List<Brand> findAllBrands() {
+    return findResultList(Brand.Q_findAllBrands);
   }
 }
