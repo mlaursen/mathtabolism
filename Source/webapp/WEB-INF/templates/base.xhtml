@@ -40,7 +40,7 @@
             </c:when>
             <c:otherwise>
               <li>
-                <h:commandLink action="#{navigationController.redirect('AccountNav.LOGIN')}" value="#{msg.login}" rendered="#{empty request.remoteUser}"/>
+                <h:commandLink action="#{navigationController.redirect('AccountNav.INDEX')}" value="#{msg.login}" rendered="#{empty request.remoteUser}"/>
               </li>
             </c:otherwise>
           </c:choose>

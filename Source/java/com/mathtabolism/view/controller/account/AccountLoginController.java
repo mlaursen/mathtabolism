@@ -20,7 +20,7 @@ import com.mathtabolism.view.model.account.CreateAccountModel;
 import com.mathtabolism.view.navigation.AccountNav;
 
 /**
- * <p>Controller for handling ONLY account creation. During the attempted creation process, the flipper
+ * <p>Controller for handling ONLY account creation or logging in. During the attempted creation process, the flipper
  * css will be changed to have the Signup Form starting front facing if some backend process failed. Hopefully
  * the javascript should never allow it to get to that point, but it is there just in case.
  * 
@@ -34,11 +34,13 @@ import com.mathtabolism.view.navigation.AccountNav;
  */
 @Named
 @RequestScoped
-public class CreateAccountController extends BaseController {
+public class AccountLoginController extends BaseController {
   private static final long serialVersionUID = 1L;
-  private static Logger logger = Logger.getLogger(CreateAccountController.class);
+  private static Logger logger = Logger.getLogger(AccountLoginController.class);
   private static final String FRONT_CSS = "flipper-front";
   private static final String BACK_CSS = "flipper-back";
+  private static final String LOGIN_ERROR = "account_InvalidCredentials";
+  private static final String CREATED_LOGIN_ERROR = "account_LoginErrorAFterCreation";
   
   @Inject
   private AccountBO accountBO;
@@ -88,21 +90,36 @@ public class CreateAccountController extends BaseController {
         return null;
       }
       accountBO.createAccount(accountModel);
-      HttpServletRequest request = (HttpServletRequest) getContext().getExternalContext().getRequest();
-      try {
-        if(request.getUserPrincipal() != null) {
-          request.logout();
-        }
-        request.login(username, password);
-      } catch(ServletException e) {
-        logger.error("Unable to login after creating an account.");
+      
+      String toNext = login(CREATED_LOGIN_ERROR);
+      if(toNext != null) {
+        displayInfoMessage("account_AccountCreated");
       }
+      
+      return toNext;
     } catch (EJBException e) {
       displayErrorMessage("account_AccountExists");
       return null;
     }
-    displayInfoMessage("account_AccountCreated");
-    return redirect(AccountNav.ACCOUNT_INITIALIZATION);
+  }
+  
+  public String login() {
+    return login(LOGIN_ERROR);
+  }
+  
+  private String login(String error) {
+    try {
+      HttpServletRequest request = (HttpServletRequest) getContext().getExternalContext().getRequest();
+      if(request.getUserPrincipal() != null) {
+        request.logout();
+      }
+      
+      request.login(accountModel.getUsername(), accountModel.getPassword());
+      return redirect(AccountNav.ACCOUNT_INITIALIZATION);
+    } catch(ServletException e) {
+      displayErrorMessage(error);
+      return null;
+    }
   }
   
   /**

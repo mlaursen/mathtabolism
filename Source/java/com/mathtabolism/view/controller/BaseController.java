@@ -160,7 +160,7 @@ public abstract class BaseController implements Serializable {
    */
   public String logOut() {
     getRequest().getSession().invalidate();
-    return redirect(AccountNav.ACCOUNT_SETTINGS);
+    return redirect(AccountNav.INDEX);
   }
   
   /**
@@ -169,6 +169,10 @@ public abstract class BaseController implements Serializable {
    * @return a redirect action for JSF 2
    */
   protected <T extends Enum<T> & Navigatable> String redirect(T page) {
+    if(AccountNav.INDEX.equals(page)) {
+      return "/index?faces-redirect=true";
+    }
+    
     String folder = page.getFolder();
     if(StringUtils.isNotBlank(folder)) {
       folder += "/";

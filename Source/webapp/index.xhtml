@@ -14,49 +14,49 @@
       </h:panelGroup>
       <div class="flip-container">
         <div class="flipper">
-          <div id="login" class="account-form #{createAccountController.loginCss}">
+          <div id="login" class="account-form #{accountLoginController.loginCss}">
             <h2>#{msg.login}</h2>
-            <form method="post" action="j_security_check" name="loginForm" class="one-line">
+            <h:form id="loginForm" styleClass="one-line">
               <p>
                 <h:outputLabel value="#{msg.username}" />
-                <h:inputText id="j_username" name="j_username" p:autofocus="true" />
+                <h:inputText id="j_username" name="j_username" p:autofocus="true" value="#{accountLoginController.accountModel.username}" />
               </p>
               
               <p>
                 <h:outputLabel value="#{msg.password}" />
-                <h:inputSecret id="j_password" name="j_password" />
+                <h:inputSecret id="j_password" name="j_password" value="#{accountLoginController.accountModel.password}"/>
               </p>
               
               <p>
-                <h:commandButton value="#{msg.login}" />
+                <h:commandButton value="#{msg.login}" action="#{accountLoginController.login()}" />
                 <button type="button" onclick="flip()">#{msg.signup}</button>
               </p>
-            </form>
+            </h:form>
           </div>
-          <div id="signup" class="account-form #{createAccountController.signupCss}">
+          <div id="signup" class="account-form #{accountLoginController.signupCss}">
             <h2>#{msg.signup}</h2>
             <h:form id="signup-form" styleClass="one-line" p:autocomplete="off">
               <div>
                 <p>
                   <h:outputLabel value="#{msg.username}" />
-                  <h:inputText id="username" value="#{createAccountController.accountModel.username}">
-                    <f:ajax event="blur" execute="username" listener="#{createAccountController.checkIsUsernameAvailable}"
+                  <h:inputText id="username" value="#{accountLoginController.accountModel.username}">
+                    <f:ajax event="blur" execute="username" listener="#{accountLoginController.checkIsUsernameAvailable}"
                             render="username-exists checklist-username" />
                   </h:inputText>
-                  <pf:watermark id="rand-user" for="username" value="#{createAccountController.randomUsername}" />
+                  <pf:watermark id="rand-user" for="username" value="#{accountLoginController.randomUsername}" />
                 </p>
                 <div class="checklist">
-                  <h:graphicImage id="checklist-username" styleClass="icon-medium #{empty createAccountController.accountModel.username ? 'hidden': ''}" 
-                                  library="icons" name="#{createAccountController.usernameAvailable and createAccountController.validUsernameLength ? 'checkmark' : 'cross'}.png" />
+                  <h:graphicImage id="checklist-username" styleClass="icon-medium #{empty accountLoginController.accountModel.username ? 'hidden': ''}" 
+                                  library="icons" name="#{accountLoginController.usernameAvailable and accountLoginController.validUsernameLength ? 'checkmark' : 'cross'}.png" />
                 </div>
               </div>
-              <h:outputText id="username-exists" value="#{not createAccountController.validUsernameLength ? msg.account_UsernameError: msg.account_AccountExists}" 
-                            styleClass="error #{createAccountController.usernameAvailable and createAccountController.validUsernameLength ? '' : 'visible'}" />
+              <h:outputText id="username-exists" value="#{not accountLoginController.validUsernameLength ? msg.account_UsernameError: msg.account_AccountExists}" 
+                            styleClass="error #{accountLoginController.usernameAvailable and accountLoginController.validUsernameLength ? '' : 'visible'}" />
               
               <div>
                 <p>
                   <h:outputLabel value="#{msg.password}" />
-                  <h:inputSecret id="password" value="#{createAccountController.accountModel.password}" />
+                  <h:inputSecret id="password" value="#{accountLoginController.accountModel.password}" />
                 </p>
                 <div class="checklist">
                   <h:graphicImage id="checklist-password" styleClass="icon-medium hidden" />
@@ -67,7 +67,7 @@
               <div>
                 <p>
                   <h:outputLabel value="#{msg.passwordConfirm}" />
-                  <h:inputSecret id="confirm-password" value="#{createAccountController.accountModel.confirmPassword}" />
+                  <h:inputSecret id="confirm-password" value="#{accountLoginController.accountModel.confirmPassword}" />
                 </p>
                 <div class="checklist">
                   <h:graphicImage id="checklist-confirm-password" styleClass="icon-medium hidden"  />
@@ -77,12 +77,12 @@
               
               <p>
                 <h:outputLabel value="#{msg.account_RecoveryEmail}" />
-                <h:inputText id="email" value="#{createAccountController.accountModel.email}" />
+                <h:inputText id="email" value="#{accountLoginController.accountModel.email}" />
                 <pf:watermark for="email" value="#{msg.account_OptionalEmail}" />
               </p>
               
               <p>
-                <h:commandButton action="#{createAccountController.createAccount()}" value="#{msg.createAccount}" />
+                <h:commandButton action="#{accountLoginController.createAccount()}" value="#{msg.createAccount}" />
                 <button type="button" onclick="flip()">#{msg.cancelSignup}</button>
               </p>
             </h:form>
