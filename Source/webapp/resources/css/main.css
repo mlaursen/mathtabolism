@@ -339,3 +339,17 @@ table.data-table td {
   width: 75px;
   height: 75px;
 }
+
+.error-page-errors tr th {
+  font-size: 1.2em;
+  vertical-align: top;
+  text-align: left;
+}
+
+.error-page-errors tr td {
+  font-size: 1.2em;
+  white-space: pre;
+  font-family: monospace;
+  line-height: 1.3em
+  font-family: monospace;
+}

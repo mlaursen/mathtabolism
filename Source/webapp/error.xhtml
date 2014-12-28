@@ -1,0 +1,23 @@
+<ui:composition template="/WEB-INF/templates/base.xhtml" 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+  <ui:define name="title"><h:outputText value="#{msg.ErrorPage}" /></ui:define>
+  <ui:define name="content">
+  <h:form>
+    <table class="error-page-errors">
+    <c:forEach items="#{exceptionController.errorDescriptions}" var="desc">
+    <tr>
+      <th> <h:outputText value="#{desc['0']}" /> </th>
+      <td><h:outputText value="#{desc['1']}" /> </td>
+    </tr>
+    </c:forEach>
+    </table>
+    
+    <h:commandButton action="#{navigationController.handleException()}" value="#{msg.toAccountPage}"/>
+  </h:form>
+  <h:outputScript library="js" name="errorPage.js" />
+  </ui:define>
+</ui:composition>

@@ -8,6 +8,7 @@ import javax.inject.Named;
 
 import org.jboss.logging.Logger;
 
+import com.mathtabolism.view.navigation.AccountNav;
 import com.mathtabolism.view.navigation.Navigatable;
 
 /**
@@ -80,5 +81,13 @@ public class NavigationController extends BaseController {
       logger.error("Unable to find a Navigatable resource from: " + values[0]);
       return null;
     }
+  }
+  
+  public String handle404() {
+    return getRequest().getUserPrincipal() != null ? redirect(AccountNav.ACCOUNT_INITIALIZATION) : redirect(AccountNav.INDEX);
+  }
+  
+  public String handleException() {
+    return getRequest().getUserPrincipal() != null ? redirect(AccountNav.ACCOUNT_INITIALIZATION) : redirect(AccountNav.INDEX);
   }
 }
