@@ -9,7 +9,7 @@ import java.util.Map;
 import javax.ejb.Stateless;
 
 import com.mathtabolism.eao.BaseGeneratedEntityEAO;
-import com.mathtabolism.model.entity.account.Account;
+import com.mathtabolism.entity.account.Account;
 
 /**
  * @author mlaursen

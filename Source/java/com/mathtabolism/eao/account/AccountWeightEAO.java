@@ -15,8 +15,8 @@ import javax.persistence.NoResultException;
 import org.joda.time.DateTime;
 
 import com.mathtabolism.eao.BaseGeneratedEntityEAO;
-import com.mathtabolism.model.entity.account.Account;
-import com.mathtabolism.model.entity.account.AccountWeight;
+import com.mathtabolism.entity.account.Account;
+import com.mathtabolism.entity.account.AccountWeight;
 
 /**
  * 

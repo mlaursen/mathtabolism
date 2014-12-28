@@ -6,7 +6,7 @@ package com.mathtabolism.eao.food;
 import javax.ejb.Stateless;
 
 import com.mathtabolism.eao.BaseEAO;
-import com.mathtabolism.model.entity.food.Meal;
+import com.mathtabolism.entity.food.Meal;
 
 /**
  * 

@@ -3,7 +3,7 @@
  */
 package com.mathtabolism.eao;
 
-import com.mathtabolism.model.entity.BaseGeneratedEntity;
+import com.mathtabolism.entity.BaseGeneratedEntity;
 
 /**
  * 

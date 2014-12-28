@@ -7,7 +7,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.mathtabolism.constants.NutrientType;
-import com.mathtabolism.model.Ingredient;
+import com.mathtabolism.dto.IngredientDto;
 import com.mathtabolism.util.number.NumberUtils;
 
 /**
@@ -101,7 +101,7 @@ public abstract class BaseNutrient {
     return null;
   }
   
-  public static BaseNutrient getFromIngredient(Ingredient ingredient, NutrientType whichNutrient) {
+  public static BaseNutrient getFromIngredient(IngredientDto ingredient, NutrientType whichNutrient) {
     switch(whichNutrient) {
       case CALORIE:
         return ingredient.getCalories();

@@ -17,14 +17,9 @@ import com.mathtabolism.constants.Gender;
 import com.mathtabolism.constants.MealFactType;
 import com.mathtabolism.constants.NutrientType;
 import com.mathtabolism.constants.TotalType;
-import com.mathtabolism.model.Account;
-import com.mathtabolism.model.AccountSetting;
-import com.mathtabolism.model.AccountWeight;
-import com.mathtabolism.model.view.account.AccountModel;
-import com.mathtabolism.model.view.account.AccountSettingModel;
-import com.mathtabolism.model.view.account.AccountWeightModel;
-import com.mathtabolism.model.view.food.DailyIntakeModel;
-import com.mathtabolism.model.view.food.MealModel;
+import com.mathtabolism.dto.AccountDto;
+import com.mathtabolism.dto.AccountSettingDto;
+import com.mathtabolism.dto.AccountWeightDto;
 import com.mathtabolism.util.calculation.FormulaCalculation;
 import com.mathtabolism.util.calculation.IntakeCalculator;
 import com.mathtabolism.util.date.DateUtils;
@@ -36,6 +31,11 @@ import com.mathtabolism.util.nutrition.Protein;
 import com.mathtabolism.util.unit.UnitSystem;
 import com.mathtabolism.view.controller.BaseController;
 import com.mathtabolism.view.controller.account.AccountController;
+import com.mathtabolism.view.model.account.AccountModel;
+import com.mathtabolism.view.model.account.AccountSettingModel;
+import com.mathtabolism.view.model.account.AccountWeightModel;
+import com.mathtabolism.view.model.food.DailyIntakeModel;
+import com.mathtabolism.view.model.food.MealModel;
 
 /**
  * 
@@ -109,8 +109,8 @@ public class DailyIntakeController extends BaseController {
     return calculatedTotal == null ? "" : calculatedTotal.getDisplayValue();
   }
   
-  private BaseNutrient calculateExpected(NutrientType nutrientType, Account account, AccountSetting accountSettings,
-      AccountWeight accountWeight) {
+  private BaseNutrient calculateExpected(NutrientType nutrientType, AccountDto account, AccountSettingDto accountSettings,
+      AccountWeightDto accountWeight) {
     Calorie calories = new Calorie();
     if(accountWeight != null && (account.getBirthday() != null || accountSettings.getAge() != null)
         && accountSettings.getHeight() != null && account.getGender() != null) {

@@ -16,17 +16,16 @@ import org.joda.time.DateTime;
 import com.mathtabolism.bo.account.AccountBO;
 import com.mathtabolism.constants.Weekday;
 import com.mathtabolism.eao.food.DailyIntakeEAO;
-import com.mathtabolism.model.converter.account.AccountConverter;
-import com.mathtabolism.model.converter.account.DailyIntakeConverter;
-import com.mathtabolism.model.entity.account.Account;
-import com.mathtabolism.model.entity.account.DailyIntake;
-import com.mathtabolism.model.view.account.AccountModel;
-import com.mathtabolism.model.view.account.AccountSettingModel;
-import com.mathtabolism.model.view.account.AccountWeightModel;
-import com.mathtabolism.model.view.food.DailyIntakeModel;
-import com.mathtabolism.model.view.food.MealModel;
-import com.mathtabolism.model.view.food.MealPartModel;
+import com.mathtabolism.entity.account.Account;
+import com.mathtabolism.entity.account.DailyIntake;
 import com.mathtabolism.util.date.DateUtils;
+import com.mathtabolism.util.emconverter.EntityModelConverter;
+import com.mathtabolism.view.model.account.AccountModel;
+import com.mathtabolism.view.model.account.AccountSettingModel;
+import com.mathtabolism.view.model.account.AccountWeightModel;
+import com.mathtabolism.view.model.food.DailyIntakeModel;
+import com.mathtabolism.view.model.food.MealModel;
+import com.mathtabolism.view.model.food.MealPartModel;
 
 /**
  * 
@@ -41,9 +40,7 @@ public class DailyIntakeBO {
   @Inject
   private AccountBO accountBO;
   @Inject
-  private AccountConverter aConverter;
-  @Inject
-  private DailyIntakeConverter diConverter;
+  private EntityModelConverter converter;
   
   public DailyIntakeBO() {
   }
@@ -57,13 +54,13 @@ public class DailyIntakeBO {
    * @see DailyIntakeBO#generateNewWeek(AccountModel)
    */
   public List<DailyIntakeModel> findCurrentWeekForAccount(AccountModel accountModel) {
-    Account account = aConverter.convertModelTo(accountModel);
+    Account account = converter.convertModelToEntity(accountModel);
     AccountSettingModel currentSettings = accountModel.getCurrentSettings();
     
     Weekday recalculationDay = currentSettings.getRecalculationDay();
     if(recalculationDay != null) {
       int recalcDOW = recalculationDay.toInt();
-      List<DailyIntakeModel> currentWeek = diConverter.convertEntitiesToModels(dailyIntakeEAO.findCurrentWeek(account, DateUtils.findStartDate(recalcDOW)));
+      List<DailyIntakeModel> currentWeek = converter.convertEntitiesToModels(dailyIntakeEAO.findCurrentWeek(account, DateUtils.findStartDate(recalcDOW)));
       if(currentWeek == null || currentWeek.isEmpty()) {
         currentWeek = generateNewWeek(accountModel);
       }
@@ -80,15 +77,15 @@ public class DailyIntakeBO {
    * @return an updated DailyIntakeModel
    */
   public DailyIntakeModel createOrUpdateDailyIntake(AccountModel accountModel, DailyIntakeModel dailyIntakeModel) {
-    DailyIntake dailyIntake = diConverter.convertModelTo(dailyIntakeModel);
-    dailyIntake.setAccount(aConverter.convertModelTo(accountModel));
+    DailyIntake dailyIntake = converter.convertModelToEntity(dailyIntakeModel);
+    dailyIntake.setAccount(converter.convertModelToEntity(accountModel));
     if(dailyIntakeEAO.findById(dailyIntake) == null) {
       dailyIntakeEAO.create(dailyIntake);
     } else {
       dailyIntake = dailyIntakeEAO.update(dailyIntake);
     }
     
-    return diConverter.convertToModel(dailyIntake);
+    return converter.convertEntityToModel(dailyIntake);
   }
   
   

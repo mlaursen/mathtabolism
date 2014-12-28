@@ -10,11 +10,11 @@ import org.junit.Test;
 
 import com.mathtabolism.constants.IngredientCategory;
 import com.mathtabolism.constants.NutrientType;
-import com.mathtabolism.model.entity.food.Brand;
-import com.mathtabolism.model.entity.food.DailyIntakeMeal;
-import com.mathtabolism.model.entity.food.Ingredient;
-import com.mathtabolism.model.entity.food.Meal;
-import com.mathtabolism.model.entity.food.MealPart;
+import com.mathtabolism.entity.food.Brand;
+import com.mathtabolism.entity.food.DailyIntakeMeal;
+import com.mathtabolism.entity.food.Ingredient;
+import com.mathtabolism.entity.food.Meal;
+import com.mathtabolism.entity.food.MealPart;
 
 import static com.mathtabolism.util.calculation.IntakeCalculator.calculateNutrient;
 

@@ -9,7 +9,7 @@ import javax.inject.Inject;
 
 import com.mathtabolism.constants.IngredientCategory;
 import com.mathtabolism.eao.food.IngredientEAO;
-import com.mathtabolism.model.entity.food.Ingredient;
+import com.mathtabolism.entity.food.Ingredient;
 
 /**
  * 

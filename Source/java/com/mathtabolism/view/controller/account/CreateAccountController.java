@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.jboss.logging.Logger;
 
 import com.mathtabolism.bo.account.AccountBO;
-import com.mathtabolism.model.view.account.CreateAccountModel;
 import com.mathtabolism.util.string.StringUtils;
 import com.mathtabolism.util.string.UsernameGenerator;
 import com.mathtabolism.view.controller.BaseController;
+import com.mathtabolism.view.model.account.CreateAccountModel;
 import com.mathtabolism.view.navigation.AccountNav;
 
 /**

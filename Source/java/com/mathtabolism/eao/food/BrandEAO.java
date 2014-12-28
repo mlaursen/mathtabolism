@@ -8,7 +8,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 
 import com.mathtabolism.eao.BaseEAO;
-import com.mathtabolism.model.entity.food.Brand;
+import com.mathtabolism.entity.food.Brand;
 
 /**
  * 

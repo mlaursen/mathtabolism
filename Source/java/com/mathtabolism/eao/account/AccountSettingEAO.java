@@ -11,8 +11,8 @@ import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 
 import com.mathtabolism.eao.BaseGeneratedEntityEAO;
-import com.mathtabolism.model.entity.account.Account;
-import com.mathtabolism.model.entity.account.AccountSetting;
+import com.mathtabolism.entity.account.Account;
+import com.mathtabolism.entity.account.AccountSetting;
 
 /**
  * 

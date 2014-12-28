@@ -16,12 +16,12 @@ import com.mathtabolism.constants.ActivityMultiplier;
 import com.mathtabolism.constants.Gender;
 import com.mathtabolism.constants.TDEEFormula;
 import com.mathtabolism.constants.Weekday;
-import com.mathtabolism.model.view.account.AccountModel;
-import com.mathtabolism.model.view.account.AccountSettingModel;
-import com.mathtabolism.model.view.account.AccountWeightModel;
 import com.mathtabolism.util.date.DateUtils;
 import com.mathtabolism.util.unit.UnitSystem;
 import com.mathtabolism.view.controller.BaseController;
+import com.mathtabolism.view.model.account.AccountModel;
+import com.mathtabolism.view.model.account.AccountSettingModel;
+import com.mathtabolism.view.model.account.AccountWeightModel;
 
 /**
  * 

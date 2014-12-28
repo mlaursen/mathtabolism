@@ -3,7 +3,8 @@
  */
 package com.mathtabolism.util.unit;
 
-import com.mathtabolism.model.Ingredient;
+import com.mathtabolism.dto.IngredientDto;
+import com.mathtabolism.entity.food.Ingredient;
 
 /**
  * 
@@ -67,7 +68,7 @@ public class UnitConverter {
    *          the {@link Ingredient} to find the serving for
    * @return a {@link Measurement} of the serving for the ingredient
    */
-  public static Measurement getServing(Measurement mealMeasurement, Ingredient ingredient) {
+  public static Measurement getServing(Measurement mealMeasurement, IngredientDto ingredient) {
     Measurement match = ingredient.getServing();
     if(UnitMeasurement.isSameUnitSystem(mealMeasurement.getUnitMeasurement(), match.getUnitMeasurement())) {
       return match;

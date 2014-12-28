@@ -9,7 +9,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import com.mathtabolism.eao.food.BrandEAO;
-import com.mathtabolism.model.entity.food.Brand;
+import com.mathtabolism.entity.food.Brand;
 
 /**
  * 

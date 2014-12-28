@@ -12,8 +12,8 @@ import javax.ejb.Stateless;
 import org.joda.time.DateTime;
 
 import com.mathtabolism.eao.BaseGeneratedEntityEAO;
-import com.mathtabolism.model.entity.account.Account;
-import com.mathtabolism.model.entity.account.DailyIntake;
+import com.mathtabolism.entity.account.Account;
+import com.mathtabolism.entity.account.DailyIntake;
 
 /**
  * 

@@ -14,8 +14,8 @@ import javax.inject.Named;
 import com.mathtabolism.bo.food.BrandBO;
 import com.mathtabolism.bo.food.IngredientBO;
 import com.mathtabolism.constants.IngredientCategory;
-import com.mathtabolism.model.entity.food.Brand;
-import com.mathtabolism.model.entity.food.Ingredient;
+import com.mathtabolism.entity.food.Brand;
+import com.mathtabolism.entity.food.Ingredient;
 import com.mathtabolism.view.controller.BaseController;
 
 /**

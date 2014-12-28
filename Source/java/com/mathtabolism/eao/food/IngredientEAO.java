@@ -12,7 +12,7 @@ import javax.persistence.TypedQuery;
 
 import com.mathtabolism.constants.IngredientCategory;
 import com.mathtabolism.eao.BaseEAO;
-import com.mathtabolism.model.entity.food.Ingredient;
+import com.mathtabolism.entity.food.Ingredient;
 
 /**
  * 
