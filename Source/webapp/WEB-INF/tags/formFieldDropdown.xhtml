@@ -12,7 +12,7 @@
   ulId: the ordered list id
   ulClass: the ordered list css class
   </ui:remove>
-  <div id="unit-system-field" class="form-field form-field-dd">
+  <div id="#{toggleId}-field" class="form-field form-field-dd">
     <h:inputHidden value="#{binding}" />
     <div id="#{toggleId}" class="form-field-toggle"><h:outputText value="#{selected}" /></div>
     <ul id="#{ulId}" class="#{ulClass}"><c:forEach items="#{items}" var="item">

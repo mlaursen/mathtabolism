@@ -47,6 +47,10 @@ public class AccountBO {
   @Inject
   private EntityModelConverter converter;
   
+  public AccountModel findAccountById(String accountId) {
+    Account account = accountEAO.findById(accountId);
+    return setAccountModelFromAccount(account);
+  }
   
   /**
    * Finds an Account by the given username and then loads all the data needed.
@@ -56,6 +60,10 @@ public class AccountBO {
    */
   public AccountModel findAccountByUsername(String username) {
     Account account = accountEAO.findAccountByUsername(username);
+    return setAccountModelFromAccount(account);
+  }
+  
+  private AccountModel setAccountModelFromAccount(Account account) {
     AccountSetting currentSettings = accountSettingEAO.findCurrentAccountSetting(account);
     AccountWeight currentWeight = accountWeightEAO.findTodaysWeight(account);
     if(currentWeight == null) {

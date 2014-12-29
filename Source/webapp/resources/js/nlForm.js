@@ -1,33 +1,39 @@
 /**
  * 
  */
-$(".nl-form .form-field").each(function() {
-  var mainDiv = this;
-  var hidden = $(this).find("input[type='hidden']");
-  var toggle = $(this).find(".form-field-toggle");
-  $(toggle).click(function() {
-    $(mainDiv).addClass("form-field-open");
-    $("#form-field-overlay").addClass("open");
-  });
+$(function() {
+  addEventListeners();
+});
+
+function addEventListeners() {
+  $(".nl-form .form-field").each(function() {
+    var mainDiv = this;
+    var hidden = $(this).find("input[type='hidden']");
+    var toggle = $(this).find(".form-field-toggle");
+    $(toggle).click(function() {
+      $(mainDiv).addClass("form-field-open");
+      $("#form-field-overlay").addClass("open");
+    });
+    
+    $(mainDiv).find($("ul > li")).each(function() {
+      $(this).click(function() {
+        updateSelected(mainDiv, $(this));
+        var val = $(this).data("value");
+        hidden.val(val);
+        toggle.html($(this).html());
+        toggle.change();
+        $(mainDiv).removeClass("form-field-open");
+        $("#form-field-overlay").removeClass("open");
+      });
+    });
   
-  $(mainDiv).find($("ul > li")).each(function() {
-    $(this).click(function() {
-      updateSelected(mainDiv, $(this));
-      var val = $(this).data("value");
-      hidden.val(val);
-      toggle.html($(this).html());
-      toggle.change();
+  
+    $("#form-field-overlay").click(function() {
       $(mainDiv).removeClass("form-field-open");
-      $("#form-field-overlay").removeClass("open");
+      $(this).removeClass("open");
     });
   });
-
-
-  $("#form-field-overlay").click(function() {
-    $(mainDiv).removeClass("form-field-open");
-    $(this).removeClass("open");
-  });
-});
+}
 
 function updateSelected(mainDiv, toSelect) {
   $(mainDiv).find($("ul > li")).each(function() {
