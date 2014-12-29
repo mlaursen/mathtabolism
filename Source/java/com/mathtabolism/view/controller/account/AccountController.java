@@ -22,6 +22,7 @@ import com.mathtabolism.view.controller.BaseController;
 import com.mathtabolism.view.model.account.AccountModel;
 import com.mathtabolism.view.model.account.AccountSettingModel;
 import com.mathtabolism.view.model.account.AccountWeightModel;
+import com.sun.javafx.cursor.CursorType;
 
 /**
  * 
@@ -310,5 +311,16 @@ public class AccountController extends BaseController {
       items[min] = new SelectItem(min, "" + min);
     }
     return items;
+  }
+  
+  public String getDateFormat() {
+    AccountSettingModel currentSettings = accountModel.getCurrentSettings();
+    UnitSystem unitSystem = currentSettings != null && currentSettings.getUnitSystem() != null ? currentSettings.getUnitSystem() : UnitSystem.IMPERIAL;
+    switch(unitSystem) {
+      case METRIC:
+        return "EEEE, dd MMMM YYYY";
+      default:
+        return "EEEE, MMMM dd, YYYY";
+    }
   }
 }

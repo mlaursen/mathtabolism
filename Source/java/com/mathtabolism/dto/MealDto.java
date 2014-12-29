@@ -3,7 +3,6 @@
  */
 package com.mathtabolism.dto;
 
-import java.util.List;
 
 /**
  * @author mlaursen

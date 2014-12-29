@@ -6,7 +6,8 @@
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <jta-data-source>java:jboss/datasources/MathtabolismDS</jta-data-source>
     <properties>
-      <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
+      <!-- Oracle10gDialect | MySQLDialect  -->
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
       <property name="hibernate.ejb.naming_strategy" value="com.mathtabolism.util.hibernate.CustomNamingStrategy" />
     </properties>
   </persistence-unit>

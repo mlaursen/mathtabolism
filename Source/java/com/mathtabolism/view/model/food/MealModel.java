@@ -5,6 +5,9 @@ package com.mathtabolism.view.model.food;
 
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.mathtabolism.dto.MealDto;
 import com.mathtabolism.entity.food.Meal;
 import com.mathtabolism.util.emconverter.EMConverter;
@@ -38,4 +41,9 @@ public class MealModel extends BaseModel implements MealDto {
     this.name = name;
   }
 
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("name", name)
+        .append("mealParts", mealParts).toString();
+  }
 }

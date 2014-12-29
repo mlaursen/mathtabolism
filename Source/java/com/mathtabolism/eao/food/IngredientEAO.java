@@ -11,7 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 
 import com.mathtabolism.constants.IngredientCategory;
-import com.mathtabolism.eao.BaseEAO;
+import com.mathtabolism.eao.BaseGeneratedEntityEAO;
 import com.mathtabolism.entity.food.Ingredient;
 
 /**
@@ -19,7 +19,7 @@ import com.mathtabolism.entity.food.Ingredient;
  * @author mlaursen
  */
 @Stateless
-public class IngredientEAO extends BaseEAO<Ingredient> {
+public class IngredientEAO extends BaseGeneratedEntityEAO<Ingredient> {
   
   public IngredientEAO() {
     super(Ingredient.class);

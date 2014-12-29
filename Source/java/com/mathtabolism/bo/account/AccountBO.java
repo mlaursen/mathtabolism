@@ -102,6 +102,7 @@ public class AccountBO {
     currentSettingsModel.setDateChanged(new Date());
     
     AccountSetting currentSettings = converter.convertModelToEntity(currentSettingsModel);
+    currentSettings.setAccount(account);
     if(DateUtils.isSameDate(currentSettings.getDateChanged(), accountSettingEAO.findLatestAccountSettingDateByAccount(account))) {
       accountSettingEAO.update(currentSettings);
     } else {

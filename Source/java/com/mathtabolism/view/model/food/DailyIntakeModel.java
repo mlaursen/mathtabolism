@@ -117,6 +117,7 @@ public class DailyIntakeModel extends BaseModel implements DailyIntakeDto {
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("intakeDate", intakeDate)
         .append("calorieChange", calorieChange).append("fatMultiplier", fatMultiplier).append("carbMultiplier", carbMultiplier)
-        .append("proteinMultiplier", proteinMultiplier).append("accountWeightModel", accountWeightModel).toString();
+        .append("proteinMultiplier", proteinMultiplier).append("accountWeightModel", accountWeightModel)
+        .append("meals", meals).toString();
   }
 }

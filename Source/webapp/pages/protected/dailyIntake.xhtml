@@ -14,7 +14,11 @@
         <table class="data-table">
           <tr>
             <td style="background: transparent"></td>
-            <th><h:outputText value="#{intake.intakeDate}" /></th>
+            <th>
+              <h:outputText value="#{intake.intakeDate}">
+                <f:convertDateTime pattern="#{accountController.dateFormat}" />
+              </h:outputText>
+            </th>
             <c:forEach items="#{intake.meals}" var="meal">
             <th><h:outputText value="#{dailyIntakeController.getMealFact(meal, 'NAME')}" /></th>
             </c:forEach>

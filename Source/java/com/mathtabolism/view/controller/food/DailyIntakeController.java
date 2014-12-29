@@ -112,7 +112,8 @@ public class DailyIntakeController extends BaseController {
   private BaseNutrient calculateExpected(NutrientType nutrientType, AccountDto account, AccountSettingDto accountSettings,
       AccountWeightDto accountWeight) {
     Calorie calories = new Calorie();
-    if(accountWeight != null && (account.getBirthday() != null || accountSettings.getAge() != null)
+    if(accountWeight != null && accountWeight.getWeight() != null && accountWeight.getWeighInDate() != null
+        && (account.getBirthday() != null || accountSettings.getAge() != null)
         && accountSettings.getHeight() != null && account.getGender() != null) {
       double weight = accountWeight.getWeight();
       double height = accountSettings.getHeight();
