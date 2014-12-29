@@ -240,6 +240,21 @@ input[type="submit"].previous:hover {
   line-height: 1.5em;
 }
 
+.nl-form input[type="text"] {
+  border: none;
+  border-bottom: 2px solid #ff8518;
+  padding: 0;
+  margin: 0 0.3em 0 0.3em;
+  min-width: 100px;
+  max-width: 150px;
+  text-align: right;
+  font-weight: initial;
+}
+
+.nl-form input[type="text"]:focus {
+  outline: none;
+}
+
 ol.steps, 
 .nl-form ul {
   list-style: none;
@@ -301,14 +316,19 @@ ol.steps li.current {
   color: #478982
 }
 
+.nl-form input[type="text"],
 .form-field-toggle {
   line-height: inherit;
   display: inline-block;
-  cursor: pointer;
   color: #ff8518;
   border-bottom: 2px solid #ff8518;
 }
 
+.form-field-toggle {
+  cursor: pointer;
+}
+
+.nl-form input[type="text"]:hover,
 .form-field-toggle:active,
 .form-field-toggle:hover {
   color: #333;

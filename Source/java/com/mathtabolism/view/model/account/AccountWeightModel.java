@@ -27,15 +27,15 @@ public class AccountWeightModel extends BaseModel implements AccountWeightDto {
    * Gets the weight formatted to 2 decimal places.
    * @return the weight as a String
    */
-  public String getWeightStr() {
-    return NumberUtils.formatAsString(weight);
+  public String getWeightString() {
+    return weight == null ? "" : NumberUtils.formatAsString(weight, 2);
   }
   
   /**
    * Sets the weight amount from a String
    * @param weight the weight
    */
-  public void setWeightFromString(String weight) {
+  public void setWeightString(String weight) {
     this.weight = NumberUtils.stringToDouble(weight);
   }
 

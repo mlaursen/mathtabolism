@@ -303,4 +303,21 @@ public class AccountSetupController extends BaseController {
   public boolean isLastStep() {
     return activeStep.isLastStep();
   }
+  
+  public String getExecutables() {
+    switch(activeStep) {
+      case STEP1:
+        return "unit-system";
+      case STEP2:
+        return "gender height-large-value height-small-value current-weight";
+      case STEP3:
+        return "";
+      case STEP4:
+        return "";
+      case STEP5:
+        return "";
+      default:
+        return "";
+    }
+  }
 }

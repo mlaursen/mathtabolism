@@ -3,7 +3,8 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:c="http://java.sun.com/jsp/jstl/core">
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:p="http://primefaces.org/ui">
   <ui:define name="title"><h:outputText value="#{msg.account_Initialization}" /></ui:define>
   <ui:define name="content">
   <ui:include src="/WEB-INF/includes/mainLogo.xhtml">
@@ -35,45 +36,45 @@
           </ui:include>
           
           <span><h:outputText value="#{msg.heightStep}" /></span>
-          <div class="inline">
-            <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
-              <ui:param name="binding"  value="#{accountSetupController.accountModel.currentSettings.heightLarge}" />
-              <ui:param name="selected" value="1" />
-              <ui:param name="items"    value="#{accountSetupController.startingLargeHeights}" />
-              <ui:param name="toggleId" value="height-large-value" />
-              <ui:param name="ulId"     value="height-large-items" />
-              <ui:param name="ulClass"  value="small" />
-            </ui:include>
-            <span id="height-large-unit" class="#{accountSetupController.accountModel.currentSettings.unitSystem == 'IMPERIAL' ? 'ft' : 'm'}"></span>
-            
-            <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
-              <ui:param name="binding"  value="#{accountSetupController.accountModel.currentSettings.heightSmall}" />
-              <ui:param name="selected" value="1" />
-              <ui:param name="items"    value="#{accountSetupController.startingSmallHeights}" />
-              <ui:param name="toggleId" value="height-small-value" />
-              <ui:param name="ulId"     value="height-small-items" />
-              <ui:param name="ulClass"  value="small" />
-            </ui:include>
-            <span id="height-small-unit" class="#{accountSetupController.accountModel.currentSettings.unitSystem == 'IMPERIAL' ? 'in' : 'cm'}"></span>
-          </div>
+          <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
+            <ui:param name="binding"  value="#{accountSetupController.accountModel.currentSettings.heightLarge}" />
+            <ui:param name="selected" value="1" />
+            <ui:param name="items"    value="#{accountSetupController.startingLargeHeights}" />
+            <ui:param name="toggleId" value="height-large-value" />
+            <ui:param name="ulId"     value="height-large-items" />
+            <ui:param name="ulClass"  value="small" />
+          </ui:include>
+          <span id="height-large-unit" class="#{accountSetupController.accountModel.currentSettings.unitSystem == 'IMPERIAL' ? 'ft' : 'm'}"></span>
+          
+          <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
+            <ui:param name="binding"  value="#{accountSetupController.accountModel.currentSettings.heightSmall}" />
+            <ui:param name="selected" value="1" />
+            <ui:param name="items"    value="#{accountSetupController.startingSmallHeights}" />
+            <ui:param name="toggleId" value="height-small-value" />
+            <ui:param name="ulId"     value="height-small-items" />
+            <ui:param name="ulClass"  value="small" />
+          </ui:include>
+          <span id="height-small-unit" class="#{accountSetupController.accountModel.currentSettings.unitSystem == 'IMPERIAL' ? 'in' : 'cm'}"></span>
           
           <span><h:outputText value="#{msg.weightStep}" /></span>
-          <h:inputText value="#{accountSetupController.currentWeight}" />
+          <h:inputText id="current-weight" value="#{accountSetupController.currentWeight.weightString}" maxlength="6" />
+          <p:watermark for="current-weight" value="#{msg.emptyWeight}" />
           <span id="weight-unit" class="#{accountSetupController.accountModel.currentSettings.unitSystem == 'IMPERIAL' ? 'lbs' : 'kg'}"></span>
         </li>
       </ol>
       <div id="form-field-overlay" class="form-field-overlay"></div>
       
       <div class="controls">
+        <ui:remove>I can't figure out how to get @form or something else nice to work... So have to state EVERY field id in execute..</ui:remove>
         <h:commandButton id="previous" styleClass="previous" style="#{accountSetupController.firstStep ? 'visibility: hidden' : ''}"
                          value="#{msg.previous}">
-          <f:ajax render=":account-settings" event="click" listener="#{accountSetupController.previousStep}"
-                  onevent="addEventListeners" />
+          <f:ajax event="click" render="@form" execute="#{accountSetupController.executables}"
+                  listener="#{accountSetupController.previousStep}" onevent="addEventListeners" />
         </h:commandButton>
         <h:commandButton id="next" styleClass="next" style="#{accountSetupController.lastStep ? 'visibility: hidden' : ''}"
                          value="#{msg.next}">
-          <f:ajax render=":account-settings" event="click" listener="#{accountSetupController.nextStep}" 
-                  onevent="addEventListeners"/>
+          <f:ajax event="click" render="@form" execute="#{accountSetupController.executables}"
+                  listener="#{accountSetupController.nextStep}" onevent="addEventListeners" />
         </h:commandButton>
       </div>
     </h:form>

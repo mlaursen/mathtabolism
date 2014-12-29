@@ -40,8 +40,8 @@
                 <p>
                   <h:outputLabel value="#{msg.username}" />
                   <h:inputText id="username" value="#{accountLoginController.accountModel.username}">
-                    <f:ajax event="blur" execute="username" listener="#{accountLoginController.checkIsUsernameAvailable}"
-                            render="username-exists checklist-username" />
+                    <f:ajax event="blur" execute="@this" listener="#{accountLoginController.checkIsUsernameAvailable}"
+                            render="@form" />
                   </h:inputText>
                   <pf:watermark id="rand-user" for="username" value="#{accountLoginController.randomUsername}" />
                 </p>

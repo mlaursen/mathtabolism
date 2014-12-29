@@ -13,7 +13,7 @@
   ulClass: the ordered list css class
   </ui:remove>
   <div id="#{toggleId}-field" class="form-field form-field-dd">
-    <h:inputHidden value="#{binding}" />
+    <h:inputHidden id="#{toggleId}" value="#{binding}" />
     <div id="#{toggleId}" class="form-field-toggle"><h:outputText value="#{selected}" /></div>
     <ul id="#{ulId}" class="#{ulClass}"><c:forEach items="#{items}" var="item">
       <li tabindex="-1" data-value="#{item.value}" class="#{binding == item.value ? 'dd-selected': ''}"><h:outputText value="#{item.label}" /></li>
