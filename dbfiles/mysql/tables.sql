@@ -6,7 +6,6 @@ CREATE TABLE account
 , role VARCHAR(5)
 , birthday DATE
 , gender VARCHAR(6)
-, use_birthday INT(1)
 , last_login DATE
 , active_since DATE
 , CONSTRAINT pk_Account_Id PRIMARY KEY(id)
@@ -22,6 +21,7 @@ CREATE TABLE account_setting
 , tdee_formula CHAR(15)
 , unit_system VARCHAR(8)
 , age INTEGER
+, use_age INT(1)
 , height DECIMAL
 , CONSTRAINT pk_Account_Setting_Id PRIMARY KEY(id)
 , CONSTRAINT uk_Account_Setting_Id_Changed UNIQUE(account_id, date_changed)

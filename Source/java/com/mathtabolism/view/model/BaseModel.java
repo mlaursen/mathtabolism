@@ -11,7 +11,7 @@ import com.mathtabolism.dto.GeneratedIdDto;
  */
 public abstract class BaseModel implements GeneratedIdDto {
 
-  private String id;
+  protected String id;
   
   @Override
   public String getId() {

@@ -28,21 +28,29 @@ public class Measurement implements Addable, Subtractable {
   }
   
   /**
-   * 
-   * @param subtractable
+   * Gets the value of measurement
+   * @return the value
    */
-  @Override
-  public void subtract(Subtractable subtractable) {
-    if(subtractable != null && subtractable instanceof Measurement) {
-      Measurement m = (Measurement) subtractable;
-      this.value -= UnitConverter.convert(m, unitMeasurement).value;
-    }
+  public double getValue() {
+    return value;
   }
   
   /**
-   * 
-   * @param addable
+   * Sets the value of the measurement
+   * @param value the value to set
    */
+  public void setValue(double value) {
+    this.value = value;
+  }
+  
+  /**
+   * Gets the Unit of Measurement
+   * @return the UnitMeasurement
+   */
+  public UnitMeasurement getUnitMeasurement() {
+    return unitMeasurement;
+  }
+  
   @Override
   public void add(Addable addable) {
     if(addable != null && addable instanceof Measurement) {
@@ -51,21 +59,12 @@ public class Measurement implements Addable, Subtractable {
     }
   }
   
-  public double getValue() {
-    return value;
-  }
-  
-  /**
-   *
-   * @param value
-   *          the value to set
-   */
-  public void setValue(double value) {
-    this.value = value;
-  }
-  
-  public UnitMeasurement getUnitMeasurement() {
-    return unitMeasurement;
+  @Override
+  public void subtract(Subtractable subtractable) {
+    if(subtractable != null && subtractable instanceof Measurement) {
+      Measurement m = (Measurement) subtractable;
+      this.value -= UnitConverter.convert(m, unitMeasurement).value;
+    }
   }
   
   @Override

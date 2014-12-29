@@ -49,7 +49,7 @@ public class AccountWeight extends AccountIdFK implements AccountWeightDto {
   public static final String Q_findAccountWeightByDate = "AccountWeight.findAccountWeightByDate";
   
   private Date weighInDate;
-  private double weight;
+  private Double weight;
   
   public AccountWeight() {
   }
@@ -79,13 +79,9 @@ public class AccountWeight extends AccountIdFK implements AccountWeightDto {
     this.weight = weight;
   }
   
-  public void setWeight(String weight) {
-    this.weight = Double.valueOf(weight);
-  }
-  
   @Override
   public String toString() {
-    return new ToStringBuilder(this).append("accountId", account.getId()).append("weight", weight)
-        .append("weighInDate", weighInDate).toString();
+    return new ToStringBuilder(this).append("id", id).append("accountId", account.getId())
+        .append("weight", weight).append("weighInDate", weighInDate).toString();
   }
 }

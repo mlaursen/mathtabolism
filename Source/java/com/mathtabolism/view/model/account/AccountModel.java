@@ -7,7 +7,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.mathtabolism.constants.AccountRole;
 import com.mathtabolism.constants.Gender;
-import com.mathtabolism.constants.Indicator;
 import com.mathtabolism.dto.AccountDto;
 import com.mathtabolism.entity.account.Account;
 import com.mathtabolism.util.emconverter.EMConverter;
@@ -26,7 +25,6 @@ public class AccountModel extends BaseModel implements AccountDto {
   private AccountRole role;
   
   private Gender gender;
-  private Indicator useBirthday;
   private Date birthday;
   private Date lastLogin;
   private Date activeSince;
@@ -85,18 +83,6 @@ public class AccountModel extends BaseModel implements AccountDto {
     return previousWeight;
   }
   
-  /**
-   * Checks if the account is using the birthday over the age
-   * @return true if using birthday
-   */
-  public boolean isUsingBirthday() {
-    return Indicator.isTrue(useBirthday);
-  }
-  
-  public void setUsingBirthday(boolean isUsingBirthday) {
-    useBirthday = Indicator.fromBoolean(isUsingBirthday);
-  }
-  
   @Override
   public void setUsername(String username) {
     this.username = username;
@@ -138,13 +124,13 @@ public class AccountModel extends BaseModel implements AccountDto {
   }
   
   @Override
-  public void setUseBirthday(Indicator useBirthday) {
-    this.useBirthday = useBirthday;
+  public void setRole(AccountRole role) {
+    this.role = role;
   }
-  
+
   @Override
-  public Indicator getUseBirthday() {
-    return useBirthday;
+  public AccountRole getRole() {
+    return role;
   }
   
   @Override
@@ -155,15 +141,6 @@ public class AccountModel extends BaseModel implements AccountDto {
   @Override
   public Date getBirthday() {
     return birthday;
-  }
-  
-  @Override
-  public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("username", username)
-        .append("password", password).append("email", email)
-        .append("useBirthday", useBirthday).append("birthday", birthday)
-        .append("gender", gender).append("currentSettings", currentSettings).append("currentWeight", currentWeight)
-        .append("previousWeight", previousWeight).toString();
   }
 
   @Override
@@ -185,14 +162,12 @@ public class AccountModel extends BaseModel implements AccountDto {
   public Date getActiveSince() {
     return activeSince;
   }
-
+  
   @Override
-  public void setRole(AccountRole role) {
-    this.role = role;
-  }
-
-  @Override
-  public AccountRole getRole() {
-    return role;
+  public String toString() {
+    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", id)
+        .append("username", username).append("password", password).append("email", email)
+        .append("birthday", birthday).append("gender", gender).append("currentSettings", currentSettings)
+        .append("currentWeight", currentWeight).append("previousWeight", previousWeight).toString();
   }
 }

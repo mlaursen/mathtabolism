@@ -14,7 +14,7 @@
       </h:outputFormat>
     </h2>
     <h:form styleClass="one-line">
-      <h:selectBooleanCheckbox value="#{accountController.accountModel.usingBirthday}" /><h:outputLabel value="#{msg.account_UseBirthday}" />
+      <h:selectBooleanCheckbox value="#{accountController.accountModel.currentSettings.usingAge}" /><h:outputLabel value="#{msg.account_UseAge}" />
       <h:panelGrid columns="2">
         <h:column>
           <h:outputLabel value="#{msg.account_Birthday}" />

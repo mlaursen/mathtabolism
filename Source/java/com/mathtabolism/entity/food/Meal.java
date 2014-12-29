@@ -62,6 +62,7 @@ public class Meal extends BaseGeneratedEntity implements MealDto {
   
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("name", name).append("mealParts", mealParts).toString();
+    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", id)
+        .append("name", name).append("mealParts", mealParts).toString();
   }
 }

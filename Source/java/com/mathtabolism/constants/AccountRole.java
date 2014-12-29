@@ -11,8 +11,7 @@ public enum AccountRole {
   /**
    * Simple helper to check if a Role is an admin
    * 
-   * @param role
-   *          a role to compare to
+   * @param role a role to compare to
    * @return true if the role is the Admin Role
    */
   public static boolean isAdmin(AccountRole role) {

@@ -4,18 +4,28 @@ package com.mathtabolism.util.unit;
  * An enum of all the UnitSystem Measurement types. The order of the enums is used to calculate the conversions.
  * 
  * @author mlaursen
- *
  */
 public enum UnitMeasurement {
-  INCH(UnitType.DISTANCE, UnitSystem.IMPERIAL, false), FOOT(UnitType.DISTANCE, UnitSystem.IMPERIAL, false), OUNCE(
-      UnitType.WEIGHT, UnitSystem.IMPERIAL), POUND(UnitType.WEIGHT, UnitSystem.IMPERIAL), TEASPOON(UnitType.VOLUME,
-      UnitSystem.IMPERIAL), TABLESPOON(UnitType.VOLUME, UnitSystem.IMPERIAL), FLUID_OUNCE(UnitType.VOLUME,
-      UnitSystem.IMPERIAL), CUP(UnitType.VOLUME, UnitSystem.IMPERIAL), PINT(UnitType.VOLUME, UnitSystem.IMPERIAL), QUART(
-      UnitType.VOLUME, UnitSystem.IMPERIAL), GALLON(UnitType.VOLUME, UnitSystem.IMPERIAL), MILLILITER(UnitType.VOLUME,
-      UnitSystem.METRIC), LITER(UnitType.VOLUME, UnitSystem.METRIC), MILLIGRAM(UnitType.WEIGHT, UnitSystem.METRIC), GRAM(
-      UnitType.WEIGHT, UnitSystem.METRIC), KILOGRAM(UnitType.WEIGHT, UnitSystem.METRIC), MILLIMETER(UnitType.DISTANCE,
-      UnitSystem.METRIC), CENTIMETER(UnitType.DISTANCE, UnitSystem.METRIC), METER(UnitType.DISTANCE, UnitSystem.METRIC), KILOMETER(
-      UnitType.DISTANCE, UnitSystem.METRIC);
+  INCH(UnitType.DISTANCE, UnitSystem.IMPERIAL, false),
+  FOOT(UnitType.DISTANCE, UnitSystem.IMPERIAL, false),
+  OUNCE(UnitType.WEIGHT, UnitSystem.IMPERIAL),
+  POUND(UnitType.WEIGHT, UnitSystem.IMPERIAL),
+  TEASPOON(UnitType.VOLUME,UnitSystem.IMPERIAL),
+  TABLESPOON(UnitType.VOLUME, UnitSystem.IMPERIAL),
+  FLUID_OUNCE(UnitType.VOLUME, UnitSystem.IMPERIAL),
+  CUP(UnitType.VOLUME, UnitSystem.IMPERIAL),
+  PINT(UnitType.VOLUME, UnitSystem.IMPERIAL),
+  QUART( UnitType.VOLUME, UnitSystem.IMPERIAL),
+  GALLON(UnitType.VOLUME, UnitSystem.IMPERIAL),
+  MILLILITER(UnitType.VOLUME, UnitSystem.METRIC),
+  LITER(UnitType.VOLUME, UnitSystem.METRIC),
+  MILLIGRAM(UnitType.WEIGHT, UnitSystem.METRIC),
+  GRAM( UnitType.WEIGHT, UnitSystem.METRIC),
+  KILOGRAM(UnitType.WEIGHT, UnitSystem.METRIC),
+  MILLIMETER(UnitType.DISTANCE, UnitSystem.METRIC),
+  CENTIMETER(UnitType.DISTANCE, UnitSystem.METRIC),
+  METER(UnitType.DISTANCE, UnitSystem.METRIC),
+  KILOMETER( UnitType.DISTANCE, UnitSystem.METRIC);
   
   private UnitType unitType;
   private UnitSystem unitSystem;
@@ -32,8 +42,8 @@ public enum UnitMeasurement {
   }
   
   /**
-   * 
-   * @return true if the
+   * Gets the {@link UnitType} of the measurement
+   * @return the unit measurement type
    */
   public UnitType getUnitType() {
     return unitType;
@@ -66,8 +76,7 @@ public enum UnitMeasurement {
   /**
    * Checks if a UnitMeasurement is a cooking measurement. Allows nulls.
    * 
-   * @param unit
-   *          the UnitMeasurement to compare to
+   * @param unit the UnitMeasurement to compare to
    * @return true if the unit is a cooking type
    */
   public static boolean isCookingType(UnitMeasurement unit) {
@@ -77,8 +86,7 @@ public enum UnitMeasurement {
   /**
    * Checks if this UnitMeasurement can be converted to the given UnitMeasurement.
    * 
-   * @param unitMeasurement
-   *          the UnitMeasurement to check with
+   * @param unitMeasurement the UnitMeasurement to check with
    * @return true if the {@link UnitType}'s are equal
    */
   public boolean canConvertTo(UnitMeasurement unitMeasurement) {
@@ -88,10 +96,8 @@ public enum UnitMeasurement {
   /**
    * Checks if two given UnitMeasurement are in the same {@link UnitSystem}. Allows for nulls.
    * 
-   * @param unitMeasurement1
-   *          the first UnitMeasurement
-   * @param unitMeasurement2
-   *          the second UnitMeasurement
+   * @param unitMeasurement1 the first UnitMeasurement
+   * @param unitMeasurement2 the second UnitMeasurement
    * @return true if the UnitMeasurements have the same unit system
    */
   public static boolean isSameUnitSystem(UnitMeasurement unitMeasurement1, UnitMeasurement unitMeasurement2) {
@@ -101,6 +107,10 @@ public enum UnitMeasurement {
     return unitMeasurement1.unitSystem.equals(unitMeasurement2.unitSystem);
   }
   
+  /**
+   * Checks if the unit measurement is the base unit of the unit system
+   * @return true if this is the base unit
+   */
   public boolean isBaseUnit() {
     return this.equals(getBaseUnit());
   }

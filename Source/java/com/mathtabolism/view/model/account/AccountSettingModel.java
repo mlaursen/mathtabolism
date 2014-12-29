@@ -6,6 +6,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.mathtabolism.constants.ActivityMultiplier;
+import com.mathtabolism.constants.Indicator;
 import com.mathtabolism.constants.TDEEFormula;
 import com.mathtabolism.constants.Weekday;
 import com.mathtabolism.dto.AccountSettingDto;
@@ -27,6 +28,7 @@ public class AccountSettingModel extends BaseModel implements AccountSettingDto 
   
   private Date dateChanged;
   private Integer age;
+  private Indicator useAge;
   private Double height;
   private ActivityMultiplier activityMultiplier;
   private Weekday recalculationDay;
@@ -56,6 +58,14 @@ public class AccountSettingModel extends BaseModel implements AccountSettingDto 
     this.heightLarge = heightLarge;
   }
   
+  public boolean isUsingAge() {
+    return Indicator.isTrue(useAge);
+  }
+  
+  public void setUsingAge(boolean isUsingAge) {
+    this.useAge = Indicator.fromBoolean(isUsingAge);
+  }
+  
   @Override
   public void setDateChanged(Date dateChanged) {
     this.dateChanged = dateChanged;
@@ -74,6 +84,16 @@ public class AccountSettingModel extends BaseModel implements AccountSettingDto 
   @Override
   public Integer getAge() {
     return age;
+  }
+  
+  @Override
+  public void setUseAge(Indicator useAge) {
+    this.useAge = useAge;
+  }
+  
+  @Override
+  public Indicator getUseAge() {
+    return useAge;
   }
 
   @Override

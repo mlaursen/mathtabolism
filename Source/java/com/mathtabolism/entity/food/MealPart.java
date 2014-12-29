@@ -89,7 +89,7 @@ public class MealPart extends BaseGeneratedEntity implements MealPartDto {
   
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("ingredient", ingredient)
-        .append("meal", meal).append("serving", serving).toString();
+    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", id)
+        .append("ingredient", ingredient).append("meal", meal).append("serving", serving).toString();
   }
 }

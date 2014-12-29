@@ -67,7 +67,7 @@ public class DailyIntakeMeal extends BaseGeneratedEntity {
   
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("dailyIntake", dailyIntake)
-        .append("meal", meal).toString();
+    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", id)
+        .append("dailyIntake", dailyIntake).append("meal", meal).toString();
   }
 }

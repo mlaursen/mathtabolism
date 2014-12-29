@@ -10,11 +10,14 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.mathtabolism.constants.ActivityMultiplier;
+import com.mathtabolism.constants.Indicator;
 import com.mathtabolism.constants.TDEEFormula;
 import com.mathtabolism.constants.Weekday;
 import com.mathtabolism.dto.AccountSettingDto;
@@ -58,7 +61,13 @@ public class AccountSetting extends AccountIdFK implements AccountSettingDto {
     this.dateChanged = dateChanged;
   }
   
+  @Temporal(TemporalType.DATE)
   private Date dateChanged;
+  private Integer age;
+  private Double height;
+  
+  @Enumerated(EnumType.ORDINAL)
+  private Indicator useAge;
   
   @Enumerated(EnumType.STRING)
   private Weekday recalculationDay;
@@ -71,9 +80,6 @@ public class AccountSetting extends AccountIdFK implements AccountSettingDto {
   
   @Enumerated(EnumType.STRING)
   private UnitSystem unitSystem;
-  
-  private Integer age;
-  private Double height;
   
   
   @Override
@@ -124,6 +130,16 @@ public class AccountSetting extends AccountIdFK implements AccountSettingDto {
   @Override
   public void setAge(Integer age) {
     this.age = age;
+  }
+  
+  @Override
+  public void setUseAge(Indicator useAge) {
+    this.useAge = useAge;
+  }
+  
+  @Override
+  public Indicator getUseAge() {
+    return useAge;
   }
   
   @Override

@@ -8,14 +8,15 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.mathtabolism.constants.NutrientType;
 import com.mathtabolism.dto.IngredientDto;
+import com.mathtabolism.util.calculation.Addable;
+import com.mathtabolism.util.calculation.Subtractable;
 import com.mathtabolism.util.number.NumberUtils;
 
 /**
  * 
  * @author mlaursen
  */
-public abstract class BaseNutrient {
-  
+public abstract class BaseNutrient implements Addable, Subtractable {
   protected double amount;
   
   public BaseNutrient() {
@@ -25,37 +26,31 @@ public abstract class BaseNutrient {
     this.amount = amount;
   }
   
-  /**
-   * 
-   * @param nutrient
-   */
-  public void add(BaseNutrient nutrient) {
-    if(this.getClass().equals(nutrient.getClass())) {
+  @Override
+  public void add(Addable nutrient) {
+    if(nutrient instanceof BaseNutrient && this.getClass().equals(nutrient.getClass())) {
       this.amount += ((BaseNutrient) nutrient).amount;
     }
   }
   
-  /**
-   * 
-   * @param nutrient
-   */
-  public void subtract(BaseNutrient nutrient) {
-    if(this.getClass().equals(nutrient.getClass())) {
+  @Override
+  public void subtract(Subtractable nutrient) {
+    if(nutrient instanceof BaseNutrient && this.getClass().equals(nutrient.getClass())) {
       this.amount -= ((BaseNutrient) nutrient).amount;
     }
   }
   
   /**
-   * 
-   * @param amount
+   * Sets the amount of a Nutrient
+   * @param amount the amount
    */
   public void setAmount(double amount) {
     this.amount = amount;
   }
   
   /**
-   * 
-   * @return
+   * Gets the amount of a Nutrient
+   * @return the amount
    */
   public double getAmount() {
     return amount;
@@ -69,6 +64,10 @@ public abstract class BaseNutrient {
     return false;
   }
   
+  /**
+   * Gets a formatted number String of the Nutrient amount
+   * @return a String
+   */
   public String getDisplayValue() {
     return NumberUtils.formatAsString(amount);
   }
@@ -101,6 +100,12 @@ public abstract class BaseNutrient {
     return null;
   }
   
+  /**
+   * Helper method for extracting a nutrient type from an Ingredient.
+   * @param ingredient the ingredient
+   * @param whichNutrient the NutrientType
+   * @return a BaseNutrient or null
+   */
   public static BaseNutrient getFromIngredient(IngredientDto ingredient, NutrientType whichNutrient) {
     switch(whichNutrient) {
       case CALORIE:

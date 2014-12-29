@@ -19,7 +19,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.mathtabolism.constants.AccountRole;
 import com.mathtabolism.constants.Gender;
-import com.mathtabolism.constants.Indicator;
 import com.mathtabolism.dto.AccountDto;
 import com.mathtabolism.entity.BaseGeneratedEntity;
 import com.mathtabolism.util.emconverter.EMConverter;
@@ -38,12 +37,12 @@ import com.mathtabolism.view.model.account.AccountModel;
 )
 @EMConverter(converter = AccountDto.class, convertTo = AccountModel.class)
 public class Account extends BaseGeneratedEntity implements AccountDto {
-  
   public static final String Q_findByUsername = "Account.findByUsername";
   
   @Column(unique = true)
   private String username;
   private String password;
+  private String email;
   
   @Enumerated(EnumType.STRING)
   private AccountRole role;
@@ -59,11 +58,6 @@ public class Account extends BaseGeneratedEntity implements AccountDto {
   
   @Temporal(TemporalType.DATE)
   private Date activeSince;
-  
-  @Enumerated(EnumType.ORDINAL)
-  private Indicator useBirthday;
-  
-  private String email;
   
   public Account() {
   }
@@ -86,6 +80,16 @@ public class Account extends BaseGeneratedEntity implements AccountDto {
   @Override
   public void setPassword(String password) {
     this.password = password;
+  }
+  
+  @Override
+  public String getEmail() {
+    return email;
+  }
+
+  @Override
+  public void setEmail(String email) {
+    this.email = email;
   }
   
   @Override
@@ -137,33 +141,13 @@ public class Account extends BaseGeneratedEntity implements AccountDto {
   public Date getActiveSince() {
     return activeSince;
   }
-  
-  @Override
-  public Indicator getUseBirthday() {
-    return useBirthday;
-  }
-
-  @Override
-  public void setUseBirthday(Indicator useBirthday) {
-    this.useBirthday = useBirthday;
-  }
-  
-  @Override
-  public String getEmail() {
-    return email;
-  }
-
-  @Override
-  public void setEmail(String email) {
-    this.email = email;
-  }
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", id).append("username", username)
-        .append("password", password).append("role", role)
-        .append("birthday", birthday).append("lastLogin", lastLogin).append("activeSince", activeSince)
-        .append("email", email).append("useBirthday", useBirthday).toString();
+    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", id)
+        .append("username", username).append("password", password).append("email", email)
+        .append("role", role).append("birthday", birthday).append("lastLogin", lastLogin)
+        .append("activeSince", activeSince).toString();
   }
   
 }

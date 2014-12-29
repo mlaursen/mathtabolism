@@ -4,7 +4,6 @@ import java.util.Date;
 
 import com.mathtabolism.constants.AccountRole;
 import com.mathtabolism.constants.Gender;
-import com.mathtabolism.constants.Indicator;
 
 /**
  * An interface with the minimum requirements to be an account
@@ -62,18 +61,6 @@ public interface AccountDto extends GeneratedIdDto {
    * @return the gender
    */
   Gender getGender();
-  
-  /**
-   * Set if the account is using a birthday to calculate age
-   * @param useBirthday an {@link Indicator}
-   */
-  void setUseBirthday(Indicator useBirthday);
-  
-  /**
-   * Get if the account is using a birthday to calculate age
-   * @return the {@link Indicator}
-   */
-  Indicator getUseBirthday();
   
   /**
    * Set the birthday date

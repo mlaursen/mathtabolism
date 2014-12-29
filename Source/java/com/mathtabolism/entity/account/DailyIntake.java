@@ -136,7 +136,7 @@ public class DailyIntake extends AccountIdFK implements DailyIntakeDto {
   
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("intakeDate", intakeDate)
+    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", id).append("intakeDate", intakeDate)
         .append("calorieChange", calorieChange).append("carbMultiplier", carbMultiplier)
         .append("fatMultiplier", fatMultiplier).append("proteinMultiplier")
         .append("meals", meals).toString();

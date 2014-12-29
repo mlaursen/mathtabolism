@@ -3,6 +3,7 @@ package com.mathtabolism.dto;
 import java.util.Date;
 
 import com.mathtabolism.constants.ActivityMultiplier;
+import com.mathtabolism.constants.Indicator;
 import com.mathtabolism.constants.TDEEFormula;
 import com.mathtabolism.constants.Weekday;
 import com.mathtabolism.util.unit.UnitSystem;
@@ -37,6 +38,18 @@ public interface AccountSettingDto extends GeneratedIdDto {
    * @return the age
    */
   Integer getAge();
+  
+  /**
+   * Set if the account is using an age versus calculating the age on birthday
+   * @param useAge an {@link Indicator}
+   */
+  void setUseAge(Indicator useAge);
+  
+  /**
+   * Get if the account is using an age versus calculating the age on birthday
+   * @return the {@link Indicator}
+   */
+  Indicator getUseAge();
   
   /**
    * Sets the person's height. This number will be a representation of feet + inches or meters + cm
