@@ -73,6 +73,7 @@ public class AccountBO {
 
     AccountModel accountModel = converter.convertEntityToModel(account);
     AccountSettingModel accountSettingModel = converter.convertEntityToModel(currentSettings);
+    accountSettingModel.splitHeight();
     AccountWeightModel currentWeightModel = converter.convertEntityToModel(currentWeight);
     AccountWeightModel previousWeightModel = converter.convertEntityToModel(previousWeight);
     
@@ -114,6 +115,7 @@ public class AccountBO {
     if(DateUtils.isSameDate(currentSettings.getDateChanged(), accountSettingEAO.findLatestAccountSettingDateByAccount(account))) {
       accountSettingEAO.update(currentSettings);
     } else {
+      currentSettings.setId(null);
       accountSettingEAO.create(currentSettings);
     }
     return accountModel;
@@ -126,16 +128,16 @@ public class AccountBO {
    */
   public AccountModel createOrUpdateWeight(AccountModel accountModel) {
     AccountWeight currentWeight = converter.convertModelToEntity(accountModel.getCurrentWeight());
-    AccountWeight existingWeight = accountWeightEAO.findById(currentWeight);
-    if(existingWeight == null) {
-      currentWeight = accountWeightEAO.update(currentWeight);
+    currentWeight.setAccount(converter.convertModelToEntity(accountModel));
+    if(accountWeightEAO.findById(currentWeight) == null) {
+      accountWeightEAO.create(currentWeight);
+      
+      accountModel.setCurrentWeight(converter.convertEntityToModel(currentWeight));
     } else {
-      Account account = converter.convertModelToEntity(accountModel);
-      AccountWeight newWeight = new AccountWeight(account, new Date());
-      newWeight.setWeight(currentWeight.getWeight());
-      accountWeightEAO.create(newWeight);
-      accountModel.setCurrentWeight(converter.convertEntityToModel(newWeight));
+      currentWeight = accountWeightEAO.update(currentWeight);
     }
+    
+    accountModel.setCurrentWeight(converter.convertEntityToModel(currentWeight));
     return accountModel;
   }
   

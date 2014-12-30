@@ -22,6 +22,7 @@ import com.mathtabolism.view.controller.BaseController;
 import com.mathtabolism.view.model.account.AccountModel;
 import com.mathtabolism.view.model.account.AccountSettingModel;
 import com.mathtabolism.view.model.account.AccountWeightModel;
+import com.mathtabolism.view.navigation.AccountNav;
 
 /**
  *
@@ -106,6 +107,30 @@ public class AccountSetupController extends BaseController {
     }
     
     return getString(accountModel.getGender());
+  }
+  
+  /**
+   * Gets the select height large value. If it is null, the height is set to 
+   * @return
+   */
+  public String getSelectedHeightLarge() {
+    AccountSettingModel currentSettings = getCurrentSettings();
+    if(currentSettings.getHeightLarge() == null) {
+      currentSettings.setHeightLarge(currentSettings.getUnitSystem().isMetric() ? "2" : "5");
+    }
+    return currentSettings.getHeightLarge();
+  }
+  
+  /**
+   * Gets the selected height small value. If it is null, the height is set to 1
+   * @return the selected small height
+   */
+  public String getSelectedHeightSmall() {
+    AccountSettingModel currentSettings = getCurrentSettings();
+    if(currentSettings.getHeightSmall() == null) {
+      currentSettings.setHeightSmall(currentSettings.getUnitSystem().isMetric() ? "2" : "10");
+    }
+    return currentSettings.getHeightSmall();
   }
   
   /**
@@ -213,9 +238,11 @@ public class AccountSetupController extends BaseController {
   /**
    * Creates or updates the Account's Settings/configuration
    */
-  public void createOrUpdateAccountSettings() {
+  public String createOrUpdateAccountSettings() {
     accountModel = accountBO.createOrUpdateSettings(accountModel);
+    accountModel = accountBO.createOrUpdateWeight(accountModel);
     displayInfoMessage("account_UpdatedSettings");
+    return redirect(AccountNav.DAILY_INTAKE);
   }
   
   /**
@@ -270,13 +297,12 @@ public class AccountSetupController extends BaseController {
   
   /**
    * Gets an array of SelectItem for the dropdown choce of Small Heights (Inches or Centimeters).
-   * This will be an array of numbers starting at 1 going to 11 for Imperial and going to 9 for Metric.
-   * <p>0 is ignored since it is really the large unit still. 12 is ignored for imperial because
-   * it is considered a foot and 10 is ignored for metric because it is considered a meter.
+   * This will be an array of numbers starting at 0 going to 11 for Imperial and going to 9 for Metric.
+   * <p>12 is ignored for imperial because it is considered a foot and 10 is ignored for metric because it is considered a meter.
    * @return an array of SelectItem
    */
   public SelectItem[] getStartingSmallHeights() {
-    int min = 1;
+    int min = 0;
     int max;
     switch(getCurrentUnitSystem()) {
       case IMPERIAL:
@@ -289,7 +315,7 @@ public class AccountSetupController extends BaseController {
         max = min;
         break;
     }
-    SelectItem[] items = new SelectItem[max + min];
+    SelectItem[] items = new SelectItem[max + 1];
     for(; min <= max; min++) {
       items[min] = new SelectItem(min, "" + min);
     }
@@ -304,6 +330,10 @@ public class AccountSetupController extends BaseController {
     return activeStep.isLastStep();
   }
   
+  public boolean isRecalculatedDaily() {
+    return Weekday.DAILY.equals(getCurrentSettings().getRecalculationDay());
+  }
+  
   public String getExecutables() {
     switch(activeStep) {
       case STEP1:
@@ -311,13 +341,21 @@ public class AccountSetupController extends BaseController {
       case STEP2:
         return "gender height-large-value height-small-value current-weight";
       case STEP3:
-        return "";
+        return "activity-multiplier";
       case STEP4:
-        return "";
+        return "recalculation-day tdee-formula";
       case STEP5:
-        return "";
+        return "using-age " + (getCurrentSettings().isUsingAge() ? "age" : "birthday");
       default:
         return "";
     }
+  }
+  
+  public String getBirthdayAgePrefix() {
+    return getString(getCurrentSettings().isUsingAge() ? "ageStep1" : "birthdayStep");
+  }
+  
+  public String getBirthdayAgeSuffux() {
+    return getCurrentSettings().isUsingAge() ? getString("ageStep2") : "";
   }
 }

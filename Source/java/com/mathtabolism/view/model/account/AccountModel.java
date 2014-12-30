@@ -9,6 +9,7 @@ import com.mathtabolism.constants.AccountRole;
 import com.mathtabolism.constants.Gender;
 import com.mathtabolism.dto.AccountDto;
 import com.mathtabolism.entity.account.Account;
+import com.mathtabolism.util.date.DateUtils;
 import com.mathtabolism.util.emconverter.EMConverter;
 import com.mathtabolism.view.model.BaseModel;
 
@@ -81,6 +82,33 @@ public class AccountModel extends BaseModel implements AccountDto {
    */
   public AccountWeightModel getPreviousWeight() {
     return previousWeight;
+  }
+  
+
+  
+  /**
+   * Checks if the current weight is set for the account.
+   * <p>The current weight is considered set if
+   * <ul>
+   * <li>The current weight is not null
+   * <li>The current weight is greater than 0
+   * <li>The weigh in date is today
+   * </ul>
+   * @return true if the weight is set
+   */
+  public boolean isTodayWeightSet() {
+    return currentWeight != null && DateUtils.isSameDate(currentWeight.getWeighInDate(), new Date())
+        && currentWeight.getWeight() != null && currentWeight.getWeight() > 0;
+  }
+  
+  /**
+   * Checks if the account is considered a first time user. (Someone that has no settings set)
+   * @return true if the account is considered a first time user
+   */
+  public boolean isIncompleteSetup() {
+    return (currentSettings == null || currentSettings.getActivityMultiplier() == null
+        || currentSettings.getTdeeFormula() == null || currentSettings.getUnitSystem() == null
+        || (birthday == null && currentSettings.getAge() == null));
   }
   
   @Override

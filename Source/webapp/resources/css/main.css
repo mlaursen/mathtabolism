@@ -196,7 +196,11 @@ body {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
+}
+
+.invisible {
+  visibility: hidden;
 }
 
 h2 {
@@ -224,6 +228,12 @@ table.data-table {
 table.data-table tbody tr:hover td {
   color: #009;
   background: #d0dafd;
+}
+
+
+
+table.daily-intake-table.data-table th {
+  max-width: 120px;
 }
 
 table.data-table tfoot td, table.data-table th {

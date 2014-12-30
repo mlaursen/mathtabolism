@@ -37,8 +37,8 @@
           
           <span><h:outputText value="#{msg.heightStep}" /></span>
           <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
-            <ui:param name="binding"  value="#{accountSetupController.accountModel.currentSettings.heightLarge}" />
-            <ui:param name="selected" value="1" />
+            <ui:param name="binding"  value="#{accountSetupController.currentSettings.heightLarge}" />
+            <ui:param name="selected" value="#{accountSetupController.selectedHeightLarge}" />
             <ui:param name="items"    value="#{accountSetupController.startingLargeHeights}" />
             <ui:param name="toggleId" value="height-large-value" />
             <ui:param name="ulId"     value="height-large-items" />
@@ -48,7 +48,7 @@
           
           <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
             <ui:param name="binding"  value="#{accountSetupController.accountModel.currentSettings.heightSmall}" />
-            <ui:param name="selected" value="1" />
+            <ui:param name="selected" value="#{accountSetupController.selectedHeightSmall}" />
             <ui:param name="items"    value="#{accountSetupController.startingSmallHeights}" />
             <ui:param name="toggleId" value="height-small-value" />
             <ui:param name="ulId"     value="height-small-items" />
@@ -57,13 +57,62 @@
           <span id="height-small-unit" class="#{accountSetupController.accountModel.currentSettings.unitSystem == 'IMPERIAL' ? 'in' : 'cm'}"></span>
           
           <span><h:outputText value="#{msg.weightStep}" /></span>
-          <h:inputText id="current-weight" value="#{accountSetupController.currentWeight.weightString}" maxlength="6" />
+          <h:inputText id="current-weight" styleClass="weight" value="#{accountSetupController.currentWeight.weightString}" maxlength="6" />
           <p:watermark for="current-weight" value="#{msg.emptyWeight}" />
           <span id="weight-unit" class="#{accountSetupController.accountModel.currentSettings.unitSystem == 'IMPERIAL' ? 'lbs' : 'kg'}"></span>
         </li>
+        
+        <ui:remove>Step 3: Activity Multiplier</ui:remove>
+        <li class="#{accountSetupController.getStepCss('STEP3')}">
+          <span><h:outputText value="#{msg.activityMultiplierStep}" /></span><br />
+          <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
+            <ui:param name="binding"  value="#{accountSetupController.currentSettings.activityMultiplier}" />
+            <ui:param name="selected" value="#{accountSetupController.selectedActivityMultiplier}" />
+            <ui:param name="items"    value="#{accountSetupController.activityMultipliers}" />
+            <ui:param name="toggleId" value="activity-multiplier" />
+          </ui:include>
+        </li>
+        
+        <ui:remove>Step 4: Setting the Recalculation day and the TDEE Formula</ui:remove>
+        <li class="#{accountSetupController.getStepCss('STEP4')}">
+          <span><h:outputText value="#{msg.calculationStep1}" /></span>
+          <span id="every-weekday" class="#{accountSetupController.recalculatedDaily ? 'hidden' : ''}"><h:outputText value="#{msg.every}" /></span>
+          <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
+            <ui:param name="binding"  value="#{accountSetupController.currentSettings.recalculationDay}" />
+            <ui:param name="selected" value="#{accountSetupController.selectedRecalculationDay}" />
+            <ui:param name="items"    value="#{accountSetupController.weekdays}" />
+            <ui:param name="toggleId" value="recalculation-day" />
+          </ui:include>
+          
+          <span><h:outputText value="#{msg.calculationStep2}" /></span>
+          <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
+            <ui:param name="binding"  value="#{accountSetupController.currentSettings.tdeeFormula}" />
+            <ui:param name="selected" value="#{accountSetupController.selectedFormula}" />
+            <ui:param name="items"    value="#{accountSetupController.formulas}" />
+            <ui:param name="toggleId" value="tdee-formula" />
+          </ui:include>
+          <span><h:outputText value="#{msg.calculationStep3}" /></span>
+        </li>
+        
+        <ui:remove>Step 5: Setting the birthday or Age</ui:remove>
+        <li class="#{accountSetupController.getStepCss('STEP5')}">
+          <h:selectBooleanCheckbox id="using-age" value="#{accountController.currentSettings.usingAge}">
+            <f:ajax event="click" execute="@this" render="birthday age birthday-age-prefix birthday-age-suffux" />
+          </h:selectBooleanCheckbox>
+          <span><h:outputText value="#{msg.birthdayOrAge}" /></span><br />
+          <span><h:outputText id="birthday-age-prefix" value="#{accountSetupController.birthdayAgePrefix}" /></span>
+          <h:inputText id="birthday" value="#{accountSetupController.accountModel.birthday}" maxlength="10"
+                       styleClass="date #{accountSetupController.currentSettings.usingAge ? 'hidden' : ''}">
+            <f:converter converterId="dateConverter" />
+          </h:inputText>
+          <h:inputText id="age" value="#{accountSetupController.currentSettings.age}" maxlength="3"
+                       styleClass="age #{accountSetupController.currentSettings.usingAge ? '' : 'hidden'}" />
+          <p:watermark for="age" value="#{msg.defaultAge}" />
+          <span><h:outputText id="birthday-age-suffux" value="#{accountSetupController.birthdayAgeSuffux}" /></span>
+        </li>
       </ol>
-      <div id="form-field-overlay" class="form-field-overlay"></div>
       
+      <div id="form-field-overlay" class="form-field-overlay"></div>
       <div class="controls">
         <ui:remove>I can't figure out how to get @form or something else nice to work... So have to state EVERY field id in execute..</ui:remove>
         <h:commandButton id="previous" styleClass="previous" style="#{accountSetupController.firstStep ? 'visibility: hidden' : ''}"
@@ -71,15 +120,17 @@
           <f:ajax event="click" render="@form" execute="#{accountSetupController.executables}"
                   listener="#{accountSetupController.previousStep}" onevent="addEventListeners" />
         </h:commandButton>
-        <h:commandButton id="next" styleClass="next" style="#{accountSetupController.lastStep ? 'visibility: hidden' : ''}"
+        <h:commandButton id="next" styleClass="next" rendered="#{not accountSetupController.lastStep}"
                          value="#{msg.next}">
           <f:ajax event="click" render="@form" execute="#{accountSetupController.executables}"
                   listener="#{accountSetupController.nextStep}" onevent="addEventListeners" />
         </h:commandButton>
+        <h:commandButton value="#{msg.submit}" action="#{accountSetupController.createOrUpdateAccountSettings()}"
+                         rendered="#{accountSetupController.lastStep}" />
       </div>
     </h:form>
   </div>
-  <h:outputScript library="js" name="nlForm.js" />
   <h:outputScript library="js/account" name="accountInitialization.js" />
+  <h:outputScript library="js" name="nlForm.js" />
   </ui:define>
 </ui:composition>

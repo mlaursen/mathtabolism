@@ -8,6 +8,8 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -48,6 +50,7 @@ public class AccountWeight extends AccountIdFK implements AccountWeightDto {
   public static final String Q_findCurrentAccountWeightWeek = "AccountWeight.findCurrentAccountWeightWeek";
   public static final String Q_findAccountWeightByDate = "AccountWeight.findAccountWeightByDate";
   
+  @Temporal(TemporalType.DATE)
   private Date weighInDate;
   private Double weight;
   

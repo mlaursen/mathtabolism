@@ -87,34 +87,6 @@ public class AccountController extends BaseController {
     return accountModel.getPreviousWeight();
   }
   
-  /**
-   * Checks if the current weight is set for the account.
-   * <p>The current weight is considered set if
-   * <ul>
-   * <li>The current weight is not null
-   * <li>The current weight is greater than 0
-   * <li>The weigh in date is today
-   * </ul>
-   * @return true if the weight is set
-   */
-  public boolean isTodayWeightSet() {
-    AccountWeightModel currentWeight = getAccountModel().getCurrentWeight();
-    return currentWeight != null && DateUtils.isSameDate(currentWeight.getWeighInDate(), new Date())
-        && currentWeight.getWeight() > 0;
-  }
-  
-  /**
-   * Checks if the account is considered a first time user. (Someone that has no settings set)
-   * @return true if the account is considered a first time user
-   */
-  public boolean isFirstTimeUser() {
-    AccountSettingModel currentSettings = getAccountModel().getCurrentSettings();
-    return DateUtils.isSameDate(accountModel.getActiveSince(), new Date())
-        || currentSettings == null || currentSettings.getActivityMultiplier() == null
-        || currentSettings.getTdeeFormula() == null || currentSettings.getUnitSystem() == null
-        || (accountModel.getBirthday() == null || currentSettings.getAge() == null);
-  }
-  
   public String getDateFormat() {
     AccountSettingModel currentSettings = accountModel.getCurrentSettings();
     UnitSystem unitSystem = currentSettings != null && currentSettings.getUnitSystem() != null ? currentSettings.getUnitSystem() : UnitSystem.IMPERIAL;

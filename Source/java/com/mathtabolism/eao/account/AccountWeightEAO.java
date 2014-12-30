@@ -66,14 +66,13 @@ public class AccountWeightEAO extends BaseGeneratedEntityEAO<AccountWeight> {
   /**
    * Attempts to find the {@link AccountWeight} for today and the given account.
    * 
-   * @param account
-   *          the {@link Account} to look up a weight for
+   * @param account the {@link Account} to look up a weight for
    * @return
    */
   public AccountWeight findTodaysWeight(Account account) {
     Map<String, Object> parameters = new HashMap<>();
     parameters.put("account_id", account.getId());
-    parameters.put("today", Calendar.getInstance().getTime());
+    parameters.put("today", new Date());
     
     return findOneResult(AccountWeight.Q_findTodaysWeight, parameters);
   }

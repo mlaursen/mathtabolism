@@ -13,6 +13,9 @@ import com.mathtabolism.dto.AccountSettingDto;
 import com.mathtabolism.entity.account.AccountSetting;
 import com.mathtabolism.util.emconverter.EMConverter;
 import com.mathtabolism.util.number.NumberUtils;
+import com.mathtabolism.util.unit.Measurement;
+import com.mathtabolism.util.unit.UnitConverter;
+import com.mathtabolism.util.unit.UnitMeasurement;
 import com.mathtabolism.util.unit.UnitSystem;
 import com.mathtabolism.view.model.BaseModel;
 
@@ -41,6 +44,21 @@ public class AccountSettingModel extends BaseModel implements AccountSettingDto 
     int mult = UnitSystem.isImperial(unitSystem) ? 12 : 100;
     setHeight(largeH * mult + smallH);
   }
+  
+  public void splitHeight() {
+    if(height != null) {
+      if(UnitSystem.isImperial(unitSystem)) {
+        Measurement inches = new Measurement(UnitMeasurement.INCH, height);
+        Measurement feet = UnitConverter.convert(inches, UnitMeasurement.FOOT);
+        feet.setValue(Math.floor(feet.getValue()));
+        
+        inches.subtract(feet);
+        setHeightLarge((int) feet.getValue() + "");
+        setHeightSmall((int) inches.getValue() + "");
+      }
+    }
+    
+  }
 
   public String getHeightSmall() {
     return heightSmall;
@@ -48,6 +66,7 @@ public class AccountSettingModel extends BaseModel implements AccountSettingDto 
 
   public void setHeightSmall(String heightSmall) {
     this.heightSmall = heightSmall;
+    updateHeight();
   }
 
   public String getHeightLarge() {
@@ -56,6 +75,7 @@ public class AccountSettingModel extends BaseModel implements AccountSettingDto 
 
   public void setHeightLarge(String heightLarge) {
     this.heightLarge = heightLarge;
+    updateHeight();
   }
   
   public boolean isUsingAge() {

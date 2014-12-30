@@ -48,7 +48,7 @@
       </nav>
     </h:form>
   </div>
-  <c:if test="#{not empty request.remoteUser and not accountController.firstTimeUser and not accountController.todayWeightSet}">
+  <c:if test="#{not empty request.remoteUser and not accountController.accountModel.incompleteSetup and not accountController.accountModel.todayWeightSet}">
   <div class="update-weight">
     <div class="rectangle-speech">
       <h:form>

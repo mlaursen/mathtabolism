@@ -16,6 +16,7 @@ import com.mathtabolism.bo.account.AccountBO;
 import com.mathtabolism.util.string.StringUtils;
 import com.mathtabolism.util.string.UsernameGenerator;
 import com.mathtabolism.view.controller.BaseController;
+import com.mathtabolism.view.model.account.AccountModel;
 import com.mathtabolism.view.model.account.CreateAccountModel;
 import com.mathtabolism.view.navigation.AccountNav;
 
@@ -115,7 +116,12 @@ public class AccountLoginController extends BaseController {
       }
       
       request.login(accountModel.getUsername(), accountModel.getPassword());
-      return redirect(AccountNav.ACCOUNT_INITIALIZATION);
+      AccountModel account = accountBO.findAccountByUsername(accountModel.getUsername());
+      if(account.isIncompleteSetup()) {
+        return redirect(AccountNav.ACCOUNT_INITIALIZATION);
+      } else {
+        return redirect(AccountNav.DAILY_INTAKE);
+      }
     } catch(ServletException e) {
       displayErrorMessage(error);
       return null;
