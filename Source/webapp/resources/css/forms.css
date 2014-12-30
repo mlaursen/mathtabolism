@@ -35,7 +35,7 @@ form.one-line button {
   width: 100%;
 }
 
-label {
+form.one-line label {
   display: block;
   padding: 10px 0 0;
   color: #000000;
@@ -238,6 +238,10 @@ input[type="submit"].previous:hover {
   width: 100%;
   font-size: 3em;
   line-height: 1.5em;
+}
+.nl-form .checkbox input[type="checkbox"] {
+  width: 0.75em;
+  height: 0.75em;
 }
 
 .nl-form input[type="text"] {
@@ -465,4 +469,33 @@ img.medium {
 
 img.large {
   max-width: 100px;
+}
+
+/*
+ * Cool checkboxes stuffs
+ */
+.checkbox {
+  display: inline-block;
+}
+ 
+.checkbox.block {
+  display: block;
+}
+
+.checkbox input[type="checkbox"] {
+  display: inline-block;
+  position: relative;
+  margin: 0 0.25em;
+}
+
+.checkbox input[type="checkbox"]:hover:after {
+  border-color: #bdd;
+}
+
+.checkbox input[type="checkbox"]:checked {
+  border-color: #6aa;
+}
+
+.checkbox input[type="checkbox"] + label {
+  cursor: pointer;
 }

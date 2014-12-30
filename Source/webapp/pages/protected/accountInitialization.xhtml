@@ -66,13 +66,15 @@
           </h:panelGroup>
           <ui:remove>Metric Height block</ui:remove>
           <h:panelGroup rendered="#{not accountSetupController.imperialUnitSystem}">
-            <h:inputText id="height-metric" styleClass="height" value="#{accountSetupController.currentSettings.heightInCentimeters}" maxlength="4" />
+            <h:inputText id="height-metric" styleClass="height" value="#{accountSetupController.currentSettings.heightInCentimeters}"
+                         maxlength="4" required="#{not accountSetupController.imperialUnitSystem}" />
             <p:watermark for="height-metric" value="#{msg.emptyNumber}" />
             <span class="cm"></span>
           </h:panelGroup>
           
           <span><h:outputText value="#{msg.weightStep}" /></span>
-          <h:inputText id="current-weight" styleClass="weight" value="#{accountSetupController.currentWeight.weightString}" maxlength="6" />
+          <h:inputText id="current-weight" styleClass="weight" value="#{accountSetupController.currentWeight.weightString}"
+                       maxlength="6" required="true" requiredMessage="#{msg.account_CurrentWeightRequired}" />
           <p:watermark for="current-weight" value="#{msg.emptyNumber}" />
           <span id="weight-unit" class="#{accountSetupController.imperialUnitSystem ? 'lbs' : 'kg'}"></span>
         </li>
@@ -113,39 +115,52 @@
         
         <ui:remove>Step 5: Setting the birthday or Age</ui:remove>
         <li class="#{accountSetupController.getStepCss('STEP5')}">
-          <h:selectBooleanCheckbox id="using-age" value="#{accountController.currentSettings.usingAge}">
-            <f:ajax event="click" execute="@this" render="birthday age birthday-age-prefix birthday-age-suffux" />
-          </h:selectBooleanCheckbox>
-          <span><h:outputText value="#{msg.birthdayOrAge}" /></span><br />
-          <span><h:outputText id="birthday-age-prefix" value="#{accountSetupController.birthdayAgePrefix}" /></span>
-          <h:inputText id="birthday" value="#{accountSetupController.accountModel.birthday}" maxlength="10"
-                       styleClass="date #{accountSetupController.currentSettings.usingAge ? 'hidden' : ''}">
-            <f:converter converterId="#{accountSetupController.imperialUnitSystem ? 'dateConverter' : 'europeanDateConverter'}" />
-          </h:inputText>
-          <p:watermark id="date-format" for="birthday" value="#{accountSetupController.currentDateFormat}" />
-          <h:inputText id="age" value="#{accountSetupController.currentSettings.age}" maxlength="3"
-                       styleClass="age #{accountSetupController.currentSettings.usingAge ? '' : 'hidden'}" />
-          <p:watermark for="age" value="#{msg.defaultAge}" />
-          <span><h:outputText id="birthday-age-suffux" value="#{accountSetupController.birthdayAgeSuffux}" /></span>
+          <h:panelGroup layout="block" styleClass="checkbox block">
+            <h:selectBooleanCheckbox id="using-age" value="#{accountController.currentSettings.usingAge}">
+              <f:ajax event="click" execute="@this" render="birthday age" />
+            </h:selectBooleanCheckbox>
+            <h:outputLabel for="using-age" value="#{msg.birthdayOrAge}" />
+          </h:panelGroup>
+          
+          <ui:remove>Birthday Block</ui:remove>
+          <h:panelGroup id="birthday" layout="block" styleClass="#{accountSetupController.currentSettings.usingAge ? 'hidden' : ''}">
+            <h:outputText value="#{msg.birthdayStep}" />
+            <h:inputText id="birthday-field" value="#{accountSetupController.accountModel.birthday}" maxlength="10"
+                         required="#{not accountSetupController.currentSettings.usingAge}" requiredMessage="#{msg.account_BirthdayRequired}"
+                         styleClass="date #{accountSetupController.currentSettings.usingAge ? 'hidden' : ''}" immediate="true">
+              <f:converter converterId="#{accountSetupController.imperialUnitSystem ? 'dateConverter' : 'europeanDateConverter'}" />
+            </h:inputText>
+            <p:watermark for="birthday-field" value="#{accountSetupController.currentDateFormat}" />
+          </h:panelGroup>
+          
+          <ui:remove>Age Block</ui:remove>
+          <h:panelGroup id="age" layout="block" styleClass="#{accountSetupController.currentSettings.usingAge ? '' : 'hidden'}">
+            <h:outputText value="#{msg.ageStep1}" />
+            <h:inputText id="age-field" value="#{accountSetupController.currentSettings.age}" maxlength="3"
+                         required="#{accountSetupController.currentSettings.usingAge}" requiredMessage="#{msg.account_AgeRequired}"
+                         styleClass="age #{accountSetupController.currentSettings.usingAge ? '' : 'hidden'}" immediate="true" />
+            <p:watermark for="age-field" value="#{msg.defaultAge}" />
+            <h:outputText value="#{msg.ageStep2}" />
+          </h:panelGroup>
         </li>
       </ol>
       
       <div id="form-field-overlay" class="form-field-overlay"></div>
       <div class="controls">
         <ui:remove>I can't figure out how to get @form or something else nice to work... So have to give every visible field in the execute :/.</ui:remove>
-        <h:commandButton id="previous" styleClass="previous" style="#{accountSetupController.firstStep ? 'visibility: hidden' : ''}"
-                         value="#{msg.previous}">
-          <f:ajax event="click" render="@form" execute="#{accountSetupController.executables}"
-                  listener="#{accountSetupController.previousStep}" onevent="addEventListeners" />
+        <h:commandButton id="previous" value="#{msg.previous}" styleClass="previous" immediate="true"
+                         style="#{accountSetupController.firstStep ? 'visibility: hidden' : ''}">
+          <f:ajax event="click" render="@form" execute="#{accountSetupController.executables}" listener="#{accountSetupController.previousStep}"
+                  onevent="addEventListeners" />
         </h:commandButton>
-        <h:commandButton id="next" styleClass="next" rendered="#{not accountSetupController.lastStep}"
-                         value="#{msg.next}">
-          <f:ajax event="click" render="@form" execute="#{accountSetupController.executables}"
-                  listener="#{accountSetupController.nextStep}" onevent="addEventListeners" />
+        <h:commandButton id="next" value="#{msg.next}" styleClass="next" rendered="#{not accountSetupController.lastStep}">
+          <f:ajax event="click" render="@form" execute="#{accountSetupController.executables}" listener="#{accountSetupController.nextStep}"
+                  onevent="addEventListeners" />
         </h:commandButton>
         <h:commandButton value="#{msg.submit}" action="#{accountSetupController.createOrUpdateAccountSettings()}"
                          rendered="#{accountSetupController.lastStep}" />
       </div>
+      <h:messages id="errors" />
     </h:form>
   </div>
   <h:outputScript library="js/account" name="accountInitialization.js" />

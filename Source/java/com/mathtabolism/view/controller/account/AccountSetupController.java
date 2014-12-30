@@ -282,12 +282,4 @@ public class AccountSetupController extends BaseController {
         return "";
     }
   }
-  
-  public String getBirthdayAgePrefix() {
-    return getString(getCurrentSettings().isUsingAge() ? "ageStep1" : "birthdayStep");
-  }
-  
-  public String getBirthdayAgeSuffux() {
-    return getCurrentSettings().isUsingAge() ? getString("ageStep2") : "";
-  }
 }
