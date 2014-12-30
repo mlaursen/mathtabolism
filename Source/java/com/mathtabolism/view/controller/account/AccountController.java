@@ -31,16 +31,19 @@ import com.mathtabolism.view.model.account.AccountWeightModel;
 @SessionScoped
 public class AccountController extends BaseController {
   private static final long serialVersionUID = 5069047046599920651L;
-  public static final int MIN_BIRTHDAY_OFFSET = 80;
-  public static final int MAX_BIRTHDAY_OFFSET = 5;
-
-  private final int CURRENT_YEAR = Calendar.getInstance().get(Calendar.YEAR);
-  
   
   @Inject
   private AccountBO accountBO;
   
   private AccountModel accountModel;
+  
+  /**
+   * Creates or updates the current weight from the account model
+   */
+  public void createOrUpdateCurrentWeight() {
+    accountBO.createOrUpdateWeight(accountModel);
+    displayInfoMessage("account_UpdatedWeight");
+  }
   
   /**
    * Lazily loads the AccountModel.

@@ -281,9 +281,9 @@ table.data-table td {
   display: inline-block;
 }
 
-.update-weight-button {
-  margin-top: 0 !important;
-  padding: 0.6em !important;
+input[type="submit"].update-weight-button {
+  margin-top: 0;
+  padding: 0.6em;
 }
 
 .rectangle-speech {

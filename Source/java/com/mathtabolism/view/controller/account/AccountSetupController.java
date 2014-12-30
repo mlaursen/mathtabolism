@@ -246,14 +246,6 @@ public class AccountSetupController extends BaseController {
   }
   
   /**
-   * Creates or updates the current weight
-   */
-  public void createOrUpdateCurrentWeight() {
-    accountBO.createOrUpdateWeight(accountModel);
-    displayInfoMessage("account_UpdatedWeight");
-  }
-  
-  /**
    * Gets the {@link #CURRENT_YEAR} - {@link #MIN_BIRTHDAY_OFFSET}
    * @return minimum birthday year
    */
