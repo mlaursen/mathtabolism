@@ -11,6 +11,10 @@ import com.mathtabolism.dto.AccountDto;
 import com.mathtabolism.entity.account.Account;
 import com.mathtabolism.util.date.DateUtils;
 import com.mathtabolism.util.emconverter.EMConverter;
+import com.mathtabolism.util.unit.Measurement;
+import com.mathtabolism.util.unit.UnitConverter;
+import com.mathtabolism.util.unit.UnitMeasurement;
+import com.mathtabolism.util.unit.UnitSystem;
 import com.mathtabolism.view.model.BaseModel;
 
 /**
@@ -34,6 +38,23 @@ public class AccountModel extends BaseModel implements AccountDto {
   private AccountWeightModel currentWeight;
   private AccountWeightModel previousWeight;
 
+  public void convertUnitsTo(UnitSystem unitSystem) {
+    Double weight = currentWeight.getWeight();
+    if(weight != null && weight > 0) {
+      if(unitSystem.isImperial()) {
+        Measurement kg  = new Measurement(UnitMeasurement.KILOGRAM, weight);
+        Measurement lbs = UnitConverter.convert(kg, UnitMeasurement.POUND);
+        
+        currentWeight.setWeight(lbs.getValue());
+      } else {
+        Measurement lbs = new Measurement(UnitMeasurement.POUND, weight);
+        Measurement kg  = UnitConverter.convert(lbs, UnitMeasurement.KILOGRAM);
+        
+        currentWeight.setWeight(kg.getValue());
+      }
+    }
+  }
+  
   /**
    * Gets the current account's settings
    * @return the {@link AccountSettingModel}
@@ -84,8 +105,6 @@ public class AccountModel extends BaseModel implements AccountDto {
     return previousWeight;
   }
   
-
-  
   /**
    * Checks if the current weight is set for the account.
    * <p>The current weight is considered set if
@@ -106,8 +125,7 @@ public class AccountModel extends BaseModel implements AccountDto {
    * @return true if the account is considered a first time user
    */
   public boolean isIncompleteSetup() {
-    return (currentSettings == null || currentSettings.getActivityMultiplier() == null
-        || currentSettings.getTdeeFormula() == null || currentSettings.getUnitSystem() == null
+    return (currentSettings == null || currentSettings.isIncompleteSetup() || gender == null
         || (birthday == null && currentSettings.getAge() == null));
   }
   
@@ -148,6 +166,9 @@ public class AccountModel extends BaseModel implements AccountDto {
   
   @Override
   public Gender getGender() {
+    if(gender == null) {
+      gender = Gender.MALE;
+    }
     return gender;
   }
   

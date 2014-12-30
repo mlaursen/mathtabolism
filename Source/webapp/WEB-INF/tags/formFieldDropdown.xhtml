@@ -8,15 +8,16 @@
   binding: the binding to the controller
   selected: the selected value
   items: the Array of SelectItem
-  toggleId: the form-field-toggle id
-  ulId: the ordered list id
-  ulClass: the ordered list css class
+  fieldId: the form-field-toggle id
+  ulSize: the ul class to use for the size
   </ui:remove>
-  <div id="#{toggleId}-field" class="form-field form-field-dd">
-    <h:inputHidden id="#{toggleId}" value="#{binding}" />
-    <div id="#{toggleId}" class="form-field-toggle"><h:outputText value="#{selected}" /></div>
-    <ul id="#{ulId}" class="#{ulClass}"><c:forEach items="#{items}" var="item">
+  <h:panelGroup layout="block" class="form-field form-field-dd">
+    <h:inputHidden id="#{fieldId}" value="#{binding}" />
+    <h:panelGroup layout="block" class="form-field-toggle">
+      <h:outputText value="#{selected}" />
+    </h:panelGroup>
+    <ul class="#{ulSize}"><c:forEach items="#{items}" var="item">
       <li tabindex="-1" data-value="#{item.value}" class="#{binding == item.value ? 'dd-selected': ''}"><h:outputText value="#{item.label}" /></li>
     </c:forEach></ul>
-  </div>
+  </h:panelGroup>
 </ui:composition>

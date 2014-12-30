@@ -6,9 +6,6 @@ $(function() {
 });
 
 function addEventListeners() {
-  if(additionalEventListeners != undefined && typeof additionalEventListeners == 'function') {
-    additionalEventListeners()
-  }
   $(".nl-form .form-field").each(function() {
     var mainDiv = this;
     var hidden = $(this).find("input[type='hidden']");

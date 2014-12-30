@@ -1,6 +1,6 @@
 /**
  * 
- */
+ *
 
 function additionalEventListeners() {
   $("#unit-system").change(function() {
@@ -36,3 +36,4 @@ function additionalEventListeners() {
     }
   });
 }
+*/

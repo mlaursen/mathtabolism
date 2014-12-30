@@ -250,11 +250,15 @@ input[type="submit"].previous:hover {
 }
 
 .nl-form input[type="text"].date {
-  max-width: 240px;
+  max-width: 260px;
 }
 
 .nl-form input[type="text"].age {
   max-width: 60px;
+}
+
+.nl-form input[type="text"].height {
+  max-width: 80px;
 }
 
 .nl-form input[type="text"].weight {

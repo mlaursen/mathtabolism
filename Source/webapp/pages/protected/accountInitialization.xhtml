@@ -15,51 +15,66 @@
       <ol class="steps">
         <ui:remove>Step 1: Setting Unit System</ui:remove>
         <li class="#{accountSetupController.getStepCss('STEP1')}">
-          <span><h:outputText value="#{msg.unitSystemStep1}" /></span>
+          <span>
+            <h:outputText value="#{msg.unitSystemStep1}" />
+          </span>
           <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
-            <ui:param name="binding"  value="#{accountSetupController.accountModel.currentSettings.unitSystem}" />
+            <ui:param name="binding"  value="#{accountSetupController.unitSystem}" />
             <ui:param name="selected" value="#{accountSetupController.selectedUnitSystem}" />
             <ui:param name="items"    value="#{accountSetupController.unitSystems}" />
-            <ui:param name="toggleId" value="unit-system" />
+            <ui:param name="fieldId"  value="unit-system" />
           </ui:include>
-          <span><h:outputText value="#{msg.unitSystemStep2}" /></span>
+          <span>
+            <h:outputText value="#{msg.unitSystemStep2}" />
+          </span>
         </li>
         
         <ui:remove>Step 2: Setting gender, height, and starting weight.</ui:remove>
         <li class="#{accountSetupController.getStepCss('STEP2')}">
-          <span><h:outputText value="#{msg.genderStep}" /></span>
+          <span>
+            <h:outputText value="#{msg.genderStep}" />
+          </span>
           <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
             <ui:param name="binding"  value="#{accountSetupController.accountModel.gender}" />
             <ui:param name="selected" value="#{accountSetupController.selectedGender}" />
             <ui:param name="items"    value="#{accountSetupController.genders}" />
-            <ui:param name="toggleId" value="gender" />
+            <ui:param name="fieldId"  value="gender" />
           </ui:include>
           
-          <span><h:outputText value="#{msg.heightStep}" /></span>
+          <span>
+            <h:outputText value="#{msg.heightStep}" />
+          </span>
+          <ui:remove>Imperial Height block..</ui:remove>
+          <h:panelGroup id="height-imperial" rendered="#{accountSetupController.imperialUnitSystem}">
           <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
-            <ui:param name="binding"  value="#{accountSetupController.currentSettings.heightLarge}" />
-            <ui:param name="selected" value="#{accountSetupController.selectedHeightLarge}" />
-            <ui:param name="items"    value="#{accountSetupController.startingLargeHeights}" />
-            <ui:param name="toggleId" value="height-large-value" />
-            <ui:param name="ulId"     value="height-large-items" />
-            <ui:param name="ulClass"  value="small" />
+            <ui:param name="binding"  value="#{accountSetupController.currentSettings.heightInFeet}" />
+            <ui:param name="selected" value="#{accountSetupController.currentSettings.heightInFeet}" />
+            <ui:param name="items"    value="#{accountSetupController.footItems}" />
+            <ui:param name="fieldId"  value="height-large-value" />
+            <ui:param name="ulSize"   value="small" />
           </ui:include>
-          <span id="height-large-unit" class="#{accountSetupController.accountModel.currentSettings.unitSystem == 'IMPERIAL' ? 'ft' : 'm'}"></span>
+          <span class="ft"> </span>
           
           <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
-            <ui:param name="binding"  value="#{accountSetupController.accountModel.currentSettings.heightSmall}" />
-            <ui:param name="selected" value="#{accountSetupController.selectedHeightSmall}" />
-            <ui:param name="items"    value="#{accountSetupController.startingSmallHeights}" />
-            <ui:param name="toggleId" value="height-small-value" />
-            <ui:param name="ulId"     value="height-small-items" />
-            <ui:param name="ulClass"  value="small" />
+            <ui:param name="binding"  value="#{accountSetupController.currentSettings.heightInInches}" />
+            <ui:param name="selected" value="#{accountSetupController.currentSettings.heightInInches}" />
+            <ui:param name="items"    value="#{accountSetupController.inchItems}" />
+            <ui:param name="fieldId"  value="height-small-value" />
+            <ui:param name="ulSize"   value="small" />
           </ui:include>
-          <span id="height-small-unit" class="#{accountSetupController.accountModel.currentSettings.unitSystem == 'IMPERIAL' ? 'in' : 'cm'}"></span>
+          <span class="in"> </span>
+          </h:panelGroup>
+          <ui:remove>Metric Height block</ui:remove>
+          <h:panelGroup rendered="#{not accountSetupController.imperialUnitSystem}">
+            <h:inputText id="height-metric" styleClass="height" value="#{accountSetupController.currentSettings.heightInCentimeters}" maxlength="4" />
+            <p:watermark for="height-metric" value="#{msg.emptyNumber}" />
+            <span class="cm"></span>
+          </h:panelGroup>
           
           <span><h:outputText value="#{msg.weightStep}" /></span>
           <h:inputText id="current-weight" styleClass="weight" value="#{accountSetupController.currentWeight.weightString}" maxlength="6" />
-          <p:watermark for="current-weight" value="#{msg.emptyWeight}" />
-          <span id="weight-unit" class="#{accountSetupController.accountModel.currentSettings.unitSystem == 'IMPERIAL' ? 'lbs' : 'kg'}"></span>
+          <p:watermark for="current-weight" value="#{msg.emptyNumber}" />
+          <span id="weight-unit" class="#{accountSetupController.imperialUnitSystem ? 'lbs' : 'kg'}"></span>
         </li>
         
         <ui:remove>Step 3: Activity Multiplier</ui:remove>
@@ -69,7 +84,7 @@
             <ui:param name="binding"  value="#{accountSetupController.currentSettings.activityMultiplier}" />
             <ui:param name="selected" value="#{accountSetupController.selectedActivityMultiplier}" />
             <ui:param name="items"    value="#{accountSetupController.activityMultipliers}" />
-            <ui:param name="toggleId" value="activity-multiplier" />
+            <ui:param name="fieldId"  value="activity-multiplier" />
           </ui:include>
         </li>
         
@@ -81,15 +96,17 @@
             <ui:param name="binding"  value="#{accountSetupController.currentSettings.recalculationDay}" />
             <ui:param name="selected" value="#{accountSetupController.selectedRecalculationDay}" />
             <ui:param name="items"    value="#{accountSetupController.weekdays}" />
-            <ui:param name="toggleId" value="recalculation-day" />
+            <ui:param name="fieldId"  value="recalculation-day" />
           </ui:include>
           
-          <span><h:outputText value="#{msg.calculationStep2}" /></span>
+          <span>
+            <h:outputText value="#{msg.calculationStep2}" />
+          </span>
           <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
             <ui:param name="binding"  value="#{accountSetupController.currentSettings.tdeeFormula}" />
             <ui:param name="selected" value="#{accountSetupController.selectedFormula}" />
             <ui:param name="items"    value="#{accountSetupController.formulas}" />
-            <ui:param name="toggleId" value="tdee-formula" />
+            <ui:param name="fieldId"  value="tdee-formula" />
           </ui:include>
           <span><h:outputText value="#{msg.calculationStep3}" /></span>
         </li>
@@ -103,8 +120,9 @@
           <span><h:outputText id="birthday-age-prefix" value="#{accountSetupController.birthdayAgePrefix}" /></span>
           <h:inputText id="birthday" value="#{accountSetupController.accountModel.birthday}" maxlength="10"
                        styleClass="date #{accountSetupController.currentSettings.usingAge ? 'hidden' : ''}">
-            <f:converter converterId="dateConverter" />
+            <f:converter converterId="#{accountSetupController.imperialUnitSystem ? 'dateConverter' : 'europeanDateConverter'}" />
           </h:inputText>
+          <p:watermark id="date-format" for="birthday" value="#{accountSetupController.currentDateFormat}" />
           <h:inputText id="age" value="#{accountSetupController.currentSettings.age}" maxlength="3"
                        styleClass="age #{accountSetupController.currentSettings.usingAge ? '' : 'hidden'}" />
           <p:watermark for="age" value="#{msg.defaultAge}" />

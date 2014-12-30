@@ -3,20 +3,11 @@
  */
 package com.mathtabolism.view.controller.account;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import javax.enterprise.context.SessionScoped;
-import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.mathtabolism.bo.account.AccountBO;
-import com.mathtabolism.constants.ActivityMultiplier;
-import com.mathtabolism.constants.Gender;
-import com.mathtabolism.constants.TDEEFormula;
-import com.mathtabolism.constants.Weekday;
-import com.mathtabolism.util.date.DateUtils;
 import com.mathtabolism.util.unit.UnitSystem;
 import com.mathtabolism.view.controller.BaseController;
 import com.mathtabolism.view.model.account.AccountModel;

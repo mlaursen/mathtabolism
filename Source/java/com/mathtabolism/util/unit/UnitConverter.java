@@ -30,42 +30,48 @@ public class UnitConverter {
   
   /**
    * 
-   * @param fromMeasurement
-   *          a {@link Measurement} to convert
-   * @param toUnitMeasurement
-   *          a {@link UnitMeasurement} to convert to
+   * @param fromMeasurement a {@link Measurement} to convert
+   * @param toUnitMeasurement a {@link UnitMeasurement} to convert to
    * @return a new Measurement with an updated value and UnitMeasurement.
-   * @throws MeasurementConversionException
-   *           when the Measurement can not be converted to the given <tt>toUnitMeasurement</tt>
+   * @throws MeasurementConversionException when the Measurement can not be converted to the given <tt>toUnitMeasurement</tt>
    */
-  public static Measurement convert(Measurement fromMeasurement, UnitMeasurement toUnitMeasurement)
-      throws MeasurementConversionException {
+  public static Measurement convert(Measurement fromMeasurement, UnitMeasurement toUnitMeasurement) throws MeasurementConversionException {
     UnitMeasurement from = fromMeasurement.getUnitMeasurement();
     if(from == toUnitMeasurement) {
       return fromMeasurement;
-    }
-    else if(!from.canConvertTo(toUnitMeasurement)) {
+    } else if(!from.canConvertTo(toUnitMeasurement)) {
       throw new MeasurementConversionException(fromMeasurement, toUnitMeasurement);
     }
     double value = fromMeasurement.getValue();
     if(UnitMeasurement.isSameUnitSystem(from, toUnitMeasurement)) {
-      return toUnitMeasurement.isMetric() ? convertMetric(value, from, toUnitMeasurement) : convertImperial(value,
-          from, toUnitMeasurement);
-    }
-    else {
+      return toUnitMeasurement.isMetric() ? convertMetric(value, from, toUnitMeasurement) : convertImperial(value, from, toUnitMeasurement);
+    } else {
       return convert(switchUnit(convertToBase(fromMeasurement), toUnitMeasurement.getBaseUnit()), toUnitMeasurement);
     }
-    
+  }
+  
+  /**
+   * Converts a measurement to the given unit measurement and then sets the value to the floor.
+   * <p>This results in a new measurement with a whole number as a value.
+   * <code><pre>
+   * Converting 63 inches to Feet would be 5 feet.
+   * </pre></code>
+   * @param fromMeasurement the {@link Measurement} to convert from
+   * @param toUnitMeasurement the {@link UnitMeasurement} to convert to
+   * @return
+   */
+  public static Measurement convertToWholeNumber(Measurement fromMeasurement, UnitMeasurement toUnitMeasurement) {
+    Measurement m = convert(fromMeasurement, toUnitMeasurement);
+    m.setValue(Math.floor(m.getValue()));
+    return m;
   }
   
   /**
    * Gets the Ingredient's Serving that has the same unit system as the given measurement. This is used to calculate the
    * total calories, fat, carbs, and protein for an ingredient based on the meal's measurement.
    * 
-   * @param mealMeasurement
-   *          a {@link Measurement} to find a matching measurement for in the ingredient
-   * @param ingredient
-   *          the {@link Ingredient} to find the serving for
+   * @param mealMeasurement a {@link Measurement} to find a matching measurement for in the ingredient
+   * @param ingredient the {@link Ingredient} to find the serving for
    * @return a {@link Measurement} of the serving for the ingredient
    */
   public static Measurement getServing(Measurement mealMeasurement, IngredientDto ingredient) {
@@ -87,12 +93,9 @@ public class UnitConverter {
    * <p>
    * If more Units are needed, that number must be changed or removed.
    * 
-   * @param value
-   *          the value to update
-   * @param from
-   *          the {@link UnitMeasurement} to convert from
-   * @param to
-   *          the {@link UnitMeasurement} to convert to
+   * @param value the value to update
+   * @param from the {@link UnitMeasurement} to convert from
+   * @param to the {@link UnitMeasurement} to convert to
    * @return the new {@link Measurement} with a converted value and {@link UnitMeasurement}
    */
   private static Measurement convertMetric(double value, UnitMeasurement from, UnitMeasurement to) {

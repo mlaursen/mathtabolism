@@ -25,9 +25,13 @@ import com.mathtabolism.view.model.BaseModel;
  */
 @EMConverter(converter = AccountSettingDto.class, convertTo = AccountSetting.class)
 public class AccountSettingModel extends BaseModel implements AccountSettingDto {
+  private static final String US_AVERAGE_HEIGHT_CM = "177";
+  private static final String US_AVERAGE_HEIGHT_IN = "10";
+  private static final String US_AVERAGE_HEIGHT_FT = "5";
   
-  private String heightSmall;
-  private String heightLarge;
+  private String heightInInches;
+  private String heightInFeet;
+  private String heightInCentimeters;
   
   private Date dateChanged;
   private Integer age;
@@ -38,43 +42,56 @@ public class AccountSettingModel extends BaseModel implements AccountSettingDto 
   private TDEEFormula tdeeFormula;
   private UnitSystem unitSystem;
   
+  /**
+   * Updates the height value from the small height value and the large height value.
+   * If the unit system is metric, only the centimeters will be used.
+   */
   public void updateHeight() {
-    double smallH = NumberUtils.stringToDouble(heightSmall);
-    double largeH = NumberUtils.stringToDouble(heightLarge);
-    int mult = UnitSystem.isImperial(unitSystem) ? 12 : 100;
-    setHeight(largeH * mult + smallH);
+    if(UnitSystem.isImperial(unitSystem)) {
+      Measurement inInches = new Measurement(UnitMeasurement.INCH, NumberUtils.stringToDouble(heightInInches));
+      Measurement inFeet   = new Measurement(UnitMeasurement.FOOT, NumberUtils.stringToDouble(heightInFeet));
+      inInches.add(inFeet);
+      height = inInches.getValue();
+    } else {
+      height = NumberUtils.stringToDouble(heightInCentimeters);
+    }
   }
   
   public void splitHeight() {
-    if(height != null) {
-      if(UnitSystem.isImperial(unitSystem)) {
-        Measurement inches = new Measurement(UnitMeasurement.INCH, height);
-        Measurement feet = UnitConverter.convert(inches, UnitMeasurement.FOOT);
-        feet.setValue(Math.floor(feet.getValue()));
-        
-        inches.subtract(feet);
-        setHeightLarge((int) feet.getValue() + "");
-        setHeightSmall((int) inches.getValue() + "");
-      }
+    if(height != null && UnitSystem.isImperial(unitSystem)) {
+      Measurement inInches = new Measurement(UnitMeasurement.INCH, height);
+      Measurement inFeet   = UnitConverter.convertToWholeNumber(inInches, UnitMeasurement.FOOT);
+      inInches.subtract(inFeet);
+      
+      setHeightInFeet(NumberUtils.formatAsString(inFeet.getValue(), 0));
+      setHeightInInches(NumberUtils.formatAsString(inInches.getValue(), 0));
     }
-    
   }
 
-  public String getHeightSmall() {
-    return heightSmall;
+  public String getHeightInInches() {
+    return heightInInches == null ? US_AVERAGE_HEIGHT_IN : heightInInches;
   }
 
-  public void setHeightSmall(String heightSmall) {
-    this.heightSmall = heightSmall;
+  public void setHeightInInches(String heightInInches) {
+    this.heightInInches = heightInInches;
     updateHeight();
   }
 
-  public String getHeightLarge() {
-    return heightLarge;
+  public String getHeightInFeet() {
+    return heightInFeet == null ? US_AVERAGE_HEIGHT_FT : heightInFeet;
   }
 
-  public void setHeightLarge(String heightLarge) {
-    this.heightLarge = heightLarge;
+  public void setHeightInFeet(String heightInFeet) {
+    this.heightInFeet = heightInFeet;
+    updateHeight();
+  }
+  
+  public String getHeightInCentimeters() {
+    return heightInCentimeters == null ? US_AVERAGE_HEIGHT_CM : heightInCentimeters;
+  }
+  
+  public void setHeightInCentimeters(String heightInCentimeters) {
+    this.heightInCentimeters = heightInCentimeters;
     updateHeight();
   }
   
@@ -84,6 +101,27 @@ public class AccountSettingModel extends BaseModel implements AccountSettingDto 
   
   public void setUsingAge(boolean isUsingAge) {
     this.useAge = Indicator.fromBoolean(isUsingAge);
+  }
+  
+  public boolean isIncompleteSetup() {
+    return activityMultiplier == null || tdeeFormula == null || unitSystem == null;
+  }
+  
+  public void convertUnitsTo(UnitSystem toUnitSystem) {
+    if(height != null && height > 0) {
+      if(toUnitSystem.isImperial()) {
+        Measurement centimeters = new Measurement(UnitMeasurement.CENTIMETER, height);
+        Measurement inches = UnitConverter.convertToWholeNumber(centimeters, UnitMeasurement.INCH);
+        Measurement feet   = UnitConverter.convertToWholeNumber(inches, UnitMeasurement.FOOT);
+        inches.subtract(feet);
+        heightInInches = NumberUtils.formatAsString(inches.getValue(), 0);
+        heightInFeet   = NumberUtils.formatAsString(feet.getValue(), 0);
+      } else {
+        Measurement inches = new Measurement(UnitMeasurement.INCH, height);
+        Measurement centimeters = UnitConverter.convertToWholeNumber(inches, UnitMeasurement.CENTIMETER);
+        heightInCentimeters = NumberUtils.formatAsString(centimeters.getValue(), 0);
+      }
+    }
   }
   
   @Override
@@ -133,7 +171,7 @@ public class AccountSettingModel extends BaseModel implements AccountSettingDto 
 
   @Override
   public ActivityMultiplier getActivityMultiplier() {
-    return activityMultiplier;
+    return activityMultiplier == null ? ActivityMultiplier.SEDENTARY : activityMultiplier;
   }
 
   @Override
@@ -143,7 +181,7 @@ public class AccountSettingModel extends BaseModel implements AccountSettingDto 
 
   @Override
   public Weekday getRecalculationDay() {
-    return recalculationDay;
+    return recalculationDay == null ? Weekday.DAILY : recalculationDay;
   }
 
   @Override
@@ -153,7 +191,7 @@ public class AccountSettingModel extends BaseModel implements AccountSettingDto 
 
   @Override
   public TDEEFormula getTdeeFormula() {
-    return tdeeFormula;
+    return tdeeFormula == null ? TDEEFormula.MIFFLIN_ST_JEOR : tdeeFormula;
   }
 
   @Override
@@ -168,8 +206,8 @@ public class AccountSettingModel extends BaseModel implements AccountSettingDto 
   
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("dateChanged", dateChanged).append("height", height)
-        .append("heightLarge", heightLarge).append("heightSmall", heightSmall).append("unitSystem", unitSystem)
+    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", id).append("dateChanged", dateChanged).append("height", height)
+        .append("heightInFeet", heightInFeet).append("heightInInches", heightInInches).append("unitSystem", unitSystem)
         .append("recalculationDay", recalculationDay).append("tdeeFormula", tdeeFormula).append("activityMultiplier", activityMultiplier).toString();
   }
 }

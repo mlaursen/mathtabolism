@@ -51,6 +51,14 @@ public class Measurement implements Addable, Subtractable {
     return unitMeasurement;
   }
   
+  /**
+   * Sets the unit measurement to the new value
+   * @param unitMeasurement the unit measurement
+   */
+  public void setUnitMeasurment(UnitMeasurement unitMeasurement) {
+    this.unitMeasurement = unitMeasurement;
+  }
+  
   @Override
   public void add(Addable addable) {
     if(addable != null && addable instanceof Measurement) {
