@@ -114,7 +114,7 @@
       
       <div id="form-field-overlay" class="form-field-overlay"></div>
       <div class="controls">
-        <ui:remove>I can't figure out how to get @form or something else nice to work... So have to state EVERY field id in execute..</ui:remove>
+        <ui:remove>I can't figure out how to get @form or something else nice to work... So have to give every visible field in the execute :/.</ui:remove>
         <h:commandButton id="previous" styleClass="previous" style="#{accountSetupController.firstStep ? 'visibility: hidden' : ''}"
                          value="#{msg.previous}">
           <f:ajax event="click" render="@form" execute="#{accountSetupController.executables}"
