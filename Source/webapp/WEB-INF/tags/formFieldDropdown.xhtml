@@ -14,7 +14,7 @@
   <h:panelGroup layout="block" class="form-field form-field-dd">
     <h:inputHidden id="#{fieldId}" value="#{binding}" />
     <h:panelGroup layout="block" class="form-field-toggle">
-      <h:outputText value="#{selected}" />
+      <h:outputText value="#{lookupController.lookup(binding)}" />
     </h:panelGroup>
     <ul class="#{ulSize}"><c:forEach items="#{items}" var="item">
       <li tabindex="-1" data-value="#{item.value}" class="#{binding == item.value ? 'dd-selected': ''}"><h:outputText value="#{item.label}" /></li>

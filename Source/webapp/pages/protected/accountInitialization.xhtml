@@ -20,7 +20,6 @@
           </span>
           <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
             <ui:param name="binding"  value="#{accountSetupController.unitSystem}" />
-            <ui:param name="selected" value="#{accountSetupController.selectedUnitSystem}" />
             <ui:param name="items"    value="#{accountSetupController.unitSystems}" />
             <ui:param name="fieldId"  value="unit-system" />
           </ui:include>
@@ -36,7 +35,6 @@
           </span>
           <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
             <ui:param name="binding"  value="#{accountSetupController.gender}" />
-            <ui:param name="selected" value="#{accountSetupController.selectedGender}" />
             <ui:param name="items"    value="#{accountSetupController.genders}" />
             <ui:param name="fieldId"  value="gender" />
           </ui:include>
@@ -48,7 +46,6 @@
           <h:panelGroup id="height-imperial" rendered="#{accountSetupController.imperialUnitSystem}">
           <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
             <ui:param name="binding"  value="#{accountSetupController.accountModel.heightInFeet}" />
-            <ui:param name="selected" value="#{accountSetupController.accountModel.heightInFeet}" />
             <ui:param name="items"    value="#{accountSetupController.footItems}" />
             <ui:param name="fieldId"  value="height-large-value" />
             <ui:param name="ulSize"   value="small" />
@@ -57,7 +54,6 @@
           
           <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
             <ui:param name="binding"  value="#{accountSetupController.accountModel.heightInInches}" />
-            <ui:param name="selected" value="#{accountSetupController.accountModel.heightInInches}" />
             <ui:param name="items"    value="#{accountSetupController.inchItems}" />
             <ui:param name="fieldId"  value="height-small-value" />
             <ui:param name="ulSize"   value="small" />
@@ -84,7 +80,6 @@
           <span><h:outputText value="#{msg.activityMultiplierStep}" /></span><br />
           <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
             <ui:param name="binding"  value="#{accountSetupController.activityMultiplier}" />
-            <ui:param name="selected" value="#{accountSetupController.selectedActivityMultiplier}" />
             <ui:param name="items"    value="#{accountSetupController.activityMultipliers}" />
             <ui:param name="fieldId"  value="activity-multiplier" />
           </ui:include>
@@ -96,7 +91,6 @@
           <span id="every-weekday" class="#{accountSetupController.recalculatedDaily ? 'hidden' : ''}"><h:outputText value="#{msg.every}" /></span>
           <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
             <ui:param name="binding"  value="#{accountSetupController.recalculationDay}" />
-            <ui:param name="selected" value="#{accountSetupController.selectedRecalculationDay}" />
             <ui:param name="items"    value="#{accountSetupController.weekdays}" />
             <ui:param name="fieldId"  value="recalculation-day" />
           </ui:include>
@@ -106,7 +100,6 @@
           </span>
           <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
             <ui:param name="binding"  value="#{accountSetupController.tdeeFormula}" />
-            <ui:param name="selected" value="#{accountSetupController.selectedFormula}" />
             <ui:param name="items"    value="#{accountSetupController.formulas}" />
             <ui:param name="fieldId"  value="tdee-formula" />
           </ui:include>

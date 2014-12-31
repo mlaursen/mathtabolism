@@ -100,8 +100,13 @@ public abstract class BaseController implements Serializable {
     if(lookupString == null) {
       return "";
     }
-    String msg = ResourceBundle.getBundle("messages", getContext().getViewRoot().getLocale()).getString(lookupString);
-    return MessageFormat.format(msg, params);
+    ResourceBundle rb = ResourceBundle.getBundle("messages", getContext().getViewRoot().getLocale());
+    if(rb.containsKey(lookupString)) {
+      String msg = rb.getString(lookupString);
+      return MessageFormat.format(msg, params);
+    } else {
+      return null;
+    }
   }
   
   /**
