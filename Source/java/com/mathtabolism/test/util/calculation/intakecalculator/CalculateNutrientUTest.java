@@ -1,7 +1,8 @@
 package com.mathtabolism.test.util.calculation.intakecalculator;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static com.mathtabolism.util.calculation.IntakeCalculator.calculateNutrient;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 import java.util.Arrays;
 
@@ -10,14 +11,6 @@ import org.junit.Test;
 
 import com.mathtabolism.constants.IngredientCategory;
 import com.mathtabolism.constants.NutrientType;
-import com.mathtabolism.entity.food.Brand;
-import com.mathtabolism.entity.food.DailyIntakeMeal;
-import com.mathtabolism.entity.food.Ingredient;
-import com.mathtabolism.entity.food.Meal;
-import com.mathtabolism.entity.food.MealPart;
-
-import static com.mathtabolism.util.calculation.IntakeCalculator.calculateNutrient;
-
 import com.mathtabolism.util.nutrition.BaseNutrient;
 import com.mathtabolism.util.nutrition.Calorie;
 import com.mathtabolism.util.nutrition.Carbohydrate;
@@ -25,24 +18,25 @@ import com.mathtabolism.util.nutrition.Fat;
 import com.mathtabolism.util.nutrition.Protein;
 import com.mathtabolism.util.unit.Measurement;
 import com.mathtabolism.util.unit.UnitMeasurement;
+import com.mathtabolism.view.model.food.IngredientModel;
+import com.mathtabolism.view.model.food.MealModel;
+import com.mathtabolism.view.model.food.MealPartModel;
 
 public class CalculateNutrientUTest {
   
-  private static Ingredient chickenBreast;
+  private static IngredientModel chickenBreast;
   private static Measurement chickenOzServing;
   private static Measurement chickenGServing;
-  private static DailyIntakeMeal meal300gChicken;
-  private static DailyIntakeMeal meal4ozChicken;
-  private static Meal chicken300g;
-  private static Meal chicken4oz;
+  private static MealModel meal300gChicken;
+  private static MealModel meal4ozChicken;
   
   @BeforeClass
   public static void initConstants() {
     chickenOzServing = new Measurement(UnitMeasurement.OUNCE, 4);
     chickenGServing = new Measurement(UnitMeasurement.GRAM, 112);
-    chickenBreast = new Ingredient();
+    chickenBreast = new IngredientModel();
     chickenBreast.setName("Chicken Breast");
-    chickenBreast.setBrand(new Brand("Test"));
+    chickenBreast.setBrand("Test");
     chickenBreast.setCategory(IngredientCategory.MEAT);
     chickenBreast.setCalories(new Calorie(140));
     chickenBreast.setFat(new Fat(2.5));
@@ -51,27 +45,21 @@ public class CalculateNutrientUTest {
     chickenBreast.setServing(chickenOzServing);
     chickenBreast.setAlternateServing(chickenGServing);
     
-    chicken300g = new Meal();
-    chicken300g.setName("300g Chicken Breast");
+    meal300gChicken = new MealModel();
+    meal300gChicken.setName("300g Chicken Breast");
     
-    MealPart mpChicken300g = new MealPart();
+    MealPartModel mpChicken300g = new MealPartModel();
     mpChicken300g.setIngredient(chickenBreast);
-    mpChicken300g.setMeal(chicken300g);
     mpChicken300g.setServing(new Measurement(UnitMeasurement.GRAM, 300));
-    chicken300g.setMealParts(Arrays.asList(mpChicken300g));
+    meal300gChicken.setMealParts(Arrays.asList(mpChicken300g));
     
-    chicken4oz = new Meal();
-    chicken4oz.setName("4 oz Chicken Breast");
-    MealPart mpChicken4oz = new MealPart();
+    meal4ozChicken = new MealModel();
+    meal4ozChicken.setName("4 oz Chicken Breast");
+    MealPartModel mpChicken4oz = new MealPartModel();
     mpChicken4oz.setIngredient(chickenBreast);
-    mpChicken4oz.setMeal(chicken4oz);
     mpChicken4oz.setServing(new Measurement(UnitMeasurement.OUNCE, 4));
-    chicken4oz.setMealParts(Arrays.asList(mpChicken4oz));
+    meal4ozChicken.setMealParts(Arrays.asList(mpChicken4oz));
     
-    meal300gChicken = new DailyIntakeMeal();
-    meal300gChicken.setMeal(chicken300g);
-    meal4ozChicken = new DailyIntakeMeal();
-    meal4ozChicken.setMeal(chicken4oz);
   }
   
   @Test
