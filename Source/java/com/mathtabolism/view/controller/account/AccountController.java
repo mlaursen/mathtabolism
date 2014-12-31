@@ -33,8 +33,7 @@ public class AccountController extends BaseController {
    * Creates or updates the current weight from the account model
    */
   public void createOrUpdateCurrentWeight() {
-    AccountWeightModel weight = new AccountWeightModel(accountModel.getCurrentWeight());
-    accountBO.createOrUpdateWeight(weight);
+    accountBO.createOrUpdateWeight(accountModel);
     displayInfoMessage("account_UpdatedWeight");
   }
   

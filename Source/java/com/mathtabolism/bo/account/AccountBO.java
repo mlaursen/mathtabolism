@@ -128,12 +128,16 @@ public class AccountBO {
    * @param accountModel the {@link AccountModel}
    * @return the updated <tt>accountModel</tt>
    */
-  public AccountWeightModel createOrUpdateWeight(AccountWeightModel weightModel) {
+  public AccountWeightModel createOrUpdateWeight(AccountModel accountModel) {
+    AccountWeightModel weightModel = new AccountWeightModel(accountModel.getCurrentWeight());
+    weightModel.setWeighInDate(new Date());
+    return createOrUpdateWeight(weightModel, accountModel);
+  }
+  
+  public AccountWeightModel createOrUpdateWeight(AccountWeightModel weightModel, AccountModel accountModel) {
     AccountWeight weight = converter.extractEntityFromModel(weightModel);
-    if(weight.getWeighInDate() == null) {
-      weight.setWeighInDate(new Date());
-    }
-    
+    Account account = accountEAO.findById(accountModel.getAccountId());
+    weight.setAccount(account);
     if(isNewWeight(weight)) {
       weight.setId(null);
       accountWeightEAO.create(weight);

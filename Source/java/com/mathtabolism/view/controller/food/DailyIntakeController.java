@@ -91,7 +91,7 @@ public class DailyIntakeController extends BaseController {
     BaseNutrient calculatedTotal = null;
     AccountWeightModel accountWeight = dailyIntakeModel.getAccountWeightModel();
     
-    BaseNutrient expected = calculateExpected(nutrientType, accountModel, accountModel, accountWeight);
+    BaseNutrient expected = calculateExpected(nutrientType, this.accountModel, accountModel, accountWeight);
     
     switch(totalType) {
       case EXPECTED:

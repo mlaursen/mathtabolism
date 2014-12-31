@@ -21,6 +21,7 @@ import com.mathtabolism.util.date.DateUtils;
 import com.mathtabolism.util.unit.UnitSystem;
 import com.mathtabolism.view.controller.BaseController;
 import com.mathtabolism.view.model.account.AccountModel;
+import com.mathtabolism.view.model.account.AccountWeightModel;
 import com.mathtabolism.view.navigation.AccountNav;
 
 /**
@@ -117,50 +118,6 @@ public class AccountSetupController extends BaseController {
     return accountModel.getDefaultedUnitSystem();
   }
   
-  /**
-   * Gets the current gender that is selected as a String. If this is a new account
-   * with no settings set, the gender is defaulted to {@link Gender#MALE}.
-   * @return a String
-   */
-  public String getSelectedGender() {
-    return getString(getGender());
-  }
-  
-  /**
-   * Gets the selected Formula Recalculation day as a String. If this is a new Account
-   * with no settings set, the day is set to {@link Weekday#DAILY}
-   * @return the String
-   */
-  public String getSelectedRecalculationDay() {
-    return getString(getRecalculationDay());
-  }
-  
-  /**
-   * Gets the selected activity multiplier as a String. If this is a new Account
-   * with no settings set, it defaults to {@link ActivityMultiplier#SEDENTARY}.
-   * @return the String
-   */
-  public String getSelectedActivityMultiplier() {
-    return getString(getActivityMultiplier());
-  }
-  
-  /**
-   * Gets the selected TDEEFormula as a String. If this is a new Account
-   * with no settings set, it defaults to {@link TDEEFormula#MIFFLIN_ST_JEOR}.
-   * @return the String
-   */
-  public String getSelectedFormula() {
-    return getString(getTdeeFormula());
-  }
-  
-  /**
-   * Gets the Selected Unit system as a String. If this is a new Account
-   * with no settings set, it defaults to {@link UnitSystem#IMPERIAL}
-   * @return the String
-   */
-  public String getSelectedUnitSystem() {
-    return getString(getUnitSystem());
-  }
   
   /**
    * Gets the Genders as an array of SelectItem for the dropdown selection.
@@ -207,7 +164,8 @@ public class AccountSetupController extends BaseController {
    */
   public String createOrUpdateAccountSettings() {
     accountModel = accountBO.createOrUpdateAccountSettings(accountModel);
-    //accountModel = accountBO.createOrUpdateWeight(accountModel);
+    
+    accountBO.createOrUpdateWeight(accountModel);
     displayInfoMessage("account_UpdatedSettings");
     return redirect(AccountNav.DAILY_INTAKE);
   }
