@@ -130,16 +130,32 @@ public class EntityModelConverter {
     return null;
   }
   
-  @SuppressWarnings("unchecked")
+  /**
+   * Attempts to convert an entity to the {@link EntityConverter#toModel()} class. The model is will be created.
+   * @param entity the entity to convert
+   * @return the converted model or null
+   */
   public <E extends BaseEntity & Convertable, M extends BaseModel & Convertable> M convertEntityToModel(E entity) {
+    return convertEntityToModel(entity, null);
+  }
+  
+  /**
+   * Attempts to convert an entity to an already existing model. If the given model is null, a new model is generated from
+   * the {@link EntityConverter#toModel()} class.
+   * @param entity the entity to convert
+   * @param model the possibly already existing model to update or create
+   * @return the converted model or null
+   */
+  @SuppressWarnings("unchecked")
+  public <E extends BaseEntity & Convertable, M extends BaseModel & Convertable> M convertEntityToModel(E entity, M model) {
     if(entity == null) {
-      return null;
+      return model;
     }
 
     EntityConverter entityConverter = entity.getClass().getAnnotation(EntityConverter.class);
     if(entityConverter == null) {
       logger.error(String.format(ERR, entity.getClass(), MISSING_ENTITY_CONVERTER));
-      return null;
+      return model;
     }
     Class<? extends Convertable> converterDto = entityConverter.converterDto();
     Class<M> modelClass = (Class<M>) entityConverter.toModel();
@@ -148,7 +164,9 @@ public class EntityModelConverter {
     List<Method> setters = getSetters(availableMethods);
     
     try {
-      M model = modelClass.newInstance();
+      if(model == null) {
+        model = modelClass.newInstance();
+      }
       for(int i = 0; i < getters.size() && i < getters.size(); ++i) {
         Method getter = getters.get(i);
         Method setter = setters.get(i);
@@ -178,10 +196,8 @@ public class EntityModelConverter {
       logger.debug(String.format(ERR, entity.getClass(), " of an invocation target exception"));
       logger.error(e);
     }
-    return null;
+    return model;
   }
-  
-  
   
   /**
    * Attempts to fnd a given method name in a given class
