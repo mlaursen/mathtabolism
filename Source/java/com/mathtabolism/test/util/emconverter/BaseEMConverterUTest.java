@@ -8,7 +8,9 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.junit.BeforeClass;
 
 import com.mathtabolism.constants.AccountRole;
@@ -19,7 +21,7 @@ import com.mathtabolism.constants.TDEEFormula;
 import com.mathtabolism.constants.Weekday;
 import com.mathtabolism.entity.account.Account;
 import com.mathtabolism.entity.account.AccountSetting;
-import com.mathtabolism.util.date.DateUtils;
+import com.mathtabolism.util.dto.account.AccountUtils;
 import com.mathtabolism.util.emconverter.EntityModelConverter;
 import com.mathtabolism.util.unit.UnitSystem;
 import com.mathtabolism.view.model.account.AccountModel;
@@ -54,9 +56,9 @@ public abstract class BaseEMConverterUTest {
   protected static final String DEFAULT_PASSWORD = "neverGonnaGiveYouUp, neverGonnaLetYouDown";
   protected static final ActivityMultiplier DEFAULT_ACTIVITY_MULTIPLIER = ActivityMultiplier.LIGHTLY_ACTIVE;
   protected static final Double DEFAULT_HEIGHT = new Double(71);
-  protected static final Date DEFAULT_ACTIVE_SINCE = DateUtils.createDate(10, 1, 2014);
-  protected static final Date DEFAULT_LAST_LOGIN = DateUtils.createDate(12, 30, 2014);
-  protected static final Date DEFAULT_BIRTHDAY   = DateUtils.createDate(1, 1, 1950);
+  protected static final Date DEFAULT_ACTIVE_SINCE = new GregorianCalendar(1, 1, 2014).getTime();
+  protected static final Date DEFAULT_LAST_LOGIN = new GregorianCalendar(12, 30, 2014).getTime();
+  protected static final Date DEFAULT_BIRTHDAY   = new GregorianCalendar(1, 1, 1950).getTime();
   protected static final Integer DEFAULT_AGE = 23;
   protected static final Weekday DEFAULT_RECALCULATION_DAY = Weekday.SUNDAY;
   protected static final UnitSystem DEFAULT_UNIT_SYSTEM = UnitSystem.IMPERIAL;
@@ -164,15 +166,7 @@ public abstract class BaseEMConverterUTest {
   }
   
   protected void assertThatAccountIsExpected(Account account, Account expected) {
-    assertThat(account.getActiveSince(), is(expected.getActiveSince()));
-    assertTrue(DateUtils.isSameDate(account.getBirthday(), expected.getBirthday()));
-    assertThat(account.getEmail(), is(expected.getEmail()));
-    assertThat(account.getGender(), is(expected.getGender()));
-    assertThat(account.getId(), is(expected.getId()));
-    assertTrue(DateUtils.isSameDate(account.getLastLogin(), expected.getLastLogin()));
-    assertThat(account.getPassword(), is(expected.getPassword()));
-    assertThat(account.getRole(), is(expected.getRole()));
-    assertThat(account.getUsername(), is(expected.getUsername()));
+    assertTrue(AccountUtils.equalsStrictly(account, expected));
   }
   
   protected AccountSetting extractAccountSettingManually(AccountModel accountModel) {
@@ -191,7 +185,10 @@ public abstract class BaseEMConverterUTest {
   protected void assertThatAccountSettingIsExpected(AccountSetting accountSettings, AccountSetting expected) {
     assertThat(accountSettings.getActivityMultiplier(), is(expected.getActivityMultiplier()));
     assertThat(accountSettings.getAge(), is(expected.getAge()));
-    assertTrue(DateUtils.isSameDate(accountSettings.getDateChanged(), expected.getDateChanged()));
+    
+    Date d1 = accountSettings.getDateChanged();
+    Date d2 = expected.getDateChanged();
+    assertTrue((d1 == null && d1 == null) || (d1 != null && d2 != null && DateUtils.isSameDay(d1, d2)));
     assertThat(accountSettings.getHeight(), is(expected.getHeight()));
     assertThat(accountSettings.getId(), is(expected.getId()));
     assertThat(accountSettings.getRecalculationDay(), is(expected.getRecalculationDay()));
@@ -255,23 +252,6 @@ public abstract class BaseEMConverterUTest {
   }
   
   protected void assertThatAccountModelIsExpected(AccountModel accountModel, AccountModel expected) {
-    assertThat(accountModel.getActiveSince(), is(expected.getActiveSince()));
-    assertTrue(DateUtils.isSameDate(accountModel.getBirthday(), expected.getBirthday()));
-    assertThat(accountModel.getEmail(), is(expected.getEmail()));
-    assertThat(accountModel.getGender(), is(expected.getGender()));
-    assertThat(accountModel.getAccountId(), is(expected.getAccountId()));
-    assertTrue(DateUtils.isSameDate(accountModel.getLastLogin(), expected.getLastLogin()));
-    assertThat(accountModel.getPassword(), is(expected.getPassword()));
-    assertThat(accountModel.getRole(), is(expected.getRole()));
-    assertThat(accountModel.getUsername(), is(expected.getUsername()));
-    
-    assertThat(accountModel.getActivityMultiplier(), is(expected.getActivityMultiplier()));
-    assertThat(accountModel.getAge(), is(expected.getAge()));
-    assertThat(accountModel.getHeight(), is(expected.getHeight()));
-    assertThat(accountModel.getAccountSettingId(), is(expected.getAccountSettingId()));
-    assertThat(accountModel.getRecalculationDay(), is(expected.getRecalculationDay()));
-    assertThat(accountModel.getTdeeFormula(), is(expected.getTdeeFormula()));
-    assertThat(accountModel.getUnitSystem(), is(expected.getUnitSystem()));
-    assertThat(accountModel.getUseAge(), is(expected.getUseAge()));
+    assertTrue(AccountUtils.equalsStrictly(accountModel, accountModel));
   }
 }

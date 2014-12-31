@@ -3,7 +3,7 @@
  */
 package com.mathtabolism.test.util.date.dateutils;
 
-import static com.mathtabolism.util.date.DateUtils.findStartDate;
+import static com.mathtabolism.util.date.MathtabolismDateUtils.findStartDate;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 

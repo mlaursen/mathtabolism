@@ -8,7 +8,7 @@ $(function() {
 function addEventListeners() {
   $(".nl-form .form-field").each(function() {
     var mainDiv = this;
-    var hidden = $(this).find("input[type='hidden']");
+    
     var toggle = $(this).find(".form-field-toggle");
     $(toggle).click(function() {
       $(mainDiv).addClass("form-field-open");
@@ -19,7 +19,9 @@ function addEventListeners() {
       $(this).click(function() {
         updateSelected(mainDiv, $(this));
         var val = $(this).data("value");
+        var hidden = $(mainDiv).find(".hidden");
         hidden.val(val);
+        hidden.change();
         toggle.html($(this).html());
         toggle.change();
         $(mainDiv).removeClass("form-field-open");
@@ -43,4 +45,8 @@ function updateSelected(mainDiv, toSelect) {
       $(this).addClass("dd-selected");
     }
   });
+}
+
+function ajaxed() {
+  console.log('Ajaxed son!');
 }

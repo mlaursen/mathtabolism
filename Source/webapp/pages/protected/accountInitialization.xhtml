@@ -70,7 +70,7 @@
           
           <span><h:outputText value="#{msg.weightStep}" /></span>
           <h:inputText id="current-weight" styleClass="weight" value="#{accountSetupController.accountModel.currentWeight}"
-                       maxlength="6" required="true" requiredMessage="#{msg.account_CurrentWeightRequired}" />
+                       maxlength="6" required="true" requiredMessage="#{msg.account_CurrentWeightRequired}" immediate="true" />
           <p:watermark for="current-weight" value="#{msg.emptyNumber}" />
           <span id="weight-unit" class="#{accountSetupController.imperialUnitSystem ? 'lbs' : 'kg'}"></span>
         </li>
@@ -88,11 +88,14 @@
         <ui:remove>Step 4: Setting the Recalculation day and the TDEE Formula</ui:remove>
         <li class="#{accountSetupController.getStepCss('STEP4')}">
           <span><h:outputText value="#{msg.calculationStep1}" /></span>
-          <span id="every-weekday" class="#{accountSetupController.recalculatedDaily ? 'hidden' : ''}"><h:outputText value="#{msg.every}" /></span>
+          <span id="every-weekday" class="#{accountSetupController.recalculatedDaily ? 'hidden' : ''}">
+            <h:outputText value="#{msg.every}" />
+          </span>
           <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
             <ui:param name="binding"  value="#{accountSetupController.recalculationDay}" />
             <ui:param name="items"    value="#{accountSetupController.weekdays}" />
             <ui:param name="fieldId"  value="recalculation-day" />
+            <ui:param name="isAjax"   value="true" />
           </ui:include>
           
           <span>
@@ -144,7 +147,7 @@
         <h:commandButton id="previous" value="#{msg.previous}" styleClass="previous" immediate="true"
                          style="#{accountSetupController.firstStep ? 'visibility: hidden' : ''}">
           <f:ajax event="click" render="@form" execute="#{accountSetupController.executables}" listener="#{accountSetupController.previousStep}"
-                  onevent="addEventListeners" />
+                  onevent="addEventListeners" immediate="true" />
         </h:commandButton>
         <h:commandButton id="next" value="#{msg.next}" styleClass="next" rendered="#{not accountSetupController.lastStep}">
           <f:ajax event="click" render="@form" execute="#{accountSetupController.executables}" listener="#{accountSetupController.nextStep}"
@@ -153,7 +156,7 @@
         <h:commandButton value="#{msg.submit}" action="#{accountSetupController.createOrUpdateAccountSettings()}"
                          rendered="#{accountSetupController.lastStep}" />
       </div>
-      <h:messages id="errors" />
+      <h:messages id="errors" rendered="#{not accountSetupController.fromPrevious}" />
     </h:form>
   </div>
   <h:outputScript library="js/account" name="accountInitialization.js" />

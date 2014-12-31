@@ -25,7 +25,7 @@ import com.mathtabolism.entity.account.DailyIntake;
 import com.mathtabolism.entity.food.DailyIntakeMeal;
 import com.mathtabolism.entity.food.Meal;
 import com.mathtabolism.entity.food.MealPart;
-import com.mathtabolism.util.date.DateUtils;
+import com.mathtabolism.util.date.MathtabolismDateUtils;
 import com.mathtabolism.util.emconverter.EntityModelConverter;
 import com.mathtabolism.view.model.account.AccountModel;
 import com.mathtabolism.view.model.account.AccountWeightModel;
@@ -129,7 +129,7 @@ public class DailyIntakeBO {
     Weekday recalculationDay = accountModel.getRecalculationDay();
     if(recalculationDay != null) {
       int recalcDOW = recalculationDay.toInt();
-      List<DailyIntake> dailyIntakeWeek = dailyIntakeEAO.findCurrentWeek(account, DateUtils.findStartDate(recalcDOW));
+      List<DailyIntake> dailyIntakeWeek = dailyIntakeEAO.findCurrentWeek(account, MathtabolismDateUtils.findStartDate(recalcDOW));
       List<DailyIntakeModel> currentWeek;
       if(dailyIntakeWeek == null || dailyIntakeWeek.isEmpty()) {
         currentWeek = generateNewWeek(accountModel);
@@ -206,7 +206,7 @@ public class DailyIntakeBO {
     if(recalculationDay != null) {
       List<DailyIntakeModel> currentWeek = new ArrayList<>();
       int recalcDOW = recalculationDay.toInt();
-      DateTime dt = DateUtils.findStartDate(recalcDOW);
+      DateTime dt = MathtabolismDateUtils.findStartDate(recalcDOW);
       for(int i = 0; i < 7; i++) {
         Date intakeDate = dt.toDate();
         

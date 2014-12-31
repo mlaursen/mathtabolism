@@ -24,7 +24,7 @@ import com.mathtabolism.entity.account.Account;
 import com.mathtabolism.entity.account.AccountSetting;
 import com.mathtabolism.entity.account.AccountWeight;
 import com.mathtabolism.util.PasswordEncryption;
-import com.mathtabolism.util.date.DateUtils;
+import com.mathtabolism.util.date.MathtabolismDateUtils;
 import com.mathtabolism.util.emconverter.EntityModelConverter;
 import com.mathtabolism.view.model.account.AccountModel;
 import com.mathtabolism.view.model.account.AccountWeightModel;
@@ -116,7 +116,7 @@ public class AccountBO {
   }
   
   private boolean isLatestAccountSettingsToday(Account account) {
-    return DateUtils.isSameDate(new Date(), accountSettingEAO.findLatestAccountSettingDateByAccount(account));
+    return MathtabolismDateUtils.isSameDate(new Date(), accountSettingEAO.findLatestAccountSettingDateByAccount(account));
   }
   
   private boolean isNewWeight(AccountWeight weight) {
@@ -186,7 +186,7 @@ public class AccountBO {
   public List<AccountWeightModel> findCurrentAccountWeightWeek(AccountModel accountModel) {
     Weekday recalcDay = accountModel.getRecalculationDay();
     if(recalcDay != null) {
-      DateTime startDate = DateUtils.findStartDate(recalcDay.toInt());
+      DateTime startDate = MathtabolismDateUtils.findStartDate(recalcDay.toInt());
       List<AccountWeight> weights = accountWeightEAO.findCurrentAccountWeightWeek(accountModel.getAccountId(), startDate);
       List<AccountWeightModel> weightModels = new ArrayList<>();
       for(AccountWeight weight : weights) {
@@ -224,7 +224,7 @@ public class AccountBO {
   }
   
   public List<AccountWeight> findCurrentAccountWeightWeek(Account account, AccountSetting currentSettings) {
-    DateTime startDate = DateUtils.findStartDate(currentSettings.getRecalculationDay().toInt());
+    DateTime startDate = MathtabolismDateUtils.findStartDate(currentSettings.getRecalculationDay().toInt());
     return accountWeightEAO.findCurrentAccountWeightWeek(account.getId(), startDate);
   }
   

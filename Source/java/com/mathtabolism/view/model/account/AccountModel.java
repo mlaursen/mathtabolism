@@ -3,8 +3,10 @@
  */
 package com.mathtabolism.view.model.account;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apache.commons.lang3.time.DateUtils;
 
 import com.mathtabolism.constants.ActivityMultiplier;
 import com.mathtabolism.constants.Gender;
@@ -58,7 +60,7 @@ public class AccountModel extends BaseAccountModel implements AccountSettingDto 
   }
   
   public Double getPreviousWeight() {
-    return NumberUtils.format(previousWeight, 2);
+    return previousWeight == null ? null : NumberUtils.format(previousWeight, 2);
   }
   
   public Gender getDefaultedGender() {
@@ -188,7 +190,7 @@ public class AccountModel extends BaseAccountModel implements AccountSettingDto 
     }
     
     if(currentWeight != null && currentWeight > 0) {
-      if(unitSystem.isImperial()) {
+      if(toUnitSystem.isImperial()) {
         Measurement kg  = new Measurement(UnitMeasurement.KILOGRAM, currentWeight);
         Measurement lbs = UnitConverter.convert(kg, UnitMeasurement.POUND);
         
@@ -270,6 +272,26 @@ public class AccountModel extends BaseAccountModel implements AccountSettingDto 
   @Override
   public UnitSystem getUnitSystem() {
     return unitSystem;
+  }
+  
+  @Override
+  public boolean equals(Object object) {
+    if(object != null && object instanceof AccountModel) {
+      AccountModel other = (AccountModel) object;
+      boolean isEqual = StringUtils.equals(accountId, other.accountId);
+      isEqual &= StringUtils.equals(accountSettingId, other.accountSettingId);
+      isEqual &= StringUtils.equals(username, other.username);
+      isEqual &= StringUtils.equals(email, other.email);
+      isEqual &= StringUtils.equals(password, other.password);
+      isEqual &= (role == null && other.role == null) || (role != null && other.role != null && role.equals(other.role));
+      isEqual &= DateUtils.isSameDay(birthday, other.birthday);
+      isEqual &= (gender == null && other.gender == null) || (gender != null && other.gender != null && gender.equals(other.gender));
+      isEqual &= DateUtils.isSameDay(lastLogin, other.lastLogin);
+      isEqual &= DateUtils.isSameDay(activeSince, other.activeSince);
+      
+      return isEqual;
+    }
+    return false;
   }
   
   @Override

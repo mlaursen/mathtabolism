@@ -6,13 +6,15 @@
   <ui:remove>
   This is similar to the dropdown tag. TO get this to work, you need the array of SelectItem.
   binding: the binding to the controller
-  selected: the selected value
   items: the Array of SelectItem
   fieldId: the form-field-toggle id
   ulSize: the ul class to use for the size
+  isAjax: optional boolean if this is an specific ajax re-render of the form
   </ui:remove>
   <h:panelGroup layout="block" class="form-field form-field-dd">
-    <h:inputHidden id="#{fieldId}" value="#{binding}" />
+    <h:inputText id="#{fieldId}" value="#{binding}" styleClass="hidden">
+      <c:if test="#{not empty isAjax and isAjax}"><f:ajax event="change" render="@form" execute="@this" onevent="addEventListeners" /></c:if>
+    </h:inputText>
     <h:panelGroup layout="block" class="form-field-toggle">
       <h:outputText value="#{lookupController.lookup(binding)}" />
     </h:panelGroup>

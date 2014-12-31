@@ -17,7 +17,7 @@ import com.mathtabolism.constants.ActivityMultiplier;
 import com.mathtabolism.constants.Gender;
 import com.mathtabolism.constants.TDEEFormula;
 import com.mathtabolism.constants.Weekday;
-import com.mathtabolism.util.date.DateUtils;
+import com.mathtabolism.util.date.MathtabolismDateUtils;
 import com.mathtabolism.util.unit.UnitSystem;
 import com.mathtabolism.view.controller.BaseController;
 import com.mathtabolism.view.model.account.AccountModel;
@@ -44,6 +44,7 @@ public class AccountSetupController extends BaseController {
   private AccountController accountController;
   @Inject
   private AccountBO accountBO;
+  private boolean isFromPrevious = false;
   
   private AccountModel accountModel;
   private AccountStepForm activeStep = AccountStepForm.STEP1;
@@ -53,6 +54,9 @@ public class AccountSetupController extends BaseController {
     this.accountModel = accountController.getAccountModel();
   }
 
+  public boolean isFromPrevious() {
+    return isFromPrevious;
+  }
   
   public void setAccountModel(AccountModel accountModel) {
     this.accountModel = accountModel;
@@ -68,10 +72,12 @@ public class AccountSetupController extends BaseController {
   
   public void nextStep() {
     activeStep = AccountStepForm.next(activeStep);
+    isFromPrevious = false;
   }
   
   public void previousStep() {
     activeStep = AccountStepForm.previous(activeStep);
+    isFromPrevious = true;
   }
   
   public void setGender(Gender gender) {
@@ -211,7 +217,7 @@ public class AccountSetupController extends BaseController {
   }
   
   public String getCurrentDateFormat() {
-    return isImperialUnitSystem() ? DateUtils.AMERICAN_DATE_FORMAT : DateUtils.EUROPEAN_DATE_FORMAT;
+    return isImperialUnitSystem() ? MathtabolismDateUtils.AMERICAN_DATE_FORMAT : MathtabolismDateUtils.EUROPEAN_DATE_FORMAT;
   }
   
   public boolean isImperialUnitSystem() {

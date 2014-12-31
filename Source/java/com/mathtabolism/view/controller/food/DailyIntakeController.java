@@ -22,7 +22,7 @@ import com.mathtabolism.dto.AccountSettingDto;
 import com.mathtabolism.dto.AccountWeightDto;
 import com.mathtabolism.util.calculation.FormulaCalculation;
 import com.mathtabolism.util.calculation.IntakeCalculator;
-import com.mathtabolism.util.date.DateUtils;
+import com.mathtabolism.util.date.MathtabolismDateUtils;
 import com.mathtabolism.util.nutrition.BaseNutrient;
 import com.mathtabolism.util.nutrition.Calorie;
 import com.mathtabolism.util.nutrition.Carbohydrate;
@@ -116,7 +116,7 @@ public class DailyIntakeController extends BaseController {
         && accountSettings.getHeight() != null && account.getGender() != null) {
       double weight = accountWeight.getWeight();
       double height = accountSettings.getHeight();
-      int age = accountSettings.getAge() != null ? accountSettings.getAge() : DateUtils.calculateAge(account.getBirthday());
+      int age = accountSettings.getAge() != null ? accountSettings.getAge() : MathtabolismDateUtils.calculateAge(account.getBirthday());
       Gender gender = account.getGender();
       UnitSystem unitSystem = UnitSystem.IMPERIAL;
       calories = FormulaCalculation.calculateBMR(weight, height, age, gender, unitSystem);
