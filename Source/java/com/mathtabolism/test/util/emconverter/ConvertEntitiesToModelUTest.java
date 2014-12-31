@@ -11,7 +11,7 @@ import org.junit.Test;
  *
  * @author mlaursen
  */
-public class ConvertEntitiesToModelUTest {
+public class ConvertEntitiesToModelUTest extends BaseEMConverterUTest {
 
   @Test
   public void test() {
