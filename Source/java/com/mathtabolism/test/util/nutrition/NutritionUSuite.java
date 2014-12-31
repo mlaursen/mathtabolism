@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.test.nutrition;
+package com.mathtabolism.test.util.nutrition;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

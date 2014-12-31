@@ -19,9 +19,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.mathtabolism.constants.AccountRole;
 import com.mathtabolism.constants.Gender;
-import com.mathtabolism.dto.AccountDto;
+import com.mathtabolism.dto2.AccountDto;
 import com.mathtabolism.entity.BaseGeneratedEntity;
 import com.mathtabolism.util.emconverter.EMConverter;
+import com.mathtabolism.util.emconverter2.EntityConverter;
 import com.mathtabolism.view.model.account.AccountModel;
 
 /**
@@ -35,7 +36,7 @@ import com.mathtabolism.view.model.account.AccountModel;
         query = "SELECT a FROM Account a WHERE a.username = :username"
     )
 )
-@EMConverter(converter = AccountDto.class, convertTo = AccountModel.class)
+@EntityConverter(converterDto = com.mathtabolism.dto2.AccountDto.class)
 public class Account extends BaseGeneratedEntity implements AccountDto {
   public static final String Q_findByUsername = "Account.findByUsername";
   

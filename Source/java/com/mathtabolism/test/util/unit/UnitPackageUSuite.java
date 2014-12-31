@@ -1,4 +1,4 @@
-package com.mathtabolism.test.unit;
+package com.mathtabolism.test.util.unit;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

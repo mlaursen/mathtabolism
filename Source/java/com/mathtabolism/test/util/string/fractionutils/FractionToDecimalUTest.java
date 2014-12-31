@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.test.string.fractionutils;
+package com.mathtabolism.test.util.string.fractionutils;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;

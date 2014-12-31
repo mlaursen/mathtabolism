@@ -24,13 +24,17 @@ public class DateUtils {
    * Checks if two dates are considered the same. The dates are considered the same if the <tt>month</tt>, the
    * <tt>day</tt>, and the <tt>year</tt> are equal.
    * 
-   * @param d1
-   *          the first date
-   * @param d2
-   *          the second date
+   * @param d1 the first date
+   * @param d2 the second date
    * @return true if the same date
    */
   public static boolean isSameDate(Date d1, Date d2) {
+    if(d1 == null && d2 == null) {
+      return true;
+    } else if(d1 == null || d2 == null) {
+      return false;
+    }
+    
     Calendar c1 = Calendar.getInstance();
     c1.setTime(d1);
     Calendar c2 = Calendar.getInstance();

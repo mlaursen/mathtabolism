@@ -1,4 +1,4 @@
-package com.mathtabolism.test.string;
+package com.mathtabolism.test.util.string;
 
 import org.junit.Test;
 

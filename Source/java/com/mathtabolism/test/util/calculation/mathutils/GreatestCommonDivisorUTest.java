@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.test.calculation.mathutils;
+package com.mathtabolism.test.util.calculation.mathutils;
 
 import static org.junit.Assert.*;
 

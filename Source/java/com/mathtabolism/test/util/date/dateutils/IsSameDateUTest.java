@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.test.date.dateutils;
+package com.mathtabolism.test.util.date.dateutils;
 
 import static com.mathtabolism.util.date.DateUtils.isSameDate;
 import static org.junit.Assert.*;
@@ -20,6 +20,21 @@ public class IsSameDateUTest {
   @Test
   public void testSameDate() {
     assertTrue(isSameDate(new Date(), new Date()));
+  }
+  
+  @Test
+  public void testFirstDateNull() {
+    assertFalse(isSameDate(null, new Date()));
+  }
+  
+  @Test
+  public void testSecondDateNull() {
+    assertFalse(isSameDate(new Date(), null));
+  }
+  
+  @Test
+  public void testBothDatesNull() {
+    assertTrue(isSameDate(null, null));
   }
   
   @Test

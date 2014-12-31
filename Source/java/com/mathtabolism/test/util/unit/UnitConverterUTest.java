@@ -1,4 +1,4 @@
-package com.mathtabolism.test.unit;
+package com.mathtabolism.test.util.unit;
 
 import static com.mathtabolism.util.unit.UnitConverter.convert;
 import static com.mathtabolism.util.unit.UnitConverter.convertToBase;

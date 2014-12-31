@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.test.calculation.intakecalculator;
+package com.mathtabolism.test.util.calculation.intakecalculator;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

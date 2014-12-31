@@ -1,4 +1,4 @@
-package com.mathtabolism.test.calculation.intakecalculator;
+package com.mathtabolism.test.util.calculation.intakecalculator;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;

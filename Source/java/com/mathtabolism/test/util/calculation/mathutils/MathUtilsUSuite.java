@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.test.calculation.mathutils;
+package com.mathtabolism.test.util.calculation.mathutils;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

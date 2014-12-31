@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.test.string.stringutils;
+package com.mathtabolism.test.util.string.stringutils;
 
 import static org.junit.Assert.*;
 

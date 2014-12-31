@@ -1,4 +1,4 @@
-package com.mathtabolism.test.unit;
+package com.mathtabolism.test.util.unit;
 
 import static org.junit.Assert.*;
 

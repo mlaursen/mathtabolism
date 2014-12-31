@@ -1,4 +1,4 @@
-package com.mathtabolism.test;
+package com.mathtabolism.test.util;
 
 import java.util.Date;
 

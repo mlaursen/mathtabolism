@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.test.nutrition;
+package com.mathtabolism.test.util.nutrition;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;

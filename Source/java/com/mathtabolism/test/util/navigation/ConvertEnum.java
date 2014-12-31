@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.test.navigation;
+package com.mathtabolism.test.util.navigation;
 
 import static org.junit.Assert.*;
 

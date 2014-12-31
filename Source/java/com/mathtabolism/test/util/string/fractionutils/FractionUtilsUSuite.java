@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.test.string.fractionutils;
+package com.mathtabolism.test.util.string.fractionutils;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

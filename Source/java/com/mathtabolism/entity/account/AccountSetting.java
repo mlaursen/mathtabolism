@@ -20,10 +20,9 @@ import com.mathtabolism.constants.ActivityMultiplier;
 import com.mathtabolism.constants.Indicator;
 import com.mathtabolism.constants.TDEEFormula;
 import com.mathtabolism.constants.Weekday;
-import com.mathtabolism.dto.AccountSettingDto;
-import com.mathtabolism.util.emconverter.EMConverter;
+import com.mathtabolism.dto2.AccountSettingDto;
+import com.mathtabolism.util.emconverter2.EntityConverter;
 import com.mathtabolism.util.unit.UnitSystem;
-import com.mathtabolism.view.model.account.AccountSettingModel;
 
 /**
  * 
@@ -47,7 +46,7 @@ import com.mathtabolism.view.model.account.AccountSettingModel;
       query = "SELECT max(as1.dateChanged) FROM AccountSetting as1 WHERE as1.account.id = :account_id"
   )
 })
-@EMConverter(converter = AccountSettingDto.class, convertTo = AccountSettingModel.class)
+@EntityConverter(converterDto = AccountSettingDto.class)
 public class AccountSetting extends AccountIdFK implements AccountSettingDto {
   public static final String Q_findCurrentAccountSetting = "AccountSetting.findCurrentAccountSetting";
   public static final String Q_findLatestSettingsForDate = "AccountSetting.findLatestSettingsForDate";
@@ -112,12 +111,10 @@ public class AccountSetting extends AccountIdFK implements AccountSettingDto {
     this.tdeeFormula = tdeeFormula;
   }
   
-  @Override
   public Date getDateChanged() {
     return dateChanged;
   }
   
-  @Override
   public void setDateChanged(Date dateChanged) {
     this.dateChanged = dateChanged;
   }
