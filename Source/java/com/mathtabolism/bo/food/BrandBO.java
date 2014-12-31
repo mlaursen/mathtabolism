@@ -37,11 +37,16 @@ public class BrandBO {
   
   /**
    * 
-   * @param brand
-   * @return
+   * @param brand the brand to create or update
+   * @return the brand
    */
-  public Brand create(Brand brand) {
-    brandEAO.create(brand);
+  public Brand createOrUpdateBrand(Brand brand) {
+    if(brandEAO.findById(brand) == null) {
+      brand.setId(null);
+      brandEAO.create(brand);
+    } else {
+      brandEAO.update(brand);
+    }
     return brand;
   }
 }

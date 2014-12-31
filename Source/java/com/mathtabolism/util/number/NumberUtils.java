@@ -11,12 +11,7 @@ import java.text.DecimalFormat;
  * @author mlaursen
  */
 public class NumberUtils {
-  
-  public static final DecimalFormat DEFAULT_DECIMAL_FORMAT = new DecimalFormat("#.##");
   public static final int DEFAULT_PRECISION = 3;
-  static {
-    DEFAULT_DECIMAL_FORMAT.setRoundingMode(RoundingMode.FLOOR);
-  }
   
   private NumberUtils() {
   }
@@ -30,11 +25,15 @@ public class NumberUtils {
     return Math.floor(d1 * scale) == Math.floor(d2 * scale);
   }
   
-  public static double format(double decimal) {
-    return Double.valueOf(DEFAULT_DECIMAL_FORMAT.format(decimal));
+  public static double format(Double decimal) {
+    return format(decimal, DEFAULT_PRECISION);
   }
   
-  public static double format(double decimal, int precision) {
+  public static double format(Double decimal, int precision) {
+    if(decimal == null) {
+      decimal = 0.0;
+    }
+    
     DecimalFormat df = new DecimalFormat();
     df.setMaximumFractionDigits(precision);
     df.setMinimumFractionDigits(precision);

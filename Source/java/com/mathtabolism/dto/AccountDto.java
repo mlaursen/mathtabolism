@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package com.mathtabolism.dto;
 
 import java.util.Date;
@@ -6,13 +9,10 @@ import com.mathtabolism.constants.AccountRole;
 import com.mathtabolism.constants.Gender;
 
 /**
- * An interface with the minimum requirements to be an account
- * 
- * @author mlaursen
  *
+ * @author mlaursen
  */
 public interface AccountDto extends GeneratedIdDto {
-
   /**
    * Set the username
    * @param username the username

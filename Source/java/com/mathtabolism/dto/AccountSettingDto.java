@@ -1,7 +1,5 @@
 package com.mathtabolism.dto;
 
-import java.util.Date;
-
 import com.mathtabolism.constants.ActivityMultiplier;
 import com.mathtabolism.constants.Indicator;
 import com.mathtabolism.constants.TDEEFormula;
@@ -14,18 +12,6 @@ import com.mathtabolism.util.unit.UnitSystem;
  *
  */
 public interface AccountSettingDto extends GeneratedIdDto {
-  
-  /**
-   * Sets the date that the account settings were changed
-   * @param dateChanged the date
-   */
-  void setDateChanged(Date dateChanged);
-  
-  /**
-   * The date the account settings were changed
-   * @return the date
-   */
-  Date getDateChanged();
   
   /**
    * Sets the age for the current account settings at a specific date

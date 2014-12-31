@@ -14,7 +14,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.mathtabolism.dto.MealDto;
 import com.mathtabolism.entity.BaseGeneratedEntity;
-import com.mathtabolism.util.emconverter.EMConverter;
+import com.mathtabolism.util.emconverter.EntityConverter;
 import com.mathtabolism.view.model.food.MealModel;
 
 /**
@@ -22,7 +22,7 @@ import com.mathtabolism.view.model.food.MealModel;
  * @author mlaursen
  */
 @Entity
-@EMConverter(converter = MealDto.class, convertTo = MealModel.class)
+@EntityConverter(converterDto = MealDto.class, toModel = MealModel.class)
 public class Meal extends BaseGeneratedEntity implements MealDto {
   
   private String name;

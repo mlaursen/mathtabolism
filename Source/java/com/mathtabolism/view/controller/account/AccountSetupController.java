@@ -21,8 +21,6 @@ import com.mathtabolism.util.date.DateUtils;
 import com.mathtabolism.util.unit.UnitSystem;
 import com.mathtabolism.view.controller.BaseController;
 import com.mathtabolism.view.model.account.AccountModel;
-import com.mathtabolism.view.model.account.AccountSettingModel;
-import com.mathtabolism.view.model.account.AccountWeightModel;
 import com.mathtabolism.view.navigation.AccountNav;
 
 /**
@@ -53,6 +51,7 @@ public class AccountSetupController extends BaseController {
   public void init() {
     this.accountModel = accountController.getAccountModel();
   }
+
   
   public void setAccountModel(AccountModel accountModel) {
     this.accountModel = accountModel;
@@ -74,41 +73,48 @@ public class AccountSetupController extends BaseController {
     activeStep = AccountStepForm.previous(activeStep);
   }
   
-  /**
-   * Gets the current settings
-   * @return the current settings
-   */
-  public AccountSettingModel getCurrentSettings() {
-    return accountModel.getCurrentSettings();
+  public void setGender(Gender gender) {
+    accountModel.setGender(gender);
   }
   
-  /**
-   * Gets the current account weight
-   * @return the current weight
-   */
-  public AccountWeightModel getCurrentWeight() {
-    return accountModel.getCurrentWeight();
+  public Gender getGender() {
+    return accountModel.getDefaultedGender();
   }
   
-  /**
-   * Gets the previous account weight
-   * @return the previous weight
-   */
-  public AccountWeightModel getPreviousWeight() {
-    return accountModel.getPreviousWeight();
+  public void setActivityMultiplier(ActivityMultiplier activityMultiplier) {
+    accountModel.setActivityMultiplier(activityMultiplier);
   }
   
-  public UnitSystem getUnitSystem() {
-    return getCurrentSettings().getUnitSystem() == null ? UnitSystem.IMPERIAL : getCurrentSettings().getUnitSystem();
+  public ActivityMultiplier getActivityMultiplier() {
+    return accountModel.getDefaultedActivityMultiplier();
+  }
+  
+  public void setTdeeFormula(TDEEFormula tdeeFormula) {
+    accountModel.setTdeeFormula(tdeeFormula);
+  }
+  
+  public TDEEFormula getTdeeFormula() {
+    return accountModel.getDefaultedTdeeFormula();
+  }
+  
+  public void setRecalculationDay(Weekday recalculationDay) {
+    accountModel.setRecalculationDay(recalculationDay);
+  }
+  
+  public Weekday getRecalculationDay() {
+    return accountModel.getDefaultedRecalculationDay();
   }
   
   public void setUnitSystem(UnitSystem unitSystem) {
-    AccountSettingModel currentSettings = getCurrentSettings();
-    if(currentSettings.getUnitSystem() != null && !currentSettings.getUnitSystem().equals(unitSystem)) {
+    if(accountModel.getUnitSystem() != null && !accountModel.getUnitSystem().equals(unitSystem)) {
       accountModel.convertUnitsTo(unitSystem);
-      currentSettings.convertUnitsTo(unitSystem);
     }
-    currentSettings.setUnitSystem(unitSystem);
+    
+    accountModel.setUnitSystem(unitSystem);
+  }
+  
+  public UnitSystem getUnitSystem() {
+    return accountModel.getDefaultedUnitSystem();
   }
   
   /**
@@ -117,7 +123,7 @@ public class AccountSetupController extends BaseController {
    * @return a String
    */
   public String getSelectedGender() {
-    return getString(accountModel.getGender());
+    return getString(getGender());
   }
   
   /**
@@ -126,7 +132,7 @@ public class AccountSetupController extends BaseController {
    * @return the String
    */
   public String getSelectedRecalculationDay() {
-    return getString(getCurrentSettings().getRecalculationDay());
+    return getString(getRecalculationDay());
   }
   
   /**
@@ -135,7 +141,7 @@ public class AccountSetupController extends BaseController {
    * @return the String
    */
   public String getSelectedActivityMultiplier() {
-    return getString(getCurrentSettings().getActivityMultiplier());
+    return getString(getActivityMultiplier());
   }
   
   /**
@@ -144,7 +150,7 @@ public class AccountSetupController extends BaseController {
    * @return the String
    */
   public String getSelectedFormula() {
-    return getString(getCurrentSettings().getTdeeFormula());
+    return getString(getTdeeFormula());
   }
   
   /**
@@ -200,8 +206,8 @@ public class AccountSetupController extends BaseController {
    * Creates or updates the Account's Settings/configuration
    */
   public String createOrUpdateAccountSettings() {
-    accountModel = accountBO.createOrUpdateSettings(accountModel);
-    accountModel = accountBO.createOrUpdateWeight(accountModel);
+    accountModel = accountBO.createOrUpdateAccountSettings(accountModel);
+    //accountModel = accountBO.createOrUpdateWeight(accountModel);
     displayInfoMessage("account_UpdatedSettings");
     return redirect(AccountNav.DAILY_INTAKE);
   }
@@ -251,7 +257,7 @@ public class AccountSetupController extends BaseController {
   }
   
   public boolean isImperialUnitSystem() {
-    return UnitSystem.isImperial(getCurrentSettings().getUnitSystem());
+    return UnitSystem.isImperial(accountModel.getUnitSystem());
   }
   
   public boolean isFirstStep() {
@@ -263,7 +269,8 @@ public class AccountSetupController extends BaseController {
   }
   
   public boolean isRecalculatedDaily() {
-    return Weekday.DAILY.equals(getCurrentSettings().getRecalculationDay());
+    return Weekday.DAILY.equals(accountModel.getDefaultedRecalculationDay())
+        || Weekday.DAILY.equals(accountModel.getRecalculationDay());
   }
   
   public String getExecutables() {
@@ -277,7 +284,7 @@ public class AccountSetupController extends BaseController {
       case STEP4:
         return "recalculation-day tdee-formula";
       case STEP5:
-        return "using-age " + (getCurrentSettings().isUsingAge() ? "age" : "birthday");
+        return "using-age " + (accountModel.isUsingAge() ? "age" : "birthday");
       default:
         return "";
     }

@@ -8,7 +8,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.mathtabolism.dto.MealPartDto;
 import com.mathtabolism.entity.food.MealPart;
-import com.mathtabolism.util.emconverter.EMConverter;
+import com.mathtabolism.util.emconverter.ModelConverter;
 import com.mathtabolism.util.unit.Measurement;
 import com.mathtabolism.view.model.BaseModel;
 
@@ -16,7 +16,7 @@ import com.mathtabolism.view.model.BaseModel;
  * 
  * @author mlaursen
  */
-@EMConverter(converter = MealPartDto.class, convertTo = MealPart.class)
+@ModelConverter(entities = {MealPart.class})
 public class MealPartModel extends BaseModel implements MealPartDto {
   
   private Measurement serving;

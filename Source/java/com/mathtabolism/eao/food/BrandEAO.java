@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 
-import com.mathtabolism.eao.BaseEAO;
+import com.mathtabolism.eao.BaseGeneratedEntityEAO;
 import com.mathtabolism.entity.food.Brand;
 
 /**
@@ -15,7 +15,7 @@ import com.mathtabolism.entity.food.Brand;
  * @author mlaursen
  */
 @Stateless
-public class BrandEAO extends BaseEAO<Brand> {
+public class BrandEAO extends BaseGeneratedEntityEAO<Brand> {
   public BrandEAO() {
     super(Brand.class);
   }

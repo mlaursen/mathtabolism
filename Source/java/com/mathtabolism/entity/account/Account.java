@@ -19,10 +19,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.mathtabolism.constants.AccountRole;
 import com.mathtabolism.constants.Gender;
-import com.mathtabolism.dto2.AccountDto;
+import com.mathtabolism.dto.AccountDto;
 import com.mathtabolism.entity.BaseGeneratedEntity;
-import com.mathtabolism.util.emconverter2.EntityConverter;
-import com.mathtabolism.view.model2.account.AccountModel;
+import com.mathtabolism.util.emconverter.EntityConverter;
+import com.mathtabolism.view.model.account.AccountModel;
 
 /**
  * 

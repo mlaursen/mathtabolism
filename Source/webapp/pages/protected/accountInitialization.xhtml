@@ -35,7 +35,7 @@
             <h:outputText value="#{msg.genderStep}" />
           </span>
           <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
-            <ui:param name="binding"  value="#{accountSetupController.accountModel.gender}" />
+            <ui:param name="binding"  value="#{accountSetupController.gender}" />
             <ui:param name="selected" value="#{accountSetupController.selectedGender}" />
             <ui:param name="items"    value="#{accountSetupController.genders}" />
             <ui:param name="fieldId"  value="gender" />
@@ -47,8 +47,8 @@
           <ui:remove>Imperial Height block..</ui:remove>
           <h:panelGroup id="height-imperial" rendered="#{accountSetupController.imperialUnitSystem}">
           <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
-            <ui:param name="binding"  value="#{accountSetupController.currentSettings.heightInFeet}" />
-            <ui:param name="selected" value="#{accountSetupController.currentSettings.heightInFeet}" />
+            <ui:param name="binding"  value="#{accountSetupController.accountModel.heightInFeet}" />
+            <ui:param name="selected" value="#{accountSetupController.accountModel.heightInFeet}" />
             <ui:param name="items"    value="#{accountSetupController.footItems}" />
             <ui:param name="fieldId"  value="height-large-value" />
             <ui:param name="ulSize"   value="small" />
@@ -56,8 +56,8 @@
           <span class="ft"> </span>
           
           <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
-            <ui:param name="binding"  value="#{accountSetupController.currentSettings.heightInInches}" />
-            <ui:param name="selected" value="#{accountSetupController.currentSettings.heightInInches}" />
+            <ui:param name="binding"  value="#{accountSetupController.accountModel.heightInInches}" />
+            <ui:param name="selected" value="#{accountSetupController.accountModel.heightInInches}" />
             <ui:param name="items"    value="#{accountSetupController.inchItems}" />
             <ui:param name="fieldId"  value="height-small-value" />
             <ui:param name="ulSize"   value="small" />
@@ -66,14 +66,14 @@
           </h:panelGroup>
           <ui:remove>Metric Height block</ui:remove>
           <h:panelGroup rendered="#{not accountSetupController.imperialUnitSystem}">
-            <h:inputText id="height-metric" styleClass="height" value="#{accountSetupController.currentSettings.heightInCentimeters}"
+            <h:inputText id="height-metric" styleClass="height" value="#{accountSetupController.accountModel.heightInCentimeters}"
                          maxlength="4" required="#{not accountSetupController.imperialUnitSystem}" />
             <p:watermark for="height-metric" value="#{msg.emptyNumber}" />
             <span class="cm"></span>
           </h:panelGroup>
           
           <span><h:outputText value="#{msg.weightStep}" /></span>
-          <h:inputText id="current-weight" styleClass="weight" value="#{accountSetupController.currentWeight.weightString}"
+          <h:inputText id="current-weight" styleClass="weight" value="#{accountSetupController.accountModel.currentWeight}"
                        maxlength="6" required="true" requiredMessage="#{msg.account_CurrentWeightRequired}" />
           <p:watermark for="current-weight" value="#{msg.emptyNumber}" />
           <span id="weight-unit" class="#{accountSetupController.imperialUnitSystem ? 'lbs' : 'kg'}"></span>
@@ -83,7 +83,7 @@
         <li class="#{accountSetupController.getStepCss('STEP3')}">
           <span><h:outputText value="#{msg.activityMultiplierStep}" /></span><br />
           <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
-            <ui:param name="binding"  value="#{accountSetupController.currentSettings.activityMultiplier}" />
+            <ui:param name="binding"  value="#{accountSetupController.activityMultiplier}" />
             <ui:param name="selected" value="#{accountSetupController.selectedActivityMultiplier}" />
             <ui:param name="items"    value="#{accountSetupController.activityMultipliers}" />
             <ui:param name="fieldId"  value="activity-multiplier" />
@@ -95,7 +95,7 @@
           <span><h:outputText value="#{msg.calculationStep1}" /></span>
           <span id="every-weekday" class="#{accountSetupController.recalculatedDaily ? 'hidden' : ''}"><h:outputText value="#{msg.every}" /></span>
           <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
-            <ui:param name="binding"  value="#{accountSetupController.currentSettings.recalculationDay}" />
+            <ui:param name="binding"  value="#{accountSetupController.recalculationDay}" />
             <ui:param name="selected" value="#{accountSetupController.selectedRecalculationDay}" />
             <ui:param name="items"    value="#{accountSetupController.weekdays}" />
             <ui:param name="fieldId"  value="recalculation-day" />
@@ -105,7 +105,7 @@
             <h:outputText value="#{msg.calculationStep2}" />
           </span>
           <ui:include src="/WEB-INF/tags/formFieldDropdown.xhtml">
-            <ui:param name="binding"  value="#{accountSetupController.currentSettings.tdeeFormula}" />
+            <ui:param name="binding"  value="#{accountSetupController.tdeeFormula}" />
             <ui:param name="selected" value="#{accountSetupController.selectedFormula}" />
             <ui:param name="items"    value="#{accountSetupController.formulas}" />
             <ui:param name="fieldId"  value="tdee-formula" />
@@ -116,29 +116,29 @@
         <ui:remove>Step 5: Setting the birthday or Age</ui:remove>
         <li class="#{accountSetupController.getStepCss('STEP5')}">
           <h:panelGroup layout="block" styleClass="checkbox block">
-            <h:selectBooleanCheckbox id="using-age" value="#{accountController.currentSettings.usingAge}">
+            <h:selectBooleanCheckbox id="using-age" value="#{accountController.accountModel.usingAge}">
               <f:ajax event="click" execute="@this" render="birthday age" />
             </h:selectBooleanCheckbox>
             <h:outputLabel for="using-age" value="#{msg.birthdayOrAge}" />
           </h:panelGroup>
           
           <ui:remove>Birthday Block</ui:remove>
-          <h:panelGroup id="birthday" layout="block" styleClass="#{accountSetupController.currentSettings.usingAge ? 'hidden' : ''}">
+          <h:panelGroup id="birthday" layout="block" styleClass="#{accountSetupController.accountModel.usingAge ? 'hidden' : ''}">
             <h:outputText value="#{msg.birthdayStep}" />
             <h:inputText id="birthday-field" value="#{accountSetupController.accountModel.birthday}" maxlength="10"
-                         required="#{not accountSetupController.currentSettings.usingAge}" requiredMessage="#{msg.account_BirthdayRequired}"
-                         styleClass="date #{accountSetupController.currentSettings.usingAge ? 'hidden' : ''}" immediate="true">
+                         required="#{not accountSetupController.accountModel.usingAge}" requiredMessage="#{msg.account_BirthdayRequired}"
+                         styleClass="date #{accountSetupController.accountModel.usingAge ? 'hidden' : ''}" immediate="true">
               <f:converter converterId="#{accountSetupController.imperialUnitSystem ? 'dateConverter' : 'europeanDateConverter'}" />
             </h:inputText>
             <p:watermark for="birthday-field" value="#{accountSetupController.currentDateFormat}" />
           </h:panelGroup>
           
           <ui:remove>Age Block</ui:remove>
-          <h:panelGroup id="age" layout="block" styleClass="#{accountSetupController.currentSettings.usingAge ? '' : 'hidden'}">
+          <h:panelGroup id="age" layout="block" styleClass="#{accountSetupController.accountModel.usingAge ? '' : 'hidden'}">
             <h:outputText value="#{msg.ageStep1}" />
-            <h:inputText id="age-field" value="#{accountSetupController.currentSettings.age}" maxlength="3"
-                         required="#{accountSetupController.currentSettings.usingAge}" requiredMessage="#{msg.account_AgeRequired}"
-                         styleClass="age #{accountSetupController.currentSettings.usingAge ? '' : 'hidden'}" immediate="true" />
+            <h:inputText id="age-field" value="#{accountSetupController.accountModel.age}" maxlength="3"
+                         required="#{accountSetupController.accountModel.usingAge}" requiredMessage="#{msg.account_AgeRequired}"
+                         styleClass="age #{accountSetupController.accountModel.usingAge ? '' : 'hidden'}" immediate="true" />
             <p:watermark for="age-field" value="#{msg.defaultAge}" />
             <h:outputText value="#{msg.ageStep2}" />
           </h:panelGroup>

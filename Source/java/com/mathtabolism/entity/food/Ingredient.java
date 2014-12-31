@@ -20,7 +20,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.mathtabolism.constants.IngredientCategory;
 import com.mathtabolism.dto.IngredientDto;
 import com.mathtabolism.entity.BaseGeneratedEntity;
-import com.mathtabolism.util.emconverter.EMConverter;
+import com.mathtabolism.util.emconverter.EntityConverter;
 import com.mathtabolism.util.nutrition.Calorie;
 import com.mathtabolism.util.nutrition.Carbohydrate;
 import com.mathtabolism.util.nutrition.Fat;
@@ -51,7 +51,7 @@ import com.mathtabolism.view.model.food.IngredientModel;
         query = "SELECT i FROM Ingredient i WHERE UPPER(i.name) LIKE :name ORDER BY i.name, i.brand, i.category DESC"
     )
 })
-@EMConverter(converter = IngredientDto.class, convertTo = IngredientModel.class)
+@EntityConverter(converterDto = IngredientDto.class, toModel = IngredientModel.class)
 public class Ingredient extends BaseGeneratedEntity implements IngredientDto {
   public static final String Q_findAllIngredients = "Ingredient.findAllIngredients";
   public static final String Q_findIngredientsByBrand = "Ingredient.findIngredientsByBrand";
@@ -91,6 +91,14 @@ public class Ingredient extends BaseGeneratedEntity implements IngredientDto {
   public Ingredient() {
   }
   
+  public Brand getBrand() {
+    return brand;
+  }
+  
+  public void setBrand(Brand brand) {
+    this.brand = brand;
+  }
+  
   @Override
   public String getName() {
     return name;
@@ -99,14 +107,6 @@ public class Ingredient extends BaseGeneratedEntity implements IngredientDto {
   @Override
   public void setName(String name) {
     this.name = name;
-  }
-  
-  public Brand getBrand() {
-    return brand;
-  }
-  
-  public void setBrand(Brand brand) {
-    this.brand = brand;
   }
   
   @Override
@@ -192,7 +192,7 @@ public class Ingredient extends BaseGeneratedEntity implements IngredientDto {
   
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("brand", brand)
+    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", id).append("brand", brand)
         .append("name", name).append("caloires", calories).append("fat", fat).append("carbohydrates", carbohydrates)
         .append("protein", protein).append("serving", serving).append("alternateServing", alternateServing).toString();
   }

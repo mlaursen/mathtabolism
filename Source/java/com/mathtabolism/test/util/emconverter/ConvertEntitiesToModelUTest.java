@@ -8,7 +8,7 @@ import static org.hamcrest.CoreMatchers.*;
 
 import org.junit.Test;
 
-import com.mathtabolism.view.model2.account.AccountModel;
+import com.mathtabolism.view.model.account.AccountModel;
 
 /**
  *

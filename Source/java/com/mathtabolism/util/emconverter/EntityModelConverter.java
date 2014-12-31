@@ -15,154 +15,249 @@ import javax.ejb.Stateless;
 
 import org.jboss.logging.Logger;
 
+import com.mathtabolism.dto.GeneratedIdDto;
 import com.mathtabolism.entity.BaseEntity;
 import com.mathtabolism.view.model.BaseModel;
 
 /**
- * 
+ *
  * @author mlaursen
- * @see EMConverter
  */
 @Stateless
 public class EntityModelConverter {
-  private Logger logger = Logger.getLogger(EntityModelConverter.class);
+  private static Logger logger = Logger.getLogger(EntityModelConverter.class);
+  private static final String GET = "get";
+  private static final String SET = "set";
   
   private static final String ERR = "Unable to convert '%s' because %s.";
-  private static final String MISSING_EM_CONVERTER = "the EMConverter annotation does not exist for the class";
-  private static final String DEBUG = "Attempted to set '%s.%s' with the getter '%s.%s'.";
-  private final String GET = "get";
-  private final String SET = "set";
+  private static final String MISSING_MODEL_CONVERTER = "the ModelConverter annotation is missing on the model";
+  private static final String MISSING_ENTITY_CONVERTER = "the EntityConverter annotation is missing on the entity";
+  private static final String ENTITY_DEFAULTED = "An entity was not given to extract so it was defaulted to %s";
+  private static final String NO_ENTITY = "no entity was found to convert";
   
   public EntityModelConverter() {
   }
   
   /**
-   * Converts an entity to a single model by calling each getter and setter in the {@link EMConverter#converter()} Interface.
-   * 
-   * <p>If successful, the Model should have all the same data that was in the Entity.
-   * 
-   * @param entity the entity to convert
-   * @return a model or null;
+   * Attempts to extract the first Entity from the {@link ModelConverter#entities()} from the List of Models
+   * and create a List of that Entity
+   * @param models the List of Models
+   * @return a List of Entities or null
    */
-  public <E extends BaseEntity & Convertable, M extends BaseModel & Convertable> M convertEntityToModel(E entity) {
-    return doConvert(entity);
+  public <E extends BaseEntity & Convertable, M extends BaseModel & Convertable> List<E> extractEntitiesFromModels(List<M> models) {
+    return extractEntitiesFromModels(models, null);
   }
   
   /**
-   * Converts a model to a single entity by calling each getter and setter in the {@link EMConverter#converter()} Interface.
-   * 
-   * <p>If successful, the Entity should have all the same data that was in the Model.
-   * @param model the model to convert
-   * @return an Entity or null
+   * Attempts to extract the given Entity from the List of Models and create a List of that Entity
+   * @param models a List of Models
+   * @param entityClass an Entity class
+   * @return a List of Entities or null
    */
-  public <M extends BaseModel & Convertable, E extends BaseEntity & Convertable> E convertModelToEntity(M model) {
-    return doConvert(model);
+  public <E extends BaseEntity & Convertable, M extends BaseModel & Convertable> List<E> extractEntitiesFromModels(List<M> models, Class<E> entityClass) {
+    if(models == null) {
+      return null;
+    }
+    
+    List<E> entities = new ArrayList<>();
+    for(M model : models) {
+      entities.add(extractEntityFromModel(model, entityClass));
+    }
+    return entities;
   }
   
   /**
-   * Converts a list of Entities into a list of Models by calling each getter and setter in the {@link EMConverter#converter()} Interface.
-   * 
-   * <p>If successful, each Model should have the same data as the corresponding Entity from the list
-   * @param entities a List of Entities
-   * @return a list of Models
+   * Attempts to convert a List of Entities to a List of Models
+   * @param entities the List of Entities
+   * @return a list of Models or null
    */
   public <E extends BaseEntity & Convertable, M extends BaseModel & Convertable> List<M> convertEntitiesToModels(List<E> entities) {
-    return doConverts(entities);
-  }
-  
-  /**
-   * Converts a list of Models into a list of Entities by calling each getter and setter in the {@link EMConverter#converter()} Interface.
-   * 
-   * <p>If successful, each Entity should have the same data as the corresponding Model from the list
-   * @param models a List of Models
-   * @return a list of Entities
-   */
-  public <M extends BaseModel & Convertable, E extends BaseEntity & Convertable> List<E> convertModelsToEntities(List<M> models) {
-    return doConverts(models);
-  }
-  
-  /**
-   * Converts all items in the <tt>toConvertFromList</tt> to a new List and returns it. This is a helper method for
-   * {@link #convertEntitiesToModels(List)} and {@link #convertModelsToEntities(List)} since they are both doing the
-   * same logic. The only difference was the order of passing parameters.
-   * 
-   * <p>Explaining the generics..<br>
-   * The generic <b><tt>F</tt></b> means an item to convert <b><tt>F</tt></b>rom while the generic <b><tt>T</tt></b>
-   * means an item to convert <b><tt>T</tt></b>o.
-   * @param toConvertFromList a List of Convertable items to convert to their counterpart
-   * @return a List of Convertable items created from the <tt>toConvertFromList</tt>
-   */
-  private <F extends Convertable, T extends Convertable> List<T> doConverts(List<F> toConvertFromList) {
-    List<T> convertedList = new ArrayList<>();
-    for(F toConvertFrom : toConvertFromList) {
-      T converted = doConvert(toConvertFrom);
-      convertedList.add(converted);
-      
-      if(converted == null) {
-        logger.debug("Null was retuned when attempted to convert " + toConvertFrom + " to it's model counterpart.");
-      }
+    if(entities == null) {
+      return null;
     }
-    return convertedList;
+    
+    List<M> models = new ArrayList<>();
+    for(E entity : entities) {
+      models.add(convertEntityToModel(entity));
+    }
+    return models;
   }
   
   /**
-   * Converts a Convertable object to another convertable object. A convertable object must have
-   * an {@link EMConverter} to be able to get the object to convert to and the Convertable Interface to use
-   * for retrieving the getters and setters.
+   * Attempts to extract the first Entity from the {@link ModelConverter#entities()} from a given Model
+   * @param model the Model to extract an Entity from
+   * @return the extracted Entity or null
+   */
+  public <E extends BaseEntity & Convertable, M extends BaseModel & Convertable> E extractEntityFromModel(M model) {
+    return extractEntityFromModel(model, null);
+  }
+  
+  /**
+   * Attempts to extract the given Entity from the given Model.
    * 
-   * <p>Explaining the generics..<br>
-   * The generic <b><tt>F</tt></b> means an item to convert <b><tt>F</tt></b>rom while the generic <b><tt>T</tt></b>
-   * means an item to convert <b><tt>T</tt></b>o.
-   * @param toConvertFrom
-   * @return a converted object or null
-   * @see EMConverter
+   * @param model the Model to extract an Entity from
+   * @param entityToExtract the Entity class to extract
+   * @return the extracted Entity or null
    */
   @SuppressWarnings("unchecked")
-  private <F extends Convertable, T extends Convertable> T doConvert(F toConvertFrom) {
-    if(toConvertFrom == null) {
+  public <E extends BaseEntity & Convertable, M extends BaseModel & Convertable> E extractEntityFromModel(M model, Class<E> entityToExtract) {
+    if(model == null) {
       return null;
     }
     
-    EMConverter emConverter = toConvertFrom.getClass().getAnnotation(EMConverter.class);
-    if(emConverter == null) {
-      logger.debug(String.format(ERR, toConvertFrom.getClass(), MISSING_EM_CONVERTER));
+    ModelConverter modelConverter = model.getClass().getAnnotation(ModelConverter.class);
+    if(modelConverter == null) {
+      logger.error(String.format(ERR, model.getClass(), MISSING_MODEL_CONVERTER));
       return null;
     }
     
-    Class<? extends Convertable> methodsClass = emConverter.converter();
-    Method[] availableMethods = methodsClass.getMethods();
+    Class<E>[] availableEntities = (Class<E>[]) modelConverter.entities();
+    if(entityToExtract == null) {
+      entityToExtract = availableEntities[0];
+      logger.debug(String.format(ENTITY_DEFAULTED, entityToExtract));
+    } else {
+      for(Class<E> eClass : availableEntities) {
+        if(eClass.equals(entityToExtract)) {
+          entityToExtract = eClass;
+          break;
+        }
+      }
+    }
+    
+    if(entityToExtract == null) {
+      logger.error(String.format(ERR, model.getClass(), NO_ENTITY));
+      return null;
+    }
+    
+    
+    EntityConverter entityConverter = entityToExtract.getAnnotation(EntityConverter.class);
+    if(entityConverter == null) {
+      logger.error(String.format(ERR, model.getClass(), MISSING_ENTITY_CONVERTER));
+      return null;
+    }
+    
+    Class<? extends Convertable> converterDto = entityConverter.converterDto();
+    Method[] availableMethods = converterDto.getMethods();
     List<Method> getters = getGetters(availableMethods);
     List<Method> setters = getSetters(availableMethods);
-    if(getters.size() != setters.size()) {
-      logger.error("The getters and setters lengths do not match.");
-      return null;
-    }
     
     try {
-      T converted = (T) emConverter.convertTo().newInstance();
-      for(int i = 0; i < getters.size(); i++) {
+      E entity = entityToExtract.newInstance();
+      for(int i = 0; i < getters.size() && i < getters.size(); ++i) {
         Method getter = getters.get(i);
         Method setter = setters.get(i);
         
-        logger.debug(String.format(DEBUG, converted.getClass(), setter, toConvertFrom.getClass(), getter));
-        try {
-          setter.invoke(converted, getter.invoke(toConvertFrom));
-        } catch(IllegalAccessException e) {
-          logger.debug(String.format(ERR, toConvertFrom.getClass(), " of an illegal access exception"));
-          logger.error(e);
-        } catch (IllegalArgumentException e) {
-          logger.debug(String.format(ERR, toConvertFrom.getClass(), " of illegal arguments"));
-          logger.error(e);
-        } catch(InvocationTargetException e) {
-          logger.debug(String.format(ERR, toConvertFrom.getClass(), " of an invocation target exception"));
-          logger.error(e);
-        }
+        setter.invoke(entity, getter.invoke(model));
       }
       
-      return converted;
-    } catch (InstantiationException | IllegalAccessException e) {
-      logger.debug(String.format(ERR, toConvertFrom.getClass(), " of an instantiation exception"));
+      if(model instanceof GeneratedIdDto && entity instanceof GeneratedIdDto) {
+        String id = entity.getClass().getSimpleName() + "Id";
+        Method getter = findMethod(model.getClass(), GET + id);
+        Method setter = findMethod(entity.getClass(), SET + "Id");
+        
+        setter.invoke(entity, getter.invoke(model));
+      }
+      
+      return entity;
+    } catch (InstantiationException e) {
+      logger.debug(String.format(ERR, model.getClass(), " of an instantiation exception"));
       logger.error(e);
+    } catch(IllegalAccessException e) {
+      logger.debug(String.format(ERR, model.getClass(), " of an illegal access exception"));
+      logger.error(e);
+    } catch (IllegalArgumentException e) {
+      logger.debug(String.format(ERR, model.getClass(), " of illegal arguments"));
+      logger.error(e);
+    } catch (InvocationTargetException e) {
+      logger.debug(String.format(ERR, model.getClass(), " of an invocation target exception"));
+      logger.error(e);
+    }
+    
+    return null;
+  }
+  
+  /**
+   * Attempts to convert an entity to the {@link EntityConverter#toModel()} class. The model is will be created.
+   * @param entity the entity to convert
+   * @return the converted model or null
+   */
+  public <E extends BaseEntity & Convertable, M extends BaseModel & Convertable> M convertEntityToModel(E entity) {
+    return convertEntityToModel(entity, null);
+  }
+  
+  /**
+   * Attempts to convert an entity to an already existing model. If the given model is null, a new model is generated from
+   * the {@link EntityConverter#toModel()} class.
+   * @param entity the entity to convert
+   * @param model the possibly already existing model to update or create
+   * @return the converted model or null
+   */
+  @SuppressWarnings("unchecked")
+  public <E extends BaseEntity & Convertable, M extends BaseModel & Convertable> M convertEntityToModel(E entity, M model) {
+    if(entity == null) {
+      return model;
+    }
+
+    EntityConverter entityConverter = entity.getClass().getAnnotation(EntityConverter.class);
+    if(entityConverter == null) {
+      logger.error(String.format(ERR, entity.getClass(), MISSING_ENTITY_CONVERTER));
+      return model;
+    }
+    Class<? extends Convertable> converterDto = entityConverter.converterDto();
+    Class<M> modelClass = (Class<M>) entityConverter.toModel();
+    Method[] availableMethods = converterDto.getMethods();
+    List<Method> getters = getGetters(availableMethods);
+    List<Method> setters = getSetters(availableMethods);
+    
+    try {
+      if(model == null) {
+        model = modelClass.newInstance();
+      }
+      for(int i = 0; i < getters.size() && i < getters.size(); ++i) {
+        Method getter = getters.get(i);
+        Method setter = setters.get(i);
+        
+        setter.invoke(model, getter.invoke(entity));
+      }
+      
+      if(model instanceof GeneratedIdDto && entity instanceof GeneratedIdDto) {
+        String id = entity.getClass().getSimpleName() + "Id";
+        Method getter = findMethod(entity.getClass(), GET + "Id");
+        Method setter = findMethod(model.getClass(), SET + id);
+        
+        setter.invoke(model, getter.invoke(entity));
+      }
+      
+      return model;
+    } catch (InstantiationException e) {
+      logger.debug(String.format(ERR, entity.getClass(), " of an instantiation exception"));
+      logger.error(e);
+    } catch(IllegalAccessException e) {
+      logger.debug(String.format(ERR, entity.getClass(), " of an illegal access exception"));
+      logger.error(e);
+    } catch (IllegalArgumentException e) {
+      logger.debug(String.format(ERR, entity.getClass(), " of illegal arguments"));
+      logger.error(e);
+    } catch (InvocationTargetException e) {
+      logger.debug(String.format(ERR, entity.getClass(), " of an invocation target exception"));
+      logger.error(e);
+    }
+    return model;
+  }
+  
+  /**
+   * Attempts to fnd a given method name in a given class
+   * @param classToSearch the Class to serach methods in
+   * @param methodName the method name to find
+   * @return the method or null
+   */
+  private Method findMethod(Class<?> classToSearch, String methodName) {
+    Method[] methods = classToSearch.getMethods();
+    
+    for(Method method : methods) {
+      if(method.getName().equals(methodName)) {
+        return method;
+      }
     }
     return null;
   }

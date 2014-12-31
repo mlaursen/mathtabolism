@@ -14,6 +14,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({
   ConvertEntitiesToModelUTest.class, ConvertEntityToModelUTest.class,
-  ExtractEntitiesFromModelUTest.class
+  ExtractEntitiesFromModelUTest.class, ConvertEntitiesToModelsUTest.class,
+  ConvertModelsToEntitiesUTest.class
 })
 public class EntityModelConverterUSuite { }

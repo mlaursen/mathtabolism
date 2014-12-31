@@ -10,14 +10,15 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.mathtabolism.dto.MealDto;
 import com.mathtabolism.entity.food.Meal;
-import com.mathtabolism.util.emconverter.EMConverter;
+import com.mathtabolism.util.emconverter.ModelConverter;
 import com.mathtabolism.view.model.BaseModel;
+import com.mathtabolism.view.model.food.MealPartModel;
 
 /**
  * 
  * @author mlaursen
  */
-@EMConverter(converter = MealDto.class, convertTo = Meal.class)
+@ModelConverter(entities = {Meal.class})
 public class MealModel extends BaseModel implements MealDto {
   
   private String name;

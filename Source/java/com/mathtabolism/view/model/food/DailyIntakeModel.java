@@ -11,15 +11,16 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.mathtabolism.dto.DailyIntakeDto;
 import com.mathtabolism.entity.account.DailyIntake;
-import com.mathtabolism.util.emconverter.EMConverter;
+import com.mathtabolism.util.emconverter.ModelConverter;
 import com.mathtabolism.view.model.BaseModel;
 import com.mathtabolism.view.model.account.AccountWeightModel;
+import com.mathtabolism.view.model.food.MealModel;
 
 /**
  * 
  * @author mlaursen
  */
-@EMConverter(converter = DailyIntakeDto.class, convertTo = DailyIntake.class)
+@ModelConverter(entities = {DailyIntake.class})
 public class DailyIntakeModel extends BaseModel implements DailyIntakeDto {
 
   private Date intakeDate;

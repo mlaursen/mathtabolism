@@ -3,6 +3,8 @@
  */
 package com.mathtabolism.view.controller.account;
 
+import java.util.Date;
+
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -11,7 +13,6 @@ import com.mathtabolism.bo.account.AccountBO;
 import com.mathtabolism.util.unit.UnitSystem;
 import com.mathtabolism.view.controller.BaseController;
 import com.mathtabolism.view.model.account.AccountModel;
-import com.mathtabolism.view.model.account.AccountSettingModel;
 import com.mathtabolism.view.model.account.AccountWeightModel;
 
 /**
@@ -32,7 +33,8 @@ public class AccountController extends BaseController {
    * Creates or updates the current weight from the account model
    */
   public void createOrUpdateCurrentWeight() {
-    accountBO.createOrUpdateWeight(accountModel);
+    AccountWeightModel weight = new AccountWeightModel(accountModel.getCurrentWeight());
+    accountBO.createOrUpdateWeight(weight);
     displayInfoMessage("account_UpdatedWeight");
   }
   
@@ -54,36 +56,11 @@ public class AccountController extends BaseController {
   }
   
   public void updateAccountModel() {
-    accountModel = accountBO.findAccountById(accountModel.getId());
-  }
-  
-  /**
-   * Gets the current settings
-   * @return the current settings
-   */
-  public AccountSettingModel getCurrentSettings() {
-    return accountModel.getCurrentSettings();
-  }
-  
-  /**
-   * Gets the current account weight
-   * @return the current weight
-   */
-  public AccountWeightModel getCurrentWeight() {
-    return accountModel.getCurrentWeight();
-  }
-  
-  /**
-   * Gets the previous account weight
-   * @return the previous weight
-   */
-  public AccountWeightModel getPreviousWeight() {
-    return accountModel.getPreviousWeight();
+    accountModel = accountBO.findAccountById(accountModel.getAccountId());
   }
   
   public String getDateFormat() {
-    AccountSettingModel currentSettings = accountModel.getCurrentSettings();
-    UnitSystem unitSystem = currentSettings != null && currentSettings.getUnitSystem() != null ? currentSettings.getUnitSystem() : UnitSystem.IMPERIAL;
+    UnitSystem unitSystem = accountModel.getDefaultedUnitSystem();
     switch(unitSystem) {
       case METRIC:
         return "EEEE, dd MMMM YYYY";

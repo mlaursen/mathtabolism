@@ -8,10 +8,29 @@ package com.mathtabolism.constants;
  * @author mlaursen
  */
 public enum AccountStepForm {
+  /**
+   * Setting Unit System
+   */
   STEP1,
+
+  /**
+   * Setting gender, height, and starting weight
+   */
   STEP2,
+  
+  /**
+   * Setting the Activity Multiplier
+   */
   STEP3,
+  
+  /**
+   * Setting the Recalculation day and the TDEE Formula
+   */
   STEP4,
+  
+  /**
+   * Setting the birthday or Age
+   */
   STEP5;
   
   public static AccountStepForm next(AccountStepForm currentStep) {

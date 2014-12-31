@@ -14,7 +14,7 @@ import javax.persistence.TemporalType;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import com.mathtabolism.dto.AccountWeightDto;
-import com.mathtabolism.util.emconverter.EMConverter;
+import com.mathtabolism.util.emconverter.EntityConverter;
 import com.mathtabolism.view.model.account.AccountWeightModel;
 
 /**
@@ -43,7 +43,7 @@ import com.mathtabolism.view.model.account.AccountWeightModel;
         query = "SELECT aw FROM AccountWeight aw WHERE aw.account.id = :account_id AND aw.weighInDate = :weigh_in_date"
     )
 })
-@EMConverter(converter = AccountWeightDto.class, convertTo = AccountWeightModel.class)
+@EntityConverter(converterDto = AccountWeightDto.class, toModel = AccountWeightModel.class)
 public class AccountWeight extends AccountIdFK implements AccountWeightDto {
   public static final String Q_findLatestWeight = "AccountWeight.findLatestWeight";
   public static final String Q_findTodaysWeight = "AccountWeight.findTodaysWeight";

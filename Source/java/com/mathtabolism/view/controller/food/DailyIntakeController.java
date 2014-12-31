@@ -32,7 +32,6 @@ import com.mathtabolism.util.unit.UnitSystem;
 import com.mathtabolism.view.controller.BaseController;
 import com.mathtabolism.view.controller.account.AccountController;
 import com.mathtabolism.view.model.account.AccountModel;
-import com.mathtabolism.view.model.account.AccountSettingModel;
 import com.mathtabolism.view.model.account.AccountWeightModel;
 import com.mathtabolism.view.model.food.DailyIntakeModel;
 import com.mathtabolism.view.model.food.MealModel;
@@ -88,11 +87,11 @@ public class DailyIntakeController extends BaseController {
   
   public String calculatedTotal(DailyIntakeModel dailyIntakeModel, NutrientType nutrientType, TotalType totalType) {
     Date intakeDate = dailyIntakeModel.getIntakeDate();
-    AccountSettingModel accountSettings = accountBO.findLatestSettingsForDate(accountModel, intakeDate);
+    AccountModel accountModel = accountBO.findLatestSettingsForDate(this.accountModel, intakeDate);
     BaseNutrient calculatedTotal = null;
     AccountWeightModel accountWeight = dailyIntakeModel.getAccountWeightModel();
     
-    BaseNutrient expected = calculateExpected(nutrientType, accountModel, accountSettings, accountWeight);
+    BaseNutrient expected = calculateExpected(nutrientType, accountModel, accountModel, accountWeight);
     
     switch(totalType) {
       case EXPECTED:

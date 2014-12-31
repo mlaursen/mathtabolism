@@ -9,7 +9,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.mathtabolism.constants.IngredientCategory;
 import com.mathtabolism.dto.IngredientDto;
 import com.mathtabolism.entity.food.Ingredient;
-import com.mathtabolism.util.emconverter.EMConverter;
+import com.mathtabolism.util.emconverter.ModelConverter;
 import com.mathtabolism.util.nutrition.Calorie;
 import com.mathtabolism.util.nutrition.Carbohydrate;
 import com.mathtabolism.util.nutrition.Fat;
@@ -21,7 +21,7 @@ import com.mathtabolism.view.model.BaseModel;
  * @author mlaursen
  *
  */
-@EMConverter(converter = IngredientDto.class, convertTo = Ingredient.class)
+@ModelConverter(entities = {Ingredient.class})
 public class IngredientModel extends BaseModel implements IngredientDto {
   
   private String name;

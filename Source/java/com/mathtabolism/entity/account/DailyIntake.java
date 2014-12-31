@@ -23,7 +23,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.mathtabolism.dto.DailyIntakeDto;
 import com.mathtabolism.entity.food.DailyIntakeMeal;
-import com.mathtabolism.util.emconverter.EMConverter;
+import com.mathtabolism.util.emconverter.EntityConverter;
 import com.mathtabolism.view.model.food.DailyIntakeModel;
 
 /**
@@ -39,7 +39,7 @@ import com.mathtabolism.view.model.food.DailyIntakeModel;
             + "ORDER BY di.intakeDate ASC"
   )
 })
-@EMConverter(converter = DailyIntakeDto.class, convertTo = DailyIntakeModel.class)
+@EntityConverter(converterDto = DailyIntakeDto.class, toModel = DailyIntakeModel.class)
 public class DailyIntake extends AccountIdFK implements DailyIntakeDto {
   public static final String Q_findCurrentWeek = "DailyIntake.getCurrentWeek";
   
@@ -59,6 +59,22 @@ public class DailyIntake extends AccountIdFK implements DailyIntakeDto {
   
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "dailyIntake")
   private List<DailyIntakeMeal> meals;
+  
+  public List<DailyIntakeMeal> getMeals() {
+    return meals;
+  }
+  
+  public void setMeals(List<DailyIntakeMeal> meals) {
+    this.meals = meals;
+  }
+  
+  public AccountWeight getAccountWeight() {
+    return accountWeight;
+  }
+  
+  public void setAccountWeight(AccountWeight accountWeight) {
+    this.accountWeight = accountWeight;
+  }
   
   @Override
   public Date getIntakeDate() {
@@ -108,30 +124,6 @@ public class DailyIntake extends AccountIdFK implements DailyIntakeDto {
   @Override
   public void setProteinMultiplier(Double proteinMultiplier) {
     this.proteinMultiplier = proteinMultiplier;
-  }
-  
-  /**
-   * 
-   * @return
-   */
-  public List<DailyIntakeMeal> getMeals() {
-    return meals;
-  }
-  
-  /**
-   * 
-   * @param meals
-   */
-  public void setMeals(List<DailyIntakeMeal> meals) {
-    this.meals = meals;
-  }
-  
-  public AccountWeight getAccountWeight() {
-    return accountWeight;
-  }
-  
-  public void setAccountWeight(AccountWeight accountWeight) {
-    this.accountWeight = accountWeight;
   }
   
   @Override

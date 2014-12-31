@@ -23,13 +23,11 @@ import com.mathtabolism.eao.food.MealPartEAO;
 import com.mathtabolism.entity.account.Account;
 import com.mathtabolism.entity.account.DailyIntake;
 import com.mathtabolism.entity.food.DailyIntakeMeal;
-import com.mathtabolism.entity.food.Ingredient;
 import com.mathtabolism.entity.food.Meal;
 import com.mathtabolism.entity.food.MealPart;
 import com.mathtabolism.util.date.DateUtils;
 import com.mathtabolism.util.emconverter.EntityModelConverter;
 import com.mathtabolism.view.model.account.AccountModel;
-import com.mathtabolism.view.model.account.AccountSettingModel;
 import com.mathtabolism.view.model.account.AccountWeightModel;
 import com.mathtabolism.view.model.food.DailyIntakeModel;
 import com.mathtabolism.view.model.food.MealModel;
@@ -93,18 +91,18 @@ public class DailyIntakeBO {
   }
   
   private DailyIntake toEntity(DailyIntakeModel dailyIntakeModel, AccountModel accountModel) {
-    return toEntity(dailyIntakeModel, converter.convertModelToEntity(accountModel));
+    return toEntity(dailyIntakeModel, converter.extractEntityFromModel(accountModel));
   }
   
   private DailyIntake toEntity(DailyIntakeModel dailyIntakeModel, Account account) {
-    DailyIntake dailyIntake = converter.convertModelToEntity(dailyIntakeModel);
+    DailyIntake dailyIntake = converter.extractEntityFromModel(dailyIntakeModel);
     dailyIntake.setAccount(account);
     
     List<MealModel> mealModels = dailyIntakeModel.getMeals();
     List<DailyIntakeMeal> diMeals = new ArrayList<>();
     for(MealModel mealModel : mealModels) {
-      Meal meal = converter.convertModelToEntity(mealModel);
-      meal.setMealParts(converter.convertModelsToEntities(mealModel.getMealParts()));
+      Meal meal = converter.extractEntityFromModel(mealModel);
+      meal.setMealParts(converter.extractEntitiesFromModels(mealModel.getMealParts()));
       
       DailyIntakeMeal diMeal = new DailyIntakeMeal();
       diMeal.setDailyIntake(dailyIntake);
@@ -126,10 +124,9 @@ public class DailyIntakeBO {
    * @see DailyIntakeBO#generateNewWeek(AccountModel)
    */
   public List<DailyIntakeModel> findCurrentWeekForAccount(AccountModel accountModel) {
-    Account account = converter.convertModelToEntity(accountModel);
-    AccountSettingModel currentSettings = accountModel.getCurrentSettings();
+    Account account = converter.extractEntityFromModel(accountModel);
     
-    Weekday recalculationDay = currentSettings.getRecalculationDay();
+    Weekday recalculationDay = accountModel.getRecalculationDay();
     if(recalculationDay != null) {
       int recalcDOW = recalculationDay.toInt();
       List<DailyIntake> dailyIntakeWeek = dailyIntakeEAO.findCurrentWeek(account, DateUtils.findStartDate(recalcDOW));
@@ -205,8 +202,7 @@ public class DailyIntakeBO {
    * @return a List of {@link DailyIntakeModel} or null
    */
   public List<DailyIntakeModel> generateNewWeek(AccountModel accountModel) {
-    AccountSettingModel currentSettings = accountModel.getCurrentSettings();
-    Weekday recalculationDay = currentSettings.getRecalculationDay();
+    Weekday recalculationDay = accountModel.getRecalculationDay();
     if(recalculationDay != null) {
       List<DailyIntakeModel> currentWeek = new ArrayList<>();
       int recalcDOW = recalculationDay.toInt();

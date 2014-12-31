@@ -1,123 +1,105 @@
+/**
+ * 
+ */
 package com.mathtabolism.view.model.account;
-
-import java.util.Date;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.mathtabolism.constants.AccountRole;
+import com.mathtabolism.constants.ActivityMultiplier;
 import com.mathtabolism.constants.Gender;
-import com.mathtabolism.dto.AccountDto;
+import com.mathtabolism.constants.Indicator;
+import com.mathtabolism.constants.TDEEFormula;
+import com.mathtabolism.constants.Weekday;
+import com.mathtabolism.dto.AccountSettingDto;
 import com.mathtabolism.entity.account.Account;
-import com.mathtabolism.util.date.DateUtils;
-import com.mathtabolism.util.emconverter.EMConverter;
+import com.mathtabolism.entity.account.AccountSetting;
+import com.mathtabolism.util.emconverter.ModelConverter;
+import com.mathtabolism.util.number.NumberUtils;
 import com.mathtabolism.util.unit.Measurement;
 import com.mathtabolism.util.unit.UnitConverter;
 import com.mathtabolism.util.unit.UnitMeasurement;
 import com.mathtabolism.util.unit.UnitSystem;
-import com.mathtabolism.view.model.BaseModel;
 
 /**
- * 
+ *
  * @author mlaursen
  */
-@EMConverter(converter = AccountDto.class, convertTo = Account.class)
-public class AccountModel extends BaseModel implements AccountDto {
+@ModelConverter(entities = {Account.class, AccountSetting.class})
+public class AccountModel extends BaseAccountModel implements AccountSettingDto {
+  private static final String US_AVERAGE_HEIGHT_CM = "177";
+  private static final String US_AVERAGE_HEIGHT_IN = "10";
+  private static final String US_AVERAGE_HEIGHT_FT = "5";
 
-  private String username;
-  private String email;
-  private String password;
-  private AccountRole role;
+  private String accountSettingId;
+  private String heightInInches;
+  private String heightInFeet;
+  private String heightInCentimeters;
+  private Integer age;
+  private Indicator useAge;
+  private Double height;
+  private ActivityMultiplier activityMultiplier;
+  private Weekday recalculationDay;
+  private TDEEFormula tdeeFormula;
+  private UnitSystem unitSystem;
+  private Double currentWeight;
+  private Double previousWeight;
   
-  private Gender gender;
-  private Date birthday;
-  private Date lastLogin;
-  private Date activeSince;
+  public void setCurrentWeight(Double weight) {
+    this.currentWeight = weight;
+  }
   
-  private AccountSettingModel currentSettings;
-  private AccountWeightModel currentWeight;
-  private AccountWeightModel previousWeight;
+  public Double getCurrentWeight() {
+    return currentWeight == null ? null : NumberUtils.format(currentWeight, 2);
+  }
+  
+  public void setPreviousWeight(Double weight) {
+    this.previousWeight = weight;
+  }
+  
+  public Double getPreviousWeight() {
+    return NumberUtils.format(previousWeight, 2);
+  }
+  
+  public Gender getDefaultedGender() {
+    return gender == null ? Gender.MALE : gender;
+  }
+  
+  public ActivityMultiplier getDefaultedActivityMultiplier() {
+    return activityMultiplier == null ? ActivityMultiplier.SEDENTARY : activityMultiplier;
+  }
+  
+  public TDEEFormula getDefaultedTdeeFormula() {
+    return tdeeFormula == null ? TDEEFormula.MIFFLIN_ST_JEOR : tdeeFormula;
+  }
+  
+  public Weekday getDefaultedRecalculationDay() {
+    return recalculationDay == null ? Weekday.DAILY : recalculationDay;
+  }
+  
+  public UnitSystem getDefaultedUnitSystem() {
+    return unitSystem == null ? UnitSystem.IMPERIAL : unitSystem;
+  }
+  
+  public void setAccountSettingId(String accountSettingId) {
+    this.accountSettingId = accountSettingId;
+  }
+  
+  public String getAccountSettingId() {
+    return accountSettingId;
+  }
 
-  public void convertUnitsTo(UnitSystem unitSystem) {
-    Double weight = currentWeight.getWeight();
-    if(weight != null && weight > 0) {
-      if(unitSystem.isImperial()) {
-        Measurement kg  = new Measurement(UnitMeasurement.KILOGRAM, weight);
-        Measurement lbs = UnitConverter.convert(kg, UnitMeasurement.POUND);
-        
-        currentWeight.setWeight(lbs.getValue());
-      } else {
-        Measurement lbs = new Measurement(UnitMeasurement.POUND, weight);
-        Measurement kg  = UnitConverter.convert(lbs, UnitMeasurement.KILOGRAM);
-        
-        currentWeight.setWeight(kg.getValue());
-      }
-    }
-  }
-  
-  /**
-   * Gets the current account's settings
-   * @return the {@link AccountSettingModel}
-   */
-  public AccountSettingModel getCurrentSettings() {
-    return currentSettings;
-  }
-
-  /**
-   * Sets the current account's settings
-   * @param currentSettings the current {@link AccountSettingModel}
-   */
-  public void setCurrentSettings(AccountSettingModel currentSettings) {
-    this.currentSettings = currentSettings;
-  }
-
-  /**
-   * Gets the current account's weight for today
-   * @return the current weight for today as {@link AccountWeightModel}
-   */
-  public AccountWeightModel getCurrentWeight() {
-    return currentWeight;
-  }
-
-  /**
-   * Sets the current account's weight for today
-   * @param currentWeight the current weight for today
-   */
-  public void setCurrentWeight(AccountWeightModel currentWeight) {
-    this.currentWeight = currentWeight;
-  }
-  
-  /**
-   * Sets the previous weight for the account. This is just used
-   * as a suggestion for the update weight modal.
-   * @param previousWeight the previous weight
-   */
-  public void setPreviousWeight(AccountWeightModel previousWeight) {
-    this.previousWeight = previousWeight;
-  }
-  
-  /**
-   * Sets the previous weight for the account. This is just used
-   * as a suggestion for the update weight modal.
-   * @return the previous weight
-   */
-  public AccountWeightModel getPreviousWeight() {
-    return previousWeight;
-  }
-  
   /**
    * Checks if the current weight is set for the account.
    * <p>The current weight is considered set if
    * <ul>
    * <li>The current weight is not null
    * <li>The current weight is greater than 0
-   * <li>The weigh in date is today
    * </ul>
    * @return true if the weight is set
    */
   public boolean isTodayWeightSet() {
-    return currentWeight != null && DateUtils.isSameDate(currentWeight.getWeighInDate(), new Date())
-        && currentWeight.getWeight() != null && currentWeight.getWeight() > 0;
+    return currentWeight != null && currentWeight > 0;
   }
   
   /**
@@ -125,98 +107,180 @@ public class AccountModel extends BaseModel implements AccountDto {
    * @return true if the account is considered a first time user
    */
   public boolean isIncompleteSetup() {
-    return (currentSettings == null || currentSettings.isIncompleteSetup() || gender == null
-        || (birthday == null && currentSettings.getAge() == null));
+    return activityMultiplier == null || tdeeFormula == null || unitSystem == null || gender == null
+        || (birthday == null && age == null);
   }
-  
-  @Override
-  public void setUsername(String username) {
-    this.username = username;
-  }
-  
-  @Override
-  public String getUsername() {
-    return username;
-  }
-  
-  @Override
-  public void setPassword(String password) {
-    this.password = password;
-  }
-  
-  @Override
-  public String getPassword() {
-    return password;
-  }
-  
-  @Override
-  public void setEmail(String email) {
-    this.email = email;
-  }
-  
-  @Override
-  public String getEmail() {
-    return email;
-  }
-  
-  @Override
-  public void setGender(Gender gender) {
-    this.gender = gender;
-  }
-  
-  @Override
-  public Gender getGender() {
-    if(gender == null) {
-      gender = Gender.MALE;
+  /**
+   * Updates the height value from the small height value and the large height value.
+   * If the unit system is metric, only the centimeters will be used.
+   */
+  public void updateHeight() {
+    if(UnitSystem.isImperial(unitSystem)) {
+      Measurement inInches = new Measurement(UnitMeasurement.INCH, NumberUtils.stringToDouble(heightInInches));
+      Measurement inFeet   = new Measurement(UnitMeasurement.FOOT, NumberUtils.stringToDouble(heightInFeet));
+      inInches.add(inFeet);
+      height = inInches.getValue();
+    } else {
+      height = NumberUtils.stringToDouble(heightInCentimeters);
     }
-    return gender;
+  }
+  
+  public void splitHeight() {
+    if(height != null && UnitSystem.isImperial(unitSystem)) {
+      Measurement inInches = new Measurement(UnitMeasurement.INCH, height);
+      Measurement inFeet   = UnitConverter.convertToWholeNumber(inInches, UnitMeasurement.FOOT);
+      inInches.subtract(inFeet);
+      
+      setHeightInFeet(NumberUtils.formatAsString(inFeet.getValue(), 0));
+      setHeightInInches(NumberUtils.formatAsString(inInches.getValue(), 0));
+    }
+  }
+
+  public String getHeightInInches() {
+    return heightInInches == null ? US_AVERAGE_HEIGHT_IN : heightInInches;
+  }
+
+  public void setHeightInInches(String heightInInches) {
+    this.heightInInches = heightInInches;
+    updateHeight();
+  }
+
+  public String getHeightInFeet() {
+    return heightInFeet == null ? US_AVERAGE_HEIGHT_FT : heightInFeet;
+  }
+
+  public void setHeightInFeet(String heightInFeet) {
+    this.heightInFeet = heightInFeet;
+    updateHeight();
+  }
+  
+  public String getHeightInCentimeters() {
+    return heightInCentimeters == null ? US_AVERAGE_HEIGHT_CM : heightInCentimeters;
+  }
+  
+  public void setHeightInCentimeters(String heightInCentimeters) {
+    this.heightInCentimeters = heightInCentimeters;
+    updateHeight();
+  }
+  
+  public boolean isUsingAge() {
+    return Indicator.isTrue(useAge);
+  }
+  
+  public void setUsingAge(boolean isUsingAge) {
+    this.useAge = Indicator.fromBoolean(isUsingAge);
+  }
+  
+  public void convertUnitsTo(UnitSystem toUnitSystem) {
+    if(height != null && height > 0) {
+      if(toUnitSystem.isImperial()) {
+        Measurement centimeters = new Measurement(UnitMeasurement.CENTIMETER, height);
+        Measurement inches = UnitConverter.convertToWholeNumber(centimeters, UnitMeasurement.INCH);
+        Measurement feet   = UnitConverter.convertToWholeNumber(inches, UnitMeasurement.FOOT);
+        inches.subtract(feet);
+        heightInInches = NumberUtils.formatAsString(inches.getValue(), 0);
+        heightInFeet   = NumberUtils.formatAsString(feet.getValue(), 0);
+      } else {
+        Measurement inches = new Measurement(UnitMeasurement.INCH, height);
+        Measurement centimeters = UnitConverter.convertToWholeNumber(inches, UnitMeasurement.CENTIMETER);
+        heightInCentimeters = NumberUtils.formatAsString(centimeters.getValue(), 0);
+      }
+    }
+    
+    if(currentWeight != null && currentWeight > 0) {
+      if(unitSystem.isImperial()) {
+        Measurement kg  = new Measurement(UnitMeasurement.KILOGRAM, currentWeight);
+        Measurement lbs = UnitConverter.convert(kg, UnitMeasurement.POUND);
+        
+        currentWeight = lbs.getValue();
+      } else {
+        Measurement lbs = new Measurement(UnitMeasurement.POUND, currentWeight);
+        Measurement kg  = UnitConverter.convert(lbs, UnitMeasurement.KILOGRAM);
+        
+        currentWeight = kg.getValue();
+      }
+    }
+  }
+
+  @Override
+  public void setAge(Integer age) {
+    this.age = age;
+  }
+
+  @Override
+  public Integer getAge() {
+    return age;
   }
   
   @Override
-  public void setRole(AccountRole role) {
-    this.role = role;
-  }
-
-  @Override
-  public AccountRole getRole() {
-    return role;
+  public void setUseAge(Indicator useAge) {
+    this.useAge = useAge;
   }
   
   @Override
-  public void setBirthday(Date birthday) {
-    this.birthday = birthday;
-  }
-  
-  @Override
-  public Date getBirthday() {
-    return birthday;
+  public Indicator getUseAge() {
+    return useAge;
   }
 
   @Override
-  public void setLastLogin(Date lastLogin) {
-    this.lastLogin = lastLogin;
+  public void setHeight(Double height) {
+    this.height = height;
   }
 
   @Override
-  public Date getLastLogin() {
-    return lastLogin;
+  public Double getHeight() {
+    return height;
   }
 
   @Override
-  public void setActiveSince(Date activeSince) {
-    this.activeSince = activeSince;
+  public void setActivityMultiplier(ActivityMultiplier activityMultiplier) {
+    this.activityMultiplier = activityMultiplier;
   }
 
   @Override
-  public Date getActiveSince() {
-    return activeSince;
+  public ActivityMultiplier getActivityMultiplier() {
+    return activityMultiplier;
+  }
+
+  @Override
+  public void setRecalculationDay(Weekday recalculationDay) {
+    this.recalculationDay = recalculationDay;
+  }
+
+  @Override
+  public Weekday getRecalculationDay() {
+    return recalculationDay;
+  }
+
+  @Override
+  public void setTdeeFormula(TDEEFormula tdeeFormula) {
+    this.tdeeFormula = tdeeFormula;
+  }
+
+  @Override
+  public TDEEFormula getTdeeFormula() {
+    return tdeeFormula;
+  }
+
+  @Override
+  public void setUnitSystem(UnitSystem unitSystem) {
+    this.unitSystem = unitSystem;
+  }
+
+  @Override
+  public UnitSystem getUnitSystem() {
+    return unitSystem;
   }
   
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("id", id)
-        .append("username", username).append("password", password).append("email", email)
-        .append("birthday", birthday).append("gender", gender).append("currentSettings", currentSettings)
-        .append("currentWeight", currentWeight).append("previousWeight", previousWeight).toString();
+    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("accountId", accountId).append("accountSettingId", accountSettingId)
+        .append("username", username).append("email", email).append("password", password).append("role", role)
+        .append("birthday", birthday).append("gender", gender).append("lastLogin", lastLogin).append("activeSince", activeSince)
+        .append("heightInInches", heightInInches).append("heightInFeet", heightInFeet).append("heightInCentimeters", heightInCentimeters)
+        .append("height", height).append("age", age).append("useAge", useAge).append("activityMultiplier", activityMultiplier)
+        .append("recalculationDay", recalculationDay).append("tdeeFormula", tdeeFormula).append("unitSystem", unitSystem)
+        .append("currentWeight", currentWeight).append("previousWeight", previousWeight)
+        .toString();
   }
 }

@@ -9,34 +9,37 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import com.mathtabolism.dto.AccountWeightDto;
 import com.mathtabolism.entity.account.AccountWeight;
-import com.mathtabolism.util.emconverter.EMConverter;
-import com.mathtabolism.util.number.NumberUtils;
+import com.mathtabolism.util.emconverter.ModelConverter;
 import com.mathtabolism.view.model.BaseModel;
 
 /**
  * 
  * @author mlaursen
  */
-@EMConverter(converter = AccountWeightDto.class, convertTo = AccountWeight.class)
+@ModelConverter(entities = {AccountWeight.class})
 public class AccountWeightModel extends BaseModel implements AccountWeightDto {
   
+  private String accountWeightId;
   private Double weight;
   private Date weighInDate;
-
-  /**
-   * Gets the weight formatted to 2 decimal places.
-   * @return the weight as a String
-   */
-  public String getWeightString() {
-    return weight == null ? "" : NumberUtils.formatAsString(weight, 2);
+  public AccountWeightModel() {
   }
   
-  /**
-   * Sets the weight amount from a String
-   * @param weight the weight
-   */
-  public void setWeightString(String weight) {
-    this.weight = NumberUtils.stringToDouble(weight);
+  public AccountWeightModel(Double weight) {
+    this.weight = weight;
+  }
+  
+  public AccountWeightModel(Date weightInDate, Double weight) {
+    this.weighInDate = weightInDate;
+    this.weight = weight;
+  }
+  
+  public void setAccountWeightId(String accountWeightId) {
+    this.accountWeightId = accountWeightId;
+  }
+  
+  public String getAccountWeightId() {
+    return accountWeightId;
   }
 
   @Override
@@ -61,6 +64,7 @@ public class AccountWeightModel extends BaseModel implements AccountWeightDto {
   
   @Override
   public String toString() {
-    return new ToStringBuilder(this).append("weighInDate", weighInDate).append("weight", weight).toString();
+    return new ToStringBuilder(this).append("accountWeightId", accountWeightId).append("weighInDate", weighInDate)
+        .append("weight", weight).toString();
   }
 }

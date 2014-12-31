@@ -20,10 +20,10 @@ import com.mathtabolism.constants.ActivityMultiplier;
 import com.mathtabolism.constants.Indicator;
 import com.mathtabolism.constants.TDEEFormula;
 import com.mathtabolism.constants.Weekday;
-import com.mathtabolism.dto2.AccountSettingDto;
-import com.mathtabolism.util.emconverter2.EntityConverter;
+import com.mathtabolism.dto.AccountSettingDto;
+import com.mathtabolism.util.emconverter.EntityConverter;
 import com.mathtabolism.util.unit.UnitSystem;
-import com.mathtabolism.view.model2.account.AccountModel;
+import com.mathtabolism.view.model.account.AccountModel;
 
 /**
  * 

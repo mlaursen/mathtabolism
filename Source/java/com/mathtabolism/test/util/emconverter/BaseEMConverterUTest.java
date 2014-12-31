@@ -20,9 +20,9 @@ import com.mathtabolism.constants.Weekday;
 import com.mathtabolism.entity.account.Account;
 import com.mathtabolism.entity.account.AccountSetting;
 import com.mathtabolism.util.date.DateUtils;
-import com.mathtabolism.util.emconverter2.EntityModelConverter;
+import com.mathtabolism.util.emconverter.EntityModelConverter;
 import com.mathtabolism.util.unit.UnitSystem;
-import com.mathtabolism.view.model2.account.AccountModel;
+import com.mathtabolism.view.model.account.AccountModel;
 
 /**
  *

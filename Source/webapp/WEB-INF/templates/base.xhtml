@@ -54,7 +54,7 @@
       <h:form>
         <h:outputLabel value="#{msg.weight}" />
         <div>
-          <p:inputText value="#{accountController.accountModel.currentWeight.weight}" size="3" placeholder="#{accountController.accountModel.previousWeight.weight}" />
+          <p:inputText value="#{accountController.accountModel.currentWeight}" size="3" placeholder="#{accountController.accountModel.previousWeight}" />
         </div>
         <div>
           <h:commandButton action="#{accountController.createOrUpdateCurrentWeight()}" value="#{msg.update}" styleClass="update-weight-button" />
