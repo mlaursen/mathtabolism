@@ -9,6 +9,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.mathtabolism.view.model2.BaseModel;
+
 /**
  *
  * @author mlaursen
@@ -19,4 +21,6 @@ import java.lang.annotation.Target;
 public @interface EntityConverter {
   
   Class<? extends Convertable> converterDto();
+  
+  Class<? extends BaseModel> toModel();
 }

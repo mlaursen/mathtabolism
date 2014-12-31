@@ -27,7 +27,7 @@ public class ConvertEntityToModelUTest extends BaseEMConverterUTest {
   public void testConvertEmptyAccountToModel() {
     AccountModel accountModel = converter.convertEntityToModel(EMPTY_ACCOUNT);
     AccountModel expected = new AccountModel();
-    assertThat(accountModel, is(expected));
+    assertThatAccountModelIsExpected(accountModel, expected);
   }
 
   @Test
@@ -47,7 +47,7 @@ public class ConvertEntityToModelUTest extends BaseEMConverterUTest {
   @Test
   public void testConvertNullAccountSettingToModel() {
     AccountModel accountModel = converter.convertEntityToModel(NULL_ACCOUNT_SETTING);
-    AccountModel expected = extractAccountModelManually(NULL_ACCOUNT_SETTING);
+    AccountModel expected = null;
     assertThat(accountModel, is(expected));
   }
 

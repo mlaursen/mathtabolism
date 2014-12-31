@@ -23,6 +23,7 @@ import com.mathtabolism.constants.Weekday;
 import com.mathtabolism.dto2.AccountSettingDto;
 import com.mathtabolism.util.emconverter2.EntityConverter;
 import com.mathtabolism.util.unit.UnitSystem;
+import com.mathtabolism.view.model2.account.AccountModel;
 
 /**
  * 
@@ -46,7 +47,7 @@ import com.mathtabolism.util.unit.UnitSystem;
       query = "SELECT max(as1.dateChanged) FROM AccountSetting as1 WHERE as1.account.id = :account_id"
   )
 })
-@EntityConverter(converterDto = AccountSettingDto.class)
+@EntityConverter(converterDto = AccountSettingDto.class, toModel = AccountModel.class)
 public class AccountSetting extends AccountIdFK implements AccountSettingDto {
   public static final String Q_findCurrentAccountSetting = "AccountSetting.findCurrentAccountSetting";
   public static final String Q_findLatestSettingsForDate = "AccountSetting.findLatestSettingsForDate";
@@ -79,7 +80,15 @@ public class AccountSetting extends AccountIdFK implements AccountSettingDto {
   
   @Enumerated(EnumType.STRING)
   private UnitSystem unitSystem;
+
   
+  public Date getDateChanged() {
+    return dateChanged;
+  }
+  
+  public void setDateChanged(Date dateChanged) {
+    this.dateChanged = dateChanged;
+  }
   
   @Override
   public Weekday getRecalculationDay() {
@@ -109,14 +118,6 @@ public class AccountSetting extends AccountIdFK implements AccountSettingDto {
   @Override
   public void setTdeeFormula(TDEEFormula tdeeFormula) {
     this.tdeeFormula = tdeeFormula;
-  }
-  
-  public Date getDateChanged() {
-    return dateChanged;
-  }
-  
-  public void setDateChanged(Date dateChanged) {
-    this.dateChanged = dateChanged;
   }
   
   @Override

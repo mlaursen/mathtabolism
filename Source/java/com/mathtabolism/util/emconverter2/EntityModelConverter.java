@@ -37,10 +37,22 @@ public class EntityModelConverter {
   public EntityModelConverter() {
   }
   
+  /**
+   * Attempts to extract the first Entity from the {@link ModelConverter#entities()} from a given Model
+   * @param model the Model to extract an Entity from
+   * @return the extracted Entity or null
+   */
   public <E extends BaseEntity & Convertable, M extends BaseModel & Convertable> E extractEntityFromModel(M model) {
     return extractEntityFromModel(model, null);
   }
   
+  /**
+   * Attempts to extract the given Entity from the given Model.
+   * 
+   * @param model the Model to extract an Entity from
+   * @param entityToExtract the Entity class to extract
+   * @return the extracted Entity or null
+   */
   @SuppressWarnings("unchecked")
   public <E extends BaseEntity & Convertable, M extends BaseModel & Convertable> E extractEntityFromModel(M model, Class<E> entityToExtract) {
     if(model == null) {
@@ -52,6 +64,7 @@ public class EntityModelConverter {
       logger.error(String.format(ERR, model.getClass(), MISSING_MODEL_CONVERTER));
       return null;
     }
+    
     Class<E>[] availableEntities = (Class<E>[]) modelConverter.entities();
     if(entityToExtract == null) {
       entityToExtract = availableEntities[0];
@@ -93,8 +106,8 @@ public class EntityModelConverter {
       
       if(model instanceof GeneratedIdDto && entity instanceof GeneratedIdDto) {
         String id = entity.getClass().getSimpleName() + "Id";
-        Method getter = findGetter(model.getClass(), GET + id);
-        Method setter = findGetter(entity.getClass(), SET + "Id");
+        Method getter = findMethod(model.getClass(), GET + id);
+        Method setter = findMethod(entity.getClass(), SET + "Id");
         
         setter.invoke(entity, getter.invoke(model));
       }
@@ -117,7 +130,66 @@ public class EntityModelConverter {
     return null;
   }
   
-  private Method findGetter(Class<?> classToSearch, String methodName) {
+  @SuppressWarnings("unchecked")
+  public <E extends BaseEntity & Convertable, M extends BaseModel & Convertable> M convertEntityToModel(E entity) {
+    if(entity == null) {
+      return null;
+    }
+
+    EntityConverter entityConverter = entity.getClass().getAnnotation(EntityConverter.class);
+    if(entityConverter == null) {
+      logger.error(String.format(ERR, entity.getClass(), MISSING_ENTITY_CONVERTER));
+      return null;
+    }
+    Class<? extends Convertable> converterDto = entityConverter.converterDto();
+    Class<M> modelClass = (Class<M>) entityConverter.toModel();
+    Method[] availableMethods = converterDto.getMethods();
+    List<Method> getters = getGetters(availableMethods);
+    List<Method> setters = getSetters(availableMethods);
+    
+    try {
+      M model = modelClass.newInstance();
+      for(int i = 0; i < getters.size() && i < getters.size(); ++i) {
+        Method getter = getters.get(i);
+        Method setter = setters.get(i);
+        
+        setter.invoke(model, getter.invoke(entity));
+      }
+      
+      if(model instanceof GeneratedIdDto && entity instanceof GeneratedIdDto) {
+        String id = entity.getClass().getSimpleName() + "Id";
+        Method getter = findMethod(entity.getClass(), GET + "Id");
+        Method setter = findMethod(model.getClass(), SET + id);
+        
+        setter.invoke(model, getter.invoke(entity));
+      }
+      
+      return model;
+    } catch (InstantiationException e) {
+      logger.debug(String.format(ERR, entity.getClass(), " of an instantiation exception"));
+      logger.error(e);
+    } catch(IllegalAccessException e) {
+      logger.debug(String.format(ERR, entity.getClass(), " of an illegal access exception"));
+      logger.error(e);
+    } catch (IllegalArgumentException e) {
+      logger.debug(String.format(ERR, entity.getClass(), " of illegal arguments"));
+      logger.error(e);
+    } catch (InvocationTargetException e) {
+      logger.debug(String.format(ERR, entity.getClass(), " of an invocation target exception"));
+      logger.error(e);
+    }
+    return null;
+  }
+  
+  
+  
+  /**
+   * Attempts to fnd a given method name in a given class
+   * @param classToSearch the Class to serach methods in
+   * @param methodName the method name to find
+   * @return the method or null
+   */
+  private Method findMethod(Class<?> classToSearch, String methodName) {
     Method[] methods = classToSearch.getMethods();
     
     for(Method method : methods) {
