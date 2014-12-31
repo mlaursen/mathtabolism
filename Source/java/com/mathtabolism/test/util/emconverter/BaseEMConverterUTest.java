@@ -41,6 +41,7 @@ public abstract class BaseEMConverterUTest {
   protected static AccountModel DEFAULT_FULL_AGE_MODEL;
   protected static Account ID_USERNAME_ACCOUNT;
   protected static Account DEFAULT_FULL_ACCOUNT;
+  protected static Account NO_BIRTHDAY_ACCOUNT;
   protected static AccountSetting NO_AGE_ACCOUNT_SETTING;
   protected static AccountSetting AGE_ACCOUNT_SETTING;
   
@@ -117,6 +118,16 @@ public abstract class BaseEMConverterUTest {
     DEFAULT_FULL_ACCOUNT.setPassword(DEFAULT_PASSWORD);
     DEFAULT_FULL_ACCOUNT.setRole(DEFAULT_ROLE);
     DEFAULT_FULL_ACCOUNT.setUsername(DEFAULT_USERNAME);
+    
+    NO_BIRTHDAY_ACCOUNT = new Account();
+    NO_BIRTHDAY_ACCOUNT.setActiveSince(DEFAULT_ACTIVE_SINCE);
+    NO_BIRTHDAY_ACCOUNT.setEmail(DEFAULT_EMAIL);
+    NO_BIRTHDAY_ACCOUNT.setGender(DEFAULT_GENDER);
+    NO_BIRTHDAY_ACCOUNT.setId(DEFAULT_ACCOUNT_ID);
+    NO_BIRTHDAY_ACCOUNT.setLastLogin(DEFAULT_LAST_LOGIN);
+    NO_BIRTHDAY_ACCOUNT.setPassword(DEFAULT_PASSWORD);
+    NO_BIRTHDAY_ACCOUNT.setRole(DEFAULT_ROLE);
+    NO_BIRTHDAY_ACCOUNT.setUsername(DEFAULT_USERNAME);
     
     NO_AGE_ACCOUNT_SETTING = new AccountSetting();
     NO_AGE_ACCOUNT_SETTING.setActivityMultiplier(DEFAULT_ACTIVITY_MULTIPLIER);
@@ -218,23 +229,28 @@ public abstract class BaseEMConverterUTest {
   
   protected AccountModel extractAccountModelManually(Account account, AccountSetting accountSetting) {
     AccountModel accountModel = new AccountModel();
-    accountModel.setAccountId(account.getId());
-    accountModel.setActiveSince(account.getActiveSince());
-    accountModel.setBirthday(account.getBirthday());
-    accountModel.setEmail(account.getEmail());
-    accountModel.setGender(account.getGender());
-    accountModel.setLastLogin(account.getLastLogin());
-    accountModel.setPassword(account.getPassword());
-    accountModel.setRole(account.getRole());
-    accountModel.setUsername(account.getUsername());
-    accountModel.setAccountSettingId(accountSetting.getId());
-    accountModel.setActivityMultiplier(accountSetting.getActivityMultiplier());
-    accountModel.setAge(accountSetting.getAge());
-    accountModel.setHeight(accountSetting.getHeight());
-    accountModel.setRecalculationDay(accountSetting.getRecalculationDay());
-    accountModel.setTdeeFormula(accountSetting.getTdeeFormula());
-    accountModel.setUnitSystem(accountSetting.getUnitSystem());
-    accountModel.setUseAge(accountSetting.getUseAge());
+    if(account != null) {
+      accountModel.setAccountId(account.getId());
+      accountModel.setActiveSince(account.getActiveSince());
+      accountModel.setBirthday(account.getBirthday());
+      accountModel.setEmail(account.getEmail());
+      accountModel.setGender(account.getGender());
+      accountModel.setLastLogin(account.getLastLogin());
+      accountModel.setPassword(account.getPassword());
+      accountModel.setRole(account.getRole());
+      accountModel.setUsername(account.getUsername());
+    }
+    
+    if(accountSetting != null) {
+      accountModel.setAccountSettingId(accountSetting.getId());
+      accountModel.setActivityMultiplier(accountSetting.getActivityMultiplier());
+      accountModel.setAge(accountSetting.getAge());
+      accountModel.setHeight(accountSetting.getHeight());
+      accountModel.setRecalculationDay(accountSetting.getRecalculationDay());
+      accountModel.setTdeeFormula(accountSetting.getTdeeFormula());
+      accountModel.setUnitSystem(accountSetting.getUnitSystem());
+      accountModel.setUseAge(accountSetting.getUseAge());
+    }
     return accountModel;
   }
   
