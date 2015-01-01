@@ -3,14 +3,11 @@
  */
 package com.mathtabolism.test.util.emconverter;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import org.apache.commons.lang3.time.DateUtils;
 import org.junit.BeforeClass;
 
 import com.mathtabolism.constants.AccountRole;
@@ -65,6 +62,7 @@ public abstract class BaseEMConverterUTest {
   protected static final TDEEFormula DEFAULT_TDEE_FORMULA = TDEEFormula.HARRIS_BENEDICT;
   protected static final AccountRole DEFAULT_ROLE = AccountRole.USER;
   protected static final Indicator DEFAULT_USE_AGE = Indicator.FALSE;
+  
   @BeforeClass
   public static void init() {
     converter = new EntityModelConverter();
@@ -183,18 +181,7 @@ public abstract class BaseEMConverterUTest {
   }
   
   protected void assertThatAccountSettingIsExpected(AccountSetting accountSettings, AccountSetting expected) {
-    assertThat(accountSettings.getActivityMultiplier(), is(expected.getActivityMultiplier()));
-    assertThat(accountSettings.getAge(), is(expected.getAge()));
-    
-    Date d1 = accountSettings.getDateChanged();
-    Date d2 = expected.getDateChanged();
-    assertTrue((d1 == null && d1 == null) || (d1 != null && d2 != null && DateUtils.isSameDay(d1, d2)));
-    assertThat(accountSettings.getHeight(), is(expected.getHeight()));
-    assertThat(accountSettings.getId(), is(expected.getId()));
-    assertThat(accountSettings.getRecalculationDay(), is(expected.getRecalculationDay()));
-    assertThat(accountSettings.getTdeeFormula(), is(expected.getTdeeFormula()));
-    assertThat(accountSettings.getUnitSystem(), is(expected.getUnitSystem()));
-    assertThat(accountSettings.getUseAge(), is(expected.getUseAge()));
+    assertTrue(AccountUtils.equalsSettingsStrictly(accountSettings, expected));
   }
   
   protected AccountModel extractAccountModelManually(Account account) {

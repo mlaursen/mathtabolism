@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.jboss.logging.Logger;
 import org.joda.time.DateTime;
 
@@ -116,7 +117,8 @@ public class AccountBO {
   }
   
   private boolean isLatestAccountSettingsToday(Account account) {
-    return MathtabolismDateUtils.isSameDate(new Date(), accountSettingEAO.findLatestAccountSettingDateByAccount(account));
+    Date latestDate = accountSettingEAO.findLatestAccountSettingDateByAccount(account);
+    return latestDate != null && DateUtils.isSameDay(new Date(), latestDate);
   }
   
   private boolean isNewWeight(AccountWeight weight) {

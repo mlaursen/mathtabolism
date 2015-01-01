@@ -17,11 +17,9 @@ import com.mathtabolism.constants.ActivityMultiplier;
 import com.mathtabolism.constants.Gender;
 import com.mathtabolism.constants.TDEEFormula;
 import com.mathtabolism.constants.Weekday;
-import com.mathtabolism.util.date.MathtabolismDateUtils;
 import com.mathtabolism.util.unit.UnitSystem;
 import com.mathtabolism.view.controller.BaseController;
 import com.mathtabolism.view.model.account.AccountModel;
-import com.mathtabolism.view.model.account.AccountWeightModel;
 import com.mathtabolism.view.navigation.AccountNav;
 
 /**
@@ -214,10 +212,6 @@ public class AccountSetupController extends BaseController {
       items[i] = new SelectItem(i, "" + i);
     }
     return items;
-  }
-  
-  public String getCurrentDateFormat() {
-    return isImperialUnitSystem() ? MathtabolismDateUtils.AMERICAN_DATE_FORMAT : MathtabolismDateUtils.EUROPEAN_DATE_FORMAT;
   }
   
   public boolean isImperialUnitSystem() {

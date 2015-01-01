@@ -123,10 +123,10 @@
             <h:outputText value="#{msg.birthdayStep}" />
             <h:inputText id="birthday-field" value="#{accountSetupController.accountModel.birthday}" maxlength="10"
                          required="#{not accountSetupController.accountModel.usingAge}" requiredMessage="#{msg.account_BirthdayRequired}"
-                         styleClass="date #{accountSetupController.accountModel.usingAge ? 'hidden' : ''}" immediate="true">
-              <f:converter converterId="#{accountSetupController.imperialUnitSystem ? 'dateConverter' : 'europeanDateConverter'}" />
+                         styleClass="date #{accountSetupController.accountModel.usingAge ? 'hidden' : ''}" immediate="true"
+                         converter="#{dateConverter}">
             </h:inputText>
-            <p:watermark for="birthday-field" value="#{accountSetupController.currentDateFormat}" />
+            <p:watermark for="birthday-field" value="#{dateConverter.dateFormat}" />
           </h:panelGroup>
           
           <ui:remove>Age Block</ui:remove>
