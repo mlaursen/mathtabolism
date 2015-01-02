@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 
 import org.joda.time.DateTime;
 
@@ -84,5 +85,14 @@ public class AccountWeightEAO extends BaseGeneratedEntityEAO<AccountWeight> {
     parameters.put("end_date", startDate.plusDays(7).toDate());
     
     return findResultList(AccountWeight.Q_findCurrentAccountWeightWeek, parameters);
+  }
+  
+  public List<AccountWeight> findAccountWeightsInRange(String accountId, Date startDate, Date endDate) {
+    Map<String, Object> parameters = new HashMap<>();
+    parameters.put("account_id", accountId);
+    parameters.put("start_date", startDate);
+    parameters.put("end_date", endDate);
+    
+    return findResultList(AccountWeight.Q_findAccountWeightsInRange, parameters);
   }
 }

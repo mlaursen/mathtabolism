@@ -10,7 +10,7 @@ import java.text.DecimalFormat;
 
 import org.junit.Test;
 
-import com.mathtabolism.util.number.NumberUtils;
+import com.mathtabolism.util.number.MathtabolismNumberUtils;
 import com.mathtabolism.util.unit.Measurement;
 import com.mathtabolism.util.unit.UnitConverter;
 import com.mathtabolism.util.unit.UnitMeasurement;
@@ -155,7 +155,7 @@ public class UnitConverterUTest {
     df.setRoundingMode(RoundingMode.CEILING);
     df.setMaximumFractionDigits(7);
     Measurement gram = new Measurement(UnitMeasurement.GRAM, 127);
-    Measurement lbs = new Measurement(UnitMeasurement.POUND, NumberUtils.format(127 * 2.2046 / 1000, 7));
+    Measurement lbs = new Measurement(UnitMeasurement.POUND, Double.valueOf(MathtabolismNumberUtils.format(127 * 2.2046 / 1000, 7)));
     assertThat(convert(gram, UnitMeasurement.POUND), is(lbs));
     assertEquals(convert(lbs, UnitMeasurement.GRAM).getValue(), gram.getValue(), 1);
     

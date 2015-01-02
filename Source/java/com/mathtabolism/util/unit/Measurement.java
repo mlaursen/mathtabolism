@@ -6,6 +6,7 @@ import javax.persistence.Enumerated;
 
 import com.mathtabolism.util.calculation.Addable;
 import com.mathtabolism.util.calculation.Subtractable;
+import com.mathtabolism.util.number.MathtabolismNumberUtils;
 
 /**
  * A Measurement is a class that has a {@link UnitMeasurement} and a value.
@@ -17,7 +18,7 @@ import com.mathtabolism.util.calculation.Subtractable;
 public class Measurement implements Addable, Subtractable {
   @Enumerated(EnumType.STRING)
   private UnitMeasurement unitMeasurement;
-  private double value;
+  private Double value;
   
   public Measurement() {
   }
@@ -31,7 +32,7 @@ public class Measurement implements Addable, Subtractable {
    * Gets the value of measurement
    * @return the value
    */
-  public double getValue() {
+  public Double getValue() {
     return value;
   }
   
@@ -39,8 +40,20 @@ public class Measurement implements Addable, Subtractable {
    * Sets the value of the measurement
    * @param value the value to set
    */
-  public void setValue(double value) {
+  public void setValue(Double value) {
     this.value = value;
+  }
+  
+  public void setValue(Integer value) {
+    this.value = value == null ? null : value.doubleValue();
+  }
+  
+  /**
+   * Gets the value as an Integer
+   * @return null or the Integer value
+   */
+  public Integer getIntegerValue() {
+    return value == null ? null : value.intValue();
   }
   
   /**
@@ -79,7 +92,7 @@ public class Measurement implements Addable, Subtractable {
   public boolean equals(Object object) {
     if(object != null && object instanceof Measurement) {
       Measurement m = (Measurement) object;
-      return value == m.value && unitMeasurement == m.unitMeasurement;
+      return MathtabolismNumberUtils.aboutEqual(value, m.getValue()) && unitMeasurement == m.unitMeasurement;
     }
     return false;
   }

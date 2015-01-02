@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.jboss.logging.Logger;
 import org.joda.time.DateTime;
+import org.joda.time.Days;
 
 import com.mathtabolism.constants.AccountRole;
 import com.mathtabolism.constants.Weekday;
@@ -38,6 +39,7 @@ import com.mathtabolism.view.model.account.CreateAccountModel;
 @Stateless
 public class AccountBO {
   private static Logger logger = Logger.getLogger(AccountBO.class);
+  private static final int DEFAULT_MAX_WEIGHTS = 7 * 3; // 3 weeks
   
   @Inject
   private AccountEAO accountEAO;
@@ -121,10 +123,6 @@ public class AccountBO {
     return latestDate != null && DateUtils.isSameDay(new Date(), latestDate);
   }
   
-  private boolean isNewWeight(AccountWeight weight) {
-    return accountWeightEAO.findById(weight) == null;
-  }
-  
   /**
    * Creates a new weight or updates an existing weight for an AccountModel
    * @param accountModel the {@link AccountModel}
@@ -138,12 +136,14 @@ public class AccountBO {
   
   public AccountWeightModel createOrUpdateWeight(AccountWeightModel weightModel, AccountModel accountModel) {
     AccountWeight weight = converter.extractEntityFromModel(weightModel);
-    Account account = accountEAO.findById(accountModel.getAccountId());
+    Account account = converter.extractEntityFromModel(accountModel);
     weight.setAccount(account);
-    if(isNewWeight(weight)) {
+    AccountWeight weightFromDB = accountWeightEAO.findAccountWeightByDate(weight.getAccount().getId(), weight.getWeighInDate());
+    if(weightFromDB == null) {
       weight.setId(null);
       accountWeightEAO.create(weight);
     } else {
+      weight.setId(weightFromDB.getId());
       weight = accountWeightEAO.update(weight);
     }
     
@@ -236,5 +236,51 @@ public class AccountBO {
   
   public AccountWeight findLatestWeight(Account account) {
     return accountWeightEAO.findLatestWeight(account);
+  }
+  
+  public List<AccountWeightModel> findAccountWeightsInRange(AccountModel accountModel, Date startDate, Date endDate) {
+    List<AccountWeight> weights = accountWeightEAO.findAccountWeightsInRange(accountModel.getAccountId(), startDate, endDate);
+    List<AccountWeight> allWeightsBetween = new ArrayList<>();
+    
+    Account account = converter.extractEntityFromModel(accountModel);
+    
+    // Inclusive end date
+    DateTime endDateTime = new DateTime(endDate).plusDays(1);
+    int numberOfDays = Days.daysBetween(new DateTime(startDate), endDateTime).getDays();
+    DateTime currentStartDate = new DateTime(startDate);
+    if(weights.size() != numberOfDays) {
+      for(AccountWeight weight : weights) {
+        if(!DateUtils.isSameDay(currentStartDate.toDate(), weight.getWeighInDate())) {
+          DateTime currentEndDate = new DateTime(weight.getWeighInDate());
+          int daysBetween = Days.daysBetween(currentStartDate, endDateTime).getDays();
+          allWeightsBetween.addAll(createAccountWeightsTo(account, currentStartDate, currentEndDate, daysBetween));
+          
+          currentStartDate = currentStartDate.plusDays(daysBetween);
+        }
+        
+        allWeightsBetween.add(weight);
+        currentStartDate = currentStartDate.plusDays(1);
+      }
+      
+      if(allWeightsBetween.size() != numberOfDays) {
+        allWeightsBetween.addAll(createAccountWeightsTo(account, currentStartDate, endDateTime, Days.daysBetween(currentStartDate, endDateTime).getDays()));
+      }
+    } else {
+      allWeightsBetween = weights;
+    }
+    
+    return converter.convertEntitiesToModels(allWeightsBetween);
+  }
+  
+  private List<AccountWeight> createAccountWeightsTo(Account account, DateTime startDate, DateTime endDate, int numDaysBetween) {
+    List<AccountWeight> weights = new ArrayList<>();
+    for(int i = 0; i < numDaysBetween; i++) {
+      AccountWeight weight = new AccountWeight(account, startDate.plusDays(i).toDate());
+      
+      accountWeightEAO.create(weight);
+      weights.add(weight);
+    }
+    
+    return weights;
   }
 }

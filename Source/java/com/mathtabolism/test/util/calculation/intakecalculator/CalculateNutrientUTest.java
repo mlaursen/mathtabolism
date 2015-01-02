@@ -82,7 +82,7 @@ public class CalculateNutrientUTest {
   
   @Test
   public void testCalculateProtein300gChicken() {
-    BaseNutrient bn = new Protein(64.285);
+    BaseNutrient bn = new Protein(64.286);
     assertThat(calculateNutrient(meal300gChicken, NutrientType.PROTEIN), is(bn));
   }
   

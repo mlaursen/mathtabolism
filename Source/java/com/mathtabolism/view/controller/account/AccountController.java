@@ -3,8 +3,6 @@
  */
 package com.mathtabolism.view.controller.account;
 
-import java.util.Date;
-
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -13,7 +11,6 @@ import com.mathtabolism.bo.account.AccountBO;
 import com.mathtabolism.util.unit.UnitSystem;
 import com.mathtabolism.view.controller.BaseController;
 import com.mathtabolism.view.model.account.AccountModel;
-import com.mathtabolism.view.model.account.AccountWeightModel;
 
 /**
  * 

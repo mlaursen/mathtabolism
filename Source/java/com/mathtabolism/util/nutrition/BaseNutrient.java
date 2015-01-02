@@ -10,7 +10,7 @@ import com.mathtabolism.constants.NutrientType;
 import com.mathtabolism.dto.IngredientDto;
 import com.mathtabolism.util.calculation.Addable;
 import com.mathtabolism.util.calculation.Subtractable;
-import com.mathtabolism.util.number.NumberUtils;
+import com.mathtabolism.util.number.MathtabolismNumberUtils;
 
 /**
  * 
@@ -59,7 +59,7 @@ public abstract class BaseNutrient implements Addable, Subtractable {
   @Override
   public boolean equals(Object object) {
     if(object != null && object.getClass().equals(getClass())) {
-      return NumberUtils.aboutEqual(amount, ((BaseNutrient) object).amount);
+      return MathtabolismNumberUtils.aboutEqual(amount, ((BaseNutrient) object).amount);
     }
     return false;
   }
@@ -69,7 +69,7 @@ public abstract class BaseNutrient implements Addable, Subtractable {
    * @return a String
    */
   public String getDisplayValue() {
-    return NumberUtils.formatAsString(amount);
+    return MathtabolismNumberUtils.format(amount);
   }
   
   /**

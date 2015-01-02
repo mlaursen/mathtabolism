@@ -41,13 +41,13 @@ public interface AccountSettingDto extends GeneratedIdDto {
    * Sets the person's height. This number will be a representation of feet + inches or meters + cm
    * @param height the height
    */
-  void setHeight(Double height);
+  void setHeight(Integer height);
   
   /**
    * Gets the person's height. This number will be a representation of feet + inches or meters + cm
    * @return the height
    */
-  Double getHeight();
+  Integer getHeight();
   
   /**
    * Sets the person's activity multiplier

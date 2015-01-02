@@ -5,7 +5,6 @@ package com.mathtabolism.util.calculation;
 
 import com.mathtabolism.constants.Gender;
 import com.mathtabolism.constants.TDEEFormula;
-import com.mathtabolism.util.number.NumberUtils;
 import com.mathtabolism.util.nutrition.Calorie;
 import com.mathtabolism.util.unit.Measurement;
 import com.mathtabolism.util.unit.UnitConverter;
@@ -51,7 +50,7 @@ public class FormulaCalculation {
     }
     
     double amount = padding + (weightMultiplier * weight) + (heightMultiplier * height) - (ageMultiplier * age);
-    return new Calorie(NumberUtils.format(amount));
+    return new Calorie(amount);
   }
   
   /**

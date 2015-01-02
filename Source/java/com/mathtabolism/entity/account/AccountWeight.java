@@ -26,7 +26,8 @@ import com.mathtabolism.view.model.account.AccountWeightModel;
     @NamedQuery(
         name = AccountWeight.Q_findLatestWeight,
         query = "SELECT aw from AccountWeight aw WHERE aw.account.id = :account_id "
-              + "AND aw.weighInDate = (SELECT max(aw2.weighInDate) FROM AccountWeight aw2 WHERE aw2.account.id = :account_id)"
+              + "AND aw.weighInDate = (SELECT max(aw2.weighInDate) FROM AccountWeight aw2 WHERE aw2.account.id = :account_id) "
+              + "AND aw.weight is not null"
     ),
     @NamedQuery(
         name = AccountWeight.Q_findTodaysWeight,
@@ -36,19 +37,25 @@ import com.mathtabolism.view.model.account.AccountWeightModel;
     @NamedQuery(
         name = AccountWeight.Q_findCurrentAccountWeightWeek,
         query = "SELECT aw FROM AccountWeight aw WHERE aw.account.id = :account_id "
-            + "AND aw.weighInDate BETWEEN :start_date AND :end_date ORDER BY aw.weighInDate"
+              + "AND aw.weighInDate BETWEEN :start_date AND :end_date ORDER BY aw.weighInDate"
     ),
     @NamedQuery(
         name = AccountWeight.Q_findAccountWeightByDate,
         query = "SELECT aw FROM AccountWeight aw WHERE aw.account.id = :account_id AND aw.weighInDate = :weigh_in_date"
+    ),
+    @NamedQuery(
+        name = AccountWeight.Q_findAccountWeightsInRange,
+        query = "SELECT aw FROM AccountWeight aw WHERE aw.account.id = :account_id AND aw.weighInDate >= :start_date "
+              + "AND aw.weighInDate <= :end_date ORDER BY aw.weighInDate"
     )
 })
 @EntityConverter(converterDto = AccountWeightDto.class, toModel = AccountWeightModel.class)
 public class AccountWeight extends AccountIdFK implements AccountWeightDto {
-  public static final String Q_findLatestWeight = "AccountWeight.findLatestWeight";
-  public static final String Q_findTodaysWeight = "AccountWeight.findTodaysWeight";
+  public static final String Q_findLatestWeight             = "AccountWeight.findLatestWeight";
+  public static final String Q_findTodaysWeight             = "AccountWeight.findTodaysWeight";
   public static final String Q_findCurrentAccountWeightWeek = "AccountWeight.findCurrentAccountWeightWeek";
-  public static final String Q_findAccountWeightByDate = "AccountWeight.findAccountWeightByDate";
+  public static final String Q_findAccountWeightByDate      = "AccountWeight.findAccountWeightByDate";
+  public static final String Q_findAccountWeightsInRange    = "AccountWeight.findAccountWeightsInRange";
   
   @Temporal(TemporalType.DATE)
   private Date weighInDate;

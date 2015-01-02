@@ -6,6 +6,7 @@ package com.mathtabolism.view.model.account;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
 import com.mathtabolism.constants.ActivityMultiplier;
@@ -17,7 +18,7 @@ import com.mathtabolism.dto.AccountSettingDto;
 import com.mathtabolism.entity.account.Account;
 import com.mathtabolism.entity.account.AccountSetting;
 import com.mathtabolism.util.emconverter.ModelConverter;
-import com.mathtabolism.util.number.NumberUtils;
+import com.mathtabolism.util.number.MathtabolismNumberUtils;
 import com.mathtabolism.util.unit.Measurement;
 import com.mathtabolism.util.unit.UnitConverter;
 import com.mathtabolism.util.unit.UnitMeasurement;
@@ -39,7 +40,7 @@ public class AccountModel extends BaseAccountModel implements AccountSettingDto 
   private String heightInCentimeters;
   private Integer age;
   private Indicator useAge;
-  private Double height;
+  private Integer height;
   private ActivityMultiplier activityMultiplier;
   private Weekday recalculationDay;
   private TDEEFormula tdeeFormula;
@@ -52,7 +53,7 @@ public class AccountModel extends BaseAccountModel implements AccountSettingDto 
   }
   
   public Double getCurrentWeight() {
-    return currentWeight == null ? null : NumberUtils.format(currentWeight, 2);
+    return currentWeight == null ? null : Double.valueOf(MathtabolismNumberUtils.format(currentWeight, 2));
   }
   
   public void setPreviousWeight(Double weight) {
@@ -60,7 +61,7 @@ public class AccountModel extends BaseAccountModel implements AccountSettingDto 
   }
   
   public Double getPreviousWeight() {
-    return previousWeight == null ? null : NumberUtils.format(previousWeight, 2);
+    return previousWeight == null ? null : Double.valueOf(MathtabolismNumberUtils.format(previousWeight, 2));
   }
   
   public Gender getDefaultedGender() {
@@ -118,12 +119,12 @@ public class AccountModel extends BaseAccountModel implements AccountSettingDto 
    */
   public void updateHeight() {
     if(UnitSystem.isImperial(unitSystem)) {
-      Measurement inInches = new Measurement(UnitMeasurement.INCH, NumberUtils.stringToDouble(heightInInches));
-      Measurement inFeet   = new Measurement(UnitMeasurement.FOOT, NumberUtils.stringToDouble(heightInFeet));
+      Measurement inInches = new Measurement(UnitMeasurement.INCH, NumberUtils.toDouble(heightInInches));
+      Measurement inFeet   = new Measurement(UnitMeasurement.FOOT, NumberUtils.toDouble(heightInFeet));
       inInches.add(inFeet);
-      height = inInches.getValue();
+      height = inInches.getIntegerValue();
     } else {
-      height = NumberUtils.stringToDouble(heightInCentimeters);
+      height = NumberUtils.toInt(heightInCentimeters);
     }
   }
   
@@ -133,8 +134,8 @@ public class AccountModel extends BaseAccountModel implements AccountSettingDto 
       Measurement inFeet   = UnitConverter.convertToWholeNumber(inInches, UnitMeasurement.FOOT);
       inInches.subtract(inFeet);
       
-      setHeightInFeet(NumberUtils.formatAsString(inFeet.getValue(), 0));
-      setHeightInInches(NumberUtils.formatAsString(inInches.getValue(), 0));
+      setHeightInFeet(MathtabolismNumberUtils.format(inFeet.getValue(), 0));
+      setHeightInInches(MathtabolismNumberUtils.format(inInches.getValue(), 0));
     }
   }
 
@@ -180,12 +181,12 @@ public class AccountModel extends BaseAccountModel implements AccountSettingDto 
         Measurement inches = UnitConverter.convertToWholeNumber(centimeters, UnitMeasurement.INCH);
         Measurement feet   = UnitConverter.convertToWholeNumber(inches, UnitMeasurement.FOOT);
         inches.subtract(feet);
-        heightInInches = NumberUtils.formatAsString(inches.getValue(), 0);
-        heightInFeet   = NumberUtils.formatAsString(feet.getValue(), 0);
+        heightInInches = MathtabolismNumberUtils.format(inches.getValue(), 0);
+        heightInFeet   = MathtabolismNumberUtils.format(feet.getValue(), 0);
       } else {
         Measurement inches = new Measurement(UnitMeasurement.INCH, height);
         Measurement centimeters = UnitConverter.convertToWholeNumber(inches, UnitMeasurement.CENTIMETER);
-        heightInCentimeters = NumberUtils.formatAsString(centimeters.getValue(), 0);
+        heightInCentimeters = MathtabolismNumberUtils.format(centimeters.getValue(), 0);
       }
     }
     
@@ -225,12 +226,12 @@ public class AccountModel extends BaseAccountModel implements AccountSettingDto 
   }
 
   @Override
-  public void setHeight(Double height) {
+  public void setHeight(Integer height) {
     this.height = height;
   }
 
   @Override
-  public Double getHeight() {
+  public Integer getHeight() {
     return height;
   }
 

@@ -3,7 +3,6 @@
  */
 package com.mathtabolism.constants;
 
-import com.mathtabolism.util.number.NumberUtils;
 import com.mathtabolism.util.nutrition.Calorie;
 
 /**
@@ -73,6 +72,6 @@ public enum TDEEFormula {
         amount = (weightMultiplier * weightInKG) + (heightMultiplier * heightInCM) - (ageMultiplier * age) + padding;
         break;
     }
-    return new Calorie(NumberUtils.format(amount));
+    return new Calorie(amount);
   }
 }

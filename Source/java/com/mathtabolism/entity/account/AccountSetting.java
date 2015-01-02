@@ -64,7 +64,7 @@ public class AccountSetting extends AccountIdFK implements AccountSettingDto {
   @Temporal(TemporalType.DATE)
   private Date dateChanged;
   private Integer age;
-  private Double height;
+  private Integer height;
   
   @Enumerated(EnumType.ORDINAL)
   private Indicator useAge;
@@ -141,12 +141,12 @@ public class AccountSetting extends AccountIdFK implements AccountSettingDto {
   }
   
   @Override
-  public Double getHeight() {
+  public Integer getHeight() {
     return height;
   }
   
   @Override
-  public void setHeight(Double height) {
+  public void setHeight(Integer height) {
     this.height = height;
   }
   

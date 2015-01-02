@@ -35,7 +35,7 @@ public abstract class BaseAccountUtilsUTest {
   protected static final Gender DEFAULT_GENDER = Gender.MALE;
   protected static final String DEFAULT_PASSWORD = "neverGonnaGiveYouUp, neverGonnaLetYouDown";
   protected static final ActivityMultiplier DEFAULT_ACTIVITY_MULTIPLIER = ActivityMultiplier.LIGHTLY_ACTIVE;
-  protected static final Double DEFAULT_HEIGHT = new Double(71);
+  protected static final Integer DEFAULT_HEIGHT = 71;
   protected static final Date DEFAULT_ACTIVE_SINCE = new GregorianCalendar(1, 1, 2014).getTime();
   protected static final Date DEFAULT_LAST_LOGIN = new GregorianCalendar(12, 30, 2014).getTime();
   protected static final Date DEFAULT_BIRTHDAY   = new GregorianCalendar(1, 1, 1950).getTime();

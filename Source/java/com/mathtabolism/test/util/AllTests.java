@@ -11,6 +11,7 @@ import com.mathtabolism.test.util.calculation.intakecalculator.IntakeCalculatorU
 import com.mathtabolism.test.util.calculation.mathutils.MathUtilsUSuite;
 import com.mathtabolism.test.util.date.dateutils.DateUtilsUSuite;
 import com.mathtabolism.test.util.emconverter.EntityModelConverterUSuite;
+import com.mathtabolism.test.util.number.MathtabolismNumberUtilsUSuite;
 import com.mathtabolism.test.util.nutrition.NutritionUSuite;
 import com.mathtabolism.test.util.string.fractionutils.FractionUtilsUSuite;
 import com.mathtabolism.test.util.string.stringutils.StringUtilsUSuite;
@@ -23,7 +24,8 @@ import com.mathtabolism.test.util.unit.UnitPackageUSuite;
 @RunWith(Suite.class)
 @SuiteClasses({
     FractionUtilsUSuite.class, StringUtilsUSuite.class, MathUtilsUSuite.class, DateUtilsUSuite.class,
-    NutritionUSuite.class, UnitPackageUSuite.class, IntakeCalculatorUSuite.class, EntityModelConverterUSuite.class
+    NutritionUSuite.class, UnitPackageUSuite.class, IntakeCalculatorUSuite.class, EntityModelConverterUSuite.class,
+    MathtabolismNumberUtilsUSuite.class
 })
 public class AllTests {
   

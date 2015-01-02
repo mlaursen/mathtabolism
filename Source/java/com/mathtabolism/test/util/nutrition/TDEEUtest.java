@@ -22,18 +22,15 @@ public class TDEEUtest {
   
   @Test
   public void testCalculateTDEE() {
-    Calorie tdee = FormulaCalculation.calculateTDEE(183, 72, 23, Gender.MALE, UnitSystem.IMPERIAL,
-        TDEEFormula.HARRIS_BENEDICT);
-    assertThat(tdee, is(new Calorie(1966.97)));
-    tdee = FormulaCalculation.calculateTDEE(83.0074, 182.88, 23, Gender.MALE, UnitSystem.METRIC,
-        TDEEFormula.HARRIS_BENEDICT);
-    assertThat(tdee, is(new Calorie(1966.97)));
+    Calorie tdee = FormulaCalculation.calculateTDEE(183, 72, 23, Gender.MALE, UnitSystem.IMPERIAL, TDEEFormula.HARRIS_BENEDICT);
+    assertThat(tdee, is(new Calorie(1966.975)));
+    tdee = FormulaCalculation.calculateTDEE(83.0074, 182.88, 23, Gender.MALE, UnitSystem.METRIC, TDEEFormula.HARRIS_BENEDICT);
+    assertThat(tdee, is(new Calorie(1966.975)));
     
     tdee = FormulaCalculation.calculateTDEE(183, 72, 23, Gender.MALE, UnitSystem.IMPERIAL, TDEEFormula.MIFFLIN_ST_JEOR);
-    assertThat(tdee, is(new Calorie(1863.07)));
-    tdee = FormulaCalculation.calculateTDEE(83.0074, 182.88, 23, Gender.MALE, UnitSystem.METRIC,
-        TDEEFormula.MIFFLIN_ST_JEOR);
-    assertThat(tdee, is(new Calorie(1863.07)));
+    assertThat(tdee, is(new Calorie(1863.073)));
+    tdee = FormulaCalculation.calculateTDEE(83.0074, 182.88, 23, Gender.MALE, UnitSystem.METRIC, TDEEFormula.MIFFLIN_ST_JEOR);
+    assertThat(tdee, is(new Calorie(1863.074)));
   }
   
   @Test
@@ -41,7 +38,7 @@ public class TDEEUtest {
     Calorie bmr = FormulaCalculation.calculateBMR(183, 72, 23, Gender.MALE, UnitSystem.IMPERIAL);
     assertThat(bmr, is(new Calorie(1964.09)));
     bmr = FormulaCalculation.calculateBMR(83, 182, 23, Gender.MALE, UnitSystem.METRIC);
-    assertThat(bmr, is(new Calorie(1956.69)));
+    assertThat(bmr, is(new Calorie(1956.7)));
     
     bmr = FormulaCalculation.calculateBMR(120, 62, 23, Gender.FEMALE, UnitSystem.IMPERIAL);
     assertThat(bmr, is(new Calorie(1360.30)));

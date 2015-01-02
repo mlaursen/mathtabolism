@@ -13,6 +13,24 @@
         <f:param value="#{accountController.accountModel.username}"/>
       </h:outputFormat>
     </h2>
+    <h:form id="account-weights">
+      <table class="data-table striped">
+        <tr>
+          <th><h:outputText value="#{msg.account_WeighInDate}" /></th>
+          <th><h:outputText value="#{msg.weight}" /></th>
+        </tr>
+        <c:forEach items="#{accountWeightController.allWeights}" var="weight" varStatus="count"><tr>
+          <td><h:outputFormat value="#{weight.weighInDate}" converter="#{shortDateConverter}" /></td>
+          <td>
+            <h:inputText value="#{weight.weight}" converter="#{weightConverter}">
+              <f:ajax event="change" execute="#{accountWeightController.updateWeight(count.index)}" render="@form" />
+            </h:inputText>
+          </td>
+        </tr></c:forEach>
+      </table>
+    </h:form>
+    
+    <ui:remove>
     <h:form styleClass="one-line">
       <h:selectBooleanCheckbox value="#{accountController.accountModel.currentSettings.usingAge}" /><h:outputLabel value="#{msg.account_UseAge}" />
       <h:panelGrid columns="2">
@@ -70,6 +88,7 @@
       
       <h:commandButton action="#{accountController.createOrUpdateAccountSettings()}" value="#{msg.updateSettings}" />
     </h:form>
+    </ui:remove>
   </div>
   </ui:define>
 </ui:composition>
