@@ -9,65 +9,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <h:outputStylesheet library="css" name="main.css" />
   <h:outputStylesheet library="css" name="forms.css"/>
-  <h:outputScript library="js" name="main.js" />
   <ui:insert name="additionalHeader" />
 </h:head>
 <h:body>
-  <div class="navbar">
-    <h:form>
-      <nav>
-        <ul>
-          <li>
-            <h:commandLink action="info" value="#{msg.info}" />
-          </li>
-          <li>
-            <h:commandLink action="#{navigationController.redirect('IngredientNav.VIEW_INGREDIENTS')}" value="#{msg.viewIngredients}" />
-          </li>
-          <li>
-            <h:commandLink action="#{navigationController.redirect('AccountNav.STATISTICS')}" value="#{msg.statistics}" />
-          </li>
-          <c:choose>
-            <c:when test="#{not empty request.remoteUser}">
-              <li>
-                <h:commandLink action="#{navigationController.redirect('AccountNav.DAILY_INTAKE')}" value="#{msg.intake}" />
-              </li>
-              <li>
-                <h:commandLink action="#{navigationController.redirect('AccountNav.ACCOUNT_SETTINGS')}" value="#{msg.updateSettings}"/>
-              </li>
-              <li>
-                <h:commandLink action="#{navigationController.logOut()}" value="#{msg.logout}"/>
-              </li>
-            </c:when>
-            <c:otherwise>
-              <li>
-                <h:commandLink action="#{navigationController.redirect('AccountNav.INDEX')}" value="#{msg.login}" rendered="#{empty request.remoteUser}"/>
-              </li>
-            </c:otherwise>
-          </c:choose>
-        </ul>
-      </nav>
-    </h:form>
-  </div>
-  <c:if test="#{not empty request.remoteUser and not accountController.accountModel.incompleteSetup and not accountController.accountModel.todayWeightSet}">
-  <div class="update-weight">
-    <div class="rectangle-speech">
-      <h:form>
-        <h:outputLabel value="#{msg.weight}" />
-        <div>
-          <p:inputText value="#{accountController.accountModel.currentWeight}" size="3" 
-                       placeholder="#{weightConverter.getAsString(accountController.accountModel.previousWeight)}"
-                       converter="#{weightConverter}" />
-        </div>
-        <div>
-          <h:commandButton action="#{accountController.createOrUpdateCurrentWeight()}" value="#{msg.update}" styleClass="update-weight-button" />
-        </div>
-      </h:form>
-    </div>
-  </div>
-  </c:if>
+  <ui:include src="/WEB-INF/includes/navbar.xhtml" />
+  
+  <ui:include src="/WEB-INF/includes/account/updateWeightSpeech.xhtml" />
   <div class="content fluid">
     <p:growl />
     <ui:insert name="content" />
   </div>
+  <h:outputScript library="js" name="main.js" />
 </h:body>
 </html>

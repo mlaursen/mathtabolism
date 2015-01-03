@@ -1,0 +1,28 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:p="http://primefaces.org/ui">
+  <h:panelGroup layout="block" styleClass="navbar">
+    <h:form id="navigation">
+      <nav>
+        <ul>
+          <li><h:commandLink action="#{navigationController.redirect('Info.INFO')}" value="#{msg.info}" /></li>
+          <li><h:commandLink action="#{navigationController.redirect('IngredientNav.VIEW_INGREDIENTS')}" value="#{msg.viewIngredients}" /></li>
+          
+          <h:panelGroup rendered="#{accountController.loggedIn}">
+          <li><h:commandLink action="#{navigationController.redirect('AccountNav.STATISTICS')}" value="#{msg.statistics}" /></li>
+          <li><h:commandLink action="#{navigationController.redirect('AccountNav.DAILY_INTAKE')}" value="#{msg.intake}" /></li>
+          <li><h:commandLink action="#{navigationController.redirect('AccountNav.ACCOUNT_SETTINGS')}" value="#{msg.updateSettings}"/></li>
+          <li><h:commandLink action="#{navigationController.logOut()}" value="#{msg.logout}"/></li>
+          </h:panelGroup>
+          
+          <h:panelGroup rendered="#{not accountController.loggedIn}">
+          <li><h:commandLink action="#{navigationController.redirect('AccountNav.INDEX')}" value="#{msg.login}" /></li>
+          </h:panelGroup>
+        </ul>
+      </nav>
+    </h:form>
+  </h:panelGroup>
+</ui:composition>

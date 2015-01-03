@@ -1,102 +1,26 @@
 <ui:composition template="/WEB-INF/templates/animate.xhtml" xmlns="http://www.w3.org/1999/xhtml"
   xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
   xmlns:h="http://java.sun.com/jsf/html" xmlns:c="http://java.sun.com/jsp/jstl/core"
-  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-  xmlns:pf="http://primefaces.org/ui">
+  xmlns:p="http://primefaces.org/ui">
   <ui:define name="title">
     <h:outputFormat value="#{msg.login}" />
   </ui:define>
   
   <ui:define name="content">
-    <div class="container">
-      <h:panelGroup rendered="#{requestScope['javax.servlet.forward.servlet_path'].contains('/j_security_check')}">
-        <h:outputText value="#{msg.account_LoginError}" />
-      </h:panelGroup>
-      <div class="flip-container">
-        <div class="flipper">
-          <div id="login" class="account-form #{accountLoginController.loginCss}">
-            <h2>#{msg.login}</h2>
-            <h:form id="loginForm" styleClass="one-line">
-              <p>
-                <h:outputLabel value="#{msg.username}" />
-                <h:inputText id="j_username" name="j_username" p:autofocus="true" value="#{accountLoginController.accountModel.username}" />
-              </p>
-              
-              <p>
-                <h:outputLabel value="#{msg.password}" />
-                <h:inputSecret id="j_password" name="j_password" value="#{accountLoginController.accountModel.password}"/>
-              </p>
-              
-              <p>
-                <h:commandButton value="#{msg.login}" action="#{accountLoginController.login()}" />
-                <button type="button" onclick="flip()">#{msg.signup}</button>
-              </p>
-            </h:form>
-          </div>
-          <div id="signup" class="account-form #{accountLoginController.signupCss}">
-            <h2>#{msg.signup}</h2>
-            <h:form id="signup-form" styleClass="one-line" p:autocomplete="off">
-              <div>
-                <p>
-                  <h:outputLabel value="#{msg.username}" />
-                  <h:inputText id="username" value="#{accountLoginController.accountModel.username}">
-                    <f:ajax event="blur" execute="username" listener="#{accountLoginController.checkIsUsernameAvailable}"
-                            render="username-exists checklist-username" />
-                  </h:inputText>
-                  <pf:watermark id="rand-user" for="username" value="#{accountLoginController.randomUsername}" />
-                </p>
-                <div class="checklist">
-                  <h:graphicImage id="checklist-username" styleClass="icon-medium #{empty accountLoginController.accountModel.username ? 'hidden': ''}" 
-                                  library="icons" name="#{accountLoginController.usernameAvailable and accountLoginController.validUsernameLength ? 'checkmark' : 'cross'}.png" />
-                </div>
-              </div>
-              <h:outputText id="username-exists" value="#{not accountLoginController.validUsernameLength ? msg.account_UsernameError: msg.account_AccountExists}" 
-                            styleClass="error #{accountLoginController.usernameAvailable and accountLoginController.validUsernameLength ? '' : 'visible'}" />
-              
-              <div>
-                <p>
-                  <h:outputLabel value="#{msg.password}" />
-                  <h:inputSecret id="password" value="#{accountLoginController.accountModel.password}" />
-                </p>
-                <div class="checklist">
-                  <h:graphicImage id="checklist-password" styleClass="icon-medium hidden" />
-                </div>
-              </div>
-              <span id="password-error" class="error"></span>
-              
-              <div>
-                <p>
-                  <h:outputLabel value="#{msg.passwordConfirm}" />
-                  <h:inputSecret id="confirm-password" value="#{accountLoginController.accountModel.confirmPassword}" />
-                </p>
-                <div class="checklist">
-                  <h:graphicImage id="checklist-confirm-password" styleClass="icon-medium hidden"  />
-                </div>
-              </div>
-              <span id="confirm-password-error" class="error"></span>
-              
-              <p>
-                <h:outputLabel value="#{msg.account_RecoveryEmail}" />
-                <h:inputText id="email" value="#{accountLoginController.accountModel.email}" />
-                <pf:watermark for="email" value="#{msg.account_OptionalEmail}" />
-              </p>
-              
-              <p>
-                <h:commandButton action="#{accountLoginController.createAccount()}" value="#{msg.createAccount}" />
-                <button type="button" onclick="flip()">#{msg.cancelSignup}</button>
-              </p>
-            </h:form>
-          </div>
-        </div>
-      </div>
+  <h:panelGroup layout="block" rendered="#{empty request.remoteUser}">
+    <ui:include src="/WEB-INF/includes/account/login.xhtml"  />
+  </h:panelGroup>
+  
+  <ui:remove>
+  <h:panelGroup layout="block" rendered="#{accountController.loggedIn}">
+    <div>
+      <h2>
+        <h:outputFormat value="#{msg.welcomeUser}">
+          <f:param value="#{accountController.accountModel.username}"/>
+        </h:outputFormat>
+      </h2>
     </div>
-    <h:outputScript library="js/account" name="accountValidation.js" />
-    <script type="text/javascript">
-      var usernameError = "#{msg.account_UsernameError}";
-      var passwordError = "#{msg.account_PasswordError}";
-      var passwordMatchError = "#{msg.account_PasswordMatchError}";
-      var checkmark = "#{resource['icons/checkmark.png']}";
-      var cross = "#{resource['icons/cross.png']}";
-    </script>
+    <ui:include src="/WEB-INF/includes/weightTable.xhtml" />
+  </h:panelGroup></ui:remove>
   </ui:define>
 </ui:composition>

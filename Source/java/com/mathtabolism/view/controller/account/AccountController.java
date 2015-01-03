@@ -64,4 +64,8 @@ public class AccountController extends BaseController {
         return "EEEE, MMMM dd, YYYY";
     }
   }
+  
+  public boolean isNewCurrentWeight() {
+    return isLoggedIn() && getAccountModel().isIncompleteSetup() && !getAccountModel().isTodayWeightSet();
+  }
 }

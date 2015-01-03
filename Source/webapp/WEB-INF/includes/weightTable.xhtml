@@ -5,7 +5,7 @@
     xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:p="http://primefaces.org/ui">
     
-  <h:panelGroup layout="block" styleClass="span2">
+  <h:panelGroup layout="block" styleClass="span2" rendered="#{not empty request.remoteUser}">
     <h:form id="account-weights" styleClass="account-weight-form">
       <p:growl id="weight-messages" />
       <table class="data-table striped">
@@ -19,7 +19,7 @@
             <h:inputText id="weight-#{count.index}" value="#{weight.weight}" converter="#{weightConverter}" styleClass="weight">
               <f:ajax event="change" listener="#{accountWeightController.updateWeight(count.index)}" render="@form" />
             </h:inputText>
-            <p:watermark for="weight-#{count.index}" value="#{msg.emptyWeight}" />
+            <p:watermark for="weight-#{count.index}" value="#{msg.emptyNumber}" />
             <span class="#{accountWeightController.imperial ? 'lbs' : 'kg'}"></span>
           </td>
         </tr></c:forEach>

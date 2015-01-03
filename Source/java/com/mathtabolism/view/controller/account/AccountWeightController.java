@@ -35,16 +35,17 @@ public class AccountWeightController extends BaseController {
   private AccountController accountController;
   
   private AccountModel accountModel;
+  private List<AccountWeightModel> allWeights = null;
   
   @PostConstruct
   public void init() {
-    accountModel = accountController.getAccountModel();
+    if(accountController != null) {
+      accountModel = accountController.getAccountModel();
+    }
   }
   
-  private List<AccountWeightModel> allWeights = null;
-  
   public List<AccountWeightModel> getAllWeights() {
-    if(allWeights == null) {
+    if(accountModel != null && (allWeights == null || allWeights.isEmpty())) {
       allWeights = accountBO.findAccountWeightsInRange(accountModel, accountModel.getActiveSince(), new Date());
     }
     return allWeights;

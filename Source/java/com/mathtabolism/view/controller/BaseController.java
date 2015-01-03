@@ -11,6 +11,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.jboss.logging.Logger;
@@ -25,7 +26,12 @@ import com.mathtabolism.view.navigation.Navigatable;
  */
 public abstract class BaseController implements Serializable {
   private static final long serialVersionUID = -6686889317225940807L;
-  private static final String REDIRECT = "/pages/%s%s?faces-redirect=true";
+  private static final String INDEX = "/index";
+  private static final String FOLDER_SEPARATOR = "/";
+  private static final String FACES_REDIRECT = "%s?faces-redirect=true";
+  private static final String PAGES = "/pages/%s%s";
+  private static final String EMPTY = "";
+  private static final String MESSAGES = "messages";
   private static Logger logger = Logger.getLogger(BaseController.class);
   
   /**
@@ -84,7 +90,7 @@ public abstract class BaseController implements Serializable {
    */
   protected String getString(Enum<?> lookupEnum, Object... params) {
     if(lookupEnum == null) {
-      return "";
+      return EMPTY;
     }
     return getString(lookupEnum.name(), params);
   }
@@ -98,9 +104,9 @@ public abstract class BaseController implements Serializable {
    */
   protected String getString(String lookupString, Object... params) {
     if(lookupString == null) {
-      return "";
+      return EMPTY;
     }
-    ResourceBundle rb = ResourceBundle.getBundle("messages", getContext().getViewRoot().getLocale());
+    ResourceBundle rb = ResourceBundle.getBundle(MESSAGES, getContext().getViewRoot().getLocale());
     if(rb.containsKey(lookupString)) {
       String msg = rb.getString(lookupString);
       return MessageFormat.format(msg, params);
@@ -156,7 +162,6 @@ public abstract class BaseController implements Serializable {
     return items;
   }
   
-
   
   /**
    * Invalidates the current session and redirects to the welcome page
@@ -164,7 +169,13 @@ public abstract class BaseController implements Serializable {
    * @return the welcome page
    */
   public String logOut() {
-    getRequest().getSession().invalidate();
+    try {
+      getRequest().logout();
+      getRequest().getSession().invalidate();
+    } catch (ServletException e) {
+      displayErrorMessage(e.toString());
+      return null;
+    }
     return redirect(AccountNav.INDEX);
   }
   
@@ -175,15 +186,19 @@ public abstract class BaseController implements Serializable {
    */
   protected <T extends Enum<T> & Navigatable> String redirect(T page) {
     if(AccountNav.INDEX.equals(page)) {
-      return "/index?faces-redirect=true";
+      return String.format(FACES_REDIRECT, INDEX);
     }
     
     String folder = page.getFolder();
     if(StringUtils.isNotBlank(folder)) {
-      folder += "/";
+      folder += FOLDER_SEPARATOR;
     }
-    String redirect = String.format(REDIRECT, folder, StringUtils.toCamelCase(page.name()));
+    String redirect = String.format(FACES_REDIRECT, String.format(PAGES, folder, StringUtils.toCamelCase(page.name())));
     logger.debug(redirect);
     return redirect;
+  }
+  
+  public boolean isLoggedIn() {
+    return StringUtils.isNotBlank(getRequest().getRemoteUser());
   }
 }
