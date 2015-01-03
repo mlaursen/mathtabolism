@@ -71,4 +71,8 @@ public class DateConverter extends BaseController implements Converter {
     return DateFormatUtils.format((Date) object, getDateFormat());
   }
   
+  public String getAsString(Object object) {
+    return DateFormatUtils.format((Date) object, getDateFormat());
+  }
+  
 }

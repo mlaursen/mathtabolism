@@ -11,7 +11,7 @@ import javax.enterprise.context.ApplicationScoped;
  *
  * @author mlaursen
  */
-@Named
+@Named(value = "shortDateConverter")
 @ApplicationScoped
 public class ShortDateConverter extends DateConverter {
   private static final long serialVersionUID = 7274488707270622885L;

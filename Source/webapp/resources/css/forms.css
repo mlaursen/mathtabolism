@@ -234,6 +234,20 @@ input[type="submit"].previous:hover {
   font-size: 1.25em;
 }
 
+.account-weight-form {
+  width: 100%;
+  font-size: 1.5em;
+  line-height: 0.75em;
+}
+
+.account-weight-form input[type="text"].weight {
+  max-width: 80px;
+}
+
+.account-weight-form tr td {
+  vertical-align: middle;
+}
+
 .nl-form {
   width: 100%;
   font-size: 3em;
@@ -244,6 +258,7 @@ input[type="submit"].previous:hover {
   height: 0.75em;
 }
 
+.account-weight-form input[type="text"],
 .nl-form input[type="text"] {
   border: none;
   border-bottom: 2px solid #ff8518;
@@ -270,6 +285,7 @@ input[type="submit"].previous:hover {
   max-width: 150px;
 }
 
+.account-weight-form input[type="text"]:focus,
 .nl-form input[type="text"]:focus {
   outline: none;
 }
@@ -325,6 +341,7 @@ ol.steps li.current {
   color: #478982
 }
 
+.account-weight-form input[type="text"],
 .nl-form input[type="text"],
 .form-field-toggle {
   line-height: inherit;
@@ -337,6 +354,8 @@ ol.steps li.current {
   cursor: pointer;
 }
 
+.account-weight-form input[type="text"]:focus,
+.account-weight-form input[type="text"]:hover,
 .nl-form input[type="text"]:focus,
 .nl-form input[type="text"]:hover,
 .form-field-toggle:active,

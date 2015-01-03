@@ -7,28 +7,15 @@
     xmlns:p="http://primefaces.org/ui">
   <ui:define name="title"><h:outputText value="#{msg.updateSettings}" /></ui:define>
   <ui:define name="content">
-  <div class="span2 offset4">
+  <div>
     <h2>
       <h:outputFormat value="#{msg.welcomeUser}">
         <f:param value="#{accountController.accountModel.username}"/>
       </h:outputFormat>
     </h2>
-    <h:form id="account-weights">
-      <table class="data-table striped">
-        <tr>
-          <th><h:outputText value="#{msg.account_WeighInDate}" /></th>
-          <th><h:outputText value="#{msg.weight}" /></th>
-        </tr>
-        <c:forEach items="#{accountWeightController.allWeights}" var="weight" varStatus="count"><tr>
-          <td><h:outputFormat value="#{weight.weighInDate}" converter="#{shortDateConverter}" /></td>
-          <td>
-            <h:inputText value="#{weight.weight}" converter="#{weightConverter}">
-              <f:ajax event="change" execute="#{accountWeightController.updateWeight(count.index)}" render="@form" />
-            </h:inputText>
-          </td>
-        </tr></c:forEach>
-      </table>
-    </h:form>
+  </div>
+  <ui:include src="/WEB-INF/includes/weightTable.xhtml" />
+  <div class="span6 offset2">
     
     <ui:remove>
     <h:form styleClass="one-line">
