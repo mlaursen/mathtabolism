@@ -66,6 +66,6 @@ public class AccountController extends BaseController {
   }
   
   public boolean isNewCurrentWeight() {
-    return isLoggedIn() && getAccountModel().isIncompleteSetup() && !getAccountModel().isTodayWeightSet();
+    return isLoggedIn() && !getAccountModel().isIncompleteSetup() && !getAccountModel().isTodayWeightSet();
   }
 }

@@ -32,6 +32,7 @@ public class AccountSetupController extends BaseController {
   private static final long serialVersionUID = 1L;
   private static final String ACTIVE_STEP_CSS = "current";
   private static final String EMPTY = "";
+  private static final String WIDTH_STYLE = "width: %s%%";
   
   public static final int MIN_BIRTHDAY_OFFSET = 80;
   public static final int MAX_BIRTHDAY_OFFSET = 5;
@@ -43,6 +44,7 @@ public class AccountSetupController extends BaseController {
   @Inject
   private AccountBO accountBO;
   private boolean isFromPrevious = false;
+  private boolean isCompleted = false;;
   
   private AccountModel accountModel;
   private AccountStepForm activeStep = AccountStepForm.STEP1;
@@ -166,12 +168,13 @@ public class AccountSetupController extends BaseController {
   /**
    * Creates or updates the Account's Settings/configuration
    */
-  public String createOrUpdateAccountSettings() {
+  public void createOrUpdateAccountSettings() {
     accountModel = accountBO.createOrUpdateAccountSettings(accountModel);
     
     accountBO.createOrUpdateWeight(accountModel);
     displayInfoMessage("account_UpdatedSettings");
-    return redirect(AccountNav.DAILY_INTAKE);
+    isCompleted = true;
+    //return redirect(AccountNav.DAILY_INTAKE);
   }
   
   /**
@@ -246,5 +249,9 @@ public class AccountSetupController extends BaseController {
       default:
         return "";
     }
+  }
+  
+  public boolean isCompleted() {
+    return isCompleted;
   }
 }

@@ -248,6 +248,7 @@ input[type="submit"].previous:hover {
   vertical-align: middle;
 }
 
+.final-message,
 .nl-form {
   width: 100%;
   font-size: 3em;
@@ -290,6 +291,7 @@ input[type="submit"].previous:hover {
   outline: none;
 }
 
+.step-controls .error-message li,
 ol.steps, 
 .nl-form ul {
   list-style: none;
@@ -455,6 +457,7 @@ ol.steps li.current {
 }
 
 .nl-form .controls {
+  margin-top: 0.8em;
   width: 100%;
   text-align: center;
   font-size: initial;
@@ -467,6 +470,70 @@ ol.steps li.current {
   display: inline-block;
   min-width: 140px;
   max-width: 140px;
+}
+
+.step-controls .progress,
+.step-controls .number {
+  line-height: initial;
+}
+
+.step-controls {
+  font-size: 1.2em;
+}
+.step-controls .number {
+  position: absolute;
+  right: 0;
+  overflow: hidden;
+  margin: 0.4em 0;
+  width: 3em;
+  font-weight: 700;
+}
+
+.step-controls .progress {
+  width: 0%;
+  height: 0.5em;
+  background: rgba(0, 0, 0, 0.3);
+  transition: width 0.4s ease-in-out;
+  -webkit-transition: width 0.4s ease-in-out;
+  -moz-transition: width 0.4s ease-in-out;
+}
+
+.step-controls .progress::before {
+  position: absolute;
+  left: 0;
+  top: auto;
+  width: 100%;
+  height: inherit;
+  background: rgba(0, 0, 0, 0.05);
+  content: '';
+}
+
+.step-controls .number:after {
+  position: absolute;
+  left: 50%;
+  content: '/';
+  opacity: 0.4;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+}
+
+.step-controls .number span {
+  float: right;
+  width: 40%;
+  text-align: center;
+}
+
+.step-controls .number .number-current {
+  float: left;
+}
+
+.step-controls ul.error-message {
+  padding: 0.4em 3.5em 0 0;
+  width: 100%;
+  color: rgba(0,0,0,0.7);
+  font-style: italic;
+  display: table-cell;
 }
 
 

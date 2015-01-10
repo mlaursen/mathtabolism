@@ -1,11 +1,29 @@
 /**
  * 
  */
+var allSteps = $(".nl-form .steps > li").length;
 $(function() {
+  $(".step-controls .number-total").html(allSteps);
   addEventListeners();
 });
 
+function attemptRedirect(data) {
+  if(data.status == 'success') {
+    setTimeout(function() {
+      console.log($(".step-form-completed-redirect"));
+      $(".step-form-completed-redirect").click();
+    }, 5000);
+  } else {
+    addEventListeners
+  }
+}
+
 function addEventListeners() {
+  var currentStep = $(".nl-form > ol > li.current").index();
+  var width = currentStep * (100 / allSteps);
+  $("#step-progress").css("width", width + '%');
+  $(".step-controls .number-current").html(currentStep + 1);
+  
   $(".nl-form .form-field").each(function() {
     var mainDiv = this;
     

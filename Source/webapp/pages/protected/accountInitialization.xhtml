@@ -11,8 +11,8 @@
     <ui:param name="extraHeaderDetail" value="#{msg.firstTimeUser}" />
   </ui:include>
   <div class="container">
-    <h:form id="account-settings" styleClass="nl-form">
-      <ol class="steps">
+    <h:form id="account-settings" styleClass="nl-form #{accountSetupController.completed ? 'hidden' : ''}">
+      <ol id="account-settings-steps" class="steps">
         <ui:remove>Step 1: Setting Unit System</ui:remove>
         <li class="#{accountSetupController.getStepCss('STEP1')}">
           <span>
@@ -146,17 +146,33 @@
         <ui:remove>I can't figure out how to get @form or something else nice to work... So have to give every visible field in the execute :/.</ui:remove>
         <h:commandButton id="previous" value="#{msg.previous}" styleClass="previous" immediate="true"
                          style="#{accountSetupController.firstStep ? 'visibility: hidden' : ''}">
-          <f:ajax event="click" render="@form" execute="#{accountSetupController.executables}" listener="#{accountSetupController.previousStep}"
+          <f:ajax event="click" render="@form errors" execute="#{accountSetupController.executables}" listener="#{accountSetupController.previousStep}"
                   onevent="addEventListeners" immediate="true" />
         </h:commandButton>
         <h:commandButton id="next" value="#{msg.next}" styleClass="next" rendered="#{not accountSetupController.lastStep}">
-          <f:ajax event="click" render="@form" execute="#{accountSetupController.executables}" listener="#{accountSetupController.nextStep}"
+          <f:ajax event="click" render="@form errors" execute="#{accountSetupController.executables}" listener="#{accountSetupController.nextStep}"
                   onevent="addEventListeners" />
         </h:commandButton>
-        <h:commandButton value="#{msg.submit}" action="#{accountSetupController.createOrUpdateAccountSettings()}"
-                         rendered="#{accountSetupController.lastStep}" />
+        <h:commandButton value="#{msg.complete}" rendered="#{accountSetupController.lastStep}">
+          <f:ajax event="click" render="@form errors final-message step-controls" execute="#{accountSetupController.executables}"
+                  listener="#{accountSetupController.createOrUpdateAccountSettings()}" onevent="attemptRedirect" />
+        </h:commandButton>
       </div>
-      <h:messages id="errors" rendered="#{not accountSetupController.fromPrevious}" />
+    </h:form>
+    <h:panelGroup layout="block" id="step-controls" class="step-controls #{accountSetupController.completed ? 'hidden' : ''}">
+      <div id="step-progress" class="progress"></div>
+      <span class="number">
+        <span class="number-current"></span>
+        <span class="number-total"></span>
+      </span>
+      <h:messages id="errors" class="error-message #{accountSetupController.fromPrevious ? 'invisible' : ''}" />
+    </h:panelGroup>
+    <h:panelGroup layout="block" id="final-message" styleClass="final-message #{accountSetupController.completed ? '' : 'hidden'}">
+      <h:outputText value="#{msg.account_Completed}" />
+    </h:panelGroup>
+    <h:form>
+      <h:commandLink id="redirect" action="#{navigationController.redirect('AccountNav.DAILY_INTAKE')}"
+                  styleClass="hidden step-form-completed-redirect" tabindex="-1" />
     </h:form>
   </div>
   <h:outputScript library="js/account" name="accountInitialization.js" />
