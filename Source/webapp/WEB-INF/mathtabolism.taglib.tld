@@ -15,5 +15,10 @@
       <required>true</required>
       <description>The modal id.</description>
     </attribute>
+    <attribute>
+      <name>styleClass</name>
+      <type>java.lang.String</type>
+      <description>Any additional CSS classes to be applied to the modal.</description>
+    </attribute>
   </tag>
 </taglib>

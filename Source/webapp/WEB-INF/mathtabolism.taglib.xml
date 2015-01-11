@@ -14,5 +14,10 @@
       <type>java.lang.String</type>
       <description>The id for the modal dialog.</description>
     </attribute>
+    <attribute>
+      <name>styleClass</name>
+      <type>java.lang.String</type>
+      <description>Any additional CSS classes to be applied to the modal.</description>
+    </attribute>
   </tag>
 </facelet-taglib>

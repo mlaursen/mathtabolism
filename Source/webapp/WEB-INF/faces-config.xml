@@ -9,6 +9,10 @@
       <base-name>messages</base-name>
       <var>msg</var>
     </resource-bundle>
+    <resource-bundle>
+      <base-name>ValidationMessages</base-name>
+      <var>validation</var>
+    </resource-bundle>
   </application>
   
 </faces-config>

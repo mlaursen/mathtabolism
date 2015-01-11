@@ -1,4 +1,6 @@
-/* Navbar CSS */
+/* ===============================================================
+ * Navbar CSS
+ */
 .navbar {
   width: 100%;
   font-size: 1.2em;
@@ -30,7 +32,8 @@
   display: inline-block;
 }
 
-.navbar a > span {
+.navbar a > span,
+.navbar a > span ~ i {
   margin-left: 0.5em;
 }
 
@@ -79,7 +82,6 @@
   line-height: 2em;
 }
 
-/* Examples for media queries */
 @media screen and (max-width: 52.75em) {
   .navbar {
     font-size: 80%;
@@ -126,7 +128,9 @@
   }
 }
 
-/* Modal Dialog CSS */
+/* ===============================================================
+ * Modal Dialog CSS
+ */
 .dialog,
 .dialog-overlay {
   width: 100%;
@@ -143,6 +147,16 @@
   -webkit-justify-center: center;
   justify-content: center;
   pointer-events: none;
+}
+
+.dialog.sticky-top {
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+}
+
+.dialog.sticky-bottom {
+  -webkit-align-items: flex-end;
+  align-items: flex-end;
 }
 
 .dialog-overlay {
@@ -165,11 +179,11 @@
   max-width: 560px;
   min-width: 290px;
   background: #fff;
-  padding: 4em;
-  text-align: center;
+  padding: 2em 4em 4em;
   position: relative;
   z-index: 5;
   opacity: 0;
+  overflow: hidden;
 }
 
 .dialog-open .dialog-content {
@@ -182,12 +196,9 @@
   transition-duration: 0.4s;
 }
 
-.dialog-content {
-  overflow: hidden;
-}
-
 .dialog.dialog-open .dialog-content,
 .dialog.dialog-close .dialog-content {
+  opacity: 1;
   -webkit-animation-duration: 0.4s;
   animation-duration: 0.4s;
   -webkit-animation-fill-mode: forwards;
@@ -201,29 +212,29 @@
   animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
 }
 
-.dialog.dalog-close .dialog-content {
+.dialog.dialog-close .dialog-content {
   -webkit-animation-name: anim-close-dialog;
   animation-name: anim-close-dialog;
 }
 
 @-webkit-keyframes anim-open-dialog {
-  0% { opacity: 0; -webkit-transform: translate3d(0, -400px, 0); }
+  0% { opacity: 0; -webkit-transform: translate3d(0, -100%, 0); }
   100% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); }
 }
 
 @keyframes anim-open-dialog {
-  0% { opacity: 0; -webkit-transform: translate3d(0, -400px, 0); transform: translate3d(0, -400px, 0); }
+  0% { opacity: 0; -webkit-transform: translate3d(0, -100%, 0); transform: translate3d(0, -100%, 0); }
   100% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
 }
 
 @-webkit-keyframes anim-close-dialog {
-  0% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); }
-  100% { opacity: 0; -webkit-transform: translate3d(0, 100px, 0); }
+  0% { -webkit-transform: translate3d(0, 0, 0); }
+  100% { -webkit-transform: translate3d(0, -100%, 0); }
 }
 
 @keyframes anim-close-dialog {
-  0% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
-  100% { opacity: 0; -webkit-transform: translate3d(0, 100px, 0); transform: translate3d(0, 100px, 0); }
+  0% { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+  100% { -webkit-transform: translate3d(0, -100%, 0); transform: translate3d(0, -100%, 0); }
 }
 
 /* inner element animations */
@@ -235,4 +246,164 @@
 @keyframes anim-elem {
   0% { opacity: 0; -webkit-transform: translate3d(0, -100px, 0); transform: translate3d(0, -100px, 0); }
   100% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+}
+
+@media screen and (max-device-height: 800px) {
+  .dialog-content {
+    font-size: 60%;
+  }
+}
+
+/* ===============================================================
+ * Single Line form css
+ */
+button,
+input[type="submit"]:hover,
+input[type="button"]:hover {
+  cursor: pointer;
+}
+
+input[type="text"],
+input[type="password"] {
+  padding: 0.3em;
+  border: 2px solid #f012be;
+  background: transparent;
+  font-weight: 300;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+input[type="submit"],
+input[type="button"],
+button {
+  display: block;
+  margin-top: 2.5em;
+  padding: 1.0em;
+  border: none;
+  color: #f9f6e5;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 800;
+}
+
+input[type="submit"] {
+  background: #2ecc40;
+}
+
+input[type="submit"]:hover {
+  background: #01ff70;
+}
+
+button,
+input[type="button"] {
+  background: #0074d9;
+}
+
+button:hover,
+button.previous:hover {
+  background: #3390E1;
+}
+
+input[type="text"]:focus,
+input[type="text"]:hover,
+input[type="password"]:focus,
+input[type="password"]:hover {
+  border-color: #85144B;
+  color: #e75854;
+}
+
+/* ===============================================================
+ * Single Line form css
+ */
+form.one-line,
+form.one-line input,
+form.one-line table,
+form.one-line button,
+form.one-line label {
+  width: 100%;
+  display: block;
+}
+
+form.one-line label {
+  color: #000000;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* ===============================================================
+ * Login / Sign Up form css
+ */
+.login-signup-form .checklist {
+  display: none;
+}
+
+.login-signup-form {
+  font-size: 2.2em;
+}
+
+.login-signup-form h2 {
+  margin: 0;
+  font-weight: 300;
+  font-size: 150%;
+  text-align: center;
+  padding-bottom: 0.2em;
+}
+
+.login-signup-form input[type="submit"],
+.login-signup-form button {
+  font-size: 50%;
+  font-weight: 800;
+}
+
+.login-signup-form label {
+  font-size: 50%;
+}
+
+.login-signup-form input[type="text"],
+.login-signup-form input[type="password"] {
+  font-weight: 300;
+  font-size: 100%;
+}
+
+.login-signup-form #login-form-content {
+  display: block;
+}
+
+.login-signup-form #signup-form-content {
+  display: none;
+}
+
+.login-signup-form.signup-visible #login-form-content {
+  display: none;
+}
+
+.login-signup-form.signup-visible #signup-form-content {
+  display: block;
+}
+
+.login-signup-form .form-row {
+  display: block;
+}
+
+.login-signup-form .form-row div > span.fa {
+  position: absolute;
+  right: 5px;
+  font-size: 1.8em;
+}
+
+.login-signup-form .error {
+  font-style: italic;
+  font-size: 80%;
+  color: #ff4136;
+}
+
+
+
+.icon-red {
+  color: #ff4136;
+}
+
+.icon-green {
+  color: #2ecc40;
 }

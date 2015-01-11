@@ -2,27 +2,69 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:c="http://java.sun.com/jsp/jstl/core"
-    xmlns:p="http://primefaces.org/ui">
-  <h:panelGroup layout="block" styleClass="navbar">
-    <h:form id="navigation">
-      <nav>
-        <ul>
-          <li><h:commandLink action="#{navigationController.redirect('Info.INFO')}" value="#{msg.info}" /></li>
-          <li><h:commandLink action="#{navigationController.redirect('IngredientNav.VIEW_INGREDIENTS')}" value="#{msg.viewIngredients}" /></li>
-          
-          <h:panelGroup rendered="#{accountController.loggedIn}">
-          <li><h:commandLink action="#{navigationController.redirect('AccountNav.STATISTICS')}" value="#{msg.statistics}" /></li>
-          <li><h:commandLink action="#{navigationController.redirect('AccountNav.DAILY_INTAKE')}" value="#{msg.intake}" /></li>
-          <li><h:commandLink action="#{navigationController.redirect('AccountNav.ACCOUNT_SETTINGS')}" value="#{msg.updateSettings}"/></li>
-          <li><h:commandLink action="#{navigationController.logOut()}" value="#{msg.logout}"/></li>
-          </h:panelGroup>
-          
-          <h:panelGroup rendered="#{not accountController.loggedIn}">
-          <li><h:commandLink action="#{navigationController.redirect('AccountNav.INDEX')}" value="#{msg.login}" /></li>
-          </h:panelGroup>
-        </ul>
-      </nav>
-    </h:form>
-  </h:panelGroup>
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+  <h:form id="navigation">
+  <nav id="navbar" class="navbar">
+    <ul>
+      <li>
+        <h:commandLink action="#{navigationController.redirect('MainNav.INDEX')}">
+          <i class="fa fa-info-circle"></i><span><h:outputText value="#{msg.info}" /></span>
+        </h:commandLink>
+      </li>
+      <li>
+        <h:commandLink action="#{navigationController.redirect('FoodNav.FOOD')}">
+          <i class="fa fa-database"></i><span><h:outputText value="#{msg.food}"  /></span>
+        </h:commandLink>
+      </li>
+      <li>
+        <h:commandLink action="#{navigationController.redirect('FoodNav.MEALS')}">
+          <i class="fa fa-cutlery"></i><span><h:outputText value="#{msg.meals}" /></span>
+        </h:commandLink>
+      </li>
+      <ui:fragment rendered="#{not empty request.remoteUser}">
+      <li id="account-submenu">
+        <ui:remove>Easiest way to prevent form submit on click</ui:remove>
+        <a href="#"><i class="fa fa-user"></i><span><h:outputText value="#{msg.account}" /></span><i id="account-submenu-arrow" class="fa fa-angle-double-down"></i></a>
+        <div class="submenu">
+          <div class="submenu-inner">
+            <div>
+              <ul>
+                <li>
+                  <h:commandLink action="#{navigationController.redirect('AccountNav.STATISTICS')}">
+                    <i class="fa fa-line-chart"></i><span><h:outputText value="#{msg.statistics}" /></span>
+                  </h:commandLink>
+                </li>
+                <li>
+                  <h:commandLink action="#{navigationController.redirect('AccountNav.SEETTINGS_AND_WEIGHT')}">
+                    <i class="fa fa-cogs"></i><span><h:outputText value="#{msg.settingsAndWeight}" /></span>
+                  </h:commandLink>
+                </li>
+                <li>
+                  <h:commandLink action="#{navigationController.redirect('AccountNav.DAILY_INTAKE')}">
+                    <i class="fa fa-calculator"></i><span><h:outputText value="#{msg.dailyIntake}" /></span>
+                  </h:commandLink>
+                </li>
+                <li>
+                  <h:commandLink action="#{navigationController.logOut()}">
+                    <i class="fa fa-sign-out"></i><span><h:outputText value="#{msg.logout}" /></span>
+                  </h:commandLink>
+                </li>
+              </ul>
+            </div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </li>
+      </ui:fragment>
+      <ui:fragment rendered="#{empty request.remoteUser}">
+      <li>
+        <a href="#" data-dialog="login-signup-modal" class="dialog-toggle">
+          <i class="fa fa-user"></i><span><h:outputText value="#{msg.loginOrSignup}" /></span>
+        </a>
+      </li>
+      </ui:fragment>
+    </ul>
+  </nav>
+  </h:form>
 </ui:composition>

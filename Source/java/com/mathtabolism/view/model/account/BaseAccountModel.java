@@ -16,6 +16,7 @@ import com.mathtabolism.view.model.BaseModel;
  */
 public abstract class BaseAccountModel extends BaseModel implements AccountDto {
   protected String accountId;
+  
   protected String username;
   protected String email;
   protected String password;

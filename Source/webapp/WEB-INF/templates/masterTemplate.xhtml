@@ -4,7 +4,9 @@
   xmlns:f="http://java.sun.com/jsf/core"
   xmlns:h="http://java.sun.com/jsf/html"
   xmlns:c="http://java.sun.com/jsp/jstl/core"
-  xmlns:m="http://mathtabolism.com/jsf/facelets">
+  xmlns:m="http://mathtabolism.com/jsf/facelets"
+  xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+  xmlns:p="http://primefaces.org/ui">
 <h:head>
   <ui:param name="isDevelopment" value="#{facesContext.application.projectStage == 'Development'}" />
   <ui:param name="addMin" value="#{isDevelopment ? '' : '.min'}" />
@@ -15,69 +17,83 @@
   <h:outputStylesheet library="css" name="master#{addMin}.css" />
 </h:head>
 <h:body>
-  <h:form id="navigation">
-  <nav id="navbar" class="navbar">
-    <ul>
-      <li>
-        <h:commandLink action="#{navigationController.redirect('MainNav.INDEX')}">
-          <i class="fa fa-info-circle"></i><span><h:outputText value="#{msg.info}" /></span>
-        </h:commandLink>
-      </li>
-      <li>
-        <h:commandLink action="#{navigationController.redirect('FoodNav.FOOD')}">
-          <i class="fa fa-database"></i><span><h:outputText value="#{msg.food}"  /></span>
-        </h:commandLink>
-      </li>
-      <li>
-        <h:commandLink action="#{navigationController.redirect('FoodNav.MEALS')}">
-          <i class="fa fa-cutlery"></i><span><h:outputText value="#{msg.meals}" /></span>
-        </h:commandLink>
-      </li>
-      <ui:fragment rendered="#{not empty request.remoteUser}">
-      <li onclick="this.className = (this.className == 'open' ? '' : 'open');">
-        <ui:remove>Easiest way to prevent form submit on click</ui:remove>
-        <a href="#"><i class="fa fa-user"></i><span><h:outputText value="#{msg.account}" /></span><i class="fa fa-angle-double-down"></i></a>
-        <div class="submenu">
-          <div class="submenu-inner">
-            <div>
-              <ul>
-                <li>
-                  <h:commandLink action="#{navigationController.redirect('AccountNav.STATISTICS')}">
-                    <i class="fa fa-line-chart"></i><span><h:outputText value="#{msg.statistics}" /></span>
-                  </h:commandLink>
-                </li>
-                <li>
-                  <h:commandLink action="#{navigationController.redirect('AccountNav.SEETTINGS_AND_WEIGHT')}">
-                    <i class="fa fa-cogs"></i><span><h:outputText value="#{msg.settingsAndWeight}" /></span>
-                  </h:commandLink>
-                </li>
-                <li>
-                  <h:commandLink action="#{navigationController.redirect('AccountNav.DAILY_INTAKE')}">
-                    <i class="fa fa-calculator"></i><span><h:outputText value="#{msg.dailyIntake}" /></span>
-                  </h:commandLink>
-                </li>
-              </ul>
-            </div>
-            <div></div>
-            <div></div>
+  <ui:include src="/WEB-INF/includes/navbar.xhtml" />
+  <m:modalDialog modalId="login-signup-modal" styleClass="sticky-top">
+    <h:form id="login-form" styleClass="login-signup-form one-line">
+      <div id="login-form-content">
+        <h2><h:outputText value="#{msg.login}" /></h2>
+        <div class="form-row">
+          <h:outputLabel for="login-username" value="#{msg.username}" />
+          <h:inputText id="login-username" value="#{accountLoginController.accountModel.username}" />
+        </div>
+        
+        <div class="form-row">
+          <h:outputLabel for="login-password" value="#{msg.password}" />
+          <h:inputSecret id="login-password" value="#{accountLoginController.accountModel.password}" />
+        </div>
+        
+        <h:commandButton action="#{accountLoginController.login()}" value="#{msg.login}" />
+        <button type="button" id="toggle-form" onclick="toggleLoginSignupForm()"><h:outputText  value="#{msg.signup}" /></button>
+      </div>
+    </h:form>
+    
+    <h:form id="signup-form" styleClass="login-signup-form one-line">  
+      <div id="signup-form-content">
+        <h2><h:outputText value="#{msg.signup}" /></h2>
+        <div class="form-row">
+          <div>
+            <h:outputLabel for="username" value="#{msg.username}" />
+            <span id="checklist-username" class="fa"></span>
+            <h:inputText id="username" value="#{accountLoginController.accountModel.username}" validator="#{usernameValidator.validate}">
+              <f:ajax event="blur" render="username-error checklist-username" onevent="updateUsernameFields" />
+            </h:inputText>
+            <ui:remove><p:watermark id="rand-user" for="username" value="#{accountLoginController.randomUsername}" /></ui:remove>
           </div>
         </div>
-      </li>
-      </ui:fragment>
-      <ui:fragment>
-      <li>
-        <a href="#" data-dialog="login-signup-modal" class="dialog-toggle">
-          <i class="fa fa-user"></i><span><h:outputText value="#{msg.loginOrSignup}" /></span>
-        </a>
-      </li>
-      </ui:fragment>
-    </ul>
-  </nav>
-  </h:form>
-  <m:modalDialog modalId="login-signup-modal">
-  Hello!
+        <h:message id="username-error" for="username" styleClass="error" />
+        
+        <div class="form-row">
+          <div>
+            <h:outputLabel for="password" value="#{msg.password}" />
+            <span id="checklist-password" class="fa"></span>
+            <h:inputSecret id="password" value="#{accountLoginController.accountModel.password}">
+              <f:validator validatorId="passwordsValidator" />
+            </h:inputSecret>
+          </div>
+        </div>
+        <h:message id="password-error" for="password" styleClass="error" />
+      
+        <div class="form-row">
+          <div>
+            <h:outputLabel value="#{msg.passwordConfirm}" />
+            <h:inputSecret id="confirm-password" value="#{accountLoginController.accountModel.confirmPassword}">
+              <f:validator validatorId="passwordsValidator"/>
+            </h:inputSecret>
+          </div>
+          <span id="checklist-confirm-password"></span>
+        </div>
+        <h:message id="confirm-password-error" for="confirm-password" styleClass="error" />
+        
+        <div class="form-row">
+          <h:outputLabel for="email" value="#{msg.account_RecoveryEmail}" />
+          <h:inputText id="email" value="#{accountLoginController.accountModel.email}" />
+          <ui:remove><p:watermark for="email" value="#{msg.account_OptionalEmail}" /></ui:remove>
+        </div>
+      
+        <h:commandButton action="#{accountLoginController.createAccount()}" value="#{msg.createAccount}" />
+        <button type="button" id="toggle-form" onclick="toggleLoginSignupForm()"><h:outputText value="#{msg.cancelSignup}" /></button>
+      </div>
+    </h:form>
   </m:modalDialog>
   <h:outputScript library="thirdparty/jquery" name="jquery-2.1.1#{addMin}.js" />
   <h:outputScript library="js" name="master.js" />
+  <h:outputScript library="js/account" name="accountValidation.js" />
+  <script type="text/javascript">
+    var usernameError = "#{msg.account_UsernameError}";
+    var passwordError = "#{msg.account_PasswordError}";
+    var passwordMatchError = "#{msg.account_PasswordMatchError}";
+    var checkmark = "#{resource['icons/checkmark.png']}";
+    var cross = "#{resource['icons/cross.png']}";
+  </script>
 </h:body>
 </html>

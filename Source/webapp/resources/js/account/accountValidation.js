@@ -1,6 +1,44 @@
 /**
  * 
  */
+var CHECK = "fa-check-circle-o";
+var TIMES = "fa-times-circle-o";
+var RED   = "icon-red";
+var GREEN = "icon-green";
+
+function updateUsernameFields(data) {
+  if(data.status == 'success') {
+    var username = $("input[id$=':username']");
+    var usernameError = $("span[id$=':username-error']").html();
+    var usernameChecklist = $("#checklist-username");
+    if(usernameError != '') {
+      if(usernameChecklist.hasClass(CHECK)) {
+        usernameChecklist.removeClass(CHECK);
+        usernameChecklist.removeClass(GREEN);
+      }
+      
+      if(!usernameChecklist.hasClass(TIMES)) {
+        usernameChecklist.addClass(TIMES);
+        usernameChecklist.addClass(RED);
+      }
+    } else {
+      if(usernameChecklist.hasClass(TIMES)) {
+        usernameChecklist.removeClass(TIMES);
+        usernameChecklist.removeClass(RED);
+      }
+      
+      if(!usernameChecklist.hasClass(CHECK)) {
+        usernameChecklist.addClass(CHECK);
+        usernameChecklist.addClass(GREEN);
+      }
+    }
+  }
+}
+
+
+
+
+
 var form = $("#signup-form");
 var user = $("input[id$=':username']");
 var userErr = $("span[id$=':username-exists']");

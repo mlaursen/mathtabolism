@@ -38,8 +38,6 @@ import com.mathtabolism.view.navigation.AccountNav;
 public class AccountLoginController extends BaseController {
   private static final long serialVersionUID = 1L;
   private static Logger logger = Logger.getLogger(AccountLoginController.class);
-  private static final String FRONT_CSS = "flipper-front";
-  private static final String BACK_CSS = "flipper-back";
   private static final String LOGIN_ERROR = "account_InvalidCredentials";
   private static final String CREATED_LOGIN_ERROR = "account_LoginErrorAFterCreation";
   
@@ -47,10 +45,6 @@ public class AccountLoginController extends BaseController {
   private AccountBO accountBO;
   
   private CreateAccountModel accountModel;
-  private String loginCss = FRONT_CSS;
-  private String signupCss = BACK_CSS;
-  private boolean isUsernameAvailable = true;
-  private boolean isValidUsernameLength = true;
 
   /**
    * Lazy load of the account
@@ -86,8 +80,6 @@ public class AccountLoginController extends BaseController {
       }
       
       if(!isValid) {
-        setLoginCss(BACK_CSS);
-        setSignupCss(FRONT_CSS);
         return null;
       }
       accountBO.createAccount(accountModel);
@@ -128,67 +120,6 @@ public class AccountLoginController extends BaseController {
     }
   }
   
-  /**
-   * Sets the css class for the login side of the flipper. This will be
-   * a css class indicating if the login side should start front facing or back facing
-   * @param loginCss the login css class
-   */
-  public void setLoginCss(String loginCss) {
-    this.loginCss = loginCss;
-  }
-  
-  /**
-   * Gets the css class for the login side of the flipper. This will be
-   * a css class indicating if the login side should start front facing or back facing
-   * @return the css class
-   */
-  public String getLoginCss() {
-    return loginCss;
-  }
-  
-  /**
-   * Sets the css class for the signup side of the flipper. This will be
-   * a css class indicating if the signup side should start front facing or back facing
-   * @param signupCss the css class
-   */
-  public void setSignupCss(String signupCss) {
-    this.signupCss = signupCss;
-  }
-  
-  /**
-   * Gets the css class for the signup side of the flipper. This will be
-   * a css class indicating if the signup side should start front facing or back facing
-   * @return the css class
-   */
-  public String getSignupCss() {
-    return signupCss;
-  }
-
-  
-  /**
-   * Checks if the username is available for a new user.
-   * This should only be called from the ajax call.
-   */
-  public void checkIsUsernameAvailable() {
-    isUsernameAvailable = accountBO.isUsernameAvailable(getAccountModel().getUsername());
-    isValidUsernameLength = StringUtils.isBetween(getAccountModel().getUsername(), 3, 60);
-  }
-  
-  /**
-   * 
-   * @return true if the username length is valid
-   */
-  public boolean isValidUsernameLength() {
-    return isValidUsernameLength;
-  }
-  
-  /**
-   * 
-   * @return true if the username is available
-   */
-  public boolean isUsernameAvailable() {
-    return isUsernameAvailable;
-  }
   
   /**
    * Gets a random username
