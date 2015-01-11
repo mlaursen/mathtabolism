@@ -8,7 +8,7 @@ package com.mathtabolism.view.navigation;
  * @author mlaursen
  */
 public enum AccountNav implements Navigatable {
-  ACCOUNT_SETTINGS,
+  SETTINGS_AND_WEIGHT,
   DAILY_INTAKE,
   ACCOUNT_INITIALIZATION,
   STATISTICS;
