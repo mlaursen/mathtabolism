@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID"
-  version="3.1">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+  id="WebApp_ID" version="3.1">
   <display-name>mathtabolism</display-name>
   <welcome-file-list>
     <welcome-file>/index.xhtml</welcome-file>
@@ -16,6 +17,18 @@
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
 
+  <!-- Context Params -->
+  <context-param>
+    <param-name>javax.faces.PROJECT_STAGE</param-name>
+    <param-value>Development</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>facelets.LIBRARIES</param-name>
+    <param-value>/WEB-INF/mathtabolism.taglib.xml</param-value>
+  </context-param>
+
+  <!-- Security Constraints - Protected pages vs Public -->
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>Restricted Area - ADMIN Only</web-resource-name>
@@ -55,7 +68,8 @@
   <security-role>
     <role-name>USER</role-name>
   </security-role>
-  
+
+  <!-- Mime Mappings for Special Fonts and other Extensions -->
   <mime-mapping>
     <extension>ttf</extension>
     <mime-type>application/x-font-ttf</mime-type>
@@ -76,7 +90,7 @@
     <extension>svg</extension>
     <mime-type>image.svg+xml</mime-type>
   </mime-mapping>
-  
+
   <!-- Error page handling -->
   <error-page>
     <error-code>404</error-code>

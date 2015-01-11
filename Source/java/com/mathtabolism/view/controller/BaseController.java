@@ -18,6 +18,7 @@ import org.jboss.logging.Logger;
 
 import com.mathtabolism.util.string.StringUtils;
 import com.mathtabolism.view.navigation.AccountNav;
+import com.mathtabolism.view.navigation.MainNav;
 import com.mathtabolism.view.navigation.Navigatable;
 
 /**
@@ -176,7 +177,7 @@ public abstract class BaseController implements Serializable {
       displayErrorMessage(e.toString());
       return null;
     }
-    return redirect(AccountNav.INDEX);
+    return redirect(MainNav.INDEX);
   }
   
   /**
@@ -185,7 +186,7 @@ public abstract class BaseController implements Serializable {
    * @return a redirect action for JSF 2
    */
   protected <T extends Enum<T> & Navigatable> String redirect(T page) {
-    if(AccountNav.INDEX.equals(page)) {
+    if(MainNav.INDEX.equals(page)) {
       return String.format(FACES_REDIRECT, INDEX);
     }
     

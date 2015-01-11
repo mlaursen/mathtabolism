@@ -9,6 +9,7 @@ import javax.inject.Named;
 import org.jboss.logging.Logger;
 
 import com.mathtabolism.view.navigation.AccountNav;
+import com.mathtabolism.view.navigation.MainNav;
 import com.mathtabolism.view.navigation.Navigatable;
 
 /**
@@ -31,7 +32,7 @@ import com.mathtabolism.view.navigation.Navigatable;
  *                  action="#{navigationBean.redirect('AccountNav.ACCOUNT_SETTINGS')}" /&gt;
  *                  
  * &lt;h:commandLink value="Navigate to /pages/ingredients/viewIngredients.xhtml"
- *                action="#{navigationBean.redirect('IngredientNav.VIEW_INGREDIENTS')}" /&gt;
+ *                action="#{navigationBean.redirect('FoodNav.FOOD')}" /&gt;
  * </code>
  * </pre>
  * 
@@ -84,10 +85,10 @@ public class NavigationController extends BaseController {
   }
   
   public String handle404() {
-    return getRequest().getUserPrincipal() != null ? redirect(AccountNav.ACCOUNT_INITIALIZATION) : redirect(AccountNav.INDEX);
+    return getRequest().getUserPrincipal() != null ? redirect(AccountNav.ACCOUNT_INITIALIZATION) : redirect(MainNav.INDEX);
   }
   
   public String handleException() {
-    return getRequest().getUserPrincipal() != null ? redirect(AccountNav.ACCOUNT_INITIALIZATION) : redirect(AccountNav.INDEX);
+    return getRequest().getUserPrincipal() != null ? redirect(AccountNav.ACCOUNT_INITIALIZATION) : redirect(MainNav.INDEX);
   }
 }

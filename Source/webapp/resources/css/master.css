@@ -1,0 +1,238 @@
+/* Navbar CSS */
+.navbar {
+  width: 100%;
+  font-size: 1.2em;
+  border-bottom: 4px solid #0074d9;
+}
+
+.navbar ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.navbar > ul,
+.navbar .submenu-inner {
+  width: 90%;
+  max-width: 70em;
+  margin: 0 auto;
+  padding: 0 1.875em;
+}
+
+.navbar > ul > li {
+  display: inline-block;
+}
+
+.navbar > ul > li > a {
+  font-weight: 700;
+  padding: 1em;
+  color: #999;
+  display: inline-block;
+}
+
+.navbar a > span {
+  margin-left: 0.5em;
+}
+
+.navbar > ul > li > a:hover {
+  color: #0074d9;
+}
+
+.navbar > ul > li.open a,
+.navbar >ul > li.open > a:hover {
+  color: #fff;
+  background: #0074d9;
+}
+
+/* submenu */
+.navbar .submenu {
+  display: none;
+  position: absolute;
+  background: #0074d9;
+  width: 100%;
+  left: 0;
+}
+
+.open .submenu {
+  display: block;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+}
+
+.navbar .submenu-inner>div {
+  width: 33%;
+  float: left;
+  padding: 0 2em 0;
+}
+
+.navbar .submenu-inner:before,
+.navbar .submenu-inner:after {
+  content: " ";
+  display: table;
+}
+
+.navbar .submenu-inner:after {
+  clear: both;
+}
+
+.navbar .submenu-inner > div a {
+  line-height: 2em;
+}
+
+/* Examples for media queries */
+@media screen and (max-width: 52.75em) {
+  .navbar {
+    font-size: 80%;
+  }
+}
+
+@media screen and (max-width: 43em) {
+  .navbar {
+    font-size: 120%;
+    border: none;
+  }
+  
+  .navbar > ul,
+  .navbar .submenu-inner {
+    width: 100%;
+    padding: 0;
+  }
+  
+  .navbar .submenu-inner {
+    padding: 0 2em;
+    font-size: 75%;
+  }
+  
+  .navbar > ul > li {
+    display: block;
+    border-bottom: 4px solid #0074d9;
+  }
+  
+  .navbar > ul > li > a {
+    display: block;
+    padding: 1em 3em;
+  }
+  
+  .navbar .submenu {
+    position: relative;
+  }
+}
+
+@media screen and (max-width: 36em) {
+  .navbar .submenu-inner > div {
+    width: 100%;
+    float: none;
+    padding: 0 2em;
+  }
+}
+
+/* Modal Dialog CSS */
+.dialog,
+.dialog-overlay {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.dialog {
+  position: fixed;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  -webkit-justify-center: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.dialog-overlay {
+  position: absolute;
+  z-index: 1;
+  background: rgba(55, 58, 71, 0.9);
+  opacity: 0;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  -webkit-backface-visibility: hidden;
+}
+
+.dialog-open .dialog-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.dialog-content {
+  width: 50%;
+  max-width: 560px;
+  min-width: 290px;
+  background: #fff;
+  padding: 4em;
+  text-align: center;
+  position: relative;
+  z-index: 5;
+  opacity: 0;
+}
+
+.dialog-open .dialog-content {
+  pointer-events: auto;
+}
+
+.dialog-overlay {
+  -webkit-transition-duration: 0.4s;
+  -moz-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+
+.dialog-content {
+  overflow: hidden;
+}
+
+.dialog.dialog-open .dialog-content,
+.dialog.dialog-close .dialog-content {
+  -webkit-animation-duration: 0.4s;
+  animation-duration: 0.4s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+.dialog.dialog-open .dialog-content {
+  -webkit-animation-name: anim-open-dialog;
+  animation-name: anim-open-dialog;
+  -webkit-animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+  animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+.dialog.dalog-close .dialog-content {
+  -webkit-animation-name: anim-close-dialog;
+  animation-name: anim-close-dialog;
+}
+
+@-webkit-keyframes anim-open-dialog {
+  0% { opacity: 0; -webkit-transform: translate3d(0, -400px, 0); }
+  100% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); }
+}
+
+@keyframes anim-open-dialog {
+  0% { opacity: 0; -webkit-transform: translate3d(0, -400px, 0); transform: translate3d(0, -400px, 0); }
+  100% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+}
+
+@-webkit-keyframes anim-close-dialog {
+  0% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); }
+  100% { opacity: 0; -webkit-transform: translate3d(0, 100px, 0); }
+}
+
+@keyframes anim-close-dialog {
+  0% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+  100% { opacity: 0; -webkit-transform: translate3d(0, 100px, 0); transform: translate3d(0, 100px, 0); }
+}
+
+/* inner element animations */
+@-webkit-keyframes anim-elem {
+  0% { opacity: 0; -webkit-transform: translate3d(0, -100px, 0); }
+  100% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); }
+}
+
+@keyframes anim-elem {
+  0% { opacity: 0; -webkit-transform: translate3d(0, -100px, 0); transform: translate3d(0, -100px, 0); }
+  100% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+}

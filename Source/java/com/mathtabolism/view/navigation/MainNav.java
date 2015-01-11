@@ -7,8 +7,8 @@ package com.mathtabolism.view.navigation;
  *
  * @author mlaursen
  */
-public enum Info implements Navigatable {
-  INFO;
+public enum MainNav implements Navigatable {
+  INDEX;
   
   private static final String FOLDER = "";
 

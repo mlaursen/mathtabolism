@@ -7,11 +7,14 @@ package com.mathtabolism.view.navigation;
  * 
  * @author mlaursen
  */
-public enum IngredientNav implements Navigatable {
-  VIEW_INGREDIENTS;
+public enum FoodNav implements Navigatable {
+  FOOD,
+  MEALS;
+  
+  private static final String FOLDER = "food";
   
   @Override
   public String getFolder() {
-    return "ingredients";
+    return FOLDER;
   }
 }
