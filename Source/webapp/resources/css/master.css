@@ -1,3 +1,8 @@
+/* Remove the chrome auto-fill yellow color.. Sets it to white. */
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #fff inset;
+}
+
 /* ===============================================================
  * Navbar CSS
  */
@@ -62,7 +67,7 @@
   padding-bottom: 1.5em;
 }
 
-.navbar .submenu-inner>div {
+.navbar .submenu-inner > div {
   width: 33%;
   float: left;
   padding: 0 2em 0;
@@ -384,6 +389,7 @@ form.one-line label {
 
 .login-signup-form .form-row {
   display: block;
+  margin-top: 0.5em;
 }
 
 .login-signup-form .form-row div > span.fa {
@@ -394,7 +400,7 @@ form.one-line label {
 
 .login-signup-form .error {
   font-style: italic;
-  font-size: 80%;
+  font-size: 70%;
   color: #ff4136;
 }
 

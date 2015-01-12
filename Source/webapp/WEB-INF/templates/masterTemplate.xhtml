@@ -44,10 +44,10 @@
           <div>
             <h:outputLabel for="username" value="#{msg.username}" />
             <span id="checklist-username" class="fa"></span>
-            <h:inputText id="username" value="#{accountLoginController.accountModel.username}" validator="#{usernameValidator.validate}">
-              <f:ajax event="blur" render="username-error checklist-username" onevent="updateUsernameFields" />
+            <h:inputText id="username" value="#{accountLoginController.accountModel.username}" validator="#{usernameValidator.validate}"
+                  pt:placeholder="#{accountLoginController.randomUsername}" required="true" requiredMessage="#{validation['account.UsernameRequired']}">
+              <f:ajax event="blur" render="username-error" onevent="updateUsernameFields" />
             </h:inputText>
-            <ui:remove><p:watermark id="rand-user" for="username" value="#{accountLoginController.randomUsername}" /></ui:remove>
           </div>
         </div>
         <h:message id="username-error" for="username" styleClass="error" />
@@ -56,8 +56,11 @@
           <div>
             <h:outputLabel for="password" value="#{msg.password}" />
             <span id="checklist-password" class="fa"></span>
-            <h:inputSecret id="password" value="#{accountLoginController.accountModel.password}">
+            <h:inputSecret id="password" value="#{accountLoginController.accountModel.password}" required="true"
+                requiredMessage="#{validation['account.PasswordRequired']}">
               <f:validator validatorId="passwordsValidator" />
+              <f:ajax event="blur" execute="password confirm-password" render="password-error confirm-password-error"
+                    onevent="updatePasswordFields" />
             </h:inputSecret>
           </div>
         </div>
@@ -66,34 +69,30 @@
         <div class="form-row">
           <div>
             <h:outputLabel value="#{msg.passwordConfirm}" />
-            <h:inputSecret id="confirm-password" value="#{accountLoginController.accountModel.confirmPassword}">
+            <span id="checklist-confirm-password" class="fa"></span>
+            <h:inputSecret id="confirm-password" value="#{accountLoginController.accountModel.confirmPassword}" required="true"
+                requiredMessage="#{validation['account.PasswordConfirmRequired']}">
               <f:validator validatorId="passwordsValidator"/>
+              <f:ajax event="keyup" execute="password confirm-password" render="password-error confirm-password-error"
+                    onevent="updatePasswordFields" />
             </h:inputSecret>
           </div>
-          <span id="checklist-confirm-password"></span>
         </div>
         <h:message id="confirm-password-error" for="confirm-password" styleClass="error" />
         
         <div class="form-row">
           <h:outputLabel for="email" value="#{msg.account_RecoveryEmail}" />
-          <h:inputText id="email" value="#{accountLoginController.accountModel.email}" />
-          <ui:remove><p:watermark for="email" value="#{msg.account_OptionalEmail}" /></ui:remove>
+          <h:inputText id="email" value="#{accountLoginController.accountModel.email}" pt:placeholder="#{msg.account_OptionalEmail}" />
         </div>
       
-        <h:commandButton action="#{accountLoginController.createAccount()}" value="#{msg.createAccount}" />
+        <h:commandButton value="#{msg.createAccount}">
+          <f:ajax event="click" execute="@form" render="@form" onevent="signupFormVisible" listener="#{accountLoginController.createAccount()}" />
+        </h:commandButton>
         <button type="button" id="toggle-form" onclick="toggleLoginSignupForm()"><h:outputText value="#{msg.cancelSignup}" /></button>
       </div>
     </h:form>
   </m:modalDialog>
   <h:outputScript library="thirdparty/jquery" name="jquery-2.1.1#{addMin}.js" />
   <h:outputScript library="js" name="master.js" />
-  <h:outputScript library="js/account" name="accountValidation.js" />
-  <script type="text/javascript">
-    var usernameError = "#{msg.account_UsernameError}";
-    var passwordError = "#{msg.account_PasswordError}";
-    var passwordMatchError = "#{msg.account_PasswordMatchError}";
-    var checkmark = "#{resource['icons/checkmark.png']}";
-    var cross = "#{resource['icons/cross.png']}";
-  </script>
 </h:body>
 </html>

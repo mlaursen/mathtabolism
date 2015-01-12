@@ -3,6 +3,8 @@
  */
 package com.mathtabolism.view.controller.account;
 
+import java.io.IOException;
+
 import javax.ejb.EJBException;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -57,7 +59,7 @@ public class AccountLoginController extends BaseController {
     return accountModel;
   }
   
-  public String createAccount() {
+  public void createAccount() {
     try {
       String username = accountModel.getUsername();
       String password = accountModel.getPassword();
@@ -80,19 +82,20 @@ public class AccountLoginController extends BaseController {
       }
       
       if(!isValid) {
-        return null;
+        return;
       }
       accountBO.createAccount(accountModel);
       
-      String toNext = login(CREATED_LOGIN_ERROR);
+      String toNext = login(CREATED_LOGIN_ERROR).replace("?faces-redirect=true", ".xhtml").substring(1);
       if(toNext != null) {
         displayInfoMessage("account_AccountCreated");
       }
       
-      return toNext;
+      getContext().getExternalContext().redirect(toNext);
     } catch (EJBException e) {
       displayErrorMessage("account_AccountExists");
-      return null;
+    } catch (IOException e) {
+      displayErrorMessage(CREATED_LOGIN_ERROR);
     }
   }
   

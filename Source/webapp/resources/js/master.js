@@ -48,6 +48,14 @@ function toggleLoginSignupForm() {
   $("#signup-form").toggleClass("signup-visible");
 }
 
+function signupFormVisible(data) {
+  updateUsernameFields(data);
+  updatePasswordFields(data);
+  if(data.status == 'success') {
+    $("#signup-form").toggleClass("signup-visible");
+  }
+}
+
 function toggleAccountSubmenu() {
   var submenu = $("#account-submenu")
   submenu.toggleClass("open");
@@ -69,5 +77,85 @@ function closeAccountSubmenu() {
     var arrow = $("#account-submenu-arrow");
     arrow.removeClass("fa-angle-double-up");
     arrow.addClass("fa-angle-double-down");
+  }
+}
+
+var CHECK = "fa-check-circle-o";
+var TIMES = "fa-times-circle-o";
+var RED   = "icon-red";
+var GREEN = "icon-green";
+
+/**
+ * Changes the checklist field to be a times circle icon from
+ * font-awesome. Removes the success icon (if existing). Also changes
+ * the color from green to red for error.
+ * @param field the checklist field of a font-awesome icon
+ */
+function addError(field) {
+  if(field.hasClass(CHECK)) {
+    field.removeClass(CHECK);
+    field.removeClass(GREEN);
+  }
+  
+  if(!field.hasClass(TIMES)) {
+    field.addClass(TIMES);
+    field.addClass(RED);
+  }
+}
+
+/**
+ * Changes the checklist field to be a check circle icon from
+ * font-awesome. Removes the error icon (if existing). Also changes
+ * the color from red to green for success.
+ * @param field the checklist field of a font-awesome icon
+ */
+function addSuccess(field) {
+  if(field.hasClass(TIMES)) {
+    field.removeClass(TIMES);
+    field.removeClass(RED);
+  }
+  
+  if(!field.hasClass(CHECK)) {
+    field.addClass(CHECK);
+    field.addClass(GREEN);
+  }
+}
+
+/**
+ * Updates the "checklist" items for the username.
+ * 
+ * @param data
+ */
+function updateUsernameFields(data) {
+  if(data.status == 'success') {
+    var usernameError = $("span[id$=':username-error']").html();
+    var usernameChecklist = $("#checklist-username");
+    if(usernameError != '') {
+      addError(usernameChecklist);
+    } else {
+      addSuccess(usernameChecklist);
+    }
+  }
+}
+
+function updatePasswordFields(data) {
+  if(data.status == 'success') {
+    var password = $("input[id$=':password']");
+    var passwordError = $("span[id$=':password-error']");
+    var passwordChecklist = $("#checklist-password");
+    var passwordConfirm = $("input[id$=':confirm-password']");
+    var passwordConfirmError = $("span[id$=':confirm-password-error']").html();
+    var passwordConfirmChecklist = $("#checklist-confirm-password");
+    
+    if(passwordError.html() != '') {
+      addError(passwordChecklist);
+    } else {
+      addSuccess(passwordChecklist);
+    }
+    if(passwordConfirmError != '') {
+      addError(passwordConfirmChecklist);
+    } else {
+      addSuccess(passwordConfirmChecklist);
+    }
   }
 }
