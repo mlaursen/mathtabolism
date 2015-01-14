@@ -13,11 +13,15 @@
   <title><h:outputFormat value="#{msg.appTitle} | " /><ui:insert name="title">Login</ui:insert></title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <h:outputScript library="primefaces" name="jquery/jquery.js" />
   <h:outputStylesheet library="thirdparty/font-awesome-4.2.0/css" name="font-awesome#{addMin}.css" />
   <h:outputStylesheet library="css" name="master#{addMin}.css" />
 </h:head>
 <h:body>
   <ui:include src="/WEB-INF/includes/navbar.xhtml" />
+  
+  <ui:insert name="content" />
+  
   <m:modalDialog modalId="login-signup-modal" styleClass="sticky-top">
     <h:form id="login-form" styleClass="login-signup-form one-line">
       <div id="login-form-content">
@@ -45,9 +49,10 @@
             <h:outputLabel for="username" value="#{msg.username}" />
             <span id="checklist-username" class="fa"></span>
             <h:inputText id="username" value="#{accountLoginController.accountModel.username}" validator="#{usernameValidator.validate}"
-                  pt:placeholder="#{accountLoginController.randomUsername}" required="true" requiredMessage="#{validation['account.UsernameRequired']}">
+                  required="true" requiredMessage="#{validation['account.UsernameRequired']}">
               <f:ajax event="blur" render="username-error" onevent="updateUsernameFields" />
             </h:inputText>
+              <p:watermark for="username" value="#{accountLoginController.randomUsername}" />
           </div>
         </div>
         <h:message id="username-error" for="username" styleClass="error" />
@@ -82,7 +87,8 @@
         
         <div class="form-row">
           <h:outputLabel for="email" value="#{msg.account_RecoveryEmail}" />
-          <h:inputText id="email" value="#{accountLoginController.accountModel.email}" pt:placeholder="#{msg.account_OptionalEmail}" />
+          <h:inputText id="email" value="#{accountLoginController.accountModel.email}" />
+          <p:watermark for="email" value="#{msg.account_OptionalEmail}" />
         </div>
       
         <h:commandButton value="#{msg.createAccount}">
@@ -92,7 +98,6 @@
       </div>
     </h:form>
   </m:modalDialog>
-  <h:outputScript library="thirdparty/jquery" name="jquery-2.1.1#{addMin}.js" />
   <h:outputScript library="js" name="master.js" />
 </h:body>
 </html>

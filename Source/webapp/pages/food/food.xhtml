@@ -10,6 +10,64 @@
   </ui:define>
   
   <ui:define name="content">
-  
+  <h:form>
+    <div class="span1">
+      <h:dataTable value="#{ingredientController.filteredBrands}" var="b" styleClass="data-table">
+        <h:column>
+          <f:facet name="header">#{msg.ingredient_Brand}</f:facet>
+          <h:outputText value="#{b.name}"/>
+        </h:column>
+      </h:dataTable>
+      <h:dataTable value="#{ingredientController.categories}" var="c" styleClass="data-table">
+        <h:column>
+          <f:facet name="header">#{msg.ingredient_Category}</f:facet>
+          <h:outputText value="#{c}" styleClass="#{ingredientController.selectedCategories.contains(c) ? 'selected' : ''}"/>
+        </h:column>
+      </h:dataTable>
+    </div>
+    <div class="span8 offset1">
+      <h:dataTable value="#{ingredientController.filteredIngredients}" var="i" styleClass="data-table striped">
+        <h:column>
+          <f:facet name="header">#{msg.ingredient_Brand}</f:facet>
+          <h:outputText value="i.brand" />
+        </h:column>
+        <h:column>
+          <f:facet name="header">#{msg.ingredient_Category}</f:facet>
+          <h:outputText value="i.category" />
+        </h:column>
+        <h:column>
+          <f:facet name="header">#{msg.ingredient_Name}</f:facet>
+          <h:outputText value="i.name" />
+        </h:column>
+        <h:column>
+          <f:facet name="header">#{msg.ingredient_DefaultServing}</f:facet>
+          <h:outputText value="i.defaultServing" />
+        </h:column>
+        <h:column>
+          <f:facet name="header">#{msg.ingredient_AlternateServing}</f:facet>
+          <h:outputText value="i.alternateServing" />
+        </h:column>
+        <h:column>
+          <f:facet name="header">#{msg.ingredient_Calories}</f:facet>
+          <h:outputText value="i.calories" />
+        </h:column>
+        <h:column>
+          <f:facet name="header">#{msg.ingredient_Fat}</f:facet>
+          <h:outputText value="i.fat" />
+        </h:column>
+        <h:column>
+          <f:facet name="header">#{msg.ingredient_Carbohydrates}</f:facet>
+          <h:outputText value="i.carbohydrates" />
+        </h:column>
+        <h:column>
+          <f:facet name="header">#{msg.ingredient_Protein}</f:facet>
+          <h:outputText value="i.protein" />
+        </h:column>
+        <f:facet name="footer">
+          <h:outputText value="#{msg.ingredient_NoDataFound}" rendered="#{empty ingredientController.filteredIngredients}" />
+        </f:facet>
+      </h:dataTable>
+    </div>
+  </h:form>
   </ui:define>
 </ui:composition>
