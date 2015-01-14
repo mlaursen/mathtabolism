@@ -19,7 +19,7 @@ public class ConvertEnum {
   
   @Test
   public void test() {
-    String r = redirect(AccountNav.ACCOUNT_SETTINGS);
+    String r = redirect(AccountNav.ACCOUNT_INITIALIZATION);
     System.out.println(r);
   }
   
