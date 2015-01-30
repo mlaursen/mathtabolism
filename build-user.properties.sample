@@ -1,5 +1,0 @@
-#Sat, 06 Sep 2014 13:48:08 -0400
-wildfly.dir=F\:/servers/wildfly-8.1.0
-wildfly.standalone.dir=${wildfly.dir}/standalone
-wildfly.deployments.dir=${wildfly.dir}/standalone/deployments
-wildfly.modules.dir=${wildfly.dir}/modules/system/layers/base
