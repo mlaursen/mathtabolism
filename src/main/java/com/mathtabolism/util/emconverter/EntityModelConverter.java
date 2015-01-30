@@ -28,6 +28,7 @@ public class EntityModelConverter {
   private static Logger logger = Logger.getLogger(EntityModelConverter.class);
   private static final String GET = "get";
   private static final String SET = "set";
+  private static final String IS  = "is";
   
   private static final String ERR = "Unable to convert '%s' because %s.";
   private static final String MISSING_MODEL_CONVERTER = "the ModelConverter annotation is missing on the model";
@@ -293,7 +294,11 @@ public class EntityModelConverter {
    * @return true if the method is considered a getter method
    */
   private boolean isGetter(Method m) {
-    return m.getName().startsWith(GET) && !Void.TYPE.equals(m.getReturnType()) && m.getParameterTypes().length == 0;
+	String name = m.getName();
+	
+    return (name.startsWith(GET) || name.startsWith(IS))
+    	&& !Void.TYPE.equals(m.getReturnType())
+    	&& m.getParameterTypes().length == 0;
   }
   
   /**

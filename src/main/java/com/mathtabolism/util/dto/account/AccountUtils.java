@@ -126,7 +126,7 @@ public class AccountUtils {
     isEqual &= isObjectsEqual(setting1.getRecalculationDay(), setting2.getRecalculationDay());
     isEqual &= isObjectsEqual(setting1.getTdeeFormula(), setting2.getTdeeFormula());
     isEqual &= isObjectsEqual(setting1.getUnitSystem(), setting2.getUnitSystem());
-    isEqual &= isObjectsEqual(setting1.getUseAge(), setting2.getUseAge());
+    isEqual &= setting1.isUsingAge() == setting2.isUsingAge();
     isEqual &= isObjectsEqual(setting1.getAge(), setting2.getAge());
     
     Long id1 = isAccountSetting(setting1) ? ((AccountSetting) setting1).getId() : ((AccountModel) setting1).getAccountSettingId();
@@ -177,7 +177,7 @@ public class AccountUtils {
       boolean isEqual = a1.getAccountId() == a2.getAccountId();
       isEqual &= isAccountSettingEqual(a1, a2, isStrictlyEqual);
       
-      isEqual &= isObjectsEqual(a1.getUseAge(), a2.getUseAge());
+      isEqual &= isObjectsEqual(a1.isUsingAge(), a2.isUsingAge());
       isEqual &= isObjectsEqual(a1.getCurrentWeight(), a2.getCurrentWeight());
       isEqual &= isObjectsEqual(a1.getPreviousWeight(), a2.getPreviousWeight());
       

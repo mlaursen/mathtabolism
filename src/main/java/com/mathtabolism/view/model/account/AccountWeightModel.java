@@ -19,7 +19,7 @@ import com.mathtabolism.view.model.BaseModel;
 @ModelConverter(entities = {AccountWeight.class})
 public class AccountWeightModel extends BaseModel implements AccountWeightDto {
   
-  private String accountWeightId;
+  private Long accountWeightId;
   private Double weight;
   private Date weighInDate;
   public AccountWeightModel() {
@@ -34,11 +34,11 @@ public class AccountWeightModel extends BaseModel implements AccountWeightDto {
     this.weight = weight;
   }
   
-  public void setAccountWeightId(String accountWeightId) {
+  public void setAccountWeightId(Long accountWeightId) {
     this.accountWeightId = accountWeightId;
   }
   
-  public String getAccountWeightId() {
+  public Long getAccountWeightId() {
     return accountWeightId;
   }
 

@@ -1,11 +1,11 @@
 CREATE TABLE account
-( id CHAR(10)
-, username VARCHAR(60)
+( id SERIAL
+, username TEXT
 , password CHAR(44)
-, email VARCHAR(120)
-, role VARCHAR(5)
+, email TEXT
+, role TEXT
 , birthday DATE
-, gender VARCHAR(6)
+, gender TEXT
 , last_login DATE
 , active_since DATE
 , CONSTRAINT pk_Account_Id PRIMARY KEY(id)
@@ -13,15 +13,15 @@ CREATE TABLE account
 );
 
 CREATE TABLE account_setting
-( id CHAR(10)
-, account_id CHAR(10)
+( id SERIAL
+, account_id INTEGER
 , date_changed DATE
-, recalculation_day VARCHAR(9)
-, activity_multiplier VARCHAR(17)
-, tdee_formula CHAR(15)
-, unit_system VARCHAR(8)
+, recalculation_day TEXT
+, activity_multiplier TEXT
+, tdee_formula TEXT
+, unit_system TEXT
 , age INTEGER
-, use_age SMALLINT
+, is_using_age BOOLEAN
 , height DECIMAL
 , CONSTRAINT pk_Account_Setting_Id PRIMARY KEY(id)
 , CONSTRAINT uk_Account_Setting_Id_Changed UNIQUE(account_id, date_changed)
@@ -29,8 +29,8 @@ CREATE TABLE account_setting
 );
 
 CREATE TABLE account_weight
-( id CHAR(10)
-, account_id CHAR(10)
+( id SERIAL
+, account_id INTEGER
 , weigh_in_date DATE
 , weight NUMERIC(5,2)
 , CONSTRAINT pk_Account_Weight_Id PRIMARY KEY(id)
@@ -39,20 +39,20 @@ CREATE TABLE account_weight
 );
 
 CREATE TABLE brand
-( id CHAR(10)
-, name VARCHAR(40)
+( id SERIAL
+, name TEXT
 , CONSTRAINT pk_Brand PRIMARY KEY(id)
 , CONSTRAINT uq_Brand_Name UNIQUE(name)
 );
 
 CREATE TABLE ingredient
-( id CHAR(10)
-, name VARCHAR(40)
-, brand_id CHAR(10)
-, category VARCHAR(12)
-, default_serving VARCHAR(11)
+( id SERIAL
+, name TEXT
+, brand_id INTEGER
+, category TEXT
+, default_serving TEXT
 , default_size NUMERIC(7,2)
-, alternate_serving VARCHAR(11)
+, alternate_serving TEXT
 , alternate_size NUMERIC(7,2)
 , calories NUMERIC(10,2)
 , fat NUMERIC(5,2)
@@ -64,9 +64,9 @@ CREATE TABLE ingredient
 );
 
 CREATE TABLE daily_intake
-( id CHAR(10)
-, account_id CHAR(10)
-, account_weight_id CHAR(10)
+( id SERIAL
+, account_id INTEGER
+, account_weight_id INTEGER
 , intake_date DATE
 , calorie_change INTEGER
 , fat_multiplier NUMERIC(3, 2)
@@ -79,16 +79,16 @@ CREATE TABLE daily_intake
 );
 
 CREATE TABLE meal
-( id CHAR(10)
-, name VARCHAR(40)
+( id SERIAL
+, name TEXT
 , CONSTRAINT pk_Meal PRIMARY KEY(id)
 );
 
 CREATE TABLE meal_part
-( id CHAR(10)
-, meal_id CHAR(10)
-, ingredient_id CHAR(10)
-, ingredient_serving VARCHAR(11)
+( id SERIAL
+, meal_id INTEGER
+, ingredient_id INTEGER
+, ingredient_serving TEXT
 , ingredient_size NUMERIC(7, 2)
 , CONSTRAINT pk_Meal_Part PRIMARY KEY(id)
 , CONSTRAINT fk_Meal_Part_Meal FOREIGN KEY(meal_id) REFERENCES meal(id)
@@ -96,40 +96,10 @@ CREATE TABLE meal_part
 );
 
 CREATE TABLE daily_intake_meal
-( id CHAR(10)
-, meal_id CHAR(10)
-, daily_intake_id CHAR(10)
+( id SERIAL
+, meal_id INTEGER
+, daily_intake_id INTEGER
 , CONSTRAINT pk_Daily_Intake_Meal PRIMARY KEY(id)
 , CONSTRAINT fk_Daily_Intake_Meal_Meal FOREIGN KEY(meal_id) REFERENCES meal(id)
 , CONSTRAINT fk_Daily_Intake_meal_Daily_Intake FOREIGN KEY(daily_intake_id) REFERENCES daily_intake(id)
 );
-
-CREATE TABLE sequence_table
-( sequence_name VARCHAR(30) NOT NULL PRIMARY KEY
-, sequence_value INTEGER NOT NULL
-);
-
-
-CREATE OR REPLACE FUNCTION sp_generate_key(pSeqName VARCHAR(30)) RETURNS INTEGER AS $$
-DECLARE
-	pNextVal INTEGER;
-begin
-	SELECT sequence_value
-	INTO pNextVal
-	FROM sequence_table
-	WHERE sequence_name=pSeqName;
-
-	IF pNextVal IS NULL THEN
-		pNextVal := '0';
-		INSERT INTO sequence_table(sequence_name, sequence_value)
-		VALUES(pSeqName, pNextVal);
-	ELSE
-		pNextVal := pNextVal + 1;
-		UPDATE sequence_table
-		SET sequence_value=pNextVal
-		WHERE sequence_name=pSeqName;
-	END IF;
-	RETURN pNextVal;
-end;
-$$ LANGUAGE plpgsql;
-

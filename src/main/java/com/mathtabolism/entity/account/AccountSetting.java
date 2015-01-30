@@ -66,8 +66,7 @@ public class AccountSetting extends AccountIdFK implements AccountSettingDto {
   private Integer age;
   private Integer height;
   
-  @Enumerated(EnumType.ORDINAL)
-  private Indicator useAge;
+  private boolean isUsingAge;
   
   @Enumerated(EnumType.STRING)
   private Weekday recalculationDay;
@@ -131,13 +130,13 @@ public class AccountSetting extends AccountIdFK implements AccountSettingDto {
   }
   
   @Override
-  public void setUseAge(Indicator useAge) {
-    this.useAge = useAge;
+  public void setUsingAge(boolean isUsingAge) {
+    this.isUsingAge = isUsingAge;
   }
   
   @Override
-  public Indicator getUseAge() {
-    return useAge;
+  public boolean isUsingAge() {
+    return isUsingAge;
   }
   
   @Override

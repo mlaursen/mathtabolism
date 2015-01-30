@@ -1,7 +1,6 @@
 package com.mathtabolism.dto;
 
 import com.mathtabolism.constants.ActivityMultiplier;
-import com.mathtabolism.constants.Indicator;
 import com.mathtabolism.constants.TDEEFormula;
 import com.mathtabolism.constants.Weekday;
 import com.mathtabolism.util.unit.UnitSystem;
@@ -27,15 +26,15 @@ public interface AccountSettingDto extends GeneratedIdDto {
   
   /**
    * Set if the account is using an age versus calculating the age on birthday
-   * @param useAge an {@link Indicator}
+   * @param isUsingAge a boolean
    */
-  void setUseAge(Indicator useAge);
+  void setUsingAge(boolean isUsingAge);
   
   /**
    * Get if the account is using an age versus calculating the age on birthday
-   * @return the {@link Indicator}
+   * @return true if using age.
    */
-  Indicator getUseAge();
+  boolean isUsingAge();
   
   /**
    * Sets the person's height. This number will be a representation of feet + inches or meters + cm

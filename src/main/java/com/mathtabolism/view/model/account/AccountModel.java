@@ -39,7 +39,7 @@ public class AccountModel extends BaseAccountModel implements AccountSettingDto 
   private String heightInFeet;
   private String heightInCentimeters;
   private Integer age;
-  private Indicator useAge;
+  private boolean isUsingAge;
   private Integer height;
   private ActivityMultiplier activityMultiplier;
   private Weekday recalculationDay;
@@ -166,14 +166,6 @@ public class AccountModel extends BaseAccountModel implements AccountSettingDto 
     updateHeight();
   }
   
-  public boolean isUsingAge() {
-    return Indicator.isTrue(useAge);
-  }
-  
-  public void setUsingAge(boolean isUsingAge) {
-    this.useAge = Indicator.fromBoolean(isUsingAge);
-  }
-  
   public void convertUnitsTo(UnitSystem toUnitSystem) {
     if(height != null && height > 0) {
       if(toUnitSystem.isImperial()) {
@@ -214,16 +206,6 @@ public class AccountModel extends BaseAccountModel implements AccountSettingDto 
   public Integer getAge() {
     return age;
   }
-  
-  @Override
-  public void setUseAge(Indicator useAge) {
-    this.useAge = useAge;
-  }
-  
-  @Override
-  public Indicator getUseAge() {
-    return useAge;
-  }
 
   @Override
   public void setHeight(Integer height) {
@@ -253,6 +235,16 @@ public class AccountModel extends BaseAccountModel implements AccountSettingDto 
   @Override
   public Weekday getRecalculationDay() {
     return recalculationDay;
+  }
+  
+  @Override
+  public boolean isUsingAge() {
+    return isUsingAge;
+  }
+  
+  @Override
+  public void setUsingAge(boolean isUsingAge) {
+    this.isUsingAge = isUsingAge;
   }
 
   @Override
@@ -301,7 +293,7 @@ public class AccountModel extends BaseAccountModel implements AccountSettingDto 
         .append("username", username).append("email", email).append("password", password).append("role", role)
         .append("birthday", birthday).append("gender", gender).append("lastLogin", lastLogin).append("activeSince", activeSince)
         .append("heightInInches", heightInInches).append("heightInFeet", heightInFeet).append("heightInCentimeters", heightInCentimeters)
-        .append("height", height).append("age", age).append("useAge", useAge).append("activityMultiplier", activityMultiplier)
+        .append("height", height).append("age", age).append("useAge", isUsingAge).append("activityMultiplier", activityMultiplier)
         .append("recalculationDay", recalculationDay).append("tdeeFormula", tdeeFormula).append("unitSystem", unitSystem)
         .append("currentWeight", currentWeight).append("previousWeight", previousWeight)
         .toString();

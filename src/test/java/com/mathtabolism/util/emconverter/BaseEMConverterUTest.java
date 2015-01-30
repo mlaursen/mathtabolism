@@ -13,13 +13,11 @@ import org.junit.BeforeClass;
 import com.mathtabolism.constants.AccountRole;
 import com.mathtabolism.constants.ActivityMultiplier;
 import com.mathtabolism.constants.Gender;
-import com.mathtabolism.constants.Indicator;
 import com.mathtabolism.constants.TDEEFormula;
 import com.mathtabolism.constants.Weekday;
 import com.mathtabolism.entity.account.Account;
 import com.mathtabolism.entity.account.AccountSetting;
 import com.mathtabolism.util.dto.account.AccountUtils;
-import com.mathtabolism.util.emconverter.EntityModelConverter;
 import com.mathtabolism.util.unit.UnitSystem;
 import com.mathtabolism.view.model.account.AccountModel;
 
@@ -61,7 +59,7 @@ public abstract class BaseEMConverterUTest {
   protected static final UnitSystem DEFAULT_UNIT_SYSTEM = UnitSystem.IMPERIAL;
   protected static final TDEEFormula DEFAULT_TDEE_FORMULA = TDEEFormula.HARRIS_BENEDICT;
   protected static final AccountRole DEFAULT_ROLE = AccountRole.USER;
-  protected static final Indicator DEFAULT_USE_AGE = Indicator.FALSE;
+  protected static final boolean DEFAULT_USE_AGE = false;
   
   @BeforeClass
   public static void init() {
@@ -84,7 +82,7 @@ public abstract class BaseEMConverterUTest {
     DEFAULT_FULL_MODEL.setRole(DEFAULT_ROLE);
     DEFAULT_FULL_MODEL.setTdeeFormula(DEFAULT_TDEE_FORMULA);
     DEFAULT_FULL_MODEL.setUnitSystem(DEFAULT_UNIT_SYSTEM);
-    DEFAULT_FULL_MODEL.setUseAge(DEFAULT_USE_AGE);
+    DEFAULT_FULL_MODEL.setUsingAge(DEFAULT_USE_AGE);
     DEFAULT_FULL_MODEL.setUsername(DEFAULT_USERNAME);
 
     DEFAULT_FULL_AGE_MODEL = new AccountModel();
@@ -101,7 +99,7 @@ public abstract class BaseEMConverterUTest {
     DEFAULT_FULL_AGE_MODEL.setRole(DEFAULT_ROLE);
     DEFAULT_FULL_AGE_MODEL.setTdeeFormula(DEFAULT_TDEE_FORMULA);
     DEFAULT_FULL_AGE_MODEL.setUnitSystem(DEFAULT_UNIT_SYSTEM);
-    DEFAULT_FULL_AGE_MODEL.setUseAge(Indicator.TRUE);
+    DEFAULT_FULL_AGE_MODEL.setUsingAge(true);
     DEFAULT_FULL_AGE_MODEL.setUsername(DEFAULT_USERNAME);
     
     ID_USERNAME_ACCOUNT = new Account();
@@ -136,7 +134,7 @@ public abstract class BaseEMConverterUTest {
     NO_AGE_ACCOUNT_SETTING.setRecalculationDay(DEFAULT_RECALCULATION_DAY);
     NO_AGE_ACCOUNT_SETTING.setTdeeFormula(DEFAULT_TDEE_FORMULA);
     NO_AGE_ACCOUNT_SETTING.setUnitSystem(DEFAULT_UNIT_SYSTEM);
-    NO_AGE_ACCOUNT_SETTING.setUseAge(DEFAULT_USE_AGE);
+    NO_AGE_ACCOUNT_SETTING.setUsingAge(DEFAULT_USE_AGE);
 
     
     AGE_ACCOUNT_SETTING = new AccountSetting();
@@ -146,7 +144,7 @@ public abstract class BaseEMConverterUTest {
     AGE_ACCOUNT_SETTING.setRecalculationDay(DEFAULT_RECALCULATION_DAY);
     AGE_ACCOUNT_SETTING.setTdeeFormula(DEFAULT_TDEE_FORMULA);
     AGE_ACCOUNT_SETTING.setUnitSystem(DEFAULT_UNIT_SYSTEM);
-    AGE_ACCOUNT_SETTING.setUseAge(DEFAULT_USE_AGE);
+    AGE_ACCOUNT_SETTING.setUsingAge(DEFAULT_USE_AGE);
   }
   
   protected Account extractAccountManually(AccountModel accountModel) {
@@ -176,7 +174,7 @@ public abstract class BaseEMConverterUTest {
     accountSettings.setRecalculationDay(accountModel.getRecalculationDay());
     accountSettings.setTdeeFormula(accountModel.getTdeeFormula());
     accountSettings.setUnitSystem(accountModel.getUnitSystem());
-    accountSettings.setUseAge(accountModel.getUseAge());
+    accountSettings.setUsingAge(accountModel.isUsingAge());
     return accountSettings;
   }
   
@@ -207,7 +205,7 @@ public abstract class BaseEMConverterUTest {
     accountModel.setRecalculationDay(accountSetting.getRecalculationDay());
     accountModel.setTdeeFormula(accountSetting.getTdeeFormula());
     accountModel.setUnitSystem(accountSetting.getUnitSystem());
-    accountModel.setUseAge(accountSetting.getUseAge());
+    accountModel.setUsingAge(accountSetting.isUsingAge());
     return accountModel;
   }
   
@@ -233,7 +231,7 @@ public abstract class BaseEMConverterUTest {
       accountModel.setRecalculationDay(accountSetting.getRecalculationDay());
       accountModel.setTdeeFormula(accountSetting.getTdeeFormula());
       accountModel.setUnitSystem(accountSetting.getUnitSystem());
-      accountModel.setUseAge(accountSetting.getUseAge());
+      accountModel.setUsingAge(accountSetting.isUsingAge());
     }
     return accountModel;
   }

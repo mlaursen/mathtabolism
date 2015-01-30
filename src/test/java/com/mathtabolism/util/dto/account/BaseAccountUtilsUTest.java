@@ -11,7 +11,6 @@ import org.junit.BeforeClass;
 import com.mathtabolism.constants.AccountRole;
 import com.mathtabolism.constants.ActivityMultiplier;
 import com.mathtabolism.constants.Gender;
-import com.mathtabolism.constants.Indicator;
 import com.mathtabolism.constants.TDEEFormula;
 import com.mathtabolism.constants.Weekday;
 import com.mathtabolism.entity.account.Account;
@@ -44,7 +43,7 @@ public abstract class BaseAccountUtilsUTest {
   protected static final UnitSystem DEFAULT_UNIT_SYSTEM = UnitSystem.IMPERIAL;
   protected static final TDEEFormula DEFAULT_TDEE_FORMULA = TDEEFormula.HARRIS_BENEDICT;
   protected static final AccountRole DEFAULT_ROLE = AccountRole.USER;
-  protected static final Indicator DEFAULT_USE_AGE = Indicator.FALSE;
+  protected static final boolean DEFAULT_USE_AGE = false;
   protected static final Double DEFAULT_CURRENT_WEIGHT = 185.3;
   
   protected static Account idUsernameAccount = new Account();
@@ -100,7 +99,7 @@ public abstract class BaseAccountUtilsUTest {
     fullAccountModelWithBirthday.setRecalculationDay(DEFAULT_RECALCULATION_DAY);
     fullAccountModelWithBirthday.setTdeeFormula(DEFAULT_TDEE_FORMULA);
     fullAccountModelWithBirthday.setUnitSystem(DEFAULT_UNIT_SYSTEM);
-    fullAccountModelWithBirthday.setUseAge(DEFAULT_USE_AGE);
+    fullAccountModelWithBirthday.setUsingAge(DEFAULT_USE_AGE);
     
 
     fullAccountWithNoBirthday.setId(DEFAULT_ACCOUNT_ID);
@@ -128,6 +127,6 @@ public abstract class BaseAccountUtilsUTest {
     fullAccountModelWithNoBirthday.setRecalculationDay(DEFAULT_RECALCULATION_DAY);
     fullAccountModelWithNoBirthday.setTdeeFormula(DEFAULT_TDEE_FORMULA);
     fullAccountModelWithNoBirthday.setUnitSystem(DEFAULT_UNIT_SYSTEM);
-    fullAccountModelWithNoBirthday.setUseAge(DEFAULT_USE_AGE);
+    fullAccountModelWithNoBirthday.setUsingAge(DEFAULT_USE_AGE);
   }
 }
