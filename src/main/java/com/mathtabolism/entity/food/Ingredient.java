@@ -79,13 +79,13 @@ public class Ingredient extends BaseGeneratedEntity implements IngredientDto {
   })
   private Measurement alternateServing;
   
-  @AttributeOverride(name = "value", column = @Column)
+  @AttributeOverride(name = "amount", column = @Column(name = "calories"))
   private Calorie calories;
-  @AttributeOverride(name = "value", column = @Column)
+  @AttributeOverride(name = "amount", column = @Column(name = "fat"))
   private Fat fat;
-  @AttributeOverride(name = "value", column = @Column)
+  @AttributeOverride(name = "amount", column = @Column(name = "carbohydrates"))
   private Carbohydrate carbohydrates;
-  @AttributeOverride(name = "value", column = @Column)
+  @AttributeOverride(name = "amount", column = @Column(name = "protein"))
   private Protein protein;
   
   public Ingredient() {
