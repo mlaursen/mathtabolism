@@ -24,7 +24,7 @@
   </context-param>
 
   <context-param>
-    <param-name>facelets.LIBRARIES</param-name>
+    <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
     <param-value>/WEB-INF/mathtabolism.taglib.xml</param-value>
   </context-param>
 
@@ -55,7 +55,7 @@
 
   <login-config>
     <auth-method>FORM</auth-method>
-    <realm-name>ExampleJSFRealm</realm-name>
+    <realm-name>MathtabolismRealm</realm-name>
     <form-login-config>
       <form-login-page>/index.xhtml</form-login-page>
       <form-error-page>/index.xhtml</form-error-page>
