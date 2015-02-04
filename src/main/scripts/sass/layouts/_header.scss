@@ -29,7 +29,7 @@
 .navbar > ul > li > a {
   font-weight: 700;
   padding: 1em;
-  color: $white;
+  color: $light-blue;
 }
 
 
@@ -96,3 +96,11 @@
   line-height: 2em;
 }
 
+
+
+/* Media Queries */
+@media screen and (max-width: 52.75em) {
+  .navbar {
+    font-size: 60%;
+  }
+}

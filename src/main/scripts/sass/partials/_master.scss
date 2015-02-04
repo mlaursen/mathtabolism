@@ -54,3 +54,21 @@ body {
   -webkit-animation-name: $name;
           animation-name: $name;
 }
+
+@mixin box-sizing($size) {
+  -webkit-box-sizing: $size;
+     -moz-box-sizing: $size;
+          box-sizing: $size;
+}
+
+@mixin box-shadow($type, $x, $y, $z, $color) {
+  -webkit-box-shadow: $type $x $y $z $color;
+     -moz-box-shadow: $type $x $y $z $color;
+          box-shadow: $type $x $y $z $color;
+}
+
+@mixin transition($transition1, $transition2) {
+  -webkit-transition: $transition1, $transition2;
+     -moz-transition: $transition1, $transition2;
+          transition: $transition1, $transition2;
+}

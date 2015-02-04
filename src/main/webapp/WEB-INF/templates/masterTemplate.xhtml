@@ -15,7 +15,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <h:outputScript library="primefaces" name="jquery/jquery.js" />
   <h:outputStylesheet library="thirdparty/font-awesome-4.2.0/css" name="font-awesome#{addMin}.css" />
-  <h:outputStylesheet library="css" name="master#{addMin}.css" />
+  <h:outputStylesheet library="css" name="master2#{addMin}.css" />
 </h:head>
 <h:body>
   <ui:include src="/WEB-INF/includes/navbar.xhtml" />
@@ -24,20 +24,27 @@
   
   <m:modalDialog modalId="login-signup-modal" styleClass="sticky-top">
     <h:form id="login-form" styleClass="login-signup-form one-line">
-      <div id="login-form-content">
+      <div id="login-form-content" aria-live="">
         <h2><h:outputText value="#{msg.login}" /></h2>
         <div class="form-row">
           <h:outputLabel for="login-username" value="#{msg.username}" />
-          <h:inputText id="login-username" value="#{accountLoginController.accountModel.username}" />
+          <h:inputText id="login-username" value="#{accountLoginController.accountModel.username}" styleClass="form-input" />
         </div>
         
         <div class="form-row">
           <h:outputLabel for="login-password" value="#{msg.password}" />
-          <h:inputSecret id="login-password" value="#{accountLoginController.accountModel.password}" />
+          <h:inputSecret id="login-password" value="#{accountLoginController.accountModel.password}" styleClass="form-input" />
         </div>
         
-        <h:commandButton action="#{accountLoginController.login()}" value="#{msg.login}" />
-        <button type="button" id="toggle-form" onclick="toggleLoginSignupForm()"><h:outputText  value="#{msg.signup}" /></button>
+        <div class="form-row">
+          <h:commandButton action="#{accountLoginController.login()}" value="#{msg.login}" styleClass="btn btn-primary" />
+        </div>
+        
+        <div class="form-row">
+          <button type="button" id="toggle-form" onclick="toggleLoginSignupForm()" class="btn btn-secondary">
+            <h:outputText value="#{msg.signup}" />
+          </button>
+        </div>
       </div>
     </h:form>
     
@@ -49,10 +56,10 @@
             <h:outputLabel for="username" value="#{msg.username}" />
             <span id="checklist-username" class="fa"></span>
             <h:inputText id="username" value="#{accountLoginController.accountModel.username}" validator="#{usernameValidator.validate}"
-                  required="true" requiredMessage="#{validation['account.UsernameRequired']}">
+                  required="true" requiredMessage="#{validation['account.UsernameRequired']}" styleClass="form-input">
               <f:ajax event="blur" render="username-error" onevent="updateUsernameFields" />
             </h:inputText>
-              <p:watermark for="username" value="#{accountLoginController.randomUsername}" />
+            <p:watermark for="username" value="#{accountLoginController.randomUsername}" />
           </div>
         </div>
         <h:message id="username-error" for="username" styleClass="error" />
@@ -62,7 +69,7 @@
             <h:outputLabel for="password" value="#{msg.password}" />
             <span id="checklist-password" class="fa"></span>
             <h:inputSecret id="password" value="#{accountLoginController.accountModel.password}" required="true"
-                requiredMessage="#{validation['account.PasswordRequired']}">
+                requiredMessage="#{validation['account.PasswordRequired']}" styleClass="form-input">
               <f:validator validatorId="passwordsValidator" />
               <f:ajax event="blur" execute="password confirm-password" render="password-error confirm-password-error"
                     onevent="updatePasswordFields" />
@@ -76,7 +83,7 @@
             <h:outputLabel value="#{msg.passwordConfirm}" />
             <span id="checklist-confirm-password" class="fa"></span>
             <h:inputSecret id="confirm-password" value="#{accountLoginController.accountModel.confirmPassword}" required="true"
-                requiredMessage="#{validation['account.PasswordConfirmRequired']}">
+                requiredMessage="#{validation['account.PasswordConfirmRequired']}" styleClass="form-input">
               <f:validator validatorId="passwordsValidator"/>
               <f:ajax event="keyup" execute="password confirm-password" render="password-error confirm-password-error"
                     onevent="updatePasswordFields" />
@@ -87,14 +94,21 @@
         
         <div class="form-row">
           <h:outputLabel for="email" value="#{msg.account_RecoveryEmail}" />
-          <h:inputText id="email" value="#{accountLoginController.accountModel.email}" />
+          <h:inputText id="email" value="#{accountLoginController.accountModel.email}" styleClass="form-input" />
           <p:watermark for="email" value="#{msg.account_OptionalEmail}" />
         </div>
-      
-        <h:commandButton value="#{msg.createAccount}">
-          <f:ajax event="click" execute="@form" render="@form" onevent="signupFormVisible" listener="#{accountLoginController.createAccount()}" />
-        </h:commandButton>
-        <button type="button" id="toggle-form" onclick="toggleLoginSignupForm()"><h:outputText value="#{msg.cancelSignup}" /></button>
+        
+        <div class="form-row">
+          <h:commandButton value="#{msg.createAccount}" styleClass="btn btn-primary">
+            <f:ajax event="click" execute="@form" render="@form" onevent="signupFormVisible" listener="#{accountLoginController.createAccount()}" />
+          </h:commandButton>
+        </div>
+        
+        <div class="form-row">
+          <button type="button" id="toggle-form" onclick="toggleLoginSignupForm()" class="btn btn-secondary">
+            <h:outputText value="#{msg.cancelSignup}" />
+          </button>
+        </div>
       </div>
     </h:form>
   </m:modalDialog>
