@@ -8,3 +8,5 @@ bin/
 .tern-project
 *.faces-config.xml.jsfdia
 target/
+.sass-cache/
+*master2.css

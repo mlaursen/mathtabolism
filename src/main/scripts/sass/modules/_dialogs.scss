@@ -1,0 +1,74 @@
+.dialog,
+.dialog-overlay {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.dialog {
+  position: fixed;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  -webkit-justify-center: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.dialog.sticky-top {
+  @include align-items(flex-start);
+}
+
+.dialog.sticky-bottom {
+  @include align-items(flex-end);
+}
+
+.dialog-overlay {
+  position: absolute;
+  z-index: 1;
+  background: rgba(55, 58, 71, 0.9);
+  opacity: 0;
+  
+  @include opacity-transition(0.3s);
+  @include backface-visibility(hidden);
+  @include transition-duration(0.4s);
+}
+
+.dialog-open .dialog-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.dialog-content {
+  width: 50%;
+  max-width: 560px;
+  min-width: 290px;
+  background: $white;
+  padding: 2em 4em 4em;
+  position: relative;
+  z-index: 5;
+  opacity: 0;
+}
+
+.dialog-open .dialog-content {
+  pointer-events: auto;
+}
+
+.dialog.dialog-open .dialog-content,
+.dialog.dialog-close .dialog-content {
+  opacity: 1;
+  @include animation-duration(0.4s);
+  @include animation-fill-mode(forwards);
+}
+
+.dialog.dialog-open .dialog-content {
+  @include animation-name(anim-open-dialog);
+  @include animation-timing-function(cubic-bezier(0.7, 0, 0.3, 1));
+}
+
+.dialog.dialog-close .dialog-content {
+  @include animation-name(anim-close-dialog);
+}
+
+

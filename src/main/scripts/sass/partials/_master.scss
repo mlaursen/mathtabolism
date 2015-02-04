@@ -1,0 +1,56 @@
+/* Imports for all mixins and global project stuff */
+
+html {
+  font-size: 18px;
+  font-family: sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+
+
+@mixin align-items($to_where) {
+  -webkit-align-items: $to_where;
+  align-items: $to_where;
+}
+
+@mixin opacity-transition($time) {
+  -webkit-transition: opacity $time;
+     -moz-transition: opacity $time;
+          transition: opacity $time;
+}
+
+@mixin backface-visibility($visibility) {
+  -webkit-backface-visibility: $visibility;
+     -moz-backface-visibility: $visibility;
+}
+
+@mixin transition-duration($time) {
+  -webkit-transition-duration: $time;
+     -moz-transition-duration: $time;
+          transition-duration: $time;
+}
+
+@mixin animation-duration($time) {
+  -webkit-animation-duration: $time;
+     -moz-animation-duration: $time;
+          animation-duration: $time;
+}
+
+@mixin animation-fill-mode($direction) {
+  -webkit-animation-fill-mode: $direction;
+          animation-fill-mode: $direction;
+}
+
+@mixin animation-timing-function($fn) {
+  -webkit-animation-timing-function: $fn;
+          animation-timing-function: $fn;
+}
+
+@mixin animation-name($name) {
+  -webkit-animation-name: $name;
+          animation-name: $name;
+}
