@@ -45,10 +45,26 @@
   max-width: 560px;
   min-width: 290px;
   background: #fff;
-  padding: 2em 4em 4em;
   position: relative;
   z-index: 5;
   opacity: 0;
+}
+
+.dialog-content .header {
+  padding: 0.5em 1em;
+  min-height: 1em;
+}
+
+.dialog-content .header > * {
+  line-height: 1.5em;
+}
+
+.dialog.header-bar .header {
+  border-bottom: 2px solid $light-gray;
+}
+
+.dialog-content .content {
+  padding: 0 4em 4em;
 }
 
 .dialog-open .dialog-content {
@@ -71,4 +87,18 @@
   @include animation-name(anim-close-dialog);
 }
 
+.dialog .fa.fa-times {
+  color: $light-gray;
 
+  &:hover {
+    color: $dark-gray;
+  }
+}
+
+.dialog .dialog-close {
+  float: right;
+}
+
+.dialog-title {
+  margin: 0;
+}

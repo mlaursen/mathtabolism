@@ -17,7 +17,12 @@
     <attribute>
       <name>styleClass</name>
       <type>java.lang.String</type>
-      <description>Any additional CSS classes to be applied to the modal.</description>
+      <description>Any additional CSS classes to be applied to the modal (separated by spaces)</description>
+    </attribute>
+    <attribute>
+      <name>labelledBy</name>
+      <type>java.lang.String</type>
+      <description>The id of the html tag that should label the entire modal dialog aria. This value gets passed to 'aria-labelledby'</description>
     </attribute>
   </tag>
 </facelet-taglib>

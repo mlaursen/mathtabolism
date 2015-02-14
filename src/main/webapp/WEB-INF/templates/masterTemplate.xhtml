@@ -22,7 +22,8 @@
   
   <ui:insert name="content" />
   
-  <m:modalDialog modalId="login-signup-modal" styleClass="sticky-top">
+  <m:modalDialog modalId="login-signup-modal" styleClass="sticky-top" labelledBy="login-signup-modal-title">
+    <ui:define name="header"><h4 class="dialog-title" id="login-signup-modal-title">Login</h4></ui:define>
     <h:form id="login-form" styleClass="login-signup-form one-line">
       <div id="login-form-content" aria-live="">
         <h2><h:outputText value="#{msg.login}" /></h2>

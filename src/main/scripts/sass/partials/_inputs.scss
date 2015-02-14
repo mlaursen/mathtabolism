@@ -1,1 +1,11 @@
+@import "modules/colors";
 
+button.fa {
+  background-color: transparent;
+  border: none;
+
+  &:focus {
+    -moz-outline: 0 none;
+         outline: 0 none;
+  }
+}

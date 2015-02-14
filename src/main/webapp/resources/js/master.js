@@ -3,87 +3,94 @@
  */
 var ESC_KEY = 27;
 $(function() {
-  $(".dialog-toggle").click(function() {
-    var dialog = $("#" + $(this).data("dialog"));
+  $('.dialog-toggle').click(function() {
+    var dialog = $('#' + $(this).data('dialog'));
     openDialog(dialog);
   });
   
-  $(".dialog-overlay").click(function() {
+  $('.dialog-overlay').click(function() {
     closeDialog($(this).parent());
   });
   
-  $("#account-submenu").click(function(event) {
+  $('.dialog .dialog-close').click(function() {
+    closeDialog($('.dialog.dialog-open'));
+  })
+  
+  $('#account-submenu').click(function(event) {
     event.stopPropagation();
     toggleAccountSubmenu();
   });
   
-  $("html").click(function() {
+  $('html').click(function() {
     closeAccountSubmenu();
   })
   
   $(document).keyup(function(e) {
     if(e.which === ESC_KEY) {
-      closeDialog($(".dialog.dialog-open"));
+      closeDialog($('.dialog.dialog-open'));
       closeAccountSubmenu();
     }
   });
 });
 
 function openDialog(dialog) {
-  dialog.addClass("dialog-open");
-  dialog.addClass("dialog-open");
+  dialog.addClass('dialog-open');
+  dialog.addClass('dialog-open');
 }
 
 function closeDialog(dialog) {
-  dialog.removeClass("dialog-open");
-  dialog.addClass("dialog-close");
+  if(typeof dialog == 'string') {
+    dialog = $('#' + dialog);
+  }
+  dialog.removeClass('dialog-open');
+  dialog.addClass('dialog-close');
   
   dialog.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function() {
-    dialog.removeClass("dialog-close");
+    dialog.removeClass('dialog-close');
   });
 }
 
 function toggleLoginSignupForm() {
-  $("#login-form").toggleClass("signup-visible");
-  $("#signup-form").toggleClass("signup-visible");
+  $('#login-form').toggleClass('signup-visible');
+  $('#signup-form').toggleClass('signup-visible');
 }
 
 function signupFormVisible(data) {
   updateUsernameFields(data);
   updatePasswordFields(data);
   if(data.status == 'success') {
-    $("#signup-form").toggleClass("signup-visible");
+    $('#signup-form').toggleClass('signup-visible');
   }
 }
 
 function toggleAccountSubmenu() {
-  var submenu = $("#account-submenu")
-  submenu.toggleClass("open");
-  if(submenu.hasClass("open")) {
-    var arrow = $("#account-submenu-arrow");
-    arrow.removeClass("fa-angle-double-down");
-    arrow.addClass("fa-angle-double-up");
+  var submenu = $('#account-submenu')
+  submenu.toggleClass('open');
+  if(submenu.hasClass('open')) {
+    var arrow = $('#account-submenu-arrow');
+    arrow.removeClass('fa-angle-double-down');
+    arrow.addClass('fa-angle-double-up');
   } else {
-    var arrow = $("#account-submenu-arrow");
-    arrow.removeClass("fa-angle-double-up");
-    arrow.addClass("fa-angle-double-down");
+    var arrow = $('#account-submenu-arrow');
+    arrow.removeClass('fa-angle-double-up');
+    arrow.addClass('fa-angle-double-down');
   }
 }
 
 function closeAccountSubmenu() {
-  var submenu = $("#account-submenu");
-  if(submenu.hasClass("open")) {
-    submenu.removeClass("open");
-    var arrow = $("#account-submenu-arrow");
-    arrow.removeClass("fa-angle-double-up");
-    arrow.addClass("fa-angle-double-down");
+  var submenu = $('#account-submenu');
+  if(submenu.hasClass('open')) {
+    submenu.removeClass('open');
+    var arrow = $('#account-submenu-arrow');
+    arrow.removeClass('fa-angle-double-up');
+    arrow.addClass('fa-angle-double-down');
   }
 }
 
-var CHECK = "fa-check-circle-o";
-var TIMES = "fa-times-circle-o";
-var RED   = "icon-red";
-var GREEN = "icon-green";
+var CHECK = 'fa-check-circle-o';
+var TIMES = 'fa-times-circle-o';
+var RED   = 'icon-red';
+var GREEN = 'icon-green';
 
 /**
  * Changes the checklist field to be a times circle icon from
@@ -122,14 +129,14 @@ function addSuccess(field) {
 }
 
 /**
- * Updates the "checklist" items for the username.
+ * Updates the 'checklist' items for the username.
  * 
  * @param data
  */
 function updateUsernameFields(data) {
   if(data.status == 'success') {
     var usernameError = $("span[id$=':username-error']").html();
-    var usernameChecklist = $("#checklist-username");
+    var usernameChecklist = $('#checklist-username');
     if(usernameError != '') {
       addError(usernameChecklist);
     } else {
@@ -142,10 +149,10 @@ function updatePasswordFields(data) {
   if(data.status == 'success') {
     var password = $("input[id$=':password']");
     var passwordError = $("span[id$=':password-error']");
-    var passwordChecklist = $("#checklist-password");
+    var passwordChecklist = $('#checklist-password');
     var passwordConfirm = $("input[id$=':confirm-password']");
     var passwordConfirmError = $("span[id$=':confirm-password-error']").html();
-    var passwordConfirmChecklist = $("#checklist-confirm-password");
+    var passwordConfirmChecklist = $('#checklist-confirm-password');
     
     if(passwordError.html() != '') {
       addError(passwordChecklist);

@@ -7,11 +7,18 @@
   Attributes:
     modalId: the id for the modal dialog
     styleClass: Any additional css classes to be added
+    labelledBy: the id of the html tag that labels the entire modal.
   </ui:remove>
-  <div id="#{modalId}" class="dialog #{styleClass}">
+  <div id="#{modalId}" class="dialog #{styleClass}" role="dialog" aria-labelledby="#{labelledBy}">
     <div class="dialog-overlay"></div>
     <div class="dialog-content">
-      <ui:insert />
+      <div class="header">
+        <button type="button" class="fa fa-times dialog-close"></button>
+        <ui:insert name="header" />
+      </div>
+      <div class="content">
+        <ui:insert />
+      </div>
     </div>
   </div>
 </ui:composition>
