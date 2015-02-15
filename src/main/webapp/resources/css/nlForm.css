@@ -16,33 +16,38 @@ body {
   display: none !important;
 }
 
+/* line 17, ../../../scripts/sass/partials/_master.scss */
+.upper-first {
+  text-transform: capitalize;
+}
+
 /* Measurement Abbreviations */
-/* line 18, ../../../scripts/sass/partials/_master.scss */
+/* line 22, ../../../scripts/sass/partials/_master.scss */
 .lbs:before {
   content: 'lbs';
 }
 
-/* line 22, ../../../scripts/sass/partials/_master.scss */
+/* line 26, ../../../scripts/sass/partials/_master.scss */
 .kg:before {
   content: 'kg';
 }
 
-/* line 26, ../../../scripts/sass/partials/_master.scss */
+/* line 30, ../../../scripts/sass/partials/_master.scss */
 .ft:before {
   content: 'ft';
 }
 
-/* line 30, ../../../scripts/sass/partials/_master.scss */
+/* line 34, ../../../scripts/sass/partials/_master.scss */
 .in:before {
   content: 'in.';
 }
 
-/* line 34, ../../../scripts/sass/partials/_master.scss */
+/* line 38, ../../../scripts/sass/partials/_master.scss */
 .m:before {
   content: 'm';
 }
 
-/* line 38, ../../../scripts/sass/partials/_master.scss */
+/* line 42, ../../../scripts/sass/partials/_master.scss */
 .cm:before {
   content: 'cm';
 }
