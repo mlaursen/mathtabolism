@@ -17,7 +17,7 @@
           <td><h:outputFormat value="#{weight.weighInDate}" converter="#{shortDateConverter}" /></td>
           <td>
             <h:inputText id="weight-#{count.index}" value="#{weight.weight}" converter="#{weightConverter}" styleClass="weight">
-              <f:ajax event="change" listener="#{accountWeightController.updateWeight(count.index)}" render="@form" />
+              <f:ajax event="change" listener="#{accountWeightController.updateWeight(count.index)}" execute="@this" render="@this weight-messages" />
             </h:inputText>
             <p:watermark for="weight-#{count.index}" value="#{msg.emptyNumber}" />
             <span class="#{accountWeightController.imperial ? 'lbs' : 'kg'}"></span>
