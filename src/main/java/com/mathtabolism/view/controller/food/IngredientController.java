@@ -11,11 +11,11 @@ import javax.annotation.ManagedBean;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.mathtabolism.bo.food.BrandBO;
-import com.mathtabolism.bo.food.IngredientBO;
 import com.mathtabolism.constants.IngredientCategory;
 import com.mathtabolism.entity.food.Brand;
 import com.mathtabolism.entity.food.Ingredient;
+import com.mathtabolism.manager.food.BrandManager;
+import com.mathtabolism.manager.food.IngredientManager;
 import com.mathtabolism.view.controller.BaseController;
 
 /**
@@ -29,9 +29,9 @@ public class IngredientController extends BaseController {
   private static final long serialVersionUID = 3469181205289527376L;
   
   @Inject
-  public IngredientBO ingredientBO;
+  public IngredientManager ingredientBO;
   @Inject
-  public BrandBO brandBO;
+  public BrandManager brandBO;
   
   private List<Ingredient> unfilteredIngredients;
   private List<Ingredient> filteredIngredients = new ArrayList<>();

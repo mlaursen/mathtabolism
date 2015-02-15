@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.bo.food;
+package com.mathtabolism.manager.food;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,7 +14,6 @@ import javax.inject.Inject;
 import org.jboss.logging.Logger;
 import org.joda.time.DateTime;
 
-import com.mathtabolism.bo.account.AccountBO;
 import com.mathtabolism.constants.Weekday;
 import com.mathtabolism.eao.food.DailyIntakeEAO;
 import com.mathtabolism.eao.food.DailyIntakeMealEAO;
@@ -25,6 +24,7 @@ import com.mathtabolism.entity.account.DailyIntake;
 import com.mathtabolism.entity.food.DailyIntakeMeal;
 import com.mathtabolism.entity.food.Meal;
 import com.mathtabolism.entity.food.MealPart;
+import com.mathtabolism.manager.account.AccountManager;
 import com.mathtabolism.util.date.MathtabolismDateUtils;
 import com.mathtabolism.util.emconverter.EntityModelConverter;
 import com.mathtabolism.view.model.account.AccountModel;
@@ -38,8 +38,8 @@ import com.mathtabolism.view.model.food.MealPartModel;
  * @author mlaursen
  */
 @Stateless
-public class DailyIntakeBO {
-  private static Logger logger = Logger.getLogger(DailyIntakeBO.class);
+public class DailyIntakeManager {
+  private static Logger logger = Logger.getLogger(DailyIntakeManager.class);
   
   @Inject
   private DailyIntakeEAO dailyIntakeEAO;
@@ -50,13 +50,13 @@ public class DailyIntakeBO {
   @Inject
   private MealPartEAO mealPartEAO;
   @Inject
-  private AccountBO accountBO;
+  private AccountManager accountBO;
   @Inject
-  private IngredientBO ingredientBO;
+  private IngredientManager ingredientBO;
   @Inject
   private EntityModelConverter converter;
   
-  public DailyIntakeBO() {
+  public DailyIntakeManager() {
   }
   
   private List<DailyIntakeModel> toModels(List<DailyIntake> dailyIntakes) {
@@ -121,7 +121,7 @@ public class DailyIntakeBO {
    * an existing week, a new week is generated.
    * @param accountModel the {@link AccountModel}
    * @return a list of {@link DailyIntakeModel} or null
-   * @see DailyIntakeBO#generateNewWeek(AccountModel)
+   * @see DailyIntakeManager#generateNewWeek(AccountModel)
    */
   public List<DailyIntakeModel> findCurrentWeekForAccount(AccountModel accountModel) {
     Account account = converter.extractEntityFromModel(accountModel);

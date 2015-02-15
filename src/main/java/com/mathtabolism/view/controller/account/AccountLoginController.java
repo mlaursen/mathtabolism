@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.jboss.logging.Logger;
 
-import com.mathtabolism.bo.account.AccountBO;
+import com.mathtabolism.manager.account.AccountManager;
 import com.mathtabolism.util.string.StringUtils;
 import com.mathtabolism.util.string.UsernameGenerator;
 import com.mathtabolism.view.controller.BaseController;
@@ -44,7 +44,7 @@ public class AccountLoginController extends BaseController {
   private static final String CREATED_LOGIN_ERROR = "account_LoginErrorAFterCreation";
   
   @Inject
-  private AccountBO accountBO;
+  private AccountManager accountBO;
   
   private CreateAccountModel accountModel;
 

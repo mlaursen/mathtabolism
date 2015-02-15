@@ -7,7 +7,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.mathtabolism.bo.account.AccountBO;
+import com.mathtabolism.manager.account.AccountManager;
 import com.mathtabolism.util.unit.UnitSystem;
 import com.mathtabolism.view.controller.BaseController;
 import com.mathtabolism.view.model.account.AccountModel;
@@ -22,7 +22,7 @@ public class AccountController extends BaseController {
   private static final long serialVersionUID = 5069047046599920651L;
   
   @Inject
-  private AccountBO accountBO;
+  private AccountManager accountBO;
   
   private AccountModel accountModel;
   

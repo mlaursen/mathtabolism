@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.bo.account;
+package com.mathtabolism.manager.account;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,8 +37,8 @@ import com.mathtabolism.view.model.account.CreateAccountModel;
  * @author mlaursen
  */
 @Stateless
-public class AccountBO {
-  private static Logger logger = Logger.getLogger(AccountBO.class);
+public class AccountManager {
+  private static Logger logger = Logger.getLogger(AccountManager.class);
   private static final int DEFAULT_MAX_WEIGHTS = 7 * 3; // 3 weeks
   
   @Inject

@@ -13,7 +13,7 @@ import javax.inject.Named;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
 
-import com.mathtabolism.bo.account.AccountBO;
+import com.mathtabolism.manager.account.AccountManager;
 import com.mathtabolism.util.jsf.converter.DateConverter;
 import com.mathtabolism.view.controller.BaseController;
 import com.mathtabolism.view.model.account.AccountModel;
@@ -29,7 +29,7 @@ public class AccountWeightController extends BaseController {
   private static final long serialVersionUID = -8545835346680741543L;
 
   @Inject
-  private AccountBO accountBO;
+  private AccountManager accountBO;
   
   @Inject
   private AccountController accountController;

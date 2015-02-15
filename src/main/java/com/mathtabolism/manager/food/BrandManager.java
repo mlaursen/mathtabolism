@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.bo.food;
+package com.mathtabolism.manager.food;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import com.mathtabolism.entity.food.Brand;
  * @author mlaursen
  */
 @Stateless
-public class BrandBO {
+public class BrandManager {
   
   @Inject
   private BrandEAO brandEAO;
@@ -24,7 +24,7 @@ public class BrandBO {
   /**
 	 * 
 	 */
-  public BrandBO() {
+  public BrandManager() {
   }
   
   /**

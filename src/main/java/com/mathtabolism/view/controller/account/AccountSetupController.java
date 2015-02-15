@@ -11,12 +11,12 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 
-import com.mathtabolism.bo.account.AccountBO;
 import com.mathtabolism.constants.AccountStepForm;
 import com.mathtabolism.constants.ActivityMultiplier;
 import com.mathtabolism.constants.Gender;
 import com.mathtabolism.constants.TDEEFormula;
 import com.mathtabolism.constants.Weekday;
+import com.mathtabolism.manager.account.AccountManager;
 import com.mathtabolism.util.unit.UnitSystem;
 import com.mathtabolism.view.controller.BaseController;
 import com.mathtabolism.view.model.account.AccountModel;
@@ -42,7 +42,7 @@ public class AccountSetupController extends BaseController {
   @Inject
   private AccountController accountController;
   @Inject
-  private AccountBO accountBO;
+  private AccountManager accountBO;
   private boolean isFromPrevious = false;
   private boolean isCompleted = false;;
   
