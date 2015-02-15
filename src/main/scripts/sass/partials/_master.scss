@@ -10,6 +10,34 @@ body {
   margin: 0;
 }
 
+.hidden {
+	display: none !important;
+}
+
+/* Measurement Abbreviations */
+.lbs:before {
+  content: 'lbs';
+}
+
+.kg:before {
+  content: 'kg';
+}
+
+.ft:before {
+  content: 'ft';
+}
+
+.in:before {
+  content: 'in.';
+}
+
+.m:before {
+  content: 'm';
+}
+
+.cm:before {
+  content: 'cm';
+}
 
 
 @mixin align-items($to_where) {
@@ -26,6 +54,7 @@ body {
 @mixin backface-visibility($visibility) {
   -webkit-backface-visibility: $visibility;
      -moz-backface-visibility: $visibility;
+          backface-visibility: $visibility;
 }
 
 @mixin transition-duration($time) {
@@ -67,8 +96,32 @@ body {
           box-shadow: $type $x $y $z $color;
 }
 
-@mixin transition($transition1, $transition2) {
+@mixin transition($transition1, $transition2:null) {
+	@if $transition2 != null {
   -webkit-transition: $transition1, $transition2;
      -moz-transition: $transition1, $transition2;
           transition: $transition1, $transition2;
+  } @else {
+  -webkit-transition: $transition1;
+     -moz-transition: $transition1;
+          transition: $transition1;
+  }
+}
+
+@mixin transition-transform($transition1, $transition2, $transform-time) {
+  -webkit-transition: $transition1, $transition2, -webkit-transform $transform-time;
+     -moz-transition: $transition1, $transition2,    -moz-transform $transform-time;
+          transition: $transition1, $transition2,         transform $transform-time;
+}
+
+@mixin transform($type, $scale:null) {
+	-webkit-transform: $type #{$scale};
+	   -moz-transform: $type #{$scale};
+	        transform: $type #{$scale};
+}
+
+@mixin delay($time) {
+	-webkit-transition-delay: #{$time}s;
+	   -moz-transition-delay: #{$time}s;
+	        transition-delay: #{$time}s;
 }
