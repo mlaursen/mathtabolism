@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package com.mathtabolism.entity.account;
 
 import java.util.Date;
@@ -14,9 +17,13 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.mathtabolism.constants.ActivityMultiplier;
+import com.mathtabolism.constants.Indicator;
 import com.mathtabolism.constants.TDEEFormula;
 import com.mathtabolism.constants.Weekday;
+import com.mathtabolism.dto.AccountSettingDto;
+import com.mathtabolism.util.emconverter.EntityConverter;
 import com.mathtabolism.util.unit.UnitSystem;
+import com.mathtabolism.view.model.account.AccountModel;
 
 /**
  * 
@@ -40,10 +47,19 @@ import com.mathtabolism.util.unit.UnitSystem;
       query = "SELECT max(as1.dateChanged) FROM AccountSetting as1 WHERE as1.account.id = :account_id"
   )
 })
-public class AccountSetting extends AccountFKEntity {
+@EntityConverter(converterDto = AccountSettingDto.class, toModel = AccountModel.class)
+public class AccountSetting extends AccountIdFK implements AccountSettingDto {
   public static final String Q_findCurrentAccountSetting = "AccountSetting.findCurrentAccountSetting";
   public static final String Q_findLatestSettingsForDate = "AccountSetting.findLatestSettingsForDate";
   public static final String Q_findLatestAccountSettingByAccountId = "AccountSetting.findLatestAccountSettingByAccountId";
+  
+  public AccountSetting() {
+  }
+  
+  public AccountSetting(Account account, Date dateChanged) {
+    this.account = account;
+    this.dateChanged = dateChanged;
+  }
   
   @Temporal(TemporalType.DATE)
   private Date dateChanged;
@@ -63,14 +79,7 @@ public class AccountSetting extends AccountFKEntity {
   
   @Enumerated(EnumType.STRING)
   private UnitSystem unitSystem;
-  
-  public AccountSetting() {
-  }
-  
-  public AccountSetting(Account account, Date dateChanged) {
-    this.account = account;
-    this.dateChanged = dateChanged;
-  }
+
   
   public Date getDateChanged() {
     return dateChanged;
@@ -80,58 +89,72 @@ public class AccountSetting extends AccountFKEntity {
     this.dateChanged = dateChanged;
   }
   
+  @Override
   public Weekday getRecalculationDay() {
     return recalculationDay;
   }
   
+  @Override
   public void setRecalculationDay(Weekday recalculationDay) {
     this.recalculationDay = recalculationDay;
   }
   
+  @Override
   public ActivityMultiplier getActivityMultiplier() {
     return activityMultiplier;
   }
   
+  @Override
   public void setActivityMultiplier(ActivityMultiplier activityMultiplier) {
     this.activityMultiplier = activityMultiplier;
   }
   
+  @Override
   public TDEEFormula getTdeeFormula() {
     return tdeeFormula;
   }
   
+  @Override
   public void setTdeeFormula(TDEEFormula tdeeFormula) {
     this.tdeeFormula = tdeeFormula;
   }
   
+  @Override
   public Integer getAge() {
     return age;
   }
   
+  @Override
   public void setAge(Integer age) {
     this.age = age;
   }
   
+  @Override
   public void setUsingAge(boolean isUsingAge) {
     this.isUsingAge = isUsingAge;
   }
   
+  @Override
   public boolean isUsingAge() {
     return isUsingAge;
   }
   
+  @Override
   public Integer getHeight() {
     return height;
   }
   
+  @Override
   public void setHeight(Integer height) {
     this.height = height;
   }
   
+  @Override
   public UnitSystem getUnitSystem() {
     return unitSystem;
   }
 
+  @Override
   public void setUnitSystem(UnitSystem unitSystem) {
     this.unitSystem = unitSystem;
   }
@@ -143,5 +166,4 @@ public class AccountSetting extends AccountFKEntity {
         .append("tdeeFormula", tdeeFormula).append("dateChanged", dateChanged).append("age", age)
         .append("height", height).toString();
   }
-
 }

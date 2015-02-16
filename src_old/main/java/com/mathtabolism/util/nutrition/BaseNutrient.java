@@ -7,6 +7,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.mathtabolism.constants.NutrientType;
+import com.mathtabolism.dto.IngredientDto;
 import com.mathtabolism.util.calculation.Addable;
 import com.mathtabolism.util.calculation.Subtractable;
 import com.mathtabolism.util.number.MathtabolismNumberUtils;
@@ -104,8 +105,8 @@ public abstract class BaseNutrient implements Addable, Subtractable {
    * @param ingredient the ingredient
    * @param whichNutrient the NutrientType
    * @return a BaseNutrient or null
-   *
-  public static BaseNutrient getFromIngredient(Ingredient ingredient, NutrientType whichNutrient) {
+   */
+  public static BaseNutrient getFromIngredient(IngredientDto ingredient, NutrientType whichNutrient) {
     switch(whichNutrient) {
       case CALORIE:
         return ingredient.getCalories();
@@ -117,5 +118,5 @@ public abstract class BaseNutrient implements Addable, Subtractable {
         return ingredient.getProtein();
     }
     return null;
-  }*/
+  }
 }

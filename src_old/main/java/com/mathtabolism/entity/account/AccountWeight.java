@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package com.mathtabolism.entity.account;
 
 import java.util.Date;
@@ -9,6 +12,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import com.mathtabolism.dto.AccountWeightDto;
+import com.mathtabolism.util.emconverter.EntityConverter;
+import com.mathtabolism.view.model.account.AccountWeightModel;
 
 /**
  * 
@@ -42,7 +49,8 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
               + "AND aw.weighInDate <= :end_date ORDER BY aw.weighInDate"
     )
 })
-public class AccountWeight extends AccountFKEntity {
+@EntityConverter(converterDto = AccountWeightDto.class, toModel = AccountWeightModel.class)
+public class AccountWeight extends AccountIdFK implements AccountWeightDto {
   public static final String Q_findLatestWeight             = "AccountWeight.findLatestWeight";
   public static final String Q_findTodaysWeight             = "AccountWeight.findTodaysWeight";
   public static final String Q_findCurrentAccountWeightWeek = "AccountWeight.findCurrentAccountWeightWeek";
@@ -61,18 +69,22 @@ public class AccountWeight extends AccountFKEntity {
     this.weighInDate = weighInDate;
   }
   
+  @Override
   public Date getWeighInDate() {
     return weighInDate;
   }
   
+  @Override
   public void setWeighInDate(Date weighInDate) {
     this.weighInDate = weighInDate;
   }
   
+  @Override
   public Double getWeight() {
     return weight;
   }
   
+  @Override
   public void setWeight(Double weight) {
     this.weight = weight;
   }
@@ -82,5 +94,4 @@ public class AccountWeight extends AccountFKEntity {
     return new ToStringBuilder(this).append("id", id).append("accountId", account.getId())
         .append("weight", weight).append("weighInDate", weighInDate).toString();
   }
-
 }
