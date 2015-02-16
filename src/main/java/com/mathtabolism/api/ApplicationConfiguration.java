@@ -11,5 +11,5 @@ import javax.ws.rs.core.Application;
  *
  */
 @ApplicationPath("/api")
-public class ApiManager extends Application {
+public class ApplicationConfiguration extends Application {
 }
