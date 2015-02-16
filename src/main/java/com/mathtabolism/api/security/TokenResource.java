@@ -20,5 +20,12 @@ public class TokenResource {
   @Produces(MediaType.APPLICATION_JSON)
   public Response authorize(@Context HttpServletRequest request) throws OAuthSystemException {
     OAuthTokenRequest oauthRequest = new OAuthTokenRequest(request);
+    String clientId = oauthRequest.getClientId();
+    String clientSecret = oauthRequest.getClientSecret();
+    String requestGrantType = oauthRequest.getGrantType();
+    
+    if(isClientValid(clientId, clientSecret)) {
+      return buildGrantTypeResponse(requestGrantType);
+    }
   }
 }
