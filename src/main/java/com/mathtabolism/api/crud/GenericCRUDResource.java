@@ -4,24 +4,26 @@
 package com.mathtabolism.api.crud;
 
 import javax.ejb.EJBException;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.Path;
+import javax.persistence.PersistenceContext;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.jboss.logging.Logger;
+
+import com.mathtabolism.api.ResponseBuilder;
+import com.mathtabolism.entity.GeneratedEntity;
 import com.mathtabolism.util.db.MathtabolismDB;
 
 /**
  * @author mlaursen
  *
  */
-@Path("/crud")
-public abstract class GenericCRUDResource<E> implements ApiCRUDResource<E> {
+public abstract class GenericCRUDResource<E extends GeneratedEntity> implements ApiCRUDResource<E> {
+  private static Logger logger = Logger.getLogger(GenericCRUDResource.class);
   
-  @Inject
   @MathtabolismDB
+  @PersistenceContext(unitName = "MathtabolismPU")
   protected EntityManager em;
   private Class<E> entityClass;
   
@@ -29,55 +31,80 @@ public abstract class GenericCRUDResource<E> implements ApiCRUDResource<E> {
     this.entityClass = entityClass;
   }
   
-  protected Response buildResponse(Status status, Object additional) {
-    return Response.status(status).entity(additional).build();
-  }
-  
   @Override
   public Response create(E entity) {
     Status status = Status.BAD_REQUEST;
-    try {
-      em.persist(entity);
-      status = Status.CREATED;
-    } catch(EJBException e) {
+    if(entity != null) {
+      if(entity.getId() != null) {
+        return ResponseBuilder.buildResponse(status, "The given entity has an id. This should be an update call instead of create");
+      }
+      try {
+        em.persist(entity);
+        
+        status = Status.CREATED;
+      } catch(EJBException e) {
+        logger.error(e);
+        
+        status = Status.INTERNAL_SERVER_ERROR;
+      }
     }
     
-    return buildResponse(status, entity);
+    
+    return ResponseBuilder.buildResponse(status, entity);
+  }
+  
+  @Override
+  public E retrieve(Long id) {
+    return findById(id);
   }
   
   @Override
   public Response update(E entity, Long entityId) {
-    Status status = Status.BAD_REQUEST;
+    Status status = Status.INTERNAL_SERVER_ERROR;
     E fromDB = findById(entityId);
     if(fromDB == null) {
       status = Status.NOT_FOUND;
+    } else {
+      entity.setId(entityId);
+      
+      try {
+        em.merge(entity);
+        
+        status = Status.OK;
+      } catch(EJBException e) {
+        logger.error(e);
+      }
     }
-    // TODO Auto-generated method stub
-    return null;
+    
+    return ResponseBuilder.buildResponse(status, entity);
   }
   
+  @Override
+  public Response delete(Long id) {
+    Status status = Status.INTERNAL_SERVER_ERROR;
+    E fromDB = findById(id);
+    if(fromDB == null) {
+      status = Status.NOT_FOUND;
+    } else {
+      try {
+        em.remove(fromDB);
+        
+        status = Status.OK;
+      } catch(EJBException e) {
+        logger.error(e);
+        
+      }
+    }
+    return ResponseBuilder.buildResponse(status, fromDB);
+  }
+  
+  /**
+   * Attempts to find an entity by the given id
+   * @param id the id 
+   * @return the entity or null
+   */
   protected E findById(Long id) {
     return em.find(entityClass, id);
   }
-  
-//  @Override
-//  public void put(E entity) {
-//    em.persist(entity);
-//  }
-//  
-//  @Override
-//  public E update(E entity) {
-//    return em.merge(entity);
-//  }
-//
-//  @Override
-//  public void delete(E entity) {
-//    em.remove(update(entity));
-//  }
-//  
-//  @Override
-//  public E getById(long id) {
-//    return em.find(entityClass, id);
-//  }
 
 }

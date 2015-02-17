@@ -17,7 +17,6 @@ import org.apache.oltu.oauth2.as.issuer.OAuthIssuer;
 import org.apache.oltu.oauth2.as.issuer.OAuthIssuerImpl;
 import org.apache.oltu.oauth2.as.request.OAuthTokenRequest;
 import org.apache.oltu.oauth2.as.response.OAuthASResponse;
-import org.apache.oltu.oauth2.common.OAuth;
 import org.apache.oltu.oauth2.common.error.OAuthError;
 import org.apache.oltu.oauth2.common.exception.OAuthProblemException;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
@@ -50,10 +49,10 @@ public class TokenResource {
       if(isClientValid(clientId, clientSecret)) {
         return buildGrantTypeResponse(clientId, requestedGrantType);
       } else {
-        return buildErrorResponse(HttpServletResponse.SC_BAD_REQUEST, OAuthError.TokenResponse.INVALID_CLIENT, "client authentication failed");
+        return ResponseBuilder.buildErrorResponse(HttpServletResponse.SC_BAD_REQUEST, OAuthError.TokenResponse.INVALID_CLIENT, "client authentication failed");
       }
     } catch (OAuthProblemException e) {
-      return buildErrorResponse(HttpServletResponse.SC_BAD_REQUEST, OAuthError.OAUTH_ERROR, "error creating an oauth token request");
+      return ResponseBuilder.buildErrorResponse(HttpServletResponse.SC_BAD_REQUEST, OAuthError.OAUTH_ERROR, "error creating an oauth token request");
     }
   }
   
@@ -68,10 +67,10 @@ public class TokenResource {
         case AUTHORIZATION_CODE:
         case PASSWORD:
         default:
-          return buildErrorResponse(HttpServletResponse.SC_BAD_GATEWAY, OAuthError.TokenResponse.UNSUPPORTED_GRANT_TYPE, "the grant type is currently not supported");
+          return ResponseBuilder.buildErrorResponse(HttpServletResponse.SC_BAD_GATEWAY, OAuthError.TokenResponse.UNSUPPORTED_GRANT_TYPE, "the grant type is currently not supported");
       }
     } else {
-      return buildErrorResponse(HttpServletResponse.SC_BAD_REQUEST, OAuthError.TokenResponse.INVALID_GRANT, "the given client does not have the given grant type");
+      return ResponseBuilder.buildErrorResponse(HttpServletResponse.SC_BAD_REQUEST, OAuthError.TokenResponse.INVALID_GRANT, "the given client does not have the given grant type");
     }
   }
   
@@ -138,24 +137,5 @@ public class TokenResource {
         .setExpiresIn(Integer.toString(TOKEN_EXPIRES_IN_SECONDS)).buildJSONMessage();
     
     return Response.status(response.getResponseStatus()).entity(response.getBody()).build();
-  }
-  
-  private Response buildErrorResponse(int status, String error, String errorDescription) throws OAuthSystemException {
-    OAuthResponse.OAuthErrorResponseBuilder oauthResponse = OAuthASResponse.errorResponse(status).setError(error);
-    
-    if(null != errorDescription) {
-      oauthResponse.setErrorDescription(errorDescription);
-    }
-
-    OAuthResponse response = oauthResponse.buildJSONMessage();
-    if(HttpServletResponse.SC_UNAUTHORIZED == status) {
-      OAuthResponse header = oauthResponse.buildHeaderMessage();
-      
-      return Response.status(response.getResponseStatus())
-          .header(OAuth.HeaderType.WWW_AUTHENTICATE, header.getHeader(OAuth.HeaderType.WWW_AUTHENTICATE))
-          .entity(response.getBody()).build();
-    } else {
-      return Response.status(response.getResponseStatus()).entity(response.getBody()).build();
-    }
   }
 }

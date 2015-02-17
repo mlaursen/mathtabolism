@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:p="http://primefaces.org/ui">
+    
+  <h:panelGroup layout="block" styleClass="span2" rendered="#{not empty request.remoteUser}">
+    <h:form id="account-weights" styleClass="account-weight-form">
+      <p:growl id="weight-messages" />
+      <table class="data-table striped">
+        <tr>
+          <th><h:outputText value="#{msg.account_WeighInDate}" /></th>
+          <th><h:outputText value="#{msg.weight}" /></th>
+        </tr>
+        <c:forEach items="#{accountWeightController.allWeights}" var="weight" varStatus="count"><tr>
+          <td><h:outputFormat value="#{weight.weighInDate}" converter="#{shortDateConverter}" /></td>
+          <td>
+            <h:inputText id="weight-#{count.index}" value="#{weight.weight}" converter="#{weightConverter}" styleClass="weight">
+              <f:ajax event="change" listener="#{accountWeightController.updateWeight(count.index)}" execute="@this" render="@this weight-messages" />
+            </h:inputText>
+            <p:watermark for="weight-#{count.index}" value="#{msg.emptyNumber}" />
+            <span class="#{accountWeightController.imperial ? 'lbs' : 'kg'}"></span>
+          </td>
+        </tr></c:forEach>
+      </table>
+    </h:form>
+  </h:panelGroup>
+</ui:composition>

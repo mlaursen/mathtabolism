@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+  <ui:remove>
+  This is similar to the dropdown tag. TO get this to work, you need the array of SelectItem.
+  binding: the binding to the controller
+  items: the Array of SelectItem
+  fieldId: the form-field-toggle id
+  ulSize: the ul class to use for the size
+  isAjax: optional boolean if this is an specific ajax re-render of the form
+  </ui:remove>
+  <h:panelGroup layout="block" class="form-field form-field-dd">
+    <h:inputText id="#{fieldId}" value="#{binding}" styleClass="hidden">
+      <c:if test="#{not empty isAjax and isAjax}"><f:ajax event="change" render="@form" execute="@this" onevent="addEventListeners" /></c:if>
+    </h:inputText>
+    <h:panelGroup layout="block" class="form-field-toggle">
+      <h:outputText value="#{lookupController.lookup(binding)}" />
+    </h:panelGroup>
+    <ul class="#{ulSize}"><c:forEach items="#{items}" var="item">
+      <li tabindex="-1" data-value="#{item.value}" class="#{binding == item.value ? 'dd-selected': ''}"><h:outputText value="#{item.label}" /></li>
+    </c:forEach></ul>
+  </h:panelGroup>
+</ui:composition>

@@ -1,0 +1,28 @@
+<facelet-taglib version="2.2"
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd">
+  
+  <namespace>http://mathtabolism.com/jsf/facelets</namespace>
+  
+  <tag>
+    <tag-name>modalDialog</tag-name>
+    <source>tags/modalDialog.xhtml</source>
+    <attribute>
+      <name>modalId</name>
+      <required>true</required>
+      <type>java.lang.String</type>
+      <description>The id for the modal dialog.</description>
+    </attribute>
+    <attribute>
+      <name>styleClass</name>
+      <type>java.lang.String</type>
+      <description>Any additional CSS classes to be applied to the modal (separated by spaces)</description>
+    </attribute>
+    <attribute>
+      <name>labelledBy</name>
+      <type>java.lang.String</type>
+      <description>The id of the html tag that should label the entire modal dialog aria. This value gets passed to 'aria-labelledby'</description>
+    </attribute>
+  </tag>
+</facelet-taglib>

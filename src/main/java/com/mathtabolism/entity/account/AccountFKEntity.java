@@ -5,17 +5,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
-import com.mathtabolism.entity.BaseGeneratedEntity;
+import com.mathtabolism.entity.GeneratedEntity;
 
 /**
  * <p>An Abstract class used by any Entities that use the <tt>account_id</tt> column as a
  * reference as a foreign key.
  * 
  * @author mlaursen
- * @see BaseGeneratedEntity
+ * @see GeneratedEntity
  */
 @MappedSuperclass
-public abstract class AccountFKEntity extends BaseGeneratedEntity {
+public abstract class AccountFKEntity extends GeneratedEntity {
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "account_id")

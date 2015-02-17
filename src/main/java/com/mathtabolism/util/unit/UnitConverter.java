@@ -3,9 +3,6 @@
  */
 package com.mathtabolism.util.unit;
 
-import com.mathtabolism.dto.IngredientDto;
-import com.mathtabolism.entity.food.Ingredient;
-
 /**
  * 
  * @author mlaursen
@@ -74,15 +71,15 @@ public class UnitConverter {
    * @param ingredient the {@link Ingredient} to find the serving for
    * @return a {@link Measurement} of the serving for the ingredient
    */
-  public static Measurement getServing(Measurement mealMeasurement, IngredientDto ingredient) {
-    Measurement match = ingredient.getServing();
-    if(UnitMeasurement.isSameUnitSystem(mealMeasurement.getUnitMeasurement(), match.getUnitMeasurement())) {
-      return match;
-    }
-    else {
-      return ingredient.getAlternateServing();
-    }
-  }
+//  public static Measurement getServing(Measurement mealMeasurement, IngredientDto ingredient) {
+//    Measurement match = ingredient.getServing();
+//    if(UnitMeasurement.isSameUnitSystem(mealMeasurement.getUnitMeasurement(), match.getUnitMeasurement())) {
+//      return match;
+//    }
+//    else {
+//      return ingredient.getAlternateServing();
+//    }
+//  }
   
   /**
    * Thank goodness Metric is so easy..

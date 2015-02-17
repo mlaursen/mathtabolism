@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+  id="WebApp_ID" version="3.1">
+  <display-name>mathtabolism</display-name>
+  <welcome-file-list>
+    <welcome-file>/index.xhtml</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <servlet-name>Faces Servlet</servlet-name>
+    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>*.xhtml</url-pattern>
+  </servlet-mapping>
+
+  <!-- Context Params -->
+  <context-param>
+    <param-name>javax.faces.PROJECT_STAGE</param-name>
+    <param-value>Development</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+    <param-value>/WEB-INF/mathtabolism.taglib.xml</param-value>
+  </context-param>
+
+  <!-- Security Constraints - Protected pages vs Public -->
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Restricted Area - ADMIN Only</web-resource-name>
+      <url-pattern>/pages/account/*</url-pattern>
+      <http-method>POST</http-method>
+      <http-method>GET</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>ADMIN</role-name>
+    </auth-constraint>
+  </security-constraint>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Restricted Area - USER and ADMIN</web-resource-name>
+      <url-pattern>/pages/protected/*</url-pattern>
+      <http-method>POST</http-method>
+      <http-method>GET</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>USER</role-name>
+      <role-name>ADMIN</role-name>
+    </auth-constraint>
+  </security-constraint>
+
+  <login-config>
+    <auth-method>FORM</auth-method>
+    <realm-name>MathtabolismRealm</realm-name>
+    <form-login-config>
+      <form-login-page>/index.xhtml</form-login-page>
+      <form-error-page>/index.xhtml</form-error-page>
+    </form-login-config>
+  </login-config>
+
+  <security-role>
+    <role-name>ADMIN</role-name>
+  </security-role>
+  <security-role>
+    <role-name>USER</role-name>
+  </security-role>
+
+  <!-- Mime Mappings for Special Fonts and other Extensions -->
+  <mime-mapping>
+    <extension>ttf</extension>
+    <mime-type>application/x-font-ttf</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>otf</extension>
+    <mime-type>font/opentype</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>woff</extension>
+    <mime-type>application/x-font-woff</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>eot</extension>
+    <mime-type>application/vnd.ms-fontobject</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>svg</extension>
+    <mime-type>image.svg+xml</mime-type>
+  </mime-mapping>
+
+  <!-- Error page handling -->
+  <error-page>
+    <error-code>404</error-code>
+    <location>/error404.xhtml?faces-redirect=true</location>
+  </error-page>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/error.xhtml?faces-redirect=true</location>
+  </error-page>
+  <error-page>
+    <exception-type>java.lang.Exception</exception-type>
+    <location>/error.xhtml?faces-redirect=true</location>
+  </error-page>
+</web-app>

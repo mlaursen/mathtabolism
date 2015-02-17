@@ -1,0 +1,18 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+  <ui:remove>
+  If you want more info to be included under the application title, set the ui:param name="extraHeaderDetail"
+  with a value of whatever you want.
+  </ui:remove>
+    <div class="container">
+    <header>
+      <h1>
+        <h:outputText value="#{msg.appTitle}" /><span><h:outputText value="#{extraHeaderDetail}" rendered="#{not empty extraHeaderDetail}" /></span>
+      </h1>
+      
+    </header>
+  </div>
+</ui:composition>

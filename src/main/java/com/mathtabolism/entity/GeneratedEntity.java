@@ -17,7 +17,7 @@ import javax.persistence.MappedSuperclass;
  * @see com.mathtabolism.util.hibernate.PrimaryKeyGenerator
  */
 @MappedSuperclass
-public class BaseGeneratedEntity extends BaseEntity {
+public class GeneratedEntity extends BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   protected Long id;

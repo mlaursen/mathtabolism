@@ -14,11 +14,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.mathtabolism.entity.GeneratedEntity;
+
 /**
  * @author mlaursen
  *
  */
-public interface ApiCRUDResource<E> {
+public interface ApiCRUDResource<E extends GeneratedEntity> {
   /**
    * Attempts to create an entity from JSON. If there was a successful creation,
    * the {@link HttpServletResponse#SC_CREATED} should be returned. Otherwise,
@@ -36,6 +38,21 @@ public interface ApiCRUDResource<E> {
   @Path("/create")
   @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   Response create(E entity);
+  
+  /**
+   * Attempts to find an entity by the given id.
+   * 
+   * <p>The url should look as follows:
+   * <code><pre>
+   *    /api/{entityName}/{entityId}
+   * </pre></code>
+   * @param id the entity's id
+   * @return the entity or null
+   */
+  @GET
+  @Path("/{entityId}")
+  @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  E retrieve(@PathParam("entityId") Long id);
   
   /**
    * Attempts to update an entity by entity id and JSON data. If the entity 
@@ -70,20 +87,5 @@ public interface ApiCRUDResource<E> {
   @Path("/{entityId}")
   @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   Response delete(@PathParam("entityId") Long id);
-  
-  /**
-   * Attempts to find an entity by the given id.
-   * 
-   * <p>The url should look as follows:
-   * <code><pre>
-   *    /api/{entityName}/{entityId}
-   * </pre></code>
-   * @param id the entity's id
-   * @return the entity or null
-   */
-  @GET
-  @Path("/{entityId}")
-  @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-  E get(@PathParam("entityId") Long id);
   
 }

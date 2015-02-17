@@ -25,7 +25,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.mathtabolism.constants.AccountRole;
 import com.mathtabolism.constants.Gender;
-import com.mathtabolism.entity.BaseGeneratedEntity;
+import com.mathtabolism.entity.GeneratedEntity;
 
 /**
  * 
@@ -41,7 +41,7 @@ import com.mathtabolism.entity.BaseGeneratedEntity;
         query = "SELECT a FROM Account a WHERE a.username = :username"
     )
 )
-public class Account extends BaseGeneratedEntity {
+public class Account extends GeneratedEntity {
   public static final String Q_findByUsername = "Account.findByUsername";
   
   @Column(unique = true)
