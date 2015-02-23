@@ -19,8 +19,6 @@
     <database.password>welcome1</database.password>
     <database.user>mathtabolism</database.user>
     <postgresql.version>9.1-901.jdbc4</postgresql.version>
-    
-    <wildfly.port>8990</wildfly.port>
   </properties>
 
   <repositories>
