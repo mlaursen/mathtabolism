@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mathtabolism.bo.food;
+package com.mathtabolism.manager.food;
 
 import java.util.List;
 
@@ -15,13 +15,13 @@ import com.mathtabolism.entity.food.Ingredient;
  * 
  * @author mlaursen
  */
-public class IngredientBO {
+public class IngredientManager {
   private static final int POPULAR_LIMIT = 100;
   
   @Inject
   private IngredientEAO ingredientEAO;
   
-  public IngredientBO() {
+  public IngredientManager() {
   }
   
   /**

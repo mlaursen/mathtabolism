@@ -16,7 +16,7 @@ import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.mathtabolism.bo.account.AccountBO;
+import com.mathtabolism.manager.account.AccountManager;
 
 /**
  *
@@ -30,7 +30,7 @@ public class UsernameValidator extends BaseMathtabolismValidator {
   private static final String REGEX = "^[A-z0-9\\_]+$";
   
   @Inject
-  private AccountBO accountBO;
+  private AccountManager accountBO;
   private Pattern pattern;
   public UsernameValidator() {
     pattern = Pattern.compile(REGEX);

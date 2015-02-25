@@ -1,0 +1,48 @@
+@import "modules/colors";
+
+.data-table-container {
+	padding: 1em 0;
+	
+	.data-table {
+	  border-collapse: collapse;
+	  margin: 0.22em;
+	  border-spacing: 0;
+	  border: 0;
+	  outline: 0;
+	  background: 0 0;
+	  vertical-align: baseline;
+	  
+	  tr:hover td {
+	    color: $navy;
+	    background: #d0dafd;
+	  }
+	  
+	  td {
+	    vertical-align: top;
+		  background: #e8edff;
+		  border-top: 1px solid transparent;
+		  border-bottom: 1px solid #fff;
+		  color: #669;
+		  padding: 0.3em;
+	  }
+	  
+	  tfoot td,
+	  th {
+	    font-size: 0.95em;
+		  text-align: left;
+		  background: #b9c9fe;
+		  border-top: 2px solid #aabcfe;
+		  border-bottom: 1px solid #fff;
+		  color: $navy;
+		  padding: 0.3em;
+	  }
+	  
+	  tfoot td {
+	    border-bottom: 2px solid #aabcfe
+	  }
+	  
+	  &.daily-intake-table th {
+	    max-width: 120px;
+	  }
+	}
+}

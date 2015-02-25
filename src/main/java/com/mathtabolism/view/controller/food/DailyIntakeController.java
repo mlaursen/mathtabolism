@@ -11,8 +11,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.mathtabolism.bo.account.AccountBO;
-import com.mathtabolism.bo.food.DailyIntakeBO;
 import com.mathtabolism.constants.Gender;
 import com.mathtabolism.constants.MealFactType;
 import com.mathtabolism.constants.NutrientType;
@@ -20,6 +18,8 @@ import com.mathtabolism.constants.TotalType;
 import com.mathtabolism.dto.AccountDto;
 import com.mathtabolism.dto.AccountSettingDto;
 import com.mathtabolism.dto.AccountWeightDto;
+import com.mathtabolism.manager.account.AccountManager;
+import com.mathtabolism.manager.food.DailyIntakeManager;
 import com.mathtabolism.util.calculation.FormulaCalculation;
 import com.mathtabolism.util.calculation.IntakeCalculator;
 import com.mathtabolism.util.date.MathtabolismDateUtils;
@@ -45,9 +45,9 @@ import com.mathtabolism.view.model.food.MealModel;
 public class DailyIntakeController extends BaseController {
   private static final long serialVersionUID = 592730676183607742L;
   @Inject
-  private DailyIntakeBO dailyIntakeBO;
+  private DailyIntakeManager dailyIntakeBO;
   @Inject
-  private AccountBO accountBO;
+  private AccountManager accountBO;
   @Inject
   private AccountController accountController;
   

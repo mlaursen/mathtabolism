@@ -166,3 +166,21 @@ function updatePasswordFields(data) {
     }
   }
 }
+
+function verifyAccountInitialization(data) {
+  if(data.status != 'success') {
+    return;
+  }
+  
+  var isUsingAge = $("input[id$='using-age']").is(":checked");
+  var age = $("input[id$='age-field']");
+  var birthday = $("input[id$='birthday-field']");
+  if(isUsingAge && age.val() != '' || !isUsingAge && birthday.val() != '') {
+    setTimeout(function() {
+      $(".step-form-completed-redirect").click();
+    }, 5000);
+  } else {
+    addEventListeners();
+  }
+  
+}

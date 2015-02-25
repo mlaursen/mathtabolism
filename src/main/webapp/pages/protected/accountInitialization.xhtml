@@ -6,6 +6,10 @@
     xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:p="http://primefaces.org/ui">
   <ui:define name="title"><h:outputText value="#{msg.account_Initialization}" /></ui:define>
+  <ui:define name="additionalHeader">
+    <h:outputStylesheet library="css" name="nlForm.css" />
+    <h:outputScript library="js" name="nlForm.js" />
+  </ui:define>
   <ui:define name="content">
   <ui:include src="/WEB-INF/includes/mainLogo.xhtml">
     <ui:param name="extraHeaderDetail" value="#{msg.firstTimeUser}" />
@@ -144,18 +148,18 @@
       <div id="form-field-overlay" class="form-field-overlay"></div>
       <div class="controls">
         <ui:remove>I can't figure out how to get @form or something else nice to work... So have to give every visible field in the execute :/.</ui:remove>
-        <h:commandButton id="previous" value="#{msg.previous}" styleClass="previous" immediate="true"
+        <h:commandButton id="previous" value="#{msg.previous}" styleClass="btn btn-secondary" immediate="true"
                          style="#{accountSetupController.firstStep ? 'visibility: hidden' : ''}">
           <f:ajax event="click" render="@form errors" execute="#{accountSetupController.executables}" listener="#{accountSetupController.previousStep}"
                   onevent="addEventListeners" immediate="true" />
         </h:commandButton>
-        <h:commandButton id="next" value="#{msg.next}" styleClass="next" rendered="#{not accountSetupController.lastStep}">
+        <h:commandButton id="next" value="#{msg.next}" styleClass="btn btn-primary" rendered="#{not accountSetupController.lastStep}">
           <f:ajax event="click" render="@form errors" execute="#{accountSetupController.executables}" listener="#{accountSetupController.nextStep}"
                   onevent="addEventListeners" />
         </h:commandButton>
-        <h:commandButton value="#{msg.complete}" rendered="#{accountSetupController.lastStep}">
+        <h:commandButton value="#{msg.complete}" rendered="#{accountSetupController.lastStep}" styleClass="btn btn-primary">
           <f:ajax event="click" render="@form errors final-message step-controls" execute="#{accountSetupController.executables}"
-                  listener="#{accountSetupController.createOrUpdateAccountSettings()}" onevent="attemptRedirect" />
+                  listener="#{accountSetupController.createOrUpdateAccountSettings()}" onevent="verifyAccountInitialization" />
         </h:commandButton>
       </div>
     </h:form>
@@ -175,7 +179,6 @@
                   styleClass="hidden step-form-completed-redirect" tabindex="-1" />
     </h:form>
   </div>
-  <h:outputScript library="js/account" name="accountInitialization.js" />
   <h:outputScript library="js" name="nlForm.js" />
   </ui:define>
 </ui:composition>

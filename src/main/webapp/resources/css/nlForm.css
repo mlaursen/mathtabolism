@@ -1,0 +1,327 @@
+/* Imports for all mixins and global project stuff */
+/* line 3, ../../../scripts/sass/partials/_master.scss */
+html {
+  font-size: 18px;
+  font-family: sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* line 9, ../../../scripts/sass/partials/_master.scss */
+body {
+  margin: 0;
+}
+
+/* line 13, ../../../scripts/sass/partials/_master.scss */
+.hidden {
+  display: none !important;
+}
+
+/* line 17, ../../../scripts/sass/partials/_master.scss */
+.upper-first {
+  text-transform: capitalize;
+}
+
+/* Measurement Abbreviations */
+/* line 22, ../../../scripts/sass/partials/_master.scss */
+.lbs:before {
+  content: 'lbs';
+}
+
+/* line 26, ../../../scripts/sass/partials/_master.scss */
+.kg:before {
+  content: 'kg';
+}
+
+/* line 30, ../../../scripts/sass/partials/_master.scss */
+.ft:before {
+  content: 'ft';
+}
+
+/* line 34, ../../../scripts/sass/partials/_master.scss */
+.in:before {
+  content: 'in.';
+}
+
+/* line 38, ../../../scripts/sass/partials/_master.scss */
+.m:before {
+  content: 'm';
+}
+
+/* line 42, ../../../scripts/sass/partials/_master.scss */
+.cm:before {
+  content: 'cm';
+}
+
+/* line 4, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.step-controls .error-message li,
+.nl-form ol.steps,
+.nl-form ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* line 12, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.final-message,
+.nl-form {
+  width: 100%;
+  font-size: 3em;
+  line-height: 1.5em;
+}
+
+/* Natural language form wrapping */
+/* line 21, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form .checkbox input[type="checkbox"] {
+  width: 0.75em;
+  height: 0.75em;
+}
+/* line 26, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form input[type="text"] {
+  border: none;
+  border-bottom: 2px solid #ff8518;
+  padding: 0;
+  margin: 0 0.3em;
+  text-align: right;
+  font-weight: initial;
+}
+/* line 34, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form input[type="text"]:focus {
+  outline: none;
+}
+/* line 39, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form .date {
+  max-width: 260px;
+}
+/* line 42, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form .age {
+  max-width: 60px;
+}
+/* line 46, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form .height {
+  max-width: 80px;
+}
+/* line 50, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form .weight {
+  min-width: 100px;
+  max-width: 150px;
+}
+/* line 55, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form input[type="text"]:focus {
+  outline: none;
+}
+/* line 59, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form ol.steps {
+  position: relative;
+  -webkit-transition: height 0.4s;
+  -moz-transition: height 0.4s;
+  transition: height 0.4s;
+}
+/* line 64, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form ol.steps > li {
+  position: relative;
+  visibility: hidden;
+  height: 0;
+  -webkit-transition: visibility 0s 0.4s, height 0s 0.4s;
+  -moz-transition: visibility 0s 0.4s, height 0s 0.4s;
+  transition: visibility 0s 0.4s, height 0s 0.4s;
+}
+/* line 72, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form ol.steps li.current {
+  visibility: visible;
+  height: auto;
+  -webkit-transition: none;
+  -moz-transition: none;
+  transition: none;
+}
+/* line 80, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form .form-field {
+  display: inline-block;
+  position: relative;
+  /* form field dropdown */
+}
+/* line 84, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form .form-field.form-field-open {
+  z-index: 10000;
+}
+/* line 87, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form .form-field.form-field-open ul {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transform: translateY(-50%) scale(1);
+  -moz-transform: translateY(-50%) scale(1);
+  transform: translateY(-50%) scale(1);
+  -webkit-transition: visibility 0 0, opacity 0.3s, -webkit-transform 0.3s;
+  -moz-transition: visibility 0 0, opacity 0.3s, -moz-transform 0.3s;
+  transition: visibility 0 0, opacity 0.3s, transform 0.3s;
+}
+/* line 99, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form .form-field.form-field-dd ul li {
+  padding: 0 1.5em 0 .5em;
+  cursor: pointer;
+  white-space: nowrap;
+}
+/* line 104, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form .form-field.form-field-dd ul li:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+/* line 108, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form .form-field.form-field-dd ul li:hover:active, .nl-form .form-field.form-field-dd ul li.dd-selected {
+  color: #478982;
+}
+/* line 115, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form .form-field ul {
+  position: absolute;
+  visibility: hidden;
+  background: #76c3bd;
+  left: -0.5em;
+  top: 50%;
+  font-size: 80%;
+  opacity: 0;
+  -webkit-transform: translateY(-40%) scale(0.9);
+  -moz-transform: translateY(-40%) scale(0.9);
+  transform: translateY(-40%) scale(0.9);
+  -webkit-transition: visibility 0s 0.3s, opacity 0.3s, -webkit-transform 0.3s;
+  -moz-transition: visibility 0s 0.3s, opacity 0.3s, -moz-transform 0.3s;
+  transition: visibility 0s 0.3s, opacity 0.3s, transform 0.3s;
+}
+/* line 127, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form .form-field ul.small {
+  line-height: initial;
+  font-size: 50%;
+}
+/* line 131, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form .form-field ul.small li.dd-selected:before {
+  line-height: 2.2;
+  right: 1.5em;
+}
+/* line 137, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form .form-field ul li {
+  color: #fff;
+  position: relative;
+}
+/* line 144, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form input[type="text"],
+.nl-form .form-field-toggle {
+  line-height: inherit;
+  display: inline-block;
+  color: #ff8518;
+  border-bottom: 2px solid #ff8518;
+}
+/* line 151, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form input[type="text"]:focus, .nl-form input[type="text"]:hover,
+.nl-form .form-field-toggle:focus,
+.nl-form .form-field-toggle:hover {
+  color: #000;
+  border-bottom-color: #000;
+}
+/* line 158, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form .form-field-toggle {
+  cursor: pointer;
+}
+/* line 162, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form .controls {
+  margin-top: 0.8em;
+  width: 100%;
+  text-align: center;
+  font-size: initial;
+}
+/* line 168, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.nl-form .controls input[type="button"],
+.nl-form .controls input[type="submit"],
+.nl-form .controls button {
+  margin: 0.8em 3em;
+  display: inline-block;
+  min-width: 140px;
+  max-width: 140px;
+}
+
+/* line 179, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.form-field-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  z-index: 9999;
+  visibility: hidden;
+  -webkit-transition: visibility 0 0.3s, opacity 0.3s;
+  -moz-transition: visibility 0 0.3s, opacity 0.3s;
+  transition: visibility 0 0.3s, opacity 0.3s;
+}
+/* line 192, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.form-field-overlay.open {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition-delay: 0s;
+  -moz-transition-delay: 0s;
+  transition-delay: 0s;
+}
+
+/* Natural Language Stepping controls */
+/* line 200, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.step-controls {
+  font-size: 1.2em;
+}
+/* line 203, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.step-controls .progress,
+.step-controls .number {
+  line-height: initial;
+}
+/* line 208, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.step-controls .number {
+  position: absolute;
+  right: 0;
+  overflow: hidden;
+  margin: 0.4em 0;
+  width: 3em;
+  font-weight: 700;
+}
+/* line 216, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.step-controls .number:after {
+  position: absolute;
+  left: 50%;
+  content: '/';
+  opacity: 0.4;
+  -webkit-transform: translateX(-50%) ;
+  -moz-transform: translateX(-50%) ;
+  transform: translateX(-50%) ;
+}
+/* line 225, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.step-controls .number span {
+  float: right;
+  width: 40%;
+  text-align: center;
+}
+/* line 231, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.step-controls .number .number-current {
+  float: left;
+}
+/* line 236, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.step-controls .progress {
+  width: 0%;
+  height: 0.5em;
+  background: rgba(0, 0, 0, 0.3);
+  -webkit-transition: width 0.4s ease-in-out;
+  -moz-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+/* line 243, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.step-controls .progress::before {
+  position: absolute;
+  left: 0;
+  top: auto;
+  width: 100%;
+  height: inherit;
+  background: rgba(0, 0, 0, 0.05);
+  content: '';
+}
+/* line 254, ../../../scripts/sass/modules/_naturalLanguageForm.scss */
+.step-controls ul.error-message {
+  padding: 0.4em 3.5em 0 0;
+  width: 100%;
+  color: rgba(0, 0, 0, 0.7);
+  font-style: italic;
+  display: table-cell;
+}
